@@ -1,0 +1,38 @@
+.login{
+    border-radius: 24px;
+}
+.lost{
+    margin-left: 30%;
+    margin-top: 5%;
+}
+.terms{
+    margin-left: 29%;
+    margin-top: 45%;
+}
+.forgetform{
+    margin-top: 50%;
+}
+.leftimg{
+    height: 740px;
+}
+.fortitle{
+    margin-left: 15%;
+}
+@media (max-width:991px) {
+    .forgetform{
+        margin-top: 10%;
+    }
+    .lost{
+        margin-left: 30%;
+    }
+    .terms{
+        margin-left: 25%;
+    }
+    .fortext{
+        margin-top: 2%;
+        margin-right: 15%;
+    }
+    .fortitle{
+        margin: 0% 9%;
+    }
+}
