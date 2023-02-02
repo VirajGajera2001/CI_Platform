@@ -1,0 +1,36 @@
+.login{
+    border-radius: 24px;
+}
+.lost{
+    margin-left: 20%;
+}
+.terms{
+    margin-left: 25%;
+    margin-top: 10%;
+}
+.loginform{
+    margin-top: 10%;
+}
+.leftimg{
+    height: 740px;
+}
+.group{
+    margin-top: 5%;
+}
+@media (max-width:991px) {
+    .loginform{
+        margin-top: 10%;
+    }
+    .lost{
+        margin-left: 15%;
+    }
+    .terms{
+        margin-left: 20%;
+    }
+    .group{
+        margin-top: 5%;
+    }
+    .check{
+        margin-right: 20%;
+    }
+}
