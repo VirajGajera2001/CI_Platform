@@ -1,0 +1,158 @@
+.logo{
+    width: 60%;
+}
+.moblogo{
+    display: none;
+}
+.notifitext{
+    display: none;
+}
+.notifi{
+    width: 100%;
+    height: 100%;
+}
+.box1{
+    display: none;
+}
+.box2, .box3, .box4, .box5, .box6, .box7{
+    display: none;
+}
+.boximg1{
+    width: 5%;
+}
+.boximg2, .boximg3, .boximg4, .boximg5, .boximg6, .boximg7, .searchimg{
+    width: 5%;
+}
+.profiname{
+    margin-top: 10%;
+}
+.searchbox{
+    display: none;
+}
+.searchboxeneble{
+    display: flex;
+}
+.board{
+    width: 100%;
+    background-color: #fafafa;
+    display: flex;
+    height: 100%;
+}
+.boxes1{
+    display: flex;
+    border-radius: 5px;
+}
+.sideboxes{
+    background-color: #ffffff;
+    height: 201%;
+}
+.sideimg1{
+    width: 15%;
+}
+.sideimg2, .sideimg3, .sideimg4, .sideimg5, .sideimg6, .sideimg7{
+    width: 11%;
+}
+.boxes1{
+    width: 70%;
+    background-color: #FFF3F4;
+    color: #C8242F;
+}
+.boxes2, .boxes3, .boxes4, .boxes5, .boxes6, .boxes7{
+    display:flex;
+}
+.left{
+    padding: 0px 0px;
+}
+.hamberger{
+    z-index: 2;
+}
+.main{
+    z-index: 1;
+}
+.disc1{
+    width: 100px;
+}
+.dot1{
+    background-color: #C8242F;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+.dot2{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #A2B86C;
+}
+.dot3{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #F16C20;
+}
+.dot4{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #EBC844;
+}
+.dis1, .dis2, .dis3, .dis4{
+    display: flex;
+}
+.dottext{
+    font-size: 80%;
+}
+.datatable{
+    background-color: #ffffff;
+    width: 88%;
+    border-radius: 5px;
+}
+.maintitle{
+    margin-left: 5%;
+}
+@media (max-width:991px){
+    .right{
+        flex-direction: column;
+    }
+    .notifi{
+        width: 3%;
+        height: 3%;
+    }
+    .notifitext{
+        display: block;
+    }
+    .avatar{
+        width: 4%;
+        height: 4%;
+    }
+    .down{
+        display: none;
+    }
+    .box1{
+        display: flex;
+    }
+    .box2, .box3, .box4, .box5, .box6, .box7, .searchbox{
+        display: flex;
+    }
+    .profiname{
+        margin-top: 0%;
+    }
+    .searchboxeneble{
+        display: none;
+    }
+    .sideboxes{
+        display: none;
+    }
+    .maintitle{
+        margin-left: 38%;
+    }
+}
+@media (max-width:361px){
+    .disc1{
+        margin-left: 0%;
+        margin-right: 10%;
+    }
+    .disc2{
+        margin-left: 0%;
+    }
+}

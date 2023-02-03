@@ -1,0 +1,196 @@
+.logo{
+    width: 60%;
+}
+.moblogo{
+    display: none;
+}
+.notifitext{
+    display: none;
+}
+.notifi{
+    width: 100%;
+    height: 100%;
+}
+.box1{
+    display: none;
+}
+.box2, .box3, .box4, .box5, .box6, .box7{
+    display: none;
+}
+.boximg1{
+    width: 5%;
+}
+.boximg2, .boximg3, .boximg4, .boximg5, .boximg6, .boximg7, .searchimg{
+    width: 5%;
+}
+.profiname{
+    margin-top: 10%;
+}
+.searchbox{
+    display: none;
+}
+.searchboxeneble{
+    display: flex;
+}
+.board{
+    width: 100%;
+    background-color: #fafafa;
+    display: flex;
+    height: 100%;
+}
+.boxes1{
+    display: flex;
+    border-radius: 5px;
+}
+.sideboxes{
+    background-color: #ffffff;
+    height: 100%;
+}
+.sideimg2{
+    width: 15%;
+}
+.sideimg1, .sideimg3, .sideimg4, .sideimg5, .sideimg6, .sideimg7{
+    width: 11%;
+}
+.boxes1, .boxes3, .boxes4, .boxes5, .boxes6, .boxes7{
+    display: flex;
+}
+.boxes2{
+    width: 70%;
+    display:flex;
+    color: #C8242F;
+    background-color: #FFF3F4;
+    border-radius: 5px;
+}
+.hamberger{
+    z-index: 2;
+}
+.main{
+    z-index: 1;
+}   
+.forms{
+    background-color: #ffffff;
+    border-radius: 6px;
+}
+.uploadbtn{
+    border: 1px solid #C8242F;
+    color: #C8242F;
+    border-radius: 18px;
+}
+.snackimg{
+    width: 5%;
+}
+.snacks1{
+    border: 1px solid #FF3535;
+    color: #FF3535;
+    border-radius: 5px;
+}
+.snacks2{
+    border: 1px solid #FFA800;
+    color: #FFA800;
+    border-radius: 5px;
+}
+.snacks3{
+    border: 1px solid #00B9E1;
+    color: #00B9E1;
+    border-radius: 5px;
+}
+.snacks4{
+    border: 1px solid #00AF27;
+    color: #00AF27;
+    border-radius: 5px;
+}
+.ft1 {
+    width: 100%;
+    border: 1px solid #ADADAD !important;
+    border-radius: 5px;
+    padding: 10px;
+    height: 40px;
+    position: relative;
+  }
+  legend {
+    width: auto !important;
+    font-weight: bold;
+    position: absolute;
+    left: 10px;
+    top: -1.1em;
+    height: 1.3em;
+    line-height: 2em;
+    padding: 0 10px;
+    background-color: #ffffff;
+    width: auto;
+    z-index: 1;
+  }
+  
+  .legendname {
+    font-size: 16px;
+    color: #6d6c6c;
+    font-weight: 300;
+  }
+  .dotted{
+    width: 100%;
+    border: 1px dashed #ADADAD !important;
+    border-radius: 5px;
+    padding: 10px;
+    height: 40px;
+    position: relative;
+  }
+  .fieldred{
+    width: 100%;
+    border: 1px solid #ADADAD !important;
+    border-radius: 5px;
+    padding: 10px;
+    height: 40px;
+    position: relative;
+  }
+  .maintitle{
+    margin-left: 2%;
+  }
+@media (max-width:991px){
+    .right{
+        flex-direction: column;
+    }
+    .notifi{
+        width: 3%;
+        height: 3%;
+    }
+    .notifitext{
+        display: block;
+    }
+    .avatar{
+        width: 4%;
+        height: 4%;
+    }
+    .down{
+        display: none;
+    }
+    .box1{
+        display: flex;
+    }
+    .box2, .box3, .box4, .box5, .box6, .box7, .searchbox{
+        display: flex;
+    }
+    .profiname{
+        margin-top: 0%;
+    }
+    .searchboxeneble{
+        display: none;
+    }
+    .sideboxes{
+        display: none;
+    }
+    .ingrp{
+        margin-top: 3%;
+    }
+    .ft1{
+        margin-top: 7%;
+    }
+    .dotted{
+        margin-top: 7%;
+    }
+    .maintitle{
+        margin-left: 38%;
+    }
+}
+@media (max-width:361px){
+}

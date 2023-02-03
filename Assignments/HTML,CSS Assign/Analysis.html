@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Analy.css">
+    <script src="./Bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./Bootstrap/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white header">
+    <div class="container-fluid hamberger">
+      <a class="navbar-brand" href="#"><img src="./images/logo.svg" alt="" class="logo"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <img src="./images/menu-bar.svg" alt="">
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="searchboxeneble">
+                <img src="./images/search-icon.svg" alt="" class="searchimg">
+                <input type="text" name="search" class="form-control searchfield w-75 border-0" placeholder="  Search...">
+              </div>
+              <div class="searchbox">
+                <img src="./images/search-icon.svg" alt="" class="searchimg">
+                <input type="text" name="search" class="form-control searchfield w-75 border-0" placeholder="  Search...">
+              </div>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="box1">
+                <img src="./images/dashboard-active.svg" alt="" class="boximg1">
+                <p class="mt-3 ms-2">Dashboard</p>
+              </div>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="box2">
+                <img src="./images/graph-default.svg" alt="" class="boximg2">
+                <p class="mt-3 ms-2">Analysis</p>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">
+              <div class="box3">
+                <img src="./images/inbox-default.svg" alt="" class="boximg3">
+                <p class="mt-3 ms-2">Inbox</p>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="box4">
+                <img src="./images/clock-default.svg" alt="" class="boximg4">
+                <p class="mt-3 ms-2">History</p>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="box5">
+                <img src="./images/user-default.svg" alt="" class="boximg5">
+                <p class="mt-3 ms-2">History</p>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="box6">
+                <img src="./images/maintenance-default.svg" alt="" class="boximg6">
+                <p class="mt-3 ms-2">Maintenance</p>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="box7">
+                <img src="./images/setting-default.svg" alt="" class="boximg6">
+                <p class="mt-3 ms-2">Setting</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <div class="d-flex right">
+          <div class="d-flex me-2">
+          <img src="./images/notification-icon.svg" alt="" class="notifi mt-1">
+          <p class="notifitext ms-2">Notification</p>
+        </div>
+          <div class="d-flex">
+          <img src="./images/profile.png" alt="" class="me-2 avatar mt-1">
+          <p class="profiname">John Doe</p>
+          </div>
+          <img src="./images/downward-arrow.svg" alt="" class="down">
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="board">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-2 left" style="padding: 0% 0%;">
+          <div class="sideboxes">
+            <div class="boxes1 ms-3">
+              <img src="./images/dashboard-default.svg" alt="" class="sideimg1 ms-1">
+              <p class="sidetext1 mt-3">Dashboard</p>
+            </div>
+            <div class="boxes2 ms-3">
+              <img src="./images/graph-active.svg" alt="" class="sideimg2 ms-1">
+              <p class="sidetext2 mt-3">Analysis</p>
+            </div>
+            <div class="boxes3 ms-3">
+              <img src="./images/inbox-default.svg" alt="" class="sideimg3 ms-1">
+              <p class="sidetext3 mt-3">Inbox</p>
+            </div>
+            <div class="boxes4 ms-3">
+              <img src="./images/clock-default.svg" alt="" class="sideimg4 ms-1">
+              <p class="sidetext4 mt-3">History</p>
+            </div>
+            <div class="boxes5 ms-3">
+              <img src="./images/user-default.svg" alt="" class="sideimg5 ms-1">
+              <p class="sidetext5 mt-3">Users</p>
+            </div>
+            <div class="boxes6 ms-3">
+              <img src="./images/maintenance-default.svg" alt="" class="sideimg6 ms-1">
+              <p class="sidetext6 mt-3">Maintenance</p>
+            </div>
+            <div class="boxes7 ms-3">
+              <img src="./images/setting-default.svg" alt="" class="sideimg7 ms-1">
+              <p class="sidetext7 mt-3">Setting</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-10 col-12">
+            <h1 class="maintitle">Analysis</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 forms">
+                        <div class="form1 mt-3">
+                            <h5>One Column</h5>
+                            <form class="form-group">
+                                <input type="text" class="form-control ingrp" placeholder="Name">
+                                <select class="form-control mt-3">
+                                    <option value="Dropdown">Dropdown</option>
+                                </select>
+                                <textarea class="form-control mt-3" rows="3"></textarea>
+                            </form>
+                        </div>
+                        <div class="form2 mt-3">
+                            <h5 class="ms-4">two column</h5>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <form class="form-group">
+                                            <input type="text" class="form-control ingrp" placeholder="Name">
+                                            <input type="password" class="form-control mt-3" placeholder="Password">
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <form class="form-group">
+                                            <fieldset class="ft1">
+                                                <legend><span class="legendname">Username</span></legend>
+                                                <p class="fs-7 ms-2 mt-1">johndoe</p>
+                                            </fieldset>
+                                            <select class="form-control mt-3">
+                                                <option value="Dropdown">Dropdown</option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form3">
+                            <h5 class="ms-4 mt-3">Three Column</h5>
+                            <div class="container">
+                                <div class="row mt-4">
+                                    <div class="col-lg-4">
+                                        <fieldset class="ft1">
+                                            <legend><span class="legendname">Focus</span></legend>
+                                            <p class="fs-7 ms-2 mt-1"></p>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <fieldset class="ft1">
+                                            <legend><span class="legendname">Password</span></legend>
+                                            <p class="fs-7 ms-2 mt-1"></p>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <fieldset class="dotted">
+                                            <legend><span class="legendname">Disabled</span></legend>
+                                            <p class="fs-7 ms-2 mt-1">johndoe</p>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form4 mt-3">
+                            <h5 class="ms-4">Four Column</h5>
+                            <div class="container">
+                                <div class="row mt-4">
+                                    <div class="col-lg-3">
+                                        <fieldset class="fieldred">
+                                            <legend><span class="legendname">Designation</span></legend>
+                                            <p class="fs-7 ms-2 mt-1" style="color: #C8242F;">UI Designer</p>
+                                        </fieldset>
+                                        <p style="color: #C8242F;">Enter Valid data</p>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="text" class="form-control ingrp" placeholder="Name">
+                                        <p>Enter your full name as per ID</p>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <fieldset class="ft1">
+                                            <legend><span class="legendname">Username</span></legend>
+                                            <p class="fs-7 ms-2 mt-1">john doe</p>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control ingrp">
+                                            <option value="Select">Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form5 mt-3">
+                            <h5 class="ms-4">Other Design Elements</h5>
+                            <h6 class="mt-3 ms-4">File Upload</h6>
+                            <div class="upload d-flex">
+                                <div class="uploadbtn d-flex ms-4">
+                                    <img src="./images/cloud-upload-icon.svg" alt="" class="w-25 ms-2">
+                                    <h6 class="mt-2 ms-1 me-3">Upload</h6>
+                                </div>
+                                <p class="mt-2 ms-5">No Item Selected</p>
+                            </div>
+                            <h6 class="mt-3 ms-4">Radio Button</h6>
+                            <div class="radios ms-4">
+                                <input type="radio">
+                                <label for="option1">Option 1</label>
+                                <input type="radio" checked>
+                                <label for="option2">Option 2</label>
+                            </div>
+                            <h6 class="mt-3 ms-4">Checkbox</h6>
+                            <div class="checks ms-4">
+                                <input type="checkbox">
+                                <label for="check1">Check 1</label>
+                                <input type="checkbox" checked>
+                                <label for="check2">Check 2</label>
+                            </div>
+                            <h6 class="mt-3 ms-4">Snackbar</h6>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="snacks1 d-flex ingrp">
+                                            <img src="./images/error-icon.svg" alt="" class="snackimg ms-2">
+                                            <p class="ms-2 mt-2">This is an error Message</p>
+                                        </div>
+                                        <div class="snacks2 d-flex mt-3">
+                                            <img src="./images/warning-icon.svg" alt="" class="snackimg ms-2">
+                                            <p class="ms-2 mt-2">This is a warning Message!</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="snacks3 d-flex ingrp">
+                                            <img src="./images/info-icon.svg" alt="" class="snackimg ms-2">
+                                            <p class="ms-2 mt-2">This is an information Message!</p>
+                                        </div>
+                                        <div class="snacks4 d-flex mt-3">
+                                            <img src="./images/success-icon.svg" alt="" class="snackimg ms-2">
+                                            <p class="ms-2 mt-2">This is a Success Message!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="action mt-3">
+                                <h5 class="ms-4">Call to action</h5>
+                                <div class="actionbtn d-flex mt-3 ms-4">
+                                    <button class="btn btn-danger" style="border-radius: 18px;">Primary</button>
+                                    <button class="ms-5 btn btn-outline-danger" style="border-radius: 18px;">Secondary</button>
+                                </div>
+                            </div>
+                            <h5 class="mt-4 ms-4">Tabs</h5>
+                            <div class="tabbtn d-flex mt-3">
+                                <h6 class="ms-5" style="color:#C8242F;text-decoration: underline;">Tab1</h6>
+                                <h6 class="ms-5">Tab2</h6>
+                                <h6 class="ms-5">Tab3</h6>
+                            </div>
+                            <p class="ms-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint quis sit perspiciatis ducimus temporibus placeat excepturi vitae labore quae, delectus doloremque eum reprehenderit cupiditate deserunt enim! Praesentium autem illum doloremque corporis ex non sint quaerat ea quod magnam odit, ad exercitationem ducimus nemo in repudiandae quisquam sunt cupiditate eum excepturi!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+body{
+    background-color: #fafafa;
+}
+.content{
+    margin: 8%;
+}
+.hero{
+    border: 20px solid #ffffff;
+}
+.exp{
+    color: #C8242F;
+}
+.form-control{
+    display: block;
+    width: 100%;
+}
+.button{
+    display: flex;
+    margin-top: 20px;
+}
+.log{
+    width: 138px;
+    height: 45px;
+    background-color: #C8242F;
+    border-radius: 23px;
+}
+.forgot{
+    margin-left: 100px;
+}
+.regi{
+    color: #C8242F;
+}
+@media (max-width:360px){
+    .hero{
+        display: none;
+    }
+    .right{
+        margin: auto auto;
+    }
+}
+@media (min-width:780px) and (max-width:990px){
+    .hero{
+        margin-top: 40%;
+        margin-left: 0%;
+    }
+}

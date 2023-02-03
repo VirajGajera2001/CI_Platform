@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./Bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="./Bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="Dashboard.css">
+  <title>Document</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white header">
+    <div class="container-fluid hamberger">
+      <a class="navbar-brand" href="#"><img src="./images/logo.svg" alt="" class="logo"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <img src="./images/menu-bar.svg" alt="">
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="searchboxeneble">
+                <img src="./images/search-icon.svg" alt="" class="searchimg">
+                <input type="text" name="search" class="form-control searchfield w-75 border-0" placeholder="  Search...">
+              </div>
+              <div class="searchbox">
+                <img src="./images/search-icon.svg" alt="" class="searchimg">
+                <input type="text" name="search" class="form-control searchfield w-75 border-0" placeholder="  Search...">
+              </div>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="box1">
+                <img src="./images/dashboard-active.svg" alt="" class="boximg1">
+                <p class="mt-3 ms-2">Dashboard</p>
+              </div>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="box2">
+                <img src="./images/graph-default.svg" alt="" class="boximg2">
+                <p class="mt-3 ms-2">Analysis</p>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">
+              <div class="box3">
+                <img src="./images/inbox-default.svg" alt="" class="boximg3">
+                <p class="mt-3 ms-2">Inbox</p>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="box4">
+                <img src="./images/clock-default.svg" alt="" class="boximg4">
+                <p class="mt-3 ms-2">History</p>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="box5">
+                <img src="./images/user-default.svg" alt="" class="boximg5">
+                <p class="mt-3 ms-2">History</p>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="box6">
+                <img src="./images/maintenance-default.svg" alt="" class="boximg6">
+                <p class="mt-3 ms-2">Maintenance</p>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <div class="box7">
+                <img src="./images/setting-default.svg" alt="" class="boximg6">
+                <p class="mt-3 ms-2">Setting</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <div class="d-flex right">
+          <div class="d-flex me-2">
+          <img src="./images/notification-icon.svg" alt="" class="notifi mt-1">
+          <p class="notifitext ms-2">Notification</p>
+        </div>
+          <div class="d-flex">
+          <img src="./images/profile.png" alt="" class="me-2 avatar mt-1">
+          <p class="profiname">John Doe</p>
+          </div>
+          <img src="./images/downward-arrow.svg" alt="" class="down">
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="board">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-2 left">
+          <div class="sideboxes">
+            <div class="boxes1 ms-3">
+              <img src="./images/dashboard-active.svg" alt="" class="sideimg1 ms-1">
+              <p class="sidetext1 mt-3">Dashboard</p>
+            </div>
+            <div class="boxes2 ms-3">
+              <img src="./images/graph-default.svg" alt="" class="sideimg2 ms-1">
+              <p class="sidetext2 mt-3">Analysis</p>
+            </div>
+            <div class="boxes3 ms-3">
+              <img src="./images/inbox-default.svg" alt="" class="sideimg3 ms-1">
+              <p class="sidetext3 mt-3">Inbox</p>
+            </div>
+            <div class="boxes4 ms-3">
+              <img src="./images/clock-default.svg" alt="" class="sideimg4 ms-1">
+              <p class="sidetext4 mt-3">History</p>
+            </div>
+            <div class="boxes5 ms-3">
+              <img src="./images/user-default.svg" alt="" class="sideimg5 ms-1">
+              <p class="sidetext5 mt-3">Users</p>
+            </div>
+            <div class="boxes6 ms-3">
+              <img src="./images/maintenance-default.svg" alt="" class="sideimg6 ms-1">
+              <p class="sidetext6 mt-3">Maintenance</p>
+            </div>
+            <div class="boxes7 ms-3">
+              <img src="./images/setting-default.svg" alt="" class="sideimg7 ms-1">
+              <p class="sidetext7 mt-3">Setting</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-10 col-12 mt-5">
+          <h1 class="maintitle">Dashboard</h1>
+          <div class="container">
+            <div class="row ms-4">
+              <div class="col-lg-2 col-md-2 col-sm-5 mx-auto" style="width: 220px;">
+                <div class="card mt-3">
+                  <div class="card-body row" style="height: 116px;">
+                    <div class="col-4">
+                      <img src="./images/star.svg" alt=""  class="mt-2">
+                    </div>
+                    <div class="col-8">
+                      <p  style="font-weight: bold;">23,456</p>
+                      <p style="font-size: 85%;">New Products</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-5 mx-auto" style="width: 220px;">
+                <div class="card mt-3">
+                  <div class="card-body row" style="height: 116px;">
+                    <div class="col-4">
+                      <img src="./images/new-product.svg" alt=""  class="mt-3">
+                    </div>
+                    <div class="col-8">
+                      <p  style="font-weight: bold;">2345</p>
+                      <p style="font-size: 85%;">Added Products</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-5 mx-auto" style="width: 220px;">
+                <div class="card mt-3">
+                  <div class="card-body row" style="height: 116px;">
+                    <div class="col-4">
+                      <img src="./images/total-product.svg" alt=""  class="mt-2">
+                    </div>
+                    <div class="col-8">
+                      <p  style="font-weight: bold;">32,456</p>
+                      <p style="font-size: 85%;">Total Products</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-5 mx-auto" style="width: 220px;">
+                <div class="card mt-3">
+                  <div class="card-body row" style="height:116px;">
+                    <div class="col-4">
+                      <img src="./images/dollar-filled.svg" alt=""  class="mt-2">
+                    </div>  
+                    <div class="col-8">
+                      <p  style="font-weight: bold;">5678</p>
+                      <p style="font-size: 85%;">Today's Sale</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-12 col-sm-5 mx-auto" style="width: 220px;">
+                <div class="card mt-3">
+                  <div class="card-body row" style="height: 116px;">
+                    <div class="col-4">
+                      <img src="./images/money-bag.svg" alt="" class="mt-2">
+                    </div>
+                    <div class="col-8">
+                      <p style="font-weight: bold;">33,5342</p>
+                      <p style="font-size: 85%;">Total Sale</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="graphs container">
+            <div class="row ms-3">
+              <div class="col-lg-7 col-md-12 mt-5 mx-auto">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="chart1">
+                      <div class="chart1text d-flex">
+                        <p>Sale</p>
+                        <p class="ms-auto">Weekly</p>
+                        <p class="ms-2">Monthly</p>
+                        <p class="ms-2" style="color: #C8242F; text-decoration: underline;">Yearly</p>
+                      </div>
+                      <div class="chartimg1 mt-5">
+                        <img src="./images/data-graph.png" class="img-fluid">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 mt-5 mx-auto">
+                <div class="card">
+                  <div class="card-body d-flex justify-content-center">
+                    <div class="chart2">
+                      <div class="charttitle">
+                        <h4>Sales by Country</h4>
+                      </div>
+                      <div class="chartimg2">
+                        <img src="./images/pie-chart.svg" class="img-fluid ms-3">
+                      </div>
+                      <div class="disc1 d-flex ms-4">
+                        <div class="dis1">
+                          <div class="dot1 mt-1"></div>
+                          <p class="ms-2 dottext">U.S.A</p>
+                        </div>
+                        <div class="dis2 ms-5">
+                          <div class="dot2 mt-1"></div>
+                          <p class="ms-2 dottext">Canada</p>
+                        </div>
+                      </div>
+                      <div class="disc2 d-flex ms-4">
+                        <div class="dis3">
+                          <div class="dot3 mt-1"></div>
+                          <p class="ms-2 dottext">Russia</p>
+                        </div>
+                        <div class="dis4 ms-5">
+                          <div class="dot4 mt-1"></div>
+                          <p class="ms-2 dottext">India</p>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row mt-5">
+              <div class="col-lg-2"></div>
+              <div class="col-lg-10 col-md-10">
+                <div class="table-responsive datatable mx-auto">
+                  <table class="table mx-auto w-75">
+                    <div class="tabletitle d-flex" style="margin-left: 10%;">
+                      <p>Invoice</p>
+                      <p style="margin-left: 75%; color: #C8242F; text-decoration: underline;"> View All</p>
+                    </div>
+                    <thead>
+                      <tr>
+                        <th>Invoice</th>
+                        <th>COMPANY NAME</th>
+                        <th>EMAIL</th>
+                        <th>DUE DATE</th>
+                        <th>STATUS</th>
+                        <th>AMOUNT</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>651535</td>
+                        <td>Public Adjusting Firm</td>
+                        <td>georgia.young@example.com</td>
+                        <td>24 May, 2020</td>
+                        <td style="background-color: #EBFFEF; color: #3CDD5F;">Paid</td>
+                        <td>$47,800</td>
+                      </tr>
+                      <tr>
+                        <td>558612</td>
+                        <td>Other</td>
+                        <td>jessica.hanson@example.com</td>
+                        <td>24 May, 2020</td>
+                        <td style="background-color: #EBFFEF; color: #3CDD5F;">Paid</td>
+                        <td>$98,000</td>
+                      </tr>
+                      <tr>
+                        <td>558612</td>
+                        <td>Vendor</td>
+                        <td>alma.lawson@example.com</td>
+                        <td>8 Sep, 2020</td>
+                        <td style="background-color: #EBFFEF; color: #3CDD5F;">Paid</td>
+                        <td>$20,900</td>
+                      </tr>
+                      <tr>
+                        <td>558612</td>
+                        <td>Property Management Company</td>
+                        <td>kenzi.lawson@example.com</td>
+                        <td>22 Oct, 2020</td>
+                        <td style="background-color: #EBFFEF; color: #3CDD5F;">Paid</td>
+                        <td>$10,570</td>
+                      </tr>
+                      <tr>
+                        <td>651535</td>
+                        <td>Subcontractor Company</td>
+                        <td>jackson.graham@example.com</td>
+                        <td>1 Feb, 2020</td>
+                        <td style="background-color: #FFF5F5; color: #FF4545;">Failed</td>
+                        <td>$10,200</td>
+                      </tr>
+                      <tr>
+                        <td>653518</td>
+                        <td>Mortgage Company</td>
+                        <td>felicia.reid@example.com</td>
+                        <td>22 Oct, 2020</td>
+                        <td style="background-color: #F8F8F8; color: #BABABA;">Pending</td>
+                        <td>$12,600</td>
+                      </tr>
+                      <tr>
+                        <td>487441</td>
+                        <td>TPA</td>
+                        <td>dolores.chambers@example.com</td>
+                        <td>21 Sep, 2020</td>
+                        <td style="background-color: #EBFFEF; color: #3CDD5F;">Paid</td>
+                        <td>$11,170</td>
+                      </tr>
+                      <tr>
+                        <td>267400</td>
+                        <td>Fire Department</td>
+                        <td>nevaeh.simmons@example.com</td>
+                        <td>17 Oct, 2020</td>
+                        <td style="background-color: #FFF5F5; color: #FF4545;">Failed</td>
+                        <td>$28,000</td>
+                      </tr>
+                      <tr>
+                        <td>449003</td>
+                        <td>Insurance Carrier</td>
+                        <td>curtis.weaver@example.com</td>
+                        <td>21 Sep, 2020</td>
+                        <td style="background-color: #EBFFEF; color: #3CDD5F;">Paid</td>
+                        <td>$10,000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-lg-2"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
