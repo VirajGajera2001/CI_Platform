@@ -13,10 +13,15 @@
     margin-top: 50%;
 }
 .leftimg{
-    height: 740px;
+    height: 790px;
 }
 .fortitle{
     margin-left: 15%;
+}
+.indilines{
+    height: 10px!important;
+    width: 10px !important;
+    border-radius: 50%;
 }
 @media (max-width:991px) {
     .forgetform{

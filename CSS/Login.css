@@ -12,7 +12,12 @@
     margin-top: 50%;
 }
 .leftimg{
-    height: 740px;
+    height: 790px;
+}
+.indilines{
+    height: 10px!important;
+    width: 10px !important;
+    border-radius: 50%;
 }
 @media (max-width:991px) {
     .loginform{
