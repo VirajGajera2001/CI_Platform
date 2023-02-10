@@ -1,0 +1,31 @@
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\bin\Debug\net6.0\appsettings.Development.json
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\bin\Debug\net6.0\appsettings.json
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\bin\Debug\net6.0\CI Platform.staticwebassets.runtime.json
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\bin\Debug\net6.0\CI Platform.exe
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\bin\Debug\net6.0\CI Platform.deps.json
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\bin\Debug\net6.0\CI Platform.runtimeconfig.json
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\bin\Debug\net6.0\CI Platform.dll
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\bin\Debug\net6.0\CI Platform.pdb
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\CI Platform.csproj.AssemblyReference.cache
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\CI Platform.GeneratedMSBuildEditorConfig.editorconfig
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\CI Platform.AssemblyInfoInputs.cache
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\CI Platform.AssemblyInfo.cs
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\CI Platform.csproj.CoreCompileInputs.cache
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\CI Platform.MvcApplicationPartsAssemblyInfo.cache
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\CI Platform.RazorAssemblyInfo.cache
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\CI Platform.RazorAssemblyInfo.cs
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\staticwebassets\msbuild.CI Platform.Microsoft.AspNetCore.StaticWebAssets.props
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\staticwebassets\msbuild.build.CI Platform.props
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.CI Platform.props
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.CI Platform.props
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\staticwebassets.pack.json
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\staticwebassets.build.json
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\staticwebassets.development.json
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\scopedcss\bundle\CI Platform.styles.css
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\scopedcss\projectbundle\CI Platform.bundle.scp.css
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\CI Platform.dll
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\refint\CI Platform.dll
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\CI Platform.pdb
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\CI Platform.genruntimeconfig.cache
+F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\obj\Debug\net6.0\ref\CI Platform.dll

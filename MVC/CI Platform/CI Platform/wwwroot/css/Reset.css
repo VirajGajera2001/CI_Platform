@@ -1,0 +1,39 @@
+.login{
+    border-radius: 24px;
+}
+.log{
+    margin-left: 30%;
+    margin-top: 5%;
+}
+.terms{
+    margin-left: 29%;
+    margin-top: 34%;
+}
+.resetform{
+    margin-top: 50%;
+}
+.leftimg{
+    height: 790px;
+}
+.fortitle{
+    margin-left: 19%;
+}
+.indilines{
+    height: 10px!important;
+    width: 10px !important;
+    border-radius: 50%;
+}
+@media (max-width:991px) {
+    .resetform{
+        margin-top: 10%;
+    }
+    .log{
+        margin-left: 30%;
+    }
+    .terms{
+        margin-left: 25%;
+    }
+    .fortitle{
+        margin-left: 10%;
+    }
+}
