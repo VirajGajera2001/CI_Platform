@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../CSS/landing.css" />
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css" />
+    <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <div class="hambarger col-lg-1 col-md-6">
+          <button
+            class="btn btn-outline-dark hambarger"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasBottom"
+            aria-controls="offcanvasBottom"
+          >
+            <span class="navbar-toggler-icon"
+              ><img src="../CI-Imgs/menu-bar.svg" alt="" />
+            </span>
+          </button>
+          <div
+            class="offcanvas offcanvas-start"
+            tabindex="-1"
+            id="offcanvasBottom"
+            aria-labelledby="offcanvasBottomLabel"
+          >
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasBottomLabel">
+                Offcanvas bottom
+              </h5>
+              <button
+                type="button"
+                class="btn-close text-reset"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="offcanvas-body small">
+              <a href="" class="text-decoration-none" style="color: black"
+                >Story</a
+              >
+              <div class="dropdown">
+                <button
+                  class="border-0 bg-white"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <span>Policy</span>
+                  <img src="../CI-Imgs/drop-down.png" />
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Policy1</a></li>
+                  <li><a class="dropdown-item" href="#">Policy2</a></li>
+                  <li><a class="dropdown-item" href="login.html">Policy3</a></li>
+                </ul>
+              </div>
+              <div class="dropdown">
+                <button
+                  class="border-0 bg-white"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <span>Country</span>
+                  <img src="../CI-Imgs/drop-down.png" />
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">USA</a></li>
+                  <li><a class="dropdown-item" href="#">UK</a></li>
+                  <li><a class="dropdown-item" href="login.html">RUSSIA</a></li>
+                </ul>
+              </div>
+              <div class="dropdown">
+                <button
+                  class="border-0 bg-white"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <span>City</span>
+                  <img src="../CI-Imgs/drop-down.png" />
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Ahmedabad</a></li>
+                  <li><a class="dropdown-item" href="#">Rajkot</a></li>
+                  <li><a class="dropdown-item" href="login.html">Surat</a></li>
+                </ul>
+              </div>
+              <div class="dropdown">
+                <button
+                  class="border-0 bg-white"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <span>Theme</span>
+                  <img src="../CI-Imgs/drop-down.png" />
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Theme1</a></li>
+                  <li><a class="dropdown-item" href="#">Theme2</a></li>
+                  <li><a class="dropdown-item" href="login.html">Theme3</a></li>
+                </ul>
+              </div>
+              <div class="dropdown">
+                <button
+                  class="border-0 bg-white"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <span>Skills</span>
+                  <img src="../CI-Imgs/drop-down.png" />
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Skill1</a></li>
+                  <li><a class="dropdown-item" href="#">Skill2</a></li>
+                  <li><a class="dropdown-item" href="login.html">Skill3</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-11 col-md-6 mid">
+          <div class="profitext">
+            <a href="" class="text-decoration-none" style="color: black"
+              >Story</a
+            >
+          </div>
+          <div class="dropdown ms-5 profitext">
+            <button
+              class="border-0 bg-white"
+              type="button"
+              data-bs-toggle="dropdown"
+            >
+              <span>Policy</span>
+              <img src="../CI-Imgs/drop-down.png" />
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Policy1</a></li>
+              <li><a class="dropdown-item" href="#">Policy2</a></li>
+              <li><a class="dropdown-item" href="login.html">Policy3</a></li>
+            </ul>
+          </div>
+          <div class="col-md-7"></div>
+          <div class="dropdown profile">
+            <img src="../CI-Imgs/bell.png" alt="" class="bell" />
+            <button
+              class="border-0 bg-white"
+              type="button"
+              data-bs-toggle="dropdown"
+            >
+              <img src="../CI-Imgs/user-img.png" class="profileimg" />
+              <span class="profitext">Evan Donohue</span>
+              <img src="../CI-Imgs/drop-down.png" class="profitext" />
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">My Profile</a></li>
+              <li><a class="dropdown-item" href="#">Help</a></li>
+              <li><a class="dropdown-item" href="login.html">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg secondnav p-0">
+      <div class="row container-fluid">
+        <div class="col-md-12 d-flex col-lg-8">
+            <img src="../CI-Imgs/search.png" alt="" class="searchico mt-2">
+          <input type="text" class="form-control border-0" placeholder="Search mission..." />
+        </div>
+        <div class="col-md-1 country">
+          <div class="dropdown downs">
+            <button class="border-0 bg-white" type="button" data-bs-toggle="dropdown">
+              <span>Country</span>
+              <img src="../CI-Imgs/drop-down.png" class="ic-down" />
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">USA</a></li>
+              <li><a class="dropdown-item" href="#">UK</a></li>
+              <li><a class="dropdown-item" href="login.html">RUSSIA</a></li>
+            </ul>
+            </div>
+        </div>
+        <div class="col-md-1 city">
+          <div class="dropdown downs">
+            <button class="border-0 bg-white" type="button" data-bs-toggle="dropdown">
+              <span>City</span>
+              <img src="../CI-Imgs/drop-down.png" class="ic-down" />
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Ahmedabad</a></li>
+              <li><a class="dropdown-item" href="#">Rajkot</a></li>
+              <li><a class="dropdown-item" href="login.html">Surat</a></li>
+            </ul>
+            </div>
+        </div>
+        <div class="col-md-1 theme">
+          <div class="dropdown downs">
+            <button class="border-0 bg-white" type="button" data-bs-toggle="dropdown">
+              <span>Theme</span>
+              <img src="../CI-Imgs/drop-down.png" class="ic-down" />
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Theme1</a></li>
+              <li><a class="dropdown-item" href="#">Theme2</a></li>
+              <li><a class="dropdown-item" href="login.html">Theme3</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-1 skills">
+          <div class="dropdown downs">
+            <button class="border-0 bg-white" type="button" data-bs-toggle="dropdown">
+              <span>Skills</span>
+              <img src="../CI-Imgs/drop-down.png" class="ic-down" />
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Skill1</a></li>
+              <li><a class="dropdown-item" href="#">Skill2</a></li>
+              <li><a class="dropdown-item" href="login.html">Skill3</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>
