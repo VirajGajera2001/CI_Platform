@@ -297,6 +297,10 @@
       "PackagePath": "staticwebassets\\CI-Imgs\\logo.png"
     },
     {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\CI-Imgs\\menu-bar.svg",
+      "PackagePath": "staticwebassets\\CI-Imgs\\menu-bar.svg"
+    },
+    {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\CI-Imgs\\mission.png",
       "PackagePath": "staticwebassets\\CI-Imgs\\mission.png"
     },
@@ -457,6 +461,10 @@
       "PackagePath": "staticwebassets\\css\\Reset.css"
     },
     {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
+    },
+    {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\css\\landing.css",
       "PackagePath": "staticwebassets\\css\\landing.css"
     },
@@ -467,6 +475,10 @@
     {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap.min.js"
     },
     {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\site.js",

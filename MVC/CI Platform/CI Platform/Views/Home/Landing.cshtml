@@ -1,6 +1,7 @@
-﻿
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
 @{
-    ViewData["Title"] = "Home";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="~/css/landing.css" />
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css" />
+    <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
@@ -21,30 +24,34 @@
                         data-bs-target="#offcanvasBottom"
                         aria-controls="offcanvasBottom">
                     <span class="navbar-toggler-icon">
-                        <img src="../CI-Imgs/menu-bar.svg" alt="" />
+                        <img src="~/CI-Imgs/menu-bar.svg" />
                     </span>
                 </button>
-                <div class="offcanvas offcanvas-start"
+                <div class="offcanvas offcanvas-start offcanvahamberger"
                      tabindex="-1"
                      id="offcanvasBottom"
                      aria-labelledby="offcanvasBottomLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasBottomLabel">
-                            Offcanvas bottom
-                        </h5>
+                        <h1 class="offcanvas-title" id="offcanvasBottomLabel">
+                            Filter
+                        </h1>
                         <button type="button"
                                 class="btn-close text-reset"
                                 data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body small">
-                        <a href="" class="text-decoration-none" style="color: black">Story</a>
-                        <div class="dropdown">
+                        <div class="downbox">
+                            <a href="" class="text-decoration-none" style="color: black">Story</a>
+                        </div>
+                        <div class="dropdown mt-2">
                             <button class="border-0 bg-white"
                                     type="button"
                                     data-bs-toggle="dropdown">
-                                <span>Policy</span>
-                                <img src="../CI-Imgs/drop-down.png" />
+                                <div class="downbox">
+                                    <span>Policy</span>
+                                    <img src="../CI-Imgs/drop-down.png" />
+                                </div>
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Policy1</a></li>
@@ -52,12 +59,14 @@
                                 <li><a class="dropdown-item" href="login.html">Policy3</a></li>
                             </ul>
                         </div>
-                        <div class="dropdown">
+                        <div class="dropdown mt-2">
                             <button class="border-0 bg-white"
                                     type="button"
                                     data-bs-toggle="dropdown">
-                                <span>Country</span>
-                                <img src="../CI-Imgs/drop-down.png" />
+                                <div class="downbox">
+                                    <span>Country</span>
+                                    <img src="../CI-Imgs/drop-down.png" />
+                                </div>
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">USA</a></li>
@@ -65,12 +74,14 @@
                                 <li><a class="dropdown-item" href="login.html">RUSSIA</a></li>
                             </ul>
                         </div>
-                        <div class="dropdown">
+                        <div class="dropdown mt-2">
                             <button class="border-0 bg-white"
                                     type="button"
                                     data-bs-toggle="dropdown">
-                                <span>City</span>
-                                <img src="../CI-Imgs/drop-down.png" />
+                                <div class="downbox">
+                                    <span>City</span>
+                                    <img src="../CI-Imgs/drop-down.png" />
+                                </div>
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Ahmedabad</a></li>
@@ -78,12 +89,14 @@
                                 <li><a class="dropdown-item" href="login.html">Surat</a></li>
                             </ul>
                         </div>
-                        <div class="dropdown">
+                        <div class="dropdown mt-2">
                             <button class="border-0 bg-white"
                                     type="button"
                                     data-bs-toggle="dropdown">
-                                <span>Theme</span>
-                                <img src="../CI-Imgs/drop-down.png" />
+                                <div class="downbox">
+                                    <span>Theme</span>
+                                    <img src="../CI-Imgs/drop-down.png" />
+                                </div>
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Theme1</a></li>
@@ -91,12 +104,14 @@
                                 <li><a class="dropdown-item" href="login.html">Theme3</a></li>
                             </ul>
                         </div>
-                        <div class="dropdown">
+                        <div class="dropdown mt-2">
                             <button class="border-0 bg-white"
                                     type="button"
                                     data-bs-toggle="dropdown">
-                                <span>Skills</span>
-                                <img src="../CI-Imgs/drop-down.png" />
+                                <div class="downbox">
+                                    <span>Skills</span>
+                                    <img src="../CI-Imgs/drop-down.png" />
+                                </div>
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Skill1</a></li>
@@ -205,6 +220,4 @@
     </nav>
 </body>
 </html>
-
-
 
