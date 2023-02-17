@@ -1,80 +1,127 @@
-*{
- margin: 0;
- padding: 0;   
+* {
+    margin: 0;
+    padding: 0;
 }
-.profileimg{
+
+.profileimg {
     border-radius: 50%;
     width: 40px;
     height: 40px;
 }
-.headerbar{
+
+.headerbar {
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
 }
-.navbox{
+
+.navbox {
     border-left: 1px solid gray;
     border-right: 1px solid gray;
 }
-.hambarger{
+
+.hambarger {
     visibility: hidden;
 }
-.mid{
+.offcanvahambarger{
+    display:none;
+}
+.mid {
     display: flex;
 }
-.bell{
+
+.bell {
     visibility: hidden;
 }
-.filter{
+
+.filter {
     width: 25px;
     height: 25px;
     display: none;
 }
-.searchico{
+
+.searchico {
     width: 20px;
     height: 20px;
 }
-.country,.city,.theme,.skills{
+
+.country, .city, .theme, .skills {
     border-left: 1px solid gray;
     border-right: 1px solid gray;
     height: 50px;
 }
-.downs{
+
+.downs {
     top: 20%;
 }
-.secondnav{
+
+.secondnav {
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
 }
-.offcanvahamberger {
-    display: none;
-}
+
 .downbox {
     font-size: 1.3rem;
 }
+
+.profitext {
+    display: block;
+}
+
+.star {
+    height: 10%;
+}
+
+.seats, .hours {
+    height: 20px;
+}
+
+.batch {
+    font-size: 12px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    display: inline-block;
+    margin-top: 30px;
+}
+
+.cardview {
+    margin-top: 5%;
+    box-shadow: 0px 0px 8px 0px gray;
+}
+
 @media (max-width:991px) {
-    .profitext{
+    .profitext {
         display: none;
     }
-    .profitext2{
+
+    .profitext2 {
         visibility: hidden;
     }
-    .hambarger{
+
+    .hambarger {
         visibility: visible;
     }
-    .left{
+
+    .left {
         display: none;
     }
-    .bell{
+
+    .bell {
         visibility: visible;
     }
-    .city,.country,.skills,.theme{
+
+    .city, .country, .skills, .theme {
         display: none;
     }
-    .filter{
+
+    .filter {
         display: block;
         float: right;
     }
-    .offcanvahamberger {
+
+    .secondnav {
+        height: 55px;
+    }
+    .offcanvahambarger {
         display: block;
     }
 }
