@@ -477,6 +477,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\Landing.js",
+      "PackagePath": "staticwebassets\\js\\Landing.js"
+    },
+    {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\js\\bootstrap.min.js"
     },

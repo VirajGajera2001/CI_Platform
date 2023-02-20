@@ -86,6 +86,22 @@
     border-radius: 30px;
     height: 25px;
 }
+.clear-button{
+    border: none;
+    background-color: white;
+}
+.filtersection{
+    list-style-type: none;
+    margin-left: 10px;
+}
+.filtersection li{
+    border: 1px solid black;
+    width: auto;
+    margin-top: 5px;
+    margin-left:10px;
+    padding:8px 20px;
+    border-radius: 18px;
+}
 @media (max-width:991px) {
     .profitext{
         display: none;

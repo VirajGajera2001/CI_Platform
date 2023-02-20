@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uJFrU75PEJO6KoDuRTPpbJ3M9APJceQ4u+Q11yH83lE=",
+  "Hash": "kQEf/g5AumeJOsosfBQjg1sP/RHhKbLpbI9Dl30T450=",
   "Source": "CI Platform",
   "BasePath": "_content/CI Platform",
   "Mode": "Default",
@@ -2072,6 +2072,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\bootstrap.min.js"
+    },
+    {
+      "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\Landing.js",
+      "SourceId": "CI Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\",
+      "BasePath": "_content/CI Platform",
+      "RelativePath": "js/Landing.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Landing.js"
     },
     {
       "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\site.js",

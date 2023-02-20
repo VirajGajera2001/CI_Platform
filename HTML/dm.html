@@ -1,38 +1,64 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Checkbox Example</title>
+    <title>My Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+      .filtersection {
+        margin: 10px;
+        padding: 0;
+        list-style-type: none;
+      }
+      .filtersection li {
+        display: inline-block;
+        margin-right: 10px;
+      }
+    </style>
   </head>
   <body>
-    <div>
-      <label for="checkbox1">Checkbox 1</label>
-      <input type="checkbox" id="checkbox1">
-    </div>
-    <div>
-      <label for="checkbox2">Checkbox 2</label>
-      <input type="checkbox" id="checkbox2">
-    </div>
-    <div id="result"></div>
+    <h1>My Page</h1>
+    <form>
+      <label>
+        <input type="checkbox" name="color" value="Red"> Red
+      </label>
+      <label>
+        <input type="checkbox" name="color" value="Blue"> Blue
+      </label>
+      <label>
+        <input type="checkbox" name="color" value="Green"> Green
+      </label>
+    </form>
+    <ul class="filtersection"></ul>
+    <button id="clearBtn" class="btn btn-danger">Clear All</button>
 
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         const cbs = document.querySelectorAll("input[type='checkbox']");
-        const result = document.getElementById("result");
-
+        const filtersSection = document.querySelector(".filtersection");
+        const clearBtn = document.querySelector("#clearBtn");
         for (let k = 0; k < cbs.length; k++) {
           cbs[k].addEventListener("change", function() {
             if (this.checked) {
               const li = document.createElement("li");
-              li.textContent = `Checkbox ${k+1} is checked`;
+              li.innerHTML = `<img src="https://via.placeholder.com/20x20/00ff00/000000?text=${this.value}" alt="${this.value}"> ${this.value}`;
+              li.id = this.value;
               li.addEventListener("click", function() {
                 li.remove();
+                cbs[k].checked = false;
               });
-              result.appendChild(li);
+              filtersSection.appendChild(li);
             } else {
-              // Don't do anything if the checkbox is unchecked
+              const lis = document.getElementById(this.value);
+              lis.remove();
             }
           });
         }
+        clearBtn.addEventListener("click", function() {
+          const lis = filtersSection.getElementsByTagName('li');
+          for (let i = lis.length - 1; i >= 0; i--) {
+            lis[i].click();
+          }
+        });
       });
     </script>
   </body>
