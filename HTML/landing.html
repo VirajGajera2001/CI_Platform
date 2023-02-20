@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="../CSS/landing.css" />
     <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css" />
     <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="../JS/Landing.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg">
@@ -25,7 +26,7 @@
             </span>
           </button>
           <div
-            class="offcanvas offcanvas-start"
+            class="offcanvas offcanvas-start offcanvahambarger"
             tabindex="-1"
             id="offcanvasBottom"
             aria-labelledby="offcanvasBottomLabel">
@@ -135,49 +136,93 @@
         </div>
         <div class="col-md-2 country col-lg-1 p-0">
           <div class="dropdown downs">
-            <select name="" id="" class="border-0 form-select p-0">
-              <option value="">Country</option>
-              <option value="">Policy1</option>
-              <option value="">Policy2</option>
-              <option value="">Policy3</option>
-            </select>
+            <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+              <span>Country</span>
+              <img src="../CI-Imgs/drop-down.png" class="ic-down">
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                  <input class="form-check-input Checkme" type="checkbox" value="USA"/>USA
+              </li>
+              <li>
+                  <input class="form-check-input Checkme" type="checkbox" value="Canada"/>Canada
+              </li>
+              <li>
+                  <input class="form-check-input Checkme" type="checkbox" value="UK"/>UK
+              </li>
+            </ul>
             </div>
         </div>
         <div class="col-md-2 city col-lg-1 p-0">
           <div class="dropdown downs">
-            <select name="" id="" class="border-0 p-0 form-select">
-              <option value="">City</option>
-              <option value="">Policy1</option>
-              <option value="">Policy2</option>
-              <option value="">Policy3</option>
-            </select>
+            <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+              <span>City</span>
+              <img src="../CI-Imgs/drop-down.png" class="ic-down">
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                  <input class="form-check-input Checkme" type="checkbox" value="Rajkot"/>Rajkot
+              </li>
+              <li>
+                  <input class="form-check-input Checkme" type="checkbox" value="Ahmedabad"/>Ahmedabad
+              </li>
+              <li>
+                  <input class="form-check-input Checkme" type="checkbox" value="Surat"/>Surat
+              </li>
+            </ul>
+
           </div>
         </div>
         <div class="col-md-2 theme col-lg-1 p-0">
           <div class="dropdown downs">
-            <select name="" id="" class="border-0 form-select p-0">
-              <option value="">Themes</option>
-              <option value="">Policy1</option>
-              <option value="">Policy2</option>
-              <option value="">Policy3</option>
-            </select>
+            <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+              <span>Theme</span>
+              <img src="../CI-Imgs/drop-down.png" class="ic-down">
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                  <input class="form-check-input Checkme" type="checkbox" value="Theme1"/>Theme1
+              </li>
+              <li>
+                  <input class="form-check-input Checkme" type="checkbox" value="Theme2"/>Theme2
+              </li>
+              <li>
+                  <input class="form-check-input Checkme" type="checkbox" value="Theme3"/>Theme3
+              </li>
+            </ul>
           </div>
         </div>
         <div class="col-md-2 skills col-lg-1 p-0">
           <div class="dropdown downs">
-            <select name="" id="" class="border-0 form-select p-0">
-              <option value="">Skills</option>
-              <option value="">Policy1</option>
-              <option value="">Policy2</option>
-              <option value="">Policy3</option>
-            </select>
+            <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+              <span>Skills</span>
+              <img src="../CI-Imgs/drop-down.png" class="ic-down">
+            </button>
+                <ul class="dropdown-menu">
+                    <li>
+                      <input class="form-check-input Checkme" type="checkbox" value="Skill1"/>Skill1
+                  </li>
+                  <li>
+                      <input class="form-check-input Checkme" type="checkbox" value="Skill2"/>Skill2
+                  </li>
+                  <li>
+                      <input class="form-check-input Checkme" type="checkbox" value="Skill3"/>Skill3
+                  </li>
+                </ul>
           </div>
         </div>
       </div>
     </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 filtersection">
+          
+        </div>
+      </div>
+    </div>
     <div class="container mt-5">
       <div class="row">
-        <div class="col-md-12 d-flex">
+        <div class="col-md-12 d-flex p-0">
           <h4>Explore 72 Missions</h4>
           <div class="ms-auto">
             <select class="mt-1">
@@ -193,11 +238,260 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-12 allviews">
-          <div class="card cardview mx-auto" style="width: 22rem;">
-              <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-3.png" alt="" class="card-image">
+        <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
+          <div class="card cardview mx-auto" style="width: 19rem;">
+            <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
+            <div class="imgbadge1 bg-white">
+              <p class="ms-3">Environment</p>
+            </div>
+            <div class="card-body">
+              <h5>Grow Trees</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
+              <div class="desc1 d-flex">
+                <div>
+                  <p>Tree Canada</p>
+                </div>
+                <div class="star d-flex ms-auto">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/star.png" alt="">
+                </div>
+              </div>
+              <div class="bg-white datebadge1">
+                <p class="ms-2">From 10/01/2019 until 25/02/2019</p>
+              </div>
+              <hr>
+              <div class="desc2 d-flex">
+                <div class="seats d-flex">
+                  <img src="../CI-Imgs/Seats-left.png" alt="">
+                  <p>10 seats left</p>
+                </div>
+                <div class="hours d-flex ms-auto">
+                  <img src="../CI-Imgs/hours.png" alt="">
+                  <p>09/01/2019<br>Deadline</p>
+                </div>
+                </div>
+                <hr style="margin-top: 30px;">
+                <div class="apply d-flex">
+                <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
+          <div class="card cardview mx-auto" style="width: 19rem;">
+            <img src="../CI-Imgs/Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png" alt="" class="card-image">
+            <div class="imgbadge1 bg-white">
+              <p class="ms-4">Children</p>
+            </div>
+            <div class="card-body">
+              <h5>Grow Trees</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
+              <div class="desc1 d-flex">
+                <div>
+                  <p>Tree Canada</p>
+                </div>
+                <div class="star d-flex ms-auto">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/star.png" alt="">
+                </div>
+              </div>
+              <div class="bg-white datebadge1">
+                <p class="ms-2">From 10/01/2019 until 25/02/2019</p>
+              </div>
+              <hr>
+              <div class="desc2 d-flex">
+                <div class="seats d-flex">
+                  <img src="../CI-Imgs/Seats-left.png" alt="">
+                  <p>10 seats left</p>
+                </div>
+                <div class="hours d-flex ms-auto">
+                  <img src="../CI-Imgs/hours.png" alt="">
+                  <p>09/01/2019<br>Deadline</p>
+                </div>
+                </div>
+                <hr style="margin-top: 30px;">
+                <div class="apply d-flex">
+                <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
+          <div class="card cardview mx-auto position-relative" style="width: 19rem;">
+            <img src="../CI-Imgs/Nourish-the-Children-in--African-country-1.png" alt="" class="card-image">
+            <div class="imgbadge1 bg-white w-25">
+              <p class="ms-1">Nutrition</p>
+            </div>
+            <div class="card-body">
+              <h5>Grow Trees</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
+              <div class="desc1 d-flex">
+                <div>
+                  <p>Tree Canada</p>
+                </div>
+                <div class="star d-flex ms-auto">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/star.png" alt="">
+                </div>
+              </div>
+              <div class="bg-white datebadge1">
+                <p class="ms-2">Ongoing Oppertunity</p>
+              </div>
+              <hr>
+              <div class="desc2 d-flex">
+                <div class="seats d-flex">
+                  <img src="../CI-Imgs/Seats-left.png" alt="">
+                  <p>10 seats left</p>
+                </div>
+                <div class="hours d-flex ms-auto">
+                  <img src="../CI-Imgs/hours.png" alt="">
+                  <p>09/01/2019<br>Deadline</p>
+                </div>
+                </div>
+                <hr style="margin-top: 30px;">
+                <div class="apply d-flex">
+                <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
+          <div class="card cardview mx-auto" style="width: 19rem;">
+            <img src="../CI-Imgs/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png" alt="" class="card-image">
+            <div class="imgbadge1 bg-white">
+              <p class="ms-3">Environment</p>
+            </div>
+            <div class="card-body">
+              <h5>Grow Trees</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
+              <div class="desc1 d-flex">
+                <div>
+                  <p>Tree Canada</p>
+                </div>
+                <div class="star d-flex ms-auto">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/star.png" alt="">
+                </div>
+              </div>
+              <div class="bg-white datebadge1">
+                <p class="ms-2">Ongoing Oppertunity</p>
+              </div>
+              <hr>
+              <div class="desc2 d-flex">
+                <div class="seats d-flex">
+                  <img src="../CI-Imgs/Seats-left.png" alt="">
+                  <p>10 seats left</p>
+                </div>
+                <div class="hours d-flex ms-auto">
+                  <img src="../CI-Imgs/hours.png" alt="">
+                  <p>09/01/2019<br>Deadline</p>
+                </div>
+                </div>
+                <hr style="margin-top: 30px;">
+                <div class="apply d-flex">
+                <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
+          <div class="card cardview mx-auto" style="width: 19rem;">
+            <img src="../CI-Imgs/Animal-welfare-_-save-birds-campaign-1.png" alt="" class="card-image">
+            <div class="imgbadge1 bg-white">
+              <p class="ms-3">Animals</p>
+            </div>
+            <div class="card-body">
+              <h5>Grow Trees</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
+              <div class="desc1 d-flex">
+                <div>
+                  <p>Tree Canada</p>
+                </div>
+                <div class="star d-flex ms-auto">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/star.png" alt="">
+                </div>
+              </div>
+              <div class="bg-white datebadge1">
+                <p class="ms-2">Plant 10,000 Trees</p>
+              </div>
+              <hr>
+              <div class="desc2 d-flex">
+                <div class="seats d-flex">
+                  <img src="../CI-Imgs/Seats-left.png" alt="">
+                  <p>10 seats left</p>
+                </div>
+                <div class="hours d-flex ms-auto">
+                  <img src="../CI-Imgs/hours.png" alt="">
+                  <p>09/01/2019<br>Deadline</p>
+                </div>
+                </div>
+                <hr style="margin-top: 30px;">
+                <div class="apply d-flex">
+                <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
+          <div class="card cardview mx-auto" style="width: 19rem;">
+            <img src="../CI-Imgs/Plantation-and-Afforestation-programme-1.png" alt="" class="card-image">
+            <div class="imgbadge1 bg-white w-25">
+              <p class="ms-3">  Health  </p>
+            </div>
+            <div class="card-body">
+              <h5>Grow Trees</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
+              <div class="desc1 d-flex">
+                <div>
+                  <p>Tree Canada</p>
+                </div>
+                <div class="star d-flex ms-auto">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/selected-star.png" alt="">
+                  <img src="../CI-Imgs/star.png" alt="">
+                </div>
+              </div>
+              <div class="bg-white datebadge1">
+                <p class="ms-2">Plant 10,000 Trees</p>
+              </div>
+              <hr>
+              <div class="desc2 d-flex">
+                <div class="seats d-flex">
+                  <img src="../CI-Imgs/Seats-left.png" alt="">
+                  <p>10 seats left</p>
+                </div>
+                <div class="hours d-flex ms-auto">
+                  <img src="../CI-Imgs/hours.png" alt="">
+                  <p>09/01/2019<br>Deadline</p>
+                </div>
+                </div>
+                <hr style="margin-top: 30px;">
+                <div class="apply d-flex">
+                <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
+          <div class="card cardview mx-auto" style="width: 19rem;">
+            <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
+            <div class="imgbadge1 bg-white">
+              <p class="ms-3">Education</p>
+            </div>
             <div class="card-body">
               <h5>Grow Trees</h5>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
@@ -230,9 +524,12 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 allviews">
-          <div class="card cardview mx-auto" style="width: 22rem;">
-            <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
+        <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
+          <div class="card cardview mx-auto" style="width: 19rem;">
+            <img src="../CI-Imgs/Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png" alt="" class="card-image">
+            <div class="imgbadge1 bg-white">
+              <p class="ms-4">Children</p>
+            </div>
             <div class="card-body">
               <h5>Grow Trees</h5>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
@@ -246,6 +543,9 @@
                   <img src="../CI-Imgs/selected-star.png" alt="">
                   <img src="../CI-Imgs/star.png" alt="">
                 </div>
+              </div>
+              <div class="bg-white datebadge1">
+                <p class="ms-2">From 10/01/2019 until 25/02/2019</p>
               </div>
               <hr>
               <div class="desc2 d-flex">
@@ -265,44 +565,12 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 allviews">
-          <div class="card cardview mx-auto" style="width: 22rem;">
-            <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
-            <div class="card-body">
-              <h5>Grow Trees</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-              <div class="desc1 d-flex">
-                <div>
-                  <p>Tree Canada</p>
-                </div>
-                <div class="star d-flex ms-auto">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/star.png" alt="">
-                </div>
-              </div>
-              <hr>
-              <div class="desc2 d-flex">
-                <div class="seats d-flex">
-                  <img src="../CI-Imgs/Seats-left.png" alt="">
-                  <p>10 seats left</p>
-                </div>
-                <div class="hours d-flex ms-auto">
-                  <img src="../CI-Imgs/hours.png" alt="">
-                  <p>09/01/2019<br>Deadline</p>
-                </div>
-                </div>
-                <hr style="margin-top: 30px;">
-                <div class="apply d-flex">
-                <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-              </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
+          <div class="card cardview mx-auto" style="width: 19rem;">
+            <img src="../CI-Imgs/Nourish-the-Children-in--African-country-1.png" alt="" class="card-image">
+            <div class="imgbadge1 bg-white">
+              <p class="ms-4">Nutrition</p>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 allviews">
-          <div class="card cardview mx-auto" style="width: 22rem;">
-            <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
             <div class="card-body">
               <h5>Grow Trees</h5>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
@@ -317,180 +585,8 @@
                   <img src="../CI-Imgs/star.png" alt="">
                 </div>
               </div>
-              <hr>
-              <div class="desc2 d-flex">
-                <div class="seats d-flex">
-                  <img src="../CI-Imgs/Seats-left.png" alt="">
-                  <p>10 seats left</p>
-                </div>
-                <div class="hours d-flex ms-auto">
-                  <img src="../CI-Imgs/hours.png" alt="">
-                  <p>09/01/2019<br>Deadline</p>
-                </div>
-                </div>
-                <hr style="margin-top: 30px;">
-                <div class="apply d-flex">
-                <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 allviews">
-          <div class="card cardview mx-auto" style="width: 22rem;">
-            <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
-            <div class="card-body">
-              <h5>Grow Trees</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-              <div class="desc1 d-flex">
-                <div>
-                  <p>Tree Canada</p>
-                </div>
-                <div class="star d-flex ms-auto">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/star.png" alt="">
-                </div>
-              </div>
-              <hr>
-              <div class="desc2 d-flex">
-                <div class="seats d-flex">
-                  <img src="../CI-Imgs/Seats-left.png" alt="">
-                  <p>10 seats left</p>
-                </div>
-                <div class="hours d-flex ms-auto">
-                  <img src="../CI-Imgs/hours.png" alt="">
-                  <p>09/01/2019<br>Deadline</p>
-                </div>
-                </div>
-                <hr style="margin-top: 30px;">
-                <div class="apply d-flex">
-                <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 allviews">
-          <div class="card cardview mx-auto" style="width: 22rem;">
-            <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
-            <div class="card-body">
-              <h5>Grow Trees</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-              <div class="desc1 d-flex">
-                <div>
-                  <p>Tree Canada</p>
-                </div>
-                <div class="star d-flex ms-auto">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/star.png" alt="">
-                </div>
-              </div>
-              <hr>
-              <div class="desc2 d-flex">
-                <div class="seats d-flex">
-                  <img src="../CI-Imgs/Seats-left.png" alt="">
-                  <p>10 seats left</p>
-                </div>
-                <div class="hours d-flex ms-auto">
-                  <img src="../CI-Imgs/hours.png" alt="">
-                  <p>09/01/2019<br>Deadline</p>
-                </div>
-                </div>
-                <hr style="margin-top: 30px;">
-                <div class="apply d-flex">
-                <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 allviews">
-          <div class="card cardview mx-auto" style="width: 22rem;">
-            <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
-            <div class="card-body">
-              <h5>Grow Trees</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-              <div class="desc1 d-flex">
-                <div>
-                  <p>Tree Canada</p>
-                </div>
-                <div class="star d-flex ms-auto">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/star.png" alt="">
-                </div>
-              </div>
-              <hr>
-              <div class="desc2 d-flex">
-                <div class="seats d-flex">
-                  <img src="../CI-Imgs/Seats-left.png" alt="">
-                  <p>10 seats left</p>
-                </div>
-                <div class="hours d-flex ms-auto">
-                  <img src="../CI-Imgs/hours.png" alt="">
-                  <p>09/01/2019<br>Deadline</p>
-                </div>
-                </div>
-                <hr style="margin-top: 30px;">
-                <div class="apply d-flex">
-                <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 allviews">
-          <div class="card cardview mx-auto" style="width: 22rem;">
-            <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
-            <div class="card-body">
-              <h5>Grow Trees</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-              <div class="desc1 d-flex">
-                <div>
-                  <p>Tree Canada</p>
-                </div>
-                <div class="star d-flex ms-auto">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/star.png" alt="">
-                </div>
-              </div>
-              <hr>
-              <div class="desc2 d-flex">
-                <div class="seats d-flex">
-                  <img src="../CI-Imgs/Seats-left.png" alt="">
-                  <p>10 seats left</p>
-                </div>
-                <div class="hours d-flex ms-auto">
-                  <img src="../CI-Imgs/hours.png" alt="">
-                  <p>09/01/2019<br>Deadline</p>
-                </div>
-                </div>
-                <hr style="margin-top: 30px;">
-                <div class="apply d-flex">
-                <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 allviews">
-          <div class="card cardview mx-auto" style="width: 22rem;">
-            <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
-            <div class="card-body">
-              <h5>Grow Trees</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-              <div class="desc1 d-flex">
-                <div>
-                  <p>Tree Canada</p>
-                </div>
-                <div class="star d-flex ms-auto">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/star.png" alt="">
-                </div>
+              <div class="bg-white datebadge1">
+                <p class="ms-2">Ongoing Oppertunity</p>
               </div>
               <hr>
               <div class="desc2 d-flex">
@@ -512,29 +608,29 @@
         </div>
       </div>
     </div>
+    <!-- <nav aria-label="Page navigation example" class="mt-3">
+      <ul class="pagination justify-content-center">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only"></span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">4</a></li>
+        <li class="page-item"><a class="page-link" href="#">5</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only"></span>
+          </a>
+        </li>
+      </ul>
+    </nav> -->
     <script>
-      var element=document.getElementsByClassName("allviews");
-      var img=document.getElementsByClassName("card-image");
-      var card=document.getElementsByClassName("cardview");
-      var i;
-      var j;
-      function listView(){
-        for(i=0;i<element.length;i++){
-          img[i].style.width="auto";
-          element[i].style.width="100%";
-          card[i].style.width="100%";
-          card[i].style.flexDirection="row";
-        }
-      }
-      function gridView(){
-        for(j=0;j<element.length;j++){
-          card[j].style.flexDirection="column";
-          element[j].style.width="30%";
-          img[j].style.width="100%";
-          card[j].style.width="100%"
-          // card[j].appendChild="col-lg-4 col-md-6 col-sm-12 allviews";
-        }
-      }
+      
     </script>
   </body>
 </html>

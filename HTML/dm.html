@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Checkbox Example</title>
+  </head>
+  <body>
+    <div>
+      <label for="checkbox1">Checkbox 1</label>
+      <input type="checkbox" id="checkbox1">
+    </div>
+    <div>
+      <label for="checkbox2">Checkbox 2</label>
+      <input type="checkbox" id="checkbox2">
+    </div>
+    <div id="result"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const cbs = document.querySelectorAll("input[type='checkbox']");
+        const result = document.getElementById("result");
+
+        for (let k = 0; k < cbs.length; k++) {
+          cbs[k].addEventListener("change", function() {
+            if (this.checked) {
+              const li = document.createElement("li");
+              li.textContent = `Checkbox ${k+1} is checked`;
+              li.addEventListener("click", function() {
+                li.remove();
+              });
+              result.appendChild(li);
+            } else {
+              // Don't do anything if the checkbox is unchecked
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
