@@ -1,65 +1,12 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My Page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <style>
-      .filtersection {
-        margin: 10px;
-        padding: 0;
-        list-style-type: none;
-      }
-      .filtersection li {
-        display: inline-block;
-        margin-right: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>My Page</h1>
-    <form>
-      <label>
-        <input type="checkbox" name="color" value="Red"> Red
-      </label>
-      <label>
-        <input type="checkbox" name="color" value="Blue"> Blue
-      </label>
-      <label>
-        <input type="checkbox" name="color" value="Green"> Green
-      </label>
-    </form>
-    <ul class="filtersection"></ul>
-    <button id="clearBtn" class="btn btn-danger">Clear All</button>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        const cbs = document.querySelectorAll("input[type='checkbox']");
-        const filtersSection = document.querySelector(".filtersection");
-        const clearBtn = document.querySelector("#clearBtn");
-        for (let k = 0; k < cbs.length; k++) {
-          cbs[k].addEventListener("change", function() {
-            if (this.checked) {
-              const li = document.createElement("li");
-              li.innerHTML = `<img src="https://via.placeholder.com/20x20/00ff00/000000?text=${this.value}" alt="${this.value}"> ${this.value}`;
-              li.id = this.value;
-              li.addEventListener("click", function() {
-                li.remove();
-                cbs[k].checked = false;
-              });
-              filtersSection.appendChild(li);
-            } else {
-              const lis = document.getElementById(this.value);
-              lis.remove();
-            }
-          });
-        }
-        clearBtn.addEventListener("click", function() {
-          const lis = filtersSection.getElementsByTagName('li');
-          for (let i = lis.length - 1; i >= 0; i--) {
-            lis[i].click();
-          }
-        });
-      });
-    </script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
 </html>

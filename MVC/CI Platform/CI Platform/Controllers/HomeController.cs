@@ -43,6 +43,14 @@ namespace CI_Platform.Controllers
         {
             return View();
         }
+        public IActionResult NoMission()
+        {
+            return View();
+        }
+        public IActionResult RelatedMission()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

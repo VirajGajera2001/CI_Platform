@@ -1,0 +1,232 @@
+﻿
+@{
+    ViewData["Title"] = "NoMission";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="~/css/Landing.css" />
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css" />
+    <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../JS/Landing.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <div class="hambarger col-lg-2 col-md-6">
+                <button class="btn btn-outline-dark hambarger"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasBottom"
+                        aria-controls="offcanvasBottom">
+                    <span class="navbar-toggler-icon">
+                        <img src="../CI-Imgs/menu-bar.svg" alt="" />
+                    </span>
+                </button>
+                <div class="offcanvas offcanvas-start offcanvahambarger"
+                     tabindex="-1"
+                     id="offcanvasBottom"
+                     aria-labelledby="offcanvasBottomLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasBottomLabel">
+                            Offcanvas bottom
+                        </h5>
+                        <button type="button"
+                                class="btn-close text-reset"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="offcanvas-body small">
+                        <div class="downbox ms-2">
+                            <a href="" class="text-decoration-none" style="color: black">
+                                Story
+                            </a>
+                        </div>
+                        <div class="dropdown mt-2">
+                            <div class="downbox">
+                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                    <option value="">Policy</option>
+                                    <option value="">Policy1</option>
+                                    <option value="">Policy2</option>
+                                    <option value="">Policy3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="dropdown mt-2">
+                            <div class="downbox">
+                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                    <option value="">Country</option>
+                                    <option value="">Policy1</option>
+                                    <option value="">Policy2</option>
+                                    <option value="">Policy3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="dropdown mt-2">
+                            <div class="downbox">
+                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                    <option value="">City</option>
+                                    <option value="">Policy1</option>
+                                    <option value="">Policy2</option>
+                                    <option value="">Policy3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="dropdown mt-2">
+                            <div class="downbox">
+                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                    <option value="">Theme</option>
+                                    <option value="">Policy1</option>
+                                    <option value="">Policy2</option>
+                                    <option value="">Policy3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="dropdown mt-2">
+                            <div class="downbox">
+                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                    <option value="">Skills</option>
+                                    <option value="">Policy1</option>
+                                    <option value="">Policy2</option>
+                                    <option value="">Policy3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-6 mid">
+                <div class="story profitext">
+                    <a href="" class="text-decoration-none" style="color: black;">Story</a>
+                </div>
+                <div class="policy ms-5 profitext">
+                    <select name="" id="" class="border-0">
+                        <option value="">Policy</option>
+                        <option value="">Policy1</option>
+                        <option value="">Policy2</option>
+                        <option value="">Policy3</option>
+                    </select>
+                </div>
+                <div class="profile d-flex ms-auto">
+                    <div class=" newmission">
+                        <a href="" class="btn btn-outline-warning me-3 border-3">Submit new mission</a>
+                    </div>
+                    <img src="../CI-Imgs/bell.png" alt="" class="bell ms-auto me-3">
+                    <div class="dropdown">
+                        <button class="border-0 bg-white" type="button" data-bs-toggle="dropdown">
+                            <img src="../CI-Imgs/user-img.png" class="profileimg">
+                            <span>John Doe</span>
+                            <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Help</a></li>
+                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg secondnav p-0">
+        <div class="row container-fluid p-0">
+            <div class="col-md-4 d-flex col-lg-8">
+                <img src="../CI-Imgs/search.png" alt="" class="searchico mt-2 ms-3">
+                <input type="text" class="form-control border-0" placeholder="Search mission..." />
+            </div>
+            <div class="col-md-2 country col-lg-1 p-0">
+                <div class="dropdown downs">
+                    <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                        <span>Country</span>
+                        <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="USA" />USA
+                        </li>
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Canada" />Canada
+                        </li>
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="UK" />UK
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2 city col-lg-1 p-0">
+                <div class="dropdown downs">
+                    <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                        <span>City</span>
+                        <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Rajkot" />Rajkot
+                        </li>
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Ahmedabad" />Ahmedabad
+                        </li>
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Surat" />Surat
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="col-md-2 theme col-lg-1 p-0">
+                <div class="dropdown downs">
+                    <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                        <span>Theme</span>
+                        <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Theme1" />Theme1
+                        </li>
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Theme2" />Theme2
+                        </li>
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Theme3" />Theme3
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2 skills col-lg-1 p-0">
+                <div class="dropdown downs">
+                    <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                        <span>Skills</span>
+                        <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Skill1" />Skill1
+                        </li>
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Skill2" />Skill2
+                        </li>
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Skill3" />Skill3
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-12 w-100">
+                <p>No mission found</p>
+                <a href="" class="btn btn-outline-warning border-3">Submit new mission</a>
+            </div>
+        </div>
+    </div>
+    <partial name="RelatedMission"/>
+</body>
+</html>
+
+
