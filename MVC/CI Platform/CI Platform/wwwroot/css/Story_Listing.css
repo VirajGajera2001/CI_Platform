@@ -1,0 +1,213 @@
+*{
+    margin: 0;
+    padding: 0;   
+   }
+   .profileimg{
+       border-radius: 50%;
+       width: 40px;
+       height: 40px;
+   }
+   .headerbar{
+       border-top: 1px solid gray;
+       border-bottom: 1px solid gray;
+   }
+   .navbox{
+       border-left: 1px solid gray;
+       border-right: 1px solid gray;
+   }
+   .hambarger{
+       visibility: hidden;
+   }
+.offcanvahambarger{
+    display:none;
+}
+.mid {
+    display: flex;
+}
+   .bell{
+       visibility: hidden;
+   }
+   .filter{
+       width: 25px;
+       height: 25px;
+       display: none;
+   }
+   .searchico{
+       width: 20px;
+       height: 20px;
+   }
+   .country,.city,.theme,.skills{
+       border-left: 1px solid gray;
+       border-right: 1px solid gray;
+       height: 50px;
+   }
+   .downs{
+       top: 20%;
+   }
+   .secondnav{
+       border-top: 1px solid gray;
+       border-bottom: 1px solid gray;
+   }
+   .downbox{
+       font-size: 1.3rem;
+   }
+   .profitext{
+       display: block;
+   }
+   .star{
+       height: 10%;
+   }
+   .seats, .hours{
+       height: 20px;
+   }
+   .batch{
+       font-size: 12px;
+       border: 1px solid gray;
+       border-radius: 10px;
+       display:inline-block;
+       margin-top:30px ;
+   }
+   .cardview{
+       margin-top: 5%;
+       box-shadow: 0px 0px 8px 0px gray;
+   }
+   .datebadge1{
+       font-size:12px;
+       left: 40px;
+       z-index: 1;
+       border: 1px solid gray;
+       border-radius: 30px;
+       height: 25px;
+       width: 75%;
+       position: absolute;
+   }
+   .imgbadge1{
+       width: 40%;
+       position: absolute;
+       left: 90px;
+       top:170px;
+       border-radius: 30px;
+       height: 25px;
+   }
+   .clear-button{
+       border: none;
+       background-color: white;
+   }
+   .filtersection{
+       list-style-type: none;
+       margin-left: 10px;
+   }
+   .filtersection li{
+       border: 1px solid black;
+       width: auto;
+       margin-top: 5px;
+       margin-left:10px;
+       padding:8px 20px;
+       border-radius: 18px;
+   }
+   .addstorybg{
+       background: url(../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-login.png) no-repeat center center/cover;
+       z-index: 1;
+       color: white;
+       position: relative;
+       overflow: hidden;
+   }
+   .addstorybg::after{
+       content: '';
+       position: absolute;
+       left: 0;
+       top: 0;
+       width: 100%;
+       height: 100%;
+       background-color: #000;
+       background-image: linear-gradient(60deg,#29323c,#485563 100%);
+       opacity: .6;
+       z-index: -1;
+   }
+   .centered{
+       position: absolute;
+       top:50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       z-index: 1;
+   }
+   .centeredbtn{
+       position: absolute;
+       top:130%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       z-index: 1;
+       border: 2px solid white;
+       border-radius: 20px;
+   }
+   .voluntimg{
+       width: 40px;
+       height: 40px;
+       border-radius: 50%;
+     }
+     #hover-div{
+       transition: opacity 0.5s ease-in-out;
+       position: relative;
+     }
+     #hover-div:hover .apply-btn {
+       opacity: 1;
+   }
+   .apply-btn{
+       height: 50px;
+       width: 150px;
+       margin: 72px 85px;
+       border: 3px solid white;
+       border-radius: 18px;
+       cursor: pointer;
+       opacity: 0;
+       z-index: 1;
+       font-weight: bold;
+       transition: opacity 0.5s ease-in-out;
+   }
+   .exps{
+       position: absolute;
+       top: 182px;
+       left: 90px;
+       background-color: white;
+       border-radius: 5px;
+   }
+   @media (max-width:991px) {
+       .profitext{
+           display: none;
+       }
+       .profitext2{
+           visibility: hidden;
+       }
+       .hambarger{
+           visibility: visible;
+       }
+       .left{
+           display: none;
+       }
+       .bell{
+           visibility: visible;
+       }
+       .city,.country,.skills,.theme{
+           display: none;
+       }
+       .filter{
+           display: block;
+           float: right;
+       }
+       .secondnav{
+           height: 55px;
+       }
+       .newmission{
+           display: none;
+       }
+       .centeredbtn{
+           width: 100%;
+       }
+       .centered{
+           font-size: 12px;
+       }
+    .offcanvahambarger {
+        display: block;
+    }
+   }
+   

@@ -125,9 +125,12 @@
   }
   @media (max-width:991px){
     .stars{
-      width: 113%;
+      width: 377px;
     }
     .contbadge{
       width: 260px;
+    }
+    .tabdocuments{
+      text-align: center;
     }
   }

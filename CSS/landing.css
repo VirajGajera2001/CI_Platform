@@ -102,6 +102,72 @@
     padding:8px 20px;
     border-radius: 18px;
 }
+.addstorybg{
+    background: url(../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-login.png) no-repeat center center/cover;
+    z-index: 1;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+.addstorybg::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    background-image: linear-gradient(60deg,#29323c,#485563 100%);
+    opacity: .6;
+    z-index: -1;
+}
+.centered{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+.centeredbtn{
+    position: absolute;
+    top:130%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    border: 2px solid white;
+    border-radius: 20px;
+}
+.voluntimg{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  #hover-div{
+    transition: opacity 0.5s ease-in-out;
+    position: relative;
+  }
+  #hover-div:hover .apply-btn {
+    opacity: 1;
+}
+.apply-btn{
+    height: 50px;
+    width: 150px;
+    margin: 72px 85px;
+    border: 3px solid white;
+    border-radius: 18px;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 1;
+    font-weight: bold;
+    transition: opacity 0.5s ease-in-out;
+}
+.exps{
+    position: absolute;
+    top: 182px;
+    left: 90px;
+    background-color: white;
+    border-radius: 5px;
+}
 @media (max-width:991px) {
     .profitext{
         display: none;
@@ -130,5 +196,11 @@
     }
     .newmission{
         display: none;
+    }
+    .centeredbtn{
+        width: 100%;
+    }
+    .centered{
+        font-size: 12px;
     }
 }

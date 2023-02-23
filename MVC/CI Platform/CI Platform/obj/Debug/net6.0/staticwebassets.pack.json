@@ -257,6 +257,10 @@
       "PackagePath": "staticwebassets\\CI-Imgs\\img11.png"
     },
     {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\CI-Imgs\\img12.png",
+      "PackagePath": "staticwebassets\\CI-Imgs\\img12.png"
+    },
+    {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\CI-Imgs\\img2.png",
       "PackagePath": "staticwebassets\\CI-Imgs\\img2.png"
     },
@@ -445,6 +449,10 @@
       "PackagePath": "staticwebassets\\CI-Imgs\\xlsx.png"
     },
     {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\css\\Favourite.css",
+      "PackagePath": "staticwebassets\\css\\Favourite.css"
+    },
+    {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\css\\Forget.css",
       "PackagePath": "staticwebassets\\css\\Forget.css"
     },
@@ -459,6 +467,10 @@
     {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\css\\Reset.css",
       "PackagePath": "staticwebassets\\css\\Reset.css"
+    },
+    {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\css\\Story_Listing.css",
+      "PackagePath": "staticwebassets\\css\\Story_Listing.css"
     },
     {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\css\\bootstrap.min.css",
@@ -477,8 +489,16 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\Favourite.js",
+      "PackagePath": "staticwebassets\\js\\Favourite.js"
+    },
+    {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\Landing.js",
       "PackagePath": "staticwebassets\\js\\Landing.js"
+    },
+    {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\Story_Listing.js",
+      "PackagePath": "staticwebassets\\js\\Story_Listing.js"
     },
     {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\bootstrap.min.js",
