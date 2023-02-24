@@ -123,6 +123,44 @@
     margin-left: 15%;
     width: auto;
   }
+.inputimagebox {
+    width: 100%;
+    border: 1px dotted gray;
+}
+
+.canclebtn {
+    border: 1px solid gray;
+}
+
+.submitbtn {
+    border: 1px solid gray;
+}
+
+.image-preview img {
+    width: 120px;
+    height: 120px;
+    margin-left: 10px;
+}
+
+.image-container {
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.remove-button {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 109px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+}
   @media (max-width:991px){
     .stars{
       width: 377px;

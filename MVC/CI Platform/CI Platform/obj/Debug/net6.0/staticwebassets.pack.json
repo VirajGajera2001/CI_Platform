@@ -337,6 +337,10 @@
       "PackagePath": "staticwebassets\\CI-Imgs\\pin1.png"
     },
     {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\CI-Imgs\\plus-lg.svg",
+      "PackagePath": "staticwebassets\\CI-Imgs\\plus-lg.svg"
+    },
+    {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\CI-Imgs\\previous.png",
       "PackagePath": "staticwebassets\\CI-Imgs\\previous.png"
     },
@@ -495,6 +499,10 @@
     {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\Landing.js",
       "PackagePath": "staticwebassets\\js\\Landing.js"
+    },
+    {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\Share_Story.js",
+      "PackagePath": "staticwebassets\\js\\Share_Story.js"
     },
     {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\Story_Listing.js",

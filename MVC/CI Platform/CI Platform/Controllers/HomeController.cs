@@ -59,6 +59,10 @@ namespace CI_Platform.Controllers
         {
             return View();
         }
+        public IActionResult Share_Story()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

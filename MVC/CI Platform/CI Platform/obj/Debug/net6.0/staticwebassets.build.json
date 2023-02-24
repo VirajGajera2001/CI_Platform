@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SWHb8u3XtElmNdxqEWRkTmyJZAJ4o7SojN2fll4jsFo=",
+  "Hash": "BCN7E3WH0fqhX2idXGKF37F868ZYBeIVRx0S4CRTRHg=",
   "Source": "CI Platform",
   "BasePath": "_content/CI Platform",
   "Mode": "Default",
@@ -1394,6 +1394,23 @@
       "OriginalItemSpec": "wwwroot\\CI-Imgs\\Plantation-and-Afforestation-programme-1.png"
     },
     {
+      "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\CI-Imgs\\plus-lg.svg",
+      "SourceId": "CI Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\",
+      "BasePath": "_content/CI Platform",
+      "RelativePath": "CI-Imgs/plus-lg.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\CI-Imgs\\plus-lg.svg"
+    },
+    {
       "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\CI-Imgs\\previous.png",
       "SourceId": "CI Platform",
       "SourceType": "Discovered",
@@ -2157,6 +2174,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Landing.js"
+    },
+    {
+      "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\Share_Story.js",
+      "SourceId": "CI Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\",
+      "BasePath": "_content/CI Platform",
+      "RelativePath": "js/Share_Story.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Share_Story.js"
     },
     {
       "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\site.js",
