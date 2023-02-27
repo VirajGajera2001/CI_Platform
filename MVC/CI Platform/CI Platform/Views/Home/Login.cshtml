@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model CI_Platform.DataModels.User
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,12 +58,12 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 p-0">
                 <div class="form-group ms-5">
-                    <form class="ms-5 loginform">
+                    <form class="ms-5 loginform" asp-controller="Login" asp-action="Login">
                         <label for="email">Emaill Address</label>
-                        <input type="text" class="form-control w-75">
+                        <input type="text" asp-for="Email" class="form-control w-75">
                         <label for="password" class="mt-3">Password</label>
-                        <input type="password" class="form-control w-75">
-                        <a class="btn btn-lg btn-outline-warning w-75 mt-4 login" href="@Url.Action("Landing","Home")">Login</a>
+                        <input type="password" asp-for="Password" class="form-control w-75">
+                        <button type="submit" class=" btn btn-lg btn-outline-warning w-75 mt-4 login">Login</button> 
                         <a asp-controller="Home" asp-action="Forget" class="mt-3 lost text-decoration-none">Lost your password?</a> <br />
                         <p>Don't have an account?<a asp-controller="Home" asp-action="Registration" class="text-decoration-none"><SPan style="color: #2B64B1;"> Create an account</SPan></a></p>
                         <p class="terms">Privacy Policy</p>

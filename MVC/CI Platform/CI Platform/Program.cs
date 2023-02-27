@@ -1,7 +1,10 @@
+using CI_Platform.DataModels;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<CIdbcontext>();
 
 var app = builder.Build();
 

@@ -1,4 +1,5 @@
-﻿using CI_Platform.Models;
+﻿using CI_Platform.DataModels;
+using CI_Platform.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,10 +8,12 @@ namespace CI_Platform.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly CIdbcontext _cidbcontext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,CIdbcontext cIdbcontext)
         {
             _logger = logger;
+            _cidbcontext = cIdbcontext;
         }
 
         public IActionResult Index()
@@ -31,6 +34,14 @@ namespace CI_Platform.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Registration(User user)
+        {
+            _cidbcontext.Users.Add(user);
+            _cidbcontext.SaveChanges();
+            return RedirectToAction("Login");
+        }
+
         public IActionResult Forget()
         {
             return View();
