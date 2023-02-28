@@ -1,0 +1,92 @@
+using CI_Platform.DataModels;
+using CI_Platform.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
+
+namespace CI_Platform.Controllers
+{
+    public class ForgetController : Controller
+    {
+        private readonly CIdbcontext _cidbcontext;
+        public ForgetController(CIdbcontext cidbcontext)
+        {
+            _cidbcontext = cidbcontext;
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public IActionResult Forget(ForgetModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _cidbcontext.Users.FirstOrDefault(c => c.Email == model.Email);
+                if (user == null)
+                {
+                    return RedirectToAction("Forget", "Home");
+                }
+
+                // Generate password reset token
+                var token = Guid.NewGuid().ToString();
+
+                // Save the token to the database
+                user.ResetPasswordToken = token;
+                user.ResetPasswordTokenExpiry = DateTime.UtcNow.AddHours(2);
+                _cidbcontext.SaveChanges();
+
+                // Generate the password reset link
+                var resetLink = Url.Action("Reset", "Forget", new { token }, Request.Scheme);
+
+                // TODO: Send the password reset link to user's email
+
+                return View("ForgetSuccess");
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Reset(string token)
+        {
+            var user = _cidbcontext.Users.FirstOrDefault(c => c.ResetPasswordToken == token && c.ResetPasswordTokenExpiry > DateTime.UtcNow);
+
+            if (user == null)
+            {
+                return RedirectToAction("Forget", "Home");
+            }
+
+            var model = new ResetPasswordModel { Token = token };
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public IActionResult Reset(ResetPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _cidbcontext.Users.FirstOrDefault(c => c.ResetPasswordToken == model.Token && c.ResetPasswordTokenExpiry > DateTime.UtcNow);
+
+                if (user == null)
+                {
+                    return RedirectToAction("Forget", "Home");
+                }
+
+                // Reset the user's password
+                user.Password = model.Password;
+                user.ResetPasswordToken = null;
+                user.ResetPasswordTokenExpiry = null;
+                _cidbcontext.SaveChanges();
+
+                return View("ResetSuccess");
+            }
+
+            return View(model);
+        }
+    }
+}

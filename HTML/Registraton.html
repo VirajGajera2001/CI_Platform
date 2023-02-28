@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="../Bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../CSS/Registration.css">
     <title>Document</title>
@@ -54,7 +53,7 @@
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 p-0">
           <div class="form-group ms-5">
-            <form class="ms-5 loginform">
+            <form class="ms-5 loginform" onsubmit="return check();">
               <label for="fname">First Name</label>
               <input type="text" class="form-control w-75">
 
@@ -62,18 +61,17 @@
               <input type="text" class="form-control w-75">
 
               <label for="tel-phone" class="group">Phone Number</label>
-              <input type="tel" class="form-control w-75">
+              <input type="tel" class="form-control w-75 phonenumber">
 
               <label for="email" class="group">Email Address</label>
-              <input type="email" class="form-control w-75">
+              <input type="email" class="form-control w-75 checkmail">
 
               <label for="password" class="mt-3 group">Password</label>
-              <input type="password" class="form-control w-75">
+              <input type="password" class="form-control w-75 password">
 
               <label for="confirmpassword" class="mt-3 group">Confirm Password</label>
-              <input type="password" class="form-control w-75">
-
-              <button type="button" class="btn btn-lg btn-outline-warning w-75 mt-4 login">Register</button>
+              <input type="password" class="form-control w-75 confpassword">
+              <button type="submit" class=" btn btn-lg btn-outline-warning w-75 mt-4 login">Register</button>
               <p class="mt-3 lost">Lost your password?</p>
               <p class="ms-5 check">Already Registered?<a href="Login.html" class="text-decoration-none"><SPan style="color: #2B64B1;"> Login now</SPan></a></p>
               <p class="terms">Privacy Policy</p>
@@ -82,5 +80,7 @@
         </div>
       </div>
     </div>
+    <script src="../JS/Registration.js"></script>
+    <script src="../Bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>

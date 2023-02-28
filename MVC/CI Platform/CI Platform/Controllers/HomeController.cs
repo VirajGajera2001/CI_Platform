@@ -1,5 +1,6 @@
 ﻿using CI_Platform.DataModels;
 using CI_Platform.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -35,11 +36,21 @@ namespace CI_Platform.Controllers
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public IActionResult Registration(User user)
         {
-            _cidbcontext.Users.Add(user);
-            _cidbcontext.SaveChanges();
-            return RedirectToAction("Login");
+                var userexists = _cidbcontext.Users.FirstOrDefault(u => u.Email == user.Email);
+                if (userexists != null) {
+                    ModelState.AddModelError("Email", "User with this email is already exists");
+                    return View(user);
+                }
+                else
+                {
+                    _cidbcontext.Users.Add(user);
+                    _cidbcontext.SaveChanges();
+                    return RedirectToAction("Login");
+                }
         }
 
         public IActionResult Forget()

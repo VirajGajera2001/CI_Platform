@@ -60,24 +60,33 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 p-0">
                 <div class="form-group ms-5">
-                    <form class="ms-5 loginform" asp-action="Registration">
-                        <label for="fname">First Name</label>
+                    <form class="ms-5 loginform" asp-action="Registration" asp-controller="Home" onsubmit="return check();">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <label asp-for="FirstName">First Name</label>
                         <input type="text" asp-for="FirstName" class="form-control w-75">
+                        <span asp-validation-for="FirstName"></span>
 
-                        <label for="lname" class="group">Last Name</label>
+
+                        <label asp-for="LastName" class="group">Last Name</label>
                         <input type="text" asp-for="LastName" class="form-control w-75">
+                        <span asp-validation-for="LastName"></span>
 
-                        <label for="tel-phone" class="group">Phone Number</label>
+
+                        <label asp-for="PhoneNumber" class="group">Phone Number</label>
                         <input type="tel" asp-for="PhoneNumber" class="form-control w-75">
+                        <span asp-validation-for="PhoneNumber"></span>
 
-                        <label for="email" class="group">Email Address</label>
-                        <input type="email" asp-for="Email" class="form-control w-75">
 
-                        <label for="password" class="mt-3 group">Password</label>
-                        <input type="password" asp-for="Password" class="form-control w-75">
+                        <label asp-for="Email" class="group">Email Address</label>
+                        <input type="email" asp-for="Email" class="form-control w-75 checkmail">
+                        <span asp-validation-for="Email"></span><br />
+
+                        <label asp-for="Password" class="mt-3 group">Password</label>
+                        <input type="password" asp-for="Password" class="form-control w-75 password">
+                        <span asp-validation-for="Password"></span>
 
                         <label for="confirmpassword" class="mt-3 group">Confirm Password</label>
-                        <input type="password" class="form-control w-75">
+                        <input type="password" class="form-control w-75 confpassword">
 
                         <input type="submit" value="Register" class="btn btn-lg btn-outline-warning w-75 mt-4 login" />
                         <p><a asp-asp-controller="Home" asp-action="Forget" class="mt-3 lost text-decoration-none">Lost your password?</a></p>
@@ -88,6 +97,12 @@
             </div>
         </div>
     </div>
+    <script src="~/js/Registration.js"></script>
 </body>
 </html>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
