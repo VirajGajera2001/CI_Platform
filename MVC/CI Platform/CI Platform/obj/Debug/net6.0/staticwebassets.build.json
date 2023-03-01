@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "w3L/DqGJRA7OVJWKNMASMilgAVqqLaDYWXoXSnl5fLQ=",
+  "Hash": "FLJ1KtDBdiJSqxVN9JDYkjpsQbdmqz4yoL5FRTYmimQ=",
   "Source": "CI Platform",
   "BasePath": "_content/CI Platform",
   "Mode": "Default",
@@ -2191,6 +2191,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Registration.js"
+    },
+    {
+      "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\Reset.js",
+      "SourceId": "CI Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\",
+      "BasePath": "_content/CI Platform",
+      "RelativePath": "js/Reset.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Reset.js"
     },
     {
       "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\Share_Story.js",

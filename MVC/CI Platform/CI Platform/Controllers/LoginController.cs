@@ -28,7 +28,8 @@ namespace CI_Platform.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Login", "Home");
+                    ModelState.AddModelError("Email", "User is already exists please go to register");
+                    return View(model);          
                 }
             }
             return View();

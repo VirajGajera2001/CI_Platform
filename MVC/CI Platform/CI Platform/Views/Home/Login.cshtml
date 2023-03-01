@@ -59,6 +59,7 @@
             <div class="col-lg-4 col-md-4 col-sm-12 p-0">
                 <div class="form-group ms-5">
                     <form class="ms-5 loginform" asp-controller="Login" asp-action="Login">
+                        <h2>@ViewBag.Errormessage</h2>
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <label asp-for="Email">Emaill Address</label>
                         <input type="text" asp-for="Email" class="form-control w-75">

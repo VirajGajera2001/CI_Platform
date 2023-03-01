@@ -57,10 +57,55 @@ namespace CI_Platform.Controllers
         {
             return View();
         }
-        public IActionResult Reset()
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Reset(string email, string token)
         {
-            return View();
+            var passwordReset = _cidbcontext.PasswordResets.FirstOrDefault(pr => pr.Email == email && pr.Token == token);
+            if (passwordReset == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            // Pass the email and token to the view for resetting the password
+            var model = new Resetpass
+            {
+                Email = email,
+                Token = token
+            };
+            return View(model);
         }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Reset(Resetpass respa)
+        {
+            // Find the user by email
+            var user = _cidbcontext.Users.FirstOrDefault(u => u.Email == respa.Email);
+            if (user == null)
+            {
+                return RedirectToAction("Forget", "Home");
+            }
+
+            // Find the password reset record by email and token
+            var passwordReset = _cidbcontext.PasswordResets.FirstOrDefault(pr => pr.Email == respa.Email && pr.Token == respa.Token);
+            if (passwordReset == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Update the user's password
+            user.Password = respa.Password;
+            _cidbcontext.SaveChanges();
+
+            // Remove the password reset record from the database
+
+
+
+            return View("Login");
+        }
+
         public IActionResult Landing()
         {
             return View();

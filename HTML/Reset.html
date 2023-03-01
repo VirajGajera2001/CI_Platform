@@ -54,14 +54,14 @@
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 p-0">
           <div class="form-group ms-5">
-            <form class="ms-5 resetform">
+            <form class="ms-5 resetform" onsubmit="return checkpass();">
               <h5 class="fortitle">Reset Password</h5>
               <p>Please enter a new password in the fields below.</p>
               <label for="password">New Password</label>
-              <input type="password" class="form-control w-75">
+              <input type="password" class="form-control w-75 pass1">
               <label for="password" class="mt-3">Confirm New Password</label>
-              <input type="password" class="form-control w-75">
-              <button type="button" class="btn btn-lg btn-outline-warning w-75 mt-4 login">Change Password</button><br><br>
+              <input type="password" class="form-control w-75 cnpass1">
+              <button type="submit" class="btn btn-lg btn-outline-warning w-75 mt-4 login">Change Password</button><br><br>
               <a href="Login.html" class="log text-decoration-none">Log in</a>
               <p class="terms">Privacy Policy</p>
             </form>
@@ -69,5 +69,6 @@
         </div>
       </div>
     </div>
+    <script src="../JS/Reset.js"></script>
   </body>
 </html>

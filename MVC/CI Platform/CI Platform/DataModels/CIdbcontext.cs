@@ -606,22 +606,22 @@ public partial class CIdbcontext : DbContext
 
         modelBuilder.Entity<PasswordReset>(entity =>
         {
-            entity.HasKey(e => e.Email);
+            entity.HasKey(e => e.Token).HasName("PK_password_reset_1");
 
             entity.ToTable("password_reset");
 
-            entity.Property(e => e.Email)
-                .HasMaxLength(191)
-                .IsUnicode(false)
-                .HasColumnName("email");
-            entity.Property(e => e.CreatedAt)
-                .IsRowVersion()
-                .IsConcurrencyToken()
-                .HasColumnName("created_at");
             entity.Property(e => e.Token)
                 .HasMaxLength(191)
                 .IsUnicode(false)
                 .HasColumnName("token");
+            entity.Property(e => e.CreatedAt)
+                .IsRowVersion()
+                .IsConcurrencyToken()
+                .HasColumnName("created_at");
+            entity.Property(e => e.Email)
+                .HasMaxLength(191)
+                .IsUnicode(false)
+                .HasColumnName("email");
         });
 
         modelBuilder.Entity<Skill>(entity =>

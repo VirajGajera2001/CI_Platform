@@ -8,11 +8,7 @@ function check() {
         alert("email is not valid")
         return false;
     }
-    else if(ph[0].value.length!==10){
-        alert("please enter 10 digit phone number");
-        return false;
-    }
-    else if (p[0].value !== cp[0].value) {
+     else if (p[0].value !== cp[0].value) {
         alert("please enter same password");
         console.log("plesse");
         return false;

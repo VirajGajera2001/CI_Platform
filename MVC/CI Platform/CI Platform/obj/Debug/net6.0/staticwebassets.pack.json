@@ -505,6 +505,10 @@
       "PackagePath": "staticwebassets\\js\\Registration.js"
     },
     {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\Reset.js",
+      "PackagePath": "staticwebassets\\js\\Reset.js"
+    },
+    {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI Platform\\CI Platform\\wwwroot\\js\\Share_Story.js",
       "PackagePath": "staticwebassets\\js\\Share_Story.js"
     },

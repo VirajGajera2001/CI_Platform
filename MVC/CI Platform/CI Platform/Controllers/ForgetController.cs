@@ -27,7 +27,8 @@ namespace CI_Platform.Controllers
                 var user = _cidbcontext.Users.FirstOrDefault(u => u.Email == model.Email);
                 if (user == null)
                 {
-                    return RedirectToAction("Forget", "Home");
+                    ModelState.AddModelError("Email", "Email is not valid");
+                    return View(model);
                 }
 
                 // Generate a password reset token for the user
@@ -69,60 +70,6 @@ namespace CI_Platform.Controllers
 
             return View();
         }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult ResetPassword(string email, string token)
-        {
-            var passwordReset = _cidbcontext.PasswordResets.FirstOrDefault(pr => pr.Email == email && pr.Token == token);
-            if (passwordReset == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            // Pass the email and token to the view for resetting the password
-            var model = new PasswordReset
-            {
-                Email = email,
-                Token = token
-            };
-            return View(model);
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ResetPassword(User model,PasswordReset pmodel)
-        {
-            if (ModelState.IsValid)
-            {
-                // Find the user by email
-                var user = _cidbcontext.Users.FirstOrDefault(u => u.Email == model.Email);
-                if (user == null)
-                {
-                    return RedirectToAction("Forget", "Home");
-                }
-
-                // Find the password reset record by email and token
-                var passwordReset = _cidbcontext.PasswordResets.FirstOrDefault(pr => pr.Email == model.Email && pr.Token == pmodel.Token);
-                if (passwordReset == null)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-
-                // Update the user's password
-                user.Password = model.Password;
-                _cidbcontext.SaveChanges();
-
-                // Remove the password reset record from the database
-                _cidbcontext.PasswordResets.Remove(passwordReset);
-                _cidbcontext.SaveChanges();
-
-                return RedirectToAction("PasswordResetSuccessful", "Forget");
-            }
-
-            return View(model);
-        }
-
 
 
 
