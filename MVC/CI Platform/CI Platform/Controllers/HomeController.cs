@@ -108,7 +108,8 @@ namespace CI_Platform.Controllers
 
         public IActionResult Landing()
         {
-            return View();
+            List<Mission> missions = _cidbcontext.Missions.ToList();
+            return View(missions);
         }
         public IActionResult NoMission()
         {

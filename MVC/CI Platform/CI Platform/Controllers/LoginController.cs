@@ -14,6 +14,12 @@ namespace CI_Platform.Controllers
         {
             _cidbcontext = cidbcontext;
         }
+        [HttpGet]
+        public ActionResult Login()
+        {
+            HttpContext.Session.Clear();
+            return View();
+        }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -24,6 +30,7 @@ namespace CI_Platform.Controllers
                 var user = _cidbcontext.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
                 if (user != null)
                 {
+                    HttpContext.Session.SetString("FName",model.Email);
                     return RedirectToAction("Landing", "Home");
                 }
                 else
