@@ -1,659 +1,393 @@
-﻿@model IEnumerable<CI_Platform.DataModels.Mission>
-
-@{
-    var name = Context.Session.GetString("FName");
-    if (name == null)
-    {
-        TempData["LoginReq"] = "Please Login First";
-        Context.Response.Redirect("Login");
-    }
-    else{
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="../CSS/landing.css" />
-    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <div class="hambarger col-lg-2 col-md-6">
-                <button class="btn btn-outline-dark hambarger"
-                        type="button"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasBottom"
-                        aria-controls="offcanvasBottom">
-                    <span class="navbar-toggler-icon">
-                        <img src="../CI-Imgs/menu-bar.svg" alt="" />
-                    </span>
-                </button>
-                <div class="offcanvas offcanvas-start offcanvahambarger"
-                     tabindex="-1"
-                     id="offcanvasBottom"
-                     aria-labelledby="offcanvasBottomLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasBottomLabel">
-                            Offcanvas bottom
-                        </h5>
-                        <button type="button"
-                                class="btn-close text-reset"
-                                data-bs-dismiss="offcanvas"
-                                aria-label="Close">
-                        </button>
-                    </div>
-                    <div class="offcanvas-body small">
-                        <div class="downbox ms-2">
-                            <a asp-controller="Home" asp-action="Story_Listing" class="text-decoration-none" style="color: black">
-                                Story
-                            </a>
+﻿@{var name = Context.Session.GetString("FName");}
+@using Newtonsoft.Json;
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="../CSS/landing.css" />
+        <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <div class="hambarger col-lg-2 col-md-6">
+                    <button class="btn btn-outline-dark hambarger"
+                            type="button"
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasBottom"
+                            aria-controls="offcanvasBottom">
+                        <span class="navbar-toggler-icon">
+                            <img src="../CI-Imgs/menu-bar.svg" alt="" />
+                        </span>
+                    </button>
+                    <div class="offcanvas offcanvas-start offcanvahambarger"
+                         tabindex="-1"
+                         id="offcanvasBottom"
+                         aria-labelledby="offcanvasBottomLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasBottomLabel">
+                                Offcanvas bottom
+                            </h5>
+                            <button type="button"
+                                    class="btn-close text-reset"
+                                    data-bs-dismiss="offcanvas"
+                                    aria-label="Close">
+                            </button>
                         </div>
-                        <div class="dropdown mt-2">
-                            <div class="downbox">
-                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
-                                    <option value="">Policy</option>
-                                    <option value="">Policy1</option>
-                                    <option value="">Policy2</option>
-                                    <option value="">Policy3</option>
-                                </select>
+                        <div class="offcanvas-body small">
+                            <div class="downbox ms-2">
+                                <a asp-controller="Home" asp-action="Story_Listing" class="text-decoration-none" style="color: black">
+                                    Story
+                                </a>
                             </div>
-                        </div>
-                        <div class="dropdown mt-2">
-                            <div class="downbox">
-                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
-                                    <option value="">Country</option>
-                                    <option value="">Policy1</option>
-                                    <option value="">Policy2</option>
-                                    <option value="">Policy3</option>
-                                </select>
+                            <div class="dropdown mt-2">
+                                <div class="downbox">
+                                    <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                        <option value="">Policy</option>
+                                        <option value="">Policy1</option>
+                                        <option value="">Policy2</option>
+                                        <option value="">Policy3</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="dropdown mt-2">
-                            <div class="downbox">
-                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
-                                    <option value="">City</option>
-                                    <option value="">Policy1</option>
-                                    <option value="">Policy2</option>
-                                    <option value="">Policy3</option>
-                                </select>
+                            <div class="dropdown mt-2">
+                                <div class="downbox">
+                                    <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                        <option value="">Country</option>
+                                        <option value="">Policy1</option>
+                                        <option value="">Policy2</option>
+                                        <option value="">Policy3</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="dropdown mt-2">
-                            <div class="downbox">
-                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
-                                    <option value="">Theme</option>
-                                    <option value="">Policy1</option>
-                                    <option value="">Policy2</option>
-                                    <option value="">Policy3</option>
-                                </select>
+                            <div class="dropdown mt-2">
+                                <div class="downbox">
+                                    <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                        <option value="">City</option>
+                                        <option value="">Policy1</option>
+                                        <option value="">Policy2</option>
+                                        <option value="">Policy3</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="dropdown mt-2">
-                            <div class="downbox">
-                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
-                                    <option value="">Skills</option>
-                                    <option value="">Policy1</option>
-                                    <option value="">Policy2</option>
-                                    <option value="">Policy3</option>
-                                </select>
+                            <div class="dropdown mt-2">
+                                <div class="downbox">
+                                    <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                        <option value="">Theme</option>
+                                        <option value="">Policy1</option>
+                                        <option value="">Policy2</option>
+                                        <option value="">Policy3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="dropdown mt-2">
+                                <div class="downbox">
+                                    <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                        <option value="">Skills</option>
+                                        <option value="">Policy1</option>
+                                        <option value="">Policy2</option>
+                                        <option value="">Policy3</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-10 col-md-6 mid">
-                <div class="story profitext">
-                    <a asp-controller="Home" asp-action="Story_Listing" class="text-decoration-none" style="color: black;">Story</a>
-                </div>
-                <div class="policy ms-5 profitext">
-                    <select name="" id="" class="border-0">
-                        <option value="">Policy</option>
-                        <option value="">Policy1</option>
-                        <option value="">Policy2</option>
-                        <option value="">Policy3</option>
-                    </select>
-                </div>
-                <div class="profile d-flex ms-auto">
-                    <img src="../CI-Imgs/bell.png" alt="" class="bell ms-auto">
-                    <div class="dropdown">
-                        <button class="border-0 bg-white" type="button" data-bs-toggle="dropdown">
-                            <img src="../CI-Imgs/user-img.png" class="profileimg">
+                <div class="col-lg-10 col-md-6 mid">
+                    <div class="story profitext">
+                        <a asp-controller="Home" asp-action="Story_Listing" class="text-decoration-none" style="color: black;">Story</a>
+                    </div>
+                    <div class="policy ms-5 profitext">
+                        <select name="" id="" class="border-0">
+                            <option value="">Policy</option>
+                            <option value="">Policy1</option>
+                            <option value="">Policy2</option>
+                            <option value="">Policy3</option>
+                        </select>
+                    </div>
+                    <div class="profile d-flex ms-auto">
+                        <img src="../CI-Imgs/bell.png" alt="" class="bell ms-auto">
+                        <div class="dropdown">
+                            <button class="border-0 bg-white" type="button" data-bs-toggle="dropdown">
+                                <img src="../CI-Imgs/user-img.png" class="profileimg">
                             @{
                                 if (@name != null)
                                 {
                                     <span>@name</span>
                                 }
-                             }
+                            }
+                                <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">My Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Help</a></li>
+                                <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </nav>
+        <nav class="navbar navbar-expand-lg secondnav p-0">
+            <div class="row container-fluid p-0">
+                <div class="col-md-4 d-flex col-lg-8">
+                    <img src="../CI-Imgs/search.png" alt="" class="searchico mt-2 ms-3">
+                    <input type="text" class="form-control border-0" placeholder="Search mission..." id="filter-input" />
+                </div>
+                <div class="col-md-2 country col-lg-1 p-0">
+                    <div class="dropdown downs">
+                        <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                            <span>Country</span>
                             <img src="../CI-Imgs/drop-down.png" class="ic-down">
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">My Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Help</a></li>
-                            <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="USA" />USA
+                            </li>
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="Canada" />Canada
+                            </li>
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="UK" />UK
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 city col-lg-1 p-0">
+                    <div class="dropdown downs">
+                        <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                            <span>City</span>
+                            <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="Rajkot" />Rajkot
+                            </li>
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="Ahmedabad" />Ahmedabad
+                            </li>
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="Surat" />Surat
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 theme col-lg-1 p-0">
+                    <div class="dropdown downs">
+                        <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                            <span>Theme</span>
+                            <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="Theme1" />Theme1
+                            </li>
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="Theme2" />Theme2
+                            </li>
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="Theme3" />Theme3
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 skills col-lg-1 p-0">
+                    <div class="dropdown downs">
+                        <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                            <span>Skills</span>
+                            <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="Skill1" />Skill1
+                            </li>
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="Skill2" />Skill2
+                            </li>
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="Skill3" />Skill3
+                            </li>
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="Skill3" />Skill3
+                            </li>
+                            <li>
+                                <input class="form-check-input Checkme" type="checkbox" value="Skill3" />Skill3
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
-            </div>
-    </nav>
-    <nav class="navbar navbar-expand-lg secondnav p-0">
-        <div class="row container-fluid p-0">
-            <div class="col-md-4 d-flex col-lg-8">
-                <img src="../CI-Imgs/search.png" alt="" class="searchico mt-2 ms-3">
-                <input type="text" class="form-control border-0" placeholder="Search mission..." />
-            </div>
-            <div class="col-md-2 country col-lg-1 p-0">
-                <div class="dropdown downs">
-                    <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
-                        <span>Country</span>
-                        <img src="../CI-Imgs/drop-down.png" class="ic-down">
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="USA" />USA
-                        </li>
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="Canada" />Canada
-                        </li>
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="UK" />UK
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-2 city col-lg-1 p-0">
-                <div class="dropdown downs">
-                    <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
-                        <span>City</span>
-                        <img src="../CI-Imgs/drop-down.png" class="ic-down">
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="Rajkot" />Rajkot
-                        </li>
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="Ahmedabad" />Ahmedabad
-                        </li>
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="Surat" />Surat
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-2 theme col-lg-1 p-0">
-                <div class="dropdown downs">
-                    <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
-                        <span>Theme</span>
-                        <img src="../CI-Imgs/drop-down.png" class="ic-down">
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="Theme1" />Theme1
-                        </li>
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="Theme2" />Theme2
-                        </li>
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="Theme3" />Theme3
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-2 skills col-lg-1 p-0">
-                <div class="dropdown downs">
-                    <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
-                        <span>Skills</span>
-                        <img src="../CI-Imgs/drop-down.png" class="ic-down">
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="Skill1" />Skill1
-                        </li>
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="Skill2" />Skill2
-                        </li>
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="Skill3" />Skill3
-                        </li>
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="Skill3" />Skill3
-                        </li>
-                        <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="Skill3" />Skill3
-                        </li>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <button id="clearBtn" class="clear-button mt-1">Clear All</button>
+                <div class="col-12">
+                    <ul class="filtersection d-flex mt-2 flex-wrap">
                     </ul>
                 </div>
             </div>
         </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-            <button id="clearBtn" class="clear-button mt-1">Clear All</button>
-            <div class="col-12">
-                <ul class="filtersection d-flex mt-2 flex-wrap">
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-12 d-flex p-0">
-                <h4>Explore 72 Missions</h4>
-                <div class="ms-auto">
-                    <select class="mt-1">
-                        <option value="Sort By">Sort By</option>
-                        <option value="Sort By">Sort 1</option>
-                        <option value="Sort By">Sort 2</option>
-                    </select>
-                </div>
-                <div>
-                    <button class="border-0 bg-white ms-2"><img src="../CI-Imgs/grid.png" alt="" onclick="gridView()" style=""></button>
-                    <button class="border-0 bg-white ms-2"><img src="../CI-Imgs/list.png" alt="" onclick="listView()" style=""></button>
-                </div>
-            </div>
-        </div>
-    </div>
-    @foreach(var item in Model){
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
-                <div class="card cardview mx-auto" style="width: 19rem;">
-                    <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
-                    <div class="imgbadge1 bg-white">
-                        <p class="ms-3">Environment</p>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12 d-flex p-0">
+                    <h4>Explore 72 Missions</h4>
+                    <div class="ms-auto">
+                        <select class="mt-1">
+                            <option value="Sort By">Sort By</option>
+                            <option value="Sort By">Sort 1</option>
+                            <option value="Sort By">Sort 2</option>
+                        </select>
                     </div>
-                    <div class="card-body">
-                                    <h5>@Html.DisplayFor(modelItem => item.Title)</h5>
-                                    <p>@Html.DisplayFor(modelItem => item.Description)</p>
-                        <div class="desc1 d-flex">
-                            <div>
-                                            <p>@Html.DisplayFor(modelItem => item.ShortDescription)</p>
-                            </div>
-                            <div class="star d-flex ms-auto">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/star.png" alt="">
-                            </div>
-                        </div>
-                        <div class="bg-white datebadge1">
-                                        <p class="ms-2">From @Html.DisplayFor(modelItem => item.StartDate) until @Html.DisplayFor(modelItem => item.EndDate)</p>
-                        </div>
-                        <hr>
-                        <div class="desc2 d-flex">
-                            <div class="seats d-flex">
-                                <img src="../CI-Imgs/Seats-left.png" alt="">
-                                <p>10 seats left</p>
-                            </div>
-                            <div class="hours d-flex ms-auto">
-                                <img src="../CI-Imgs/hours.png" alt="">
-                                <p>@Html.DisplayFor(modelItem => item.EndDate)<br>Deadline</p>
-                            </div>
-                        </div>
-                        <hr style="margin-top: 30px;">
-                        <div class="apply d-flex">
-                            <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
-                <div class="card cardview mx-auto" style="width: 19rem;">
-                    <img src="../CI-Imgs/Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png" alt="" class="card-image">
-                    <div class="imgbadge1 bg-white">
-                        <p class="ms-4">Children</p>
-                    </div>
-                    <div class="card-body">
-                        <h5>Grow Trees</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-                        <div class="desc1 d-flex">
-                            <div>
-                                <p>Tree Canada</p>
-                            </div>
-                            <div class="star d-flex ms-auto">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/star.png" alt="">
-                            </div>
-                        </div>
-                        <div class="bg-white datebadge1">
-                            <p class="ms-2">From 10/01/2019 until 25/02/2019</p>
-                        </div>
-                        <hr>
-                        <div class="desc2 d-flex">
-                            <div class="seats d-flex">
-                                <img src="../CI-Imgs/Seats-left.png" alt="">
-                                <p>10 seats left</p>
-                            </div>
-                            <div class="hours d-flex ms-auto">
-                                <img src="../CI-Imgs/hours.png" alt="">
-                                <p>09/01/2019<br>Deadline</p>
-                            </div>
-                        </div>
-                        <hr style="margin-top: 30px;">
-                        <div class="apply d-flex">
-                            <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
-                <div class="card cardview mx-auto position-relative" style="width: 19rem;">
-                    <img src="../CI-Imgs/Nourish-the-Children-in--African-country-1.png" alt="" class="card-image">
-                    <div class="imgbadge1 bg-white w-25">
-                        <p class="ms-1">Nutrition</p>
-                    </div>
-                    <div class="card-body">
-                        <h5>Grow Trees</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-                        <div class="desc1 d-flex">
-                            <div>
-                                <p>Tree Canada</p>
-                            </div>
-                            <div class="star d-flex ms-auto">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/star.png" alt="">
-                            </div>
-                        </div>
-                        <div class="bg-white datebadge1">
-                            <p class="ms-2">Ongoing Oppertunity</p>
-                        </div>
-                        <hr>
-                        <div class="desc2 d-flex">
-                            <div class="seats d-flex">
-                                <img src="../CI-Imgs/Seats-left.png" alt="">
-                                <p>10 seats left</p>
-                            </div>
-                            <div class="hours d-flex ms-auto">
-                                <img src="../CI-Imgs/hours.png" alt="">
-                                <p>09/01/2019<br>Deadline</p>
-                            </div>
-                        </div>
-                        <hr style="margin-top: 30px;">
-                        <div class="apply d-flex">
-                            <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
-                <div class="card cardview mx-auto" style="width: 19rem;">
-                    <img src="../CI-Imgs/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png" alt="" class="card-image">
-                    <div class="imgbadge1 bg-white">
-                        <p class="ms-3">Environment</p>
-                    </div>
-                    <div class="card-body">
-                        <h5>Grow Trees</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-                        <div class="desc1 d-flex">
-                            <div>
-                                <p>Tree Canada</p>
-                            </div>
-                            <div class="star d-flex ms-auto">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/star.png" alt="">
-                            </div>
-                        </div>
-                        <div class="bg-white datebadge1">
-                            <p class="ms-2">Ongoing Oppertunity</p>
-                        </div>
-                        <hr>
-                        <div class="desc2 d-flex">
-                            <div class="seats d-flex">
-                                <img src="../CI-Imgs/Seats-left.png" alt="">
-                                <p>10 seats left</p>
-                            </div>
-                            <div class="hours d-flex ms-auto">
-                                <img src="../CI-Imgs/hours.png" alt="">
-                                <p>09/01/2019<br>Deadline</p>
-                            </div>
-                        </div>
-                        <hr style="margin-top: 30px;">
-                        <div class="apply d-flex">
-                            <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
-                <div class="card cardview mx-auto" style="width: 19rem;">
-                    <img src="../CI-Imgs/Animal-welfare-_-save-birds-campaign-1.png" alt="" class="card-image">
-                    <div class="imgbadge1 bg-white">
-                        <p class="ms-3">Animals</p>
-                    </div>
-                    <div class="card-body">
-                        <h5>Grow Trees</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-                        <div class="desc1 d-flex">
-                            <div>
-                                <p>Tree Canada</p>
-                            </div>
-                            <div class="star d-flex ms-auto">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/star.png" alt="">
-                            </div>
-                        </div>
-                        <div class="bg-white datebadge1">
-                            <p class="ms-2">Plant 10,000 Trees</p>
-                        </div>
-                        <hr>
-                        <div class="desc2 d-flex">
-                            <div class="seats d-flex">
-                                <img src="../CI-Imgs/Seats-left.png" alt="">
-                                <p>10 seats left</p>
-                            </div>
-                            <div class="hours d-flex ms-auto">
-                                <img src="../CI-Imgs/hours.png" alt="">
-                                <p>09/01/2019<br>Deadline</p>
-                            </div>
-                        </div>
-                        <hr style="margin-top: 30px;">
-                        <div class="apply d-flex">
-                            <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
-                <div class="card cardview mx-auto" style="width: 19rem;">
-                    <img src="../CI-Imgs/Plantation-and-Afforestation-programme-1.png" alt="" class="card-image">
-                    <div class="imgbadge1 bg-white w-25">
-                        <p class="ms-3">  Health  </p>
-                    </div>
-                    <div class="card-body">
-                        <h5>Grow Trees</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-                        <div class="desc1 d-flex">
-                            <div>
-                                <p>Tree Canada</p>
-                            </div>
-                            <div class="star d-flex ms-auto">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/star.png" alt="">
-                            </div>
-                        </div>
-                        <div class="bg-white datebadge1">
-                            <p class="ms-2">Plant 10,000 Trees</p>
-                        </div>
-                        <hr>
-                        <div class="desc2 d-flex">
-                            <div class="seats d-flex">
-                                <img src="../CI-Imgs/Seats-left.png" alt="">
-                                <p>10 seats left</p>
-                            </div>
-                            <div class="hours d-flex ms-auto">
-                                <img src="../CI-Imgs/hours.png" alt="">
-                                <p>09/01/2019<br>Deadline</p>
-                            </div>
-                        </div>
-                        <hr style="margin-top: 30px;">
-                        <div class="apply d-flex">
-                            <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
-                <div class="card cardview mx-auto" style="width: 19rem;">
-                    <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
-                    <div class="imgbadge1 bg-white">
-                        <p class="ms-3">Education</p>
-                    </div>
-                    <div class="card-body">
-                        <h5>Grow Trees</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-                        <div class="desc1 d-flex">
-                            <div>
-                                <p>Tree Canada</p>
-                            </div>
-                            <div class="star d-flex ms-auto">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/star.png" alt="">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="desc2 d-flex">
-                            <div class="seats d-flex">
-                                <img src="../CI-Imgs/Seats-left.png" alt="">
-                                <p>10 seats left</p>
-                            </div>
-                            <div class="hours d-flex ms-auto">
-                                <img src="../CI-Imgs/hours.png" alt="">
-                                <p>09/01/2019<br>Deadline</p>
-                            </div>
-                        </div>
-                        <hr style="margin-top: 30px;">
-                        <div class="apply d-flex">
-                            <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
-                <div class="card cardview mx-auto" style="width: 19rem;">
-                    <img src="../CI-Imgs/Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png" alt="" class="card-image">
-                    <div class="imgbadge1 bg-white">
-                        <p class="ms-4">Children</p>
-                    </div>
-                    <div class="card-body">
-                        <h5>Grow Trees</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-                        <div class="desc1 d-flex">
-                            <div>
-                                <p>Tree Canada</p>
-                            </div>
-                            <div class="star d-flex ms-auto">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/star.png" alt="">
-                            </div>
-                        </div>
-                        <div class="bg-white datebadge1">
-                            <p class="ms-2">From 10/01/2019 until 25/02/2019</p>
-                        </div>
-                        <hr>
-                        <div class="desc2 d-flex">
-                            <div class="seats d-flex">
-                                <img src="../CI-Imgs/Seats-left.png" alt="">
-                                <p>10 seats left</p>
-                            </div>
-                            <div class="hours d-flex ms-auto">
-                                <img src="../CI-Imgs/hours.png" alt="">
-                                <p>09/01/2019<br>Deadline</p>
-                            </div>
-                        </div>
-                        <hr style="margin-top: 30px;">
-                        <div class="apply d-flex">
-                            <a href="" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
-                <div class="card cardview mx-auto" style="width: 19rem;">
-                    <img src="../CI-Imgs/Nourish-the-Children-in--African-country-1.png" alt="" class="card-image">
-                    <div class="imgbadge1 bg-white">
-                        <p class="ms-4">Nutrition</p>
-                    </div>
-                    <div class="card-body">
-                        <h5>Grow Trees</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nemo!</p>
-                        <div class="desc1 d-flex">
-                            <div>
-                                <p>Tree Canada</p>
-                            </div>
-                            <div class="star d-flex ms-auto">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/selected-star.png" alt="">
-                                <img src="../CI-Imgs/star.png" alt="">
-                            </div>
-                        </div>
-                        <div class="bg-white datebadge1">
-                            <p class="ms-2">Ongoing Oppertunity</p>
-                        </div>
-                        <hr>
-                        <div class="desc2 d-flex">
-                            <div class="seats d-flex">
-                                <img src="../CI-Imgs/Seats-left.png" alt="">
-                                <p>10 seats left</p>
-                            </div>
-                            <div class="hours d-flex ms-auto">
-                                <img src="../CI-Imgs/hours.png" alt="">
-                                <p>09/01/2019<br>Deadline</p>
-                            </div>
-                        </div>
-                        <hr style="margin-top: 30px;">
-                        <div class="apply d-flex">
-                            <a asp-controller="Home" asp-action="NoMission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-                        </div>
+                    <div>
+                        <button class="border-0 bg-white ms-2"><img src="../CI-Imgs/grid.png" alt="" onclick="gridView()" style=""></button>
+                        <button class="border-0 bg-white ms-2"><img src="../CI-Imgs/list.png" alt="" onclick="listView()" style=""></button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-            }
-    <nav aria-label="Page navigation example" class="mt-3">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only"></span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only"></span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/Landing.js"></script>
-</body>
-</html>
-    }
+        <div class="container">
+            <div class="row" id="gridview">
+                
+            </div>
+        </div>
+        <nav aria-label="Page navigation example" class="mt-3">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only"></span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <script>
+            function updateOutput() {
+  var filter = document.getElementById("filter-input").value;
+  var output = document.getElementById("gridview");
+            var jsonData = @Html.Raw(ViewBag.JsonData);
+  output.innerHTML = "";
+
+  if (filter === "") {
+      jsonData.forEach(student => {
+          var divs = document.createElement("div");
+          divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
+          divs.innerHTML = `<div class="card cardview mx-auto" style="width: 19rem;">
+          <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
+          <div class="imgbadge1 bg-white">
+              <p class="ms-3">Environment</p>
+          </div>
+          <div class="card-body">
+                          <h5>`+student.Title+`</h5>
+                          <p>`+student.Description+`</p>
+              <div class="desc1 d-flex">
+                  <div>
+                                  <p>`+student.ShortDescription+`</p>
+                  </div>
+                  <div class="star d-flex ms-auto">
+                      <img src="../CI-Imgs/selected-star.png" alt="">
+                      <img src="../CI-Imgs/selected-star.png" alt="">
+                      <img src="../CI-Imgs/selected-star.png" alt="">
+                      <img src="../CI-Imgs/star.png" alt="">
+                  </div>
+              </div>
+              <div class="bg-white datebadge1">
+                                              <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
+              </div>
+              <hr>
+              <div class="desc2 d-flex">
+                  <div class="seats d-flex">
+                      <img src="../CI-Imgs/Seats-left.png" alt="">
+                      <p>10 seats left</p>
+                  </div>
+                  <div class="hours d-flex ms-auto">
+                      <img src="../CI-Imgs/hours.png" alt="">
+                              <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
+                  </div>
+              </div>
+              <hr style="margin-top: 30px;">
+              <div class="apply d-flex">
+                  <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+              </div>
+          </div>
+      </div>`;
+          output.appendChild(divs);
+      });
+  } else {
+      var filteredData = jsonData.filter(student => {
+          return student.Title.toLowerCase().startsWith(filter.toLowerCase());
+      });
+
+      filteredData.forEach(student => {
+          var divs = document.createElement("div");
+          divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
+          divs.innerHTML = `<div class="card cardview mx-auto" style="width: 19rem;">
+          <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
+          <div class="imgbadge1 bg-white">
+              <p class="ms-3">Environment</p>
+          </div>
+          <div class="card-body">
+                          <h5>`+student.Title+`</h5>
+                          <p>`+student.Description+`</p>
+              <div class="desc1 d-flex">
+                  <div>
+                                  <p>`+student.ShortDescription+`</p>
+                  </div>
+                  <div class="star d-flex ms-auto">
+                      <img src="../CI-Imgs/selected-star.png" alt="">
+                      <img src="../CI-Imgs/selected-star.png" alt="">
+                      <img src="../CI-Imgs/selected-star.png" alt="">
+                      <img src="../CI-Imgs/star.png" alt="">
+                  </div>
+              </div>
+              <div class="bg-white datebadge1">
+                                              <p class="ms-2">From`+ student.StartDate.slice(0, 10) + `until` + student.EndDate.slice(0, 10) + `</p>
+              </div>
+              <hr>
+              <div class="desc2 d-flex">
+                  <div class="seats d-flex">
+                      <img src="../CI-Imgs/Seats-left.png" alt="">
+                      <p>10 seats left</p>
+                  </div>
+                  <div class="hours d-flex ms-auto">
+                      <img src="../CI-Imgs/hours.png" alt="">
+                              <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
+                  </div>
+              </div>
+              <hr style="margin-top: 30px;">
+              <div class="apply d-flex">
+                  <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+              </div>
+          </div>
+      </div>`;
+          output.appendChild(divs);
+      });
+  }
 }
+
+updateOutput();
+
+// Bind the updateOutput function to the input event of the filter input box
+var filterInput = document.getElementById("filter-input");
+filterInput.addEventListener("input", updateOutput);
+        </script>
+        <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/Landing.js"></script>
+    </body>
+    </html>  
+    
+    

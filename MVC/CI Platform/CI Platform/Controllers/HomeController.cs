@@ -3,6 +3,7 @@ using CI_Platform.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace CI_Platform.Controllers
 {
@@ -105,11 +106,13 @@ namespace CI_Platform.Controllers
 
             return View("Login");
         }
-
+        [HttpGet]
         public IActionResult Landing()
         {
             List<Mission> missions = _cidbcontext.Missions.ToList();
-            return View(missions);
+            string jsonData = JsonSerializer.Serialize(missions);
+            ViewBag.JsonData=jsonData;
+            return View();
         }
         public IActionResult NoMission()
         {

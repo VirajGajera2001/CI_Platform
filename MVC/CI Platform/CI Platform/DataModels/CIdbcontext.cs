@@ -326,7 +326,7 @@ public partial class CIdbcontext : DbContext
                 .HasColumnType("text")
                 .HasColumnName("description");
             entity.Property(e => e.EndDate)
-                .HasColumnType("datetime")
+                .HasColumnType("date")
                 .HasColumnName("end_date");
             entity.Property(e => e.MissionType)
                 .HasMaxLength(10)
@@ -343,7 +343,7 @@ public partial class CIdbcontext : DbContext
                 .HasColumnType("text")
                 .HasColumnName("short_description");
             entity.Property(e => e.StartDate)
-                .HasColumnType("datetime")
+                .HasColumnType("date")
                 .HasColumnName("start_date");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.ThemeId).HasColumnName("theme_id");

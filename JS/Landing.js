@@ -58,3 +58,111 @@ function gridView(){
     imgBadge1[j].style.top="160px"
   }
 }
+function updateOutput() {
+  var filter = document.getElementById("filter-input").value;
+  var output = document.getElementById("gridview");
+  var jsonData =document.getElementsByClassName("bagdata").innerHTML;
+  output.innerHTML = "";
+
+  if (filter === "") {
+      jsonData.forEach(student => {
+          var divs = document.createElement("div");
+          divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
+          divs.innerHTML = `<div class="card cardview mx-auto" style="width: 19rem;">
+          <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
+          <div class="imgbadge1 bg-white">
+              <p class="ms-3">Environment</p>
+          </div>
+          <div class="card-body">
+                          <h5>`+student.Title+`</h5>
+                          <p>`+student.Description+`</p>
+              <div class="desc1 d-flex">
+                  <div>
+                                  <p>`+student.ShortDescription+`</p>
+                  </div>
+                  <div class="star d-flex ms-auto">
+                      <img src="../CI-Imgs/selected-star.png" alt="">
+                      <img src="../CI-Imgs/selected-star.png" alt="">
+                      <img src="../CI-Imgs/selected-star.png" alt="">
+                      <img src="../CI-Imgs/star.png" alt="">
+                  </div>
+              </div>
+              <div class="bg-white datebadge1">
+                              <p class="ms-2">From`+student.StartDate+`until`+student.EndDate+`</p>
+              </div>
+              <hr>
+              <div class="desc2 d-flex">
+                  <div class="seats d-flex">
+                      <img src="../CI-Imgs/Seats-left.png" alt="">
+                      <p>10 seats left</p>
+                  </div>
+                  <div class="hours d-flex ms-auto">
+                      <img src="../CI-Imgs/hours.png" alt="">
+                      <p>`+student.EndDate+`<br>Deadline</p>
+                  </div>
+              </div>
+              <hr style="margin-top: 30px;">
+              <div class="apply d-flex">
+                  <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+              </div>
+          </div>
+      </div>`;
+          output.appendChild(divs);
+      });
+  } else {
+      var filteredData = jsonData.filter(student => {
+          return student.Name.toLowerCase().startsWith(filter.toLowerCase());
+      });
+
+      filteredData.forEach(student => {
+          var divs = document.createElement("div");
+          divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
+          divs.innerHTML = `<div class="card cardview mx-auto" style="width: 19rem;">
+          <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
+          <div class="imgbadge1 bg-white">
+              <p class="ms-3">Environment</p>
+          </div>
+          <div class="card-body">
+                          <h5>`+student.Title+`</h5>
+                          <p>`+student.Description+`</p>
+              <div class="desc1 d-flex">
+                  <div>
+                                  <p>`+student.ShortDescription+`</p>
+                  </div>
+                  <div class="star d-flex ms-auto">
+                      <img src="../CI-Imgs/selected-star.png" alt="">
+                      <img src="../CI-Imgs/selected-star.png" alt="">
+                      <img src="../CI-Imgs/selected-star.png" alt="">
+                      <img src="../CI-Imgs/star.png" alt="">
+                  </div>
+              </div>
+              <div class="bg-white datebadge1">
+                              <p class="ms-2">From`+student.StartDate+`until`+student.EndDate+`</p>
+              </div>
+              <hr>
+              <div class="desc2 d-flex">
+                  <div class="seats d-flex">
+                      <img src="../CI-Imgs/Seats-left.png" alt="">
+                      <p>10 seats left</p>
+                  </div>
+                  <div class="hours d-flex ms-auto">
+                      <img src="../CI-Imgs/hours.png" alt="">
+                      <p>`+student.EndDate+`<br>Deadline</p>
+                  </div>
+              </div>
+              <hr style="margin-top: 30px;">
+              <div class="apply d-flex">
+                  <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+              </div>
+          </div>
+      </div>`;
+          output.appendChild(divs);
+      });
+  }
+}
+
+updateOutput();
+
+// Bind the updateOutput function to the input event of the filter input box
+var filterInput = document.getElementById("filter-input");
+filterInput.addEventListener("input", updateOutput);
