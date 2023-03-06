@@ -58,4 +58,3 @@ function gridView(){
     imgBadge1[j].style.top="160px"
   }
 }
-

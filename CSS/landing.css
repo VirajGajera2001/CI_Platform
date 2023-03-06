@@ -168,6 +168,19 @@
     background-color: white;
     border-radius: 5px;
 }
+.location{
+    background-color: #000000;
+    opacity: 0.5;
+    width: 105px;
+    height: 32px;
+    border-radius: 30px;
+    right: 10px;
+    top: 10px;
+}
+.pins{
+    width: 18px;
+    height: 20px;
+}
 @media (max-width:991px) {
     .profitext{
         display: none;

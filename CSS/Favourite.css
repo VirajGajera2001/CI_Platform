@@ -157,6 +157,24 @@
     font-size: 14px;
     cursor: pointer;
   }
+  .sidestoryimage{
+    width: 101px;
+    height: 101px;
+    border-radius: 50%;
+  }
+  .sidestory{
+    justify-content: space-between;
+  }
+  .eyeimg{
+    width: 20px;
+    height: 20px;
+  }
+  .views{
+    border: 1px solid gray;
+    border-radius: 20px;
+    width: 172px;
+    height: 38px;
+  }
   @media (max-width:991px){
     .stars{
       width: 377px;

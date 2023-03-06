@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace CI_Platform.DataModels;
@@ -18,6 +19,5 @@ public partial class City
     public DateTime? DeletedAt { get; set; }
 
     public virtual Country Country { get; set; } = null!;
-
     public virtual ICollection<Mission> Missions { get; } = new List<Mission>();
 }

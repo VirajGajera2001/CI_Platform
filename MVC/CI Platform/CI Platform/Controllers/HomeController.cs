@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Text.Json;
+using cloudscribe.Pagination.Models;
+using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace CI_Platform.Controllers
 {
@@ -110,8 +113,30 @@ namespace CI_Platform.Controllers
         public IActionResult Landing()
         {
             List<Mission> missions = _cidbcontext.Missions.ToList();
-            string jsonData = JsonSerializer.Serialize(missions);
-            ViewBag.JsonData=jsonData;
+            List<MissionViewModel> missionViewModels= new List<MissionViewModel>();
+            foreach (var mission in missions)
+            {
+                MissionViewModel missionView= new MissionViewModel();
+                missionView.Availability = mission.Availability;
+                missionView.Title = mission.Title;
+                missionView.Description = mission.Description;
+                missionView.ShortDescription = mission.ShortDescription;
+                missionView.StartDate = mission.StartDate;
+                missionView.EndDate = mission.EndDate;
+                var city = _cidbcontext.Cities.FirstOrDefault(c => c.CityId == mission.CityId) ;
+                if (city != null)
+                {
+                    missionView.City = city.Name;
+                }
+                var themes = _cidbcontext.MissionThemes.FirstOrDefault(t => t.MissionThemeId == mission.ThemeId);
+                if (themes != null)
+                {
+                    missionView.Theme= themes.Title;
+                }
+                missionViewModels.Add(missionView);
+            }
+            string jsonData = JsonSerializer.Serialize(missionViewModels);
+            ViewBag.JsonData = jsonData;
             return View();
         }
         public IActionResult NoMission()

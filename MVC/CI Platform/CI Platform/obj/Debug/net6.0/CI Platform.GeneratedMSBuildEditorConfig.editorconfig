@@ -9,85 +9,85 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CI_Platform
 build_property.RootNamespace = CI_Platform
-build_property.ProjectDir = F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\
+build_property.ProjectDir = f:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = F:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform
+build_property.MSBuildProjectDirectory = f:\Tatvasoft\CI Platform\MVC\CI Platform\CI Platform
 build_property._RazorSourceGeneratorDebug = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Forget/Forget.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Forget/Forget.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9yZ2V0XEZvcmdldC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Forget.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Forget.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGb3JnZXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Index.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Landing.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Landing.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMYW5kaW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Login.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/NoMission.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/NoMission.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxOb01pc3Npb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Privacy.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Registration.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Registration.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZWdpc3RyYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/RelatedMission.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/RelatedMission.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZWxhdGVkTWlzc2lvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Reset.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Reset.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZXNldC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Share_Story.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Share_Story.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTaGFyZV9TdG9yeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Story_Listing.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Story_Listing.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdG9yeV9MaXN0aW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Volunteering_Mission.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Home/Volunteering_Mission.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxWb2x1bnRlZXJpbmdfTWlzc2lvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Login/Login.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Login/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Shared/Error.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Shared/_ValidationScriptsPartial.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/_ViewImports.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/_ViewStart.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Shared/_Layout.cshtml]
+[f:/Tatvasoft/CI Platform/MVC/CI Platform/CI Platform/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-m489rrj0lm
