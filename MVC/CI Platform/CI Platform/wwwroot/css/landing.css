@@ -100,7 +100,10 @@
     width: 75%;
     position: absolute;
 }
-
+.showing {
+    height: 300px;
+    overflow-y: auto;
+}
 .imgbadge1 {
     width: 40%;
     position: absolute;

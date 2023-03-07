@@ -1,5 +1,14 @@
 ﻿@{var name = Context.Session.GetString("FName");}
 @using Newtonsoft.Json;
+
+@{
+    var jsoncity=ViewBag.City;
+    var mycity = JsonConvert.DeserializeObject<List<CitydataModel>>(jsoncity);
+    var jsoncountry = ViewBag.Country;
+    var mycountry = JsonConvert.DeserializeObject<List<CountrydataModel>>(jsoncountry);
+    var jsontheme = ViewBag.Themes;
+    var mytheme = JsonConvert.DeserializeObject<List<ThemedataModel>>(jsontheme);
+}
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -144,17 +153,15 @@
                             <span>Country</span>
                             <img src="../CI-Imgs/drop-down.png" class="ic-down">
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu showing">
+                        @foreach(var item in mycountry){
+                        
                             <li>
-                                <input class="form-check-input Checkme" type="checkbox" value="USA" />USA
+                                <input class="form-check-input Checkme" type="checkbox" name=@item.Name value=@item.CountryId />@item.Name
                             </li>
-                            <li>
-                                <input class="form-check-input Checkme" type="checkbox" value="Canada" />Canada
-                            </li>
-                            <li>
-                                <input class="form-check-input Checkme" type="checkbox" value="UK" />UK
-                            </li>
-                        </ul>
+                        
+                        }
+                    </ul>
                     </div>
                 </div>
                 <div class="col-md-2 city col-lg-1 p-0">
@@ -163,42 +170,37 @@
                             <span>City</span>
                             <img src="../CI-Imgs/drop-down.png" class="ic-down">
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu showing">
+                        @foreach (var item in mycity)
+                        {
                             <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="London" />London
+                            <input class="form-check-input Checkme" type="checkbox" value=@item.CityId name=@item.Name />
+                            @item.Name
                             </li>
-                            <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="New Yourk" />New Yourk
-                            </li>
-                            <li>
-                            <input class="form-check-input Checkme" type="checkbox" value="California" />California
-                            </li>
+                            }
                         </ul>
                     </div>
                 </div>
+                
                 <div class="col-md-2 theme col-lg-1 p-0">
                     <div class="dropdown downs">
                         <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
                             <span>Theme</span>
                             <img src="../CI-Imgs/drop-down.png" class="ic-down">
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu showing">
+                            @foreach(var item in mytheme){
                             <li>
-                                <input class="form-check-input Checkme" type="checkbox" value="Theme1" />Theme1
+                                <input class="form-check-input Checkme" type="checkbox" value=@item.MissionThemeId name=@item.Title/>@item.Title
                             </li>
-                            <li>
-                                <input class="form-check-input Checkme" type="checkbox" value="Theme2" />Theme2
-                            </li>
-                            <li>
-                                <input class="form-check-input Checkme" type="checkbox" value="Theme3" />Theme3
-                            </li>
+                        }
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-2 skills col-lg-1 p-0">
                     <div class="dropdown downs">
                         <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
-                            <span>Skills</span>
+                            Skills
                             <img src="../CI-Imgs/drop-down.png" class="ic-down">
                         </button>
                         <ul class="dropdown-menu">
@@ -362,6 +364,185 @@
         filterInput.addEventListener("input", function () {
             updateOutput(1); // Reset to the first page when the filter changes
         });
+
+        //-----------------------------------------------------------------------------------------
+        var element = document.getElementsByClassName("allviews");
+        var img = document.getElementsByClassName("card-image");
+        var card = document.getElementsByClassName("cardview");
+        var imgBadge1 = document.getElementsByClassName("imgbadge1");
+        var dataBadge1 = document.getElementsByClassName("datebadge1");
+        var i;
+        var j;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const cbs = document.querySelectorAll("input[type='checkbox']");
+            const filtersSection = document.querySelector(".filtersection");
+            const clearBtn = document.querySelector("#clearBtn");
+            for (let k = 0; k < cbs.length; k++) {
+                cbs[k].addEventListener("change", function () {
+                    updateData(1,this.value)
+                    if (this.checked) {
+                        const li = document.createElement("li");
+                        li.innerHTML = this.name + `<img src="../CI-Imgs/cancel.png" alt="" class="ms-2" >`;
+                        li.id = this.value;
+                        li.addEventListener("click", function () {
+                            li.remove();
+                            cbs[k].checked = false;
+                        });
+                        filtersSection.appendChild(li);
+                    } else {
+                        const lis = document.getElementById(this.value);
+                        lis.remove();
+                    }
+                });
+            }
+            clearBtn.addEventListener("click", function () {
+                const lis = filtersSection.getElementsByTagName('li');
+                for (let i = lis.length - 1; i >= 0; i--) {
+                    lis[i].click();
+                }
+            });
+        });
+
+        function listView() {
+            for (i = 0; i < element.length; i++) {
+                img[i].style.width = "30%";
+                card[i].style.width = "100%";
+                element[i].classList.add("col-12");
+                element[i].classList.remove("col-lg-4", "col-md-6", "col-sm-12");
+                card[i].style.flexDirection = "row";
+                imgBadge1[i].style.display = "none";
+                dataBadge1[i].style.display = "none";
+            }
+        }
+        function gridView() {
+            for (j = 0; j < element.length; j++) {
+                card[j].style.flexDirection = "column";
+                element[j].classList.remove("col-12");
+                element[j].classList.add("col-lg-4", "col-md-6", "col-sm-12");
+                img[j].style.width = "100%";
+                card[j].style.width = "18rem"
+                imgBadge1[j].style.display = "block";
+                dataBadge1[j].style.display = "block";
+                imgBadge1[j].style.top = "160px"
+            }
+        }
+        function updateData(page=1,value){
+            //alert("dkf");
+            console.log(value)
+            var output = document.getElementById("gridview");
+            var jsonData = @Html.Raw(ViewBag.JsonData);
+            output.innerHTML = "";
+            var pageSize = 6; // number of items per page
+            var startIndex = (page - 1) * pageSize;
+            var endIndex = startIndex + pageSize;
+            var country=[];
+            var city=[];
+            var theme=[];
+            var skill=[];
+            $('input[type="checkbox"]').each(function () {
+                if ($(this).is(':checked')) {
+                    var value = $(this).val();
+                    var group = $(this).closest('.dropdown-menu').prev('.bg-white').text().trim();
+                    console.log(group)
+                    switch (group) {
+                        case 'Country':
+                            country.push(value);
+                            break;
+                        case 'City':
+                            city.push(value);
+                            break;
+                        case 'Theme':
+                            theme.push(value);
+                            break;
+                        case 'Skills':
+                            skill.push(value);
+                            break;
+                    }
+                }
+            });
+            console.log(city)
+            console.log(country)
+            console.log(theme)
+            var data = jsonData.filter(student => {
+                return (city.includes(student.CityId.toString())) || (country.includes(student.CountryId.toString())) || (theme.includes(student.ThemeId.toString()));
+            });
+            var pageData = data.slice(startIndex, endIndex);
+            pageData.forEach(student => {
+                var divs = document.createElement("div");
+                divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
+                divs.innerHTML = `<div class="card cardview mx-auto position-relative" style="width: 20rem;">
+                          <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
+                          <div class="position-absolute d-flex location">
+                              <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
+                              <p style="color: white; font-size:12px;" class="ms-1">`+ student.City + `</p>
+                            </div>
+                          <div class="imgbadge1 bg-white">
+                              <p class="ms-4">`+ student.Theme + `</p>
+                          </div>
+                          <div class="card-body">
+                                          <h5>`+ student.Title + `</h5>
+                                          <p>`+ student.Description + `</p>
+                              <div class="desc1 d-flex">
+                                  <div>
+                                                  <p>`+ student.ShortDescription + `</p>
+                                  </div>
+                                  <div class="star d-flex ms-auto">
+                                      <img src="../CI-Imgs/selected-star.png" alt="">
+                                      <img src="../CI-Imgs/selected-star.png" alt="">
+                                      <img src="../CI-Imgs/selected-star.png" alt="">
+                                      <img src="../CI-Imgs/star.png" alt="">
+                                  </div>
+                              </div>
+                              <div class="bg-white datebadge1">
+                                                              <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
+                              </div>
+                              <hr>
+                              <div class="desc2 d-flex">
+                                  <div class="seats d-flex">
+                                      <img src="../CI-Imgs/Seats-left.png" alt="">
+                                      <p>10 seats left</p>
+                                  </div>
+                                  <div class="hours d-flex ms-auto">
+                                      <img src="../CI-Imgs/hours.png" alt="">
+                                              <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
+                                  </div>
+                              </div>
+                              <hr style="margin-top: 30px;">
+                              <div class="apply d-flex">
+                                  <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+                              </div>
+                          </div>
+                      </div>`;
+                output.appendChild(divs);
+            });
+            var numPages = Math.ceil(data.length / pageSize);
+            var pagination = document.getElementById("paginations");
+            pagination.innerHTML = "";
+            for (var i = 1; i <= numPages; i++) {
+                var li = document.createElement("li");
+                li.classList.add("pageulli");
+                var a = document.createElement("a");
+                a.style.textDecoration = "none";
+                a.href = "#";
+                a.innerText = i;
+                a.onclick = function () {
+                    updateOutput(this.innerText);
+                }
+                li.appendChild(a);
+                pagination.appendChild(li);
+            }
+
+            // Highlight the current page
+            var currentPage = document.querySelector("#pagination li a.active");
+            if (currentPage) {
+                currentPage.classList.remove("active");
+            }
+            var newCurrentPage = document.querySelector("#pagination li:nth-child(" + (page + 1) + ") a");
+            if (newCurrentPage) {
+                newCurrentPage.classList.add("active");
+            }
+        }
 
         </script>
                 

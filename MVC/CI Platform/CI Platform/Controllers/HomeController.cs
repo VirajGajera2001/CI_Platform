@@ -112,32 +112,84 @@ namespace CI_Platform.Controllers
         [HttpGet]
         public IActionResult Landing()
         {
-            List<Mission> missions = _cidbcontext.Missions.ToList();
-            List<MissionViewModel> missionViewModels= new List<MissionViewModel>();
-            foreach (var mission in missions)
+            var name = HttpContext.Session.GetString("FName");
+            if (name == null)
             {
-                MissionViewModel missionView= new MissionViewModel();
-                missionView.Availability = mission.Availability;
-                missionView.Title = mission.Title;
-                missionView.Description = mission.Description;
-                missionView.ShortDescription = mission.ShortDescription;
-                missionView.StartDate = mission.StartDate;
-                missionView.EndDate = mission.EndDate;
-                var city = _cidbcontext.Cities.FirstOrDefault(c => c.CityId == mission.CityId) ;
-                if (city != null)
-                {
-                    missionView.City = city.Name;
-                }
-                var themes = _cidbcontext.MissionThemes.FirstOrDefault(t => t.MissionThemeId == mission.ThemeId);
-                if (themes != null)
-                {
-                    missionView.Theme= themes.Title;
-                }
-                missionViewModels.Add(missionView);
+                return RedirectToAction("Login");
             }
-            string jsonData = JsonSerializer.Serialize(missionViewModels);
-            ViewBag.JsonData = jsonData;
-            return View();
+            else
+            {
+                List<Mission> missions = _cidbcontext.Missions.ToList();
+                List<City> cities = _cidbcontext.Cities.ToList();
+                List<MissionViewModel> missionViewModels = new List<MissionViewModel>();
+                List<CitydataModel> citydataModels = new List<CitydataModel>();
+                List<Country> countries1 = _cidbcontext.Countries.ToList();
+                List<CountrydataModel> countrydataModels = new List<CountrydataModel>();
+                List<MissionTheme> missionThemes = _cidbcontext.MissionThemes.ToList();
+                List<ThemedataModel> themedataModels = new List<ThemedataModel>();
+                foreach (var citie in cities)
+                {
+                    CitydataModel citydataModels1 = new CitydataModel();
+                    var cityname = _cidbcontext.Cities.FirstOrDefault(c => c.CityId == citie.CityId);
+                    citydataModels1.Name = cityname.Name;
+                    citydataModels1.CityId = citie.CityId;
+                    citydataModels.Add(citydataModels1);
+                }
+                foreach (var countries in countries1)
+                {
+                    CountrydataModel countrydataModels1 = new CountrydataModel();
+                    var countryname = _cidbcontext.Countries.FirstOrDefault(co => co.CountryId == countries.CountryId);
+                    countrydataModels1.CountryId = countryname.CountryId;
+                    countrydataModels1.Name = countryname.Name;
+                    countrydataModels.Add(countrydataModels1);
+                }
+                foreach (var themes in missionThemes)
+                {
+                    ThemedataModel themedataModels1 = new ThemedataModel();
+                    var themename = _cidbcontext.MissionThemes.FirstOrDefault(t => t.MissionThemeId == themes.MissionThemeId);
+                    themedataModels1.MissionThemeId = themename.MissionThemeId;
+                    themedataModels1.Title = themename.Title;
+                    themedataModels.Add(themedataModels1);
+                }
+                foreach (var mission in missions)
+                {
+                    MissionViewModel missionView = new MissionViewModel();
+                    missionView.Availability = mission.Availability;
+                    missionView.Title = mission.Title;
+                    missionView.Description = mission.Description;
+                    missionView.ShortDescription = mission.ShortDescription;
+                    missionView.StartDate = mission.StartDate;
+                    missionView.EndDate = mission.EndDate;
+                    missionView.CountryId = mission.CountryId;
+                    missionView.CityId = mission.CityId;
+                    missionView.ThemeId = mission.ThemeId;
+                    var city = _cidbcontext.Cities.FirstOrDefault(c => c.CityId == mission.CityId);
+                    if (city != null)
+                    {
+                        missionView.City = city.Name;
+                    }
+                    var themes = _cidbcontext.MissionThemes.FirstOrDefault(t => t.MissionThemeId == mission.ThemeId);
+                    if (themes != null)
+                    {
+                        missionView.Theme = themes.Title;
+                    }
+                    var country = _cidbcontext.Countries.FirstOrDefault(co => co.CountryId == mission.CountryId);
+                    if (country != null)
+                    {
+                        missionView.Country = country.Name;
+                    }
+                    missionViewModels.Add(missionView);
+                }
+                string jsonData = JsonSerializer.Serialize(missionViewModels);
+                string jsonCity = JsonSerializer.Serialize(citydataModels);
+                string jsonCountry = JsonSerializer.Serialize(countrydataModels);
+                string jsontheme = JsonSerializer.Serialize(themedataModels);
+                ViewBag.Themes = jsontheme;
+                ViewBag.Country = jsonCountry;
+                ViewBag.City = jsonCity;
+                ViewBag.JsonData = jsonData;
+                return View();
+            }
         }
         public IActionResult NoMission()
         {
