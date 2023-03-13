@@ -93,9 +93,10 @@
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="sidetitle">
-                    <h3>CSR initiative stands for Coffee & Farmer Equity</h3>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt facilis quos sunt nam adipisci reiciendis quisquam laudantium enim rem dolor?</p>
+                    <h3>@ViewBag.Missions.Title</h3>
+                    <p>@ViewBag.Missions.ShortDescription</p>
                 </div>
+                @if(ViewBag.Missions.MissionType=="goal"){
                 <div class="sidebadge d-flex">
                     <hr class="w-50">
                     <div class="contbadge">
@@ -119,8 +120,29 @@
                             <p class="ms-1">8000 Achived</p>
                         </div>
                     </div>
-                </div>
-                <hr>
+                    </div>
+                }
+                else
+                {
+                    <div class="sidebadge d-flex">
+                        <hr class="w-50">
+                        <div class="contbadge">
+                            <p class="p-2">From @ViewBag.Missions.StartDate?.ToString("dd-mm-yyyy") To @ViewBag.Missions.EndDate?.ToString("dd-mm-yyyy")</p>
+                        </div>
+                        <hr class="w-50">
+                    </div>
+                    <div class="seats d-flex">
+                        <div class="userseat d-flex">
+                            <img src="../CI-Imgs/Seats-left.png" alt="">
+                            <p>@ViewBag.Missions.SeatsAvailable seats left</p>
+                        </div>
+                        <div class="hours d-flex ms-auto mb-3">
+                            <img src="../CI-Imgs/hours.png" alt="">
+                            <p>@ViewBag.Missions.EndDate?.ToString("dd-mm-yyyy")<br>Deadline</p>
+                        </div>
+                    </div>
+                }
+                <hr class="mt-5">
                 <div class="favandinvibtn container row mt-4">
                     <div class="col-md-6 col-sm-12 mb-2 text-center">
                         <button type="button" class="btn btn-outline-secondary border-3">
@@ -152,14 +174,14 @@
                             <div class="filterbox text-center">
                                 <img src="../CI-Imgs/pin1.png" alt="">
                                 <p>city</p>
-                                <p class="filtertext">London</p>
+                                <p class="filtertext">@ViewBag.City.Name</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-12 mb-2">
                             <div class="filterbox text-center">
                                 <img src="../CI-Imgs/web.png" alt="">
                                 <p>Theme</p>
-                                <p class="filtertext">Environment</p>
+                                <p class="filtertext">@ViewBag.MissionTheme.Title</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-12 mb-2">
@@ -173,7 +195,7 @@
                             <div class="filterbox text-center">
                                 <img src="../CI-Imgs/organization.png" alt="">
                                 <p>organization</p>
-                                <p class="filtertext">CSE Network</p>
+                                <p class="filtertext">@ViewBag.Missions.OrganizationName</p>
                             </div>
                         </div>
                     </div>

@@ -105,7 +105,7 @@
     overflow-y: auto;
 }
 .imgbadge1 {
-    width: 40%;
+    width: 50%;
     position: absolute;
     left: 90px;
     top: 180px;
@@ -220,10 +220,18 @@
     width: 18px;
     height: 20px;
 }
-.pageulli{
-    border:1px solid gray;
-    width:50px;
-    height:40px;
+.closed-btn {
+    border-top-right-radius: 18px;
+    left: 0;
+    opacity: 0.6;
+    color: white;
+    border-color: transparent;
+    border-bottom-right-radius: 18px;
+    background-color: green;
+    padding: 0 6px;
+    width: 7.5rem;
+    height: 2rem;
+    margin-top: 0.7rem !important;
 }
 
 @media (max-width:991px) {

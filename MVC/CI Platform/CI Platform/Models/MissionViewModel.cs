@@ -46,5 +46,6 @@ namespace CI_Platform.Models
 
         
         public String Theme { get; set; } = null!;
+        public int? SeatsAvailable { get; set; }=null!;
     }
 }

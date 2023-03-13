@@ -155,6 +155,7 @@ namespace CI_Platform.Controllers
                 {
                     MissionViewModel missionView = new MissionViewModel();
                     missionView.Availability = mission.Availability;
+                    missionView.MissionId = mission.MissionId;
                     missionView.Title = mission.Title;
                     missionView.Description = mission.Description;
                     missionView.ShortDescription = mission.ShortDescription;
@@ -163,6 +164,8 @@ namespace CI_Platform.Controllers
                     missionView.CountryId = mission.CountryId;
                     missionView.CityId = mission.CityId;
                     missionView.ThemeId = mission.ThemeId;
+                    missionView.MissionType=mission.MissionType;
+                    missionView.SeatsAvailable=mission.SeatsAvailable;
                     var city = _cidbcontext.Cities.FirstOrDefault(c => c.CityId == mission.CityId);
                     if (city != null)
                     {
@@ -199,8 +202,14 @@ namespace CI_Platform.Controllers
         {
             return View();
         }
-        public IActionResult Volunteering_Mission()
+        public IActionResult Volunteering_Mission(int MissionId)
         {
+            var missions = _cidbcontext.Missions.FirstOrDefault(m => m.MissionId == MissionId);
+            var city = _cidbcontext.Cities.FirstOrDefault(c => c.CityId == missions.CityId);
+            var theme = _cidbcontext.MissionThemes.FirstOrDefault(mt => mt.MissionThemeId == missions.ThemeId);
+            ViewBag.Missions = missions;
+            ViewBag.MissionTheme = theme;
+            ViewBag.City = city;
             return View();
         }
         public IActionResult Story_Listing()

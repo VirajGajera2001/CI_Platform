@@ -236,13 +236,23 @@
         <div class="container mt-5">
             <div class="row">
                 <div class="col-md-12 d-flex p-0">
-                    <h4>Explore 72 Missions</h4>
+                    <h4 class="text-muted">Explore</h4>
+                    <h3 class="ms-2" id="list-count"><b></b></h3>
                     <div class="ms-auto">
-                        <select class="mt-1">
-                            <option value="Sort By">Sort By</option>
-                            <option value="Sort By">Sort 1</option>
-                            <option value="Sort By">Sort 2</option>
-                        </select>
+                    <div class="dropdown downs">
+                        <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                            Skills
+                            <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="sortNewest()">Newest</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="sortOldest()">Oldest</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="sortLowestAvail()">Lowest available seats</a></li>
+                           <li><a class="dropdown-item" href="#" onclick="sortHighestAvail()">Highest available seats </a></li>
+                           <li><a class="dropdown-item" href="#" onclick="sortFavourite()">My Favourite</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="sortDeadline()">Registration Deadline</a></li>
+                        </ul>
+                    </div>
                     </div>
                     <div>
                         <button class="border-0 bg-white ms-2"><img src="../CI-Imgs/grid.png" alt="" onclick="gridView()" style=""></button>
@@ -280,8 +290,24 @@
             var data = filter === "" ? jsonData : jsonData.filter(student => {
                 return student.Title.toLowerCase().startsWith(filter.toLowerCase());
             });
+            if (data.length === 0) {
+                var divs = document.createElement("div");
+                divs.innerHTML = `<partial name="NoMission"/>`;
+                output.appendChild(divs);
+             
+            }
+            var count = data.length;
+            // get the paragraph element to display the count
+            var countElement = document.getElementById("list-count");
+
+             countElement.textContent =  count + " Missions";
+
             var pageData = data.slice(startIndex, endIndex);
             pageData.forEach(student=>{
+                const enddate = student.EndDate;
+                const endDate = new Date(enddate);
+                const today = new Date();
+                const isClosed = endDate < today;
                 var divs = document.createElement("div");
                 divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
                 divs.innerHTML = `<div class="card cardview mx-auto position-relative" style="width: 20rem;">
@@ -289,9 +315,11 @@
                   <div class="position-absolute d-flex location">
                       <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
                       <p style="color: white; font-size:12px;" class="ms-1">`+ student.City+ `</p>
+                              
                     </div>
-                  <div class="imgbadge1 bg-white">
-                      <p class="ms-4">`+student.Theme+`</p>
+                            ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
+                  <div class="imgbadge1 bg-white text-center">
+                      <p style="font-size:15px">`+student.Theme+`</p>
                   </div>
                   <div class="card-body">
                                   <h5>`+ student.Title + `</h5>
@@ -314,16 +342,31 @@
                       <div class="desc2 d-flex">
                           <div class="seats d-flex">
                               <img src="../CI-Imgs/Seats-left.png" alt="">
-                              <p>10 seats left</p>
+                              <p>`+student.SeatsAvailable+`seats left</p>
                           </div>
-                          <div class="hours d-flex ms-auto">
-                              <img src="../CI-Imgs/hours.png" alt="">
-                                      <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
-                          </div>
+
+                          ${student.MissionType==="goal"?`<div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
+                    <img src="../CI-Imgs/achieved.png" height="25px" width="25px" alt="" class="mb-3">
+
+                    <div class="d-flex flex-column ms-2 ">
+                        <div class="progress">
+                                  <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: 60%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
+                                   
+                                  </div>
+                                </div>
+                        <p class="seat">8000 achieved</p>
+                    </div>
+                    </div>`
+                    : `<div class="hours d-flex ms-auto">
+                                      <img src="../CI-Imgs/hours.png" alt="">
+                                              <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
+                                  </div>`
+                              }
+                          
                       </div>
                       <hr style="margin-top: 30px;">
                       <div class="apply d-flex">
-                          <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+                          <a class="btn btn-outline-warning mx-auto" href="/Home/Volunteering_Mission?MissionId=`+student.MissionId+`">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
                       </div>
                   </div>
               </div>`;
@@ -332,10 +375,28 @@
             var numPages = Math.ceil(data.length / pageSize);
             var pagination = document.getElementById("paginations");
             pagination.innerHTML = "";
+            var prevLi = document.createElement("li");
+            prevLi.classList.add("page-item");
+            var prevLink = document.createElement("a");
+            prevLink.classList.add("page-link");
+            prevLink.href = "#";
+            prevLink.innerText = "Previous";
+            prevLink.onclick = function () {
+                if (page > 0) {
+                    updateOutput(page - 1);
+                }
+            }
+
+
+            prevLi.appendChild(prevLink);
+            pagination.appendChild(prevLi);
+
+
             for (var i = 1; i <= numPages; i++) {
                 var li = document.createElement("li");
-                li.classList.add("pageulli");
+                li.classList.add("page-item");
                 var a = document.createElement("a");
+                a.classList.add("page-link");
                 a.style.textDecoration="none";
                 a.href = "#";
                 a.innerText = i;
@@ -344,7 +405,29 @@
                 }
                 li.appendChild(a);
                 pagination.appendChild(li);
+                if (i === page) {
+                    a.classList.add("active");
+                } else {
+                    a.classList.remove("active");
+                }
             }
+
+            var nextLi = document.createElement("li");
+            nextLi.classList.add("page-item");
+            var nextLink = document.createElement("a");
+            nextLink.classList.add("page-link");
+            nextLink.href = "#";
+            nextLink.innerText = "Next";
+            nextLink.onclick = function () {
+                if (page <= numPages - 1) {
+                    updateOutput(page + 1);
+                }
+            }
+            nextLi.appendChild(nextLink);
+pagination.appendChild(nextLi);
+
+
+
 
             // Highlight the current page
             var currentPage = document.querySelector("#pagination li a.active");
@@ -364,6 +447,622 @@
         filterInput.addEventListener("input", function () {
             updateOutput(1); // Reset to the first page when the filter changes
         });
+
+
+
+        //-----------------------------------sort newest--------------------------------------------
+        function sortNewest(page = 1) {
+            var filter = document.getElementById("filter-input").value;
+            var output = document.getElementById("gridview");
+            var jsonData = @Html.Raw(ViewBag.JsonData);
+            output.innerHTML = "";
+            var pageSize = 6; // number of items per page
+            var startIndex = (page - 1) * pageSize;
+            var endIndex = startIndex + pageSize;
+
+            var data = filter === "" ? jsonData : jsonData.filter(student => {
+                return student.Title.toLowerCase().startsWith(filter.toLowerCase());
+            });
+            data.sort((a,b)=>Date.parse(b.StartDate)-Date.parse(a.StartDate));
+
+            var pageData = data.slice(startIndex, endIndex);
+            pageData.forEach(student => {
+                const enddate = student.EndDate;
+                const endDate = new Date(enddate);
+                const today = new Date();
+                const isClosed = endDate < today;
+                var divs = document.createElement("div");
+                divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
+                divs.innerHTML = `<div class="card cardview mx-auto position-relative" style="width: 20rem;">
+                          <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
+                          <div class="position-absolute d-flex location">
+                              <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
+                              <p style="color: white; font-size:12px;" class="ms-1">`+ student.City + `</p>
+
+                            </div>
+                                    ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
+                          <div class="imgbadge1 bg-white text-center">
+                              <p style="font-size:15px">`+ student.Theme + `</p>
+                          </div>
+                          <div class="card-body">
+                                          <h5>`+ student.Title + `</h5>
+                                          <p>`+ student.Description + `</p>
+                              <div class="desc1 d-flex">
+                                  <div>
+                                                  <p>`+ student.ShortDescription + `</p>
+                                  </div>
+                                  <div class="star d-flex ms-auto">
+                                      <img src="../CI-Imgs/selected-star.png" alt="">
+                                      <img src="../CI-Imgs/selected-star.png" alt="">
+                                      <img src="../CI-Imgs/selected-star.png" alt="">
+                                      <img src="../CI-Imgs/star.png" alt="">
+                                  </div>
+                              </div>
+                              <div class="bg-white datebadge1">
+                                                              <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
+                              </div>
+                              <hr>
+                              <div class="desc2 d-flex">
+                                  <div class="seats d-flex">
+                                      <img src="../CI-Imgs/Seats-left.png" alt="">
+                                              <p>`+ student.SeatsAvailable + `seats left</p>
+                                  </div>
+
+                                  ${student.MissionType === "goal" ? `<div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
+                            <img src="../CI-Imgs/achieved.png" height="25px" width="25px" alt="" class="mb-3">
+
+                            <div class="d-flex flex-column ms-2 ">
+                                <div class="progress">
+                                          <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: 60%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
+
+                                          </div>
+                                        </div>
+                                <p class="seat">8000 achieved</p>
+                            </div>
+                            </div>`
+                        : `<div class="hours d-flex ms-auto">
+                                              <img src="../CI-Imgs/hours.png" alt="">
+                                                      <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
+                                          </div>`
+                    }
+
+                              </div>
+                              <hr style="margin-top: 30px;">
+                              <div class="apply d-flex">
+                                  <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+                              </div>
+                          </div>
+                      </div>`;
+                output.appendChild(divs);
+            });
+            var numPages = Math.ceil(data.length / pageSize);
+            var pagination = document.getElementById("paginations");
+            pagination.innerHTML = "";
+            var prevLi = document.createElement("li");
+            prevLi.classList.add("page-item");
+            var prevLink = document.createElement("a");
+            prevLink.classList.add("page-link");
+            prevLink.href = "#";
+            prevLink.innerText = "Previous";
+            prevLink.onclick = function () {
+                if (page > 0) {
+                    sortNewest(page - 1);
+                }
+            }
+
+
+            prevLi.appendChild(prevLink);
+            pagination.appendChild(prevLi);
+
+
+            for (var i = 1; i <= numPages; i++) {
+                var li = document.createElement("li");
+                li.classList.add("page-item");
+                var a = document.createElement("a");
+                a.classList.add("page-link");
+                a.style.textDecoration = "none";
+                a.href = "#";
+                a.innerText = i;
+                a.onclick = function () {
+                    sortNewest(this.innerText);
+                }
+                li.appendChild(a);
+                pagination.appendChild(li);
+                if (i === page) {
+                    a.classList.add("active");
+                } else {
+                    a.classList.remove("active");
+                }
+            }
+
+            var nextLi = document.createElement("li");
+            nextLi.classList.add("page-item");
+            var nextLink = document.createElement("a");
+            nextLink.classList.add("page-link");
+            nextLink.href = "#";
+            nextLink.innerText = "Next";
+            nextLink.onclick = function () {
+                if (page <= numPages - 1) {
+                    sortNewest(page + 1);
+                }
+            }
+            nextLi.appendChild(nextLink);
+            pagination.appendChild(nextLi);
+
+
+
+
+            // Highlight the current page
+            var currentPage = document.querySelector("#pagination li a.active");
+            if (currentPage) {
+                currentPage.classList.remove("active");
+            }
+            var newCurrentPage = document.querySelector("#pagination li:nth-child(" + (page + 1) + ") a");
+            if (newCurrentPage) {
+                newCurrentPage.classList.add("active");
+            }
+        }
+
+
+        //------------------------------------sortoldest--------------------------------------------------
+        function sortOldest(page = 1) {
+            var filter = document.getElementById("filter-input").value;
+            var output = document.getElementById("gridview");
+            var jsonData = @Html.Raw(ViewBag.JsonData);
+            output.innerHTML = "";
+            var pageSize = 6; // number of items per page
+            var startIndex = (page - 1) * pageSize;
+            var endIndex = startIndex + pageSize;
+
+            var data = filter === "" ? jsonData : jsonData.filter(student => {
+                return student.Title.toLowerCase().startsWith(filter.toLowerCase());
+            });
+            data.sort((a, b) => Date.parse(a.StartDate) - Date.parse(b.StartDate));
+
+            var pageData = data.slice(startIndex, endIndex);
+            pageData.forEach(student => {
+                const enddate = student.EndDate;
+                const endDate = new Date(enddate);
+                const today = new Date();
+                const isClosed = endDate < today;
+                var divs = document.createElement("div");
+                divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
+                divs.innerHTML = `<div class="card cardview mx-auto position-relative" style="width: 20rem;">
+                                  <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
+                                  <div class="position-absolute d-flex location">
+                                      <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
+                                      <p style="color: white; font-size:12px;" class="ms-1">`+ student.City + `</p>
+
+                                    </div>
+                                            ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
+                                  <div class="imgbadge1 bg-white text-center">
+                                      <p style="font-size:15px">`+ student.Theme + `</p>
+                                  </div>
+                                  <div class="card-body">
+                                                  <h5>`+ student.Title + `</h5>
+                                                  <p>`+ student.Description + `</p>
+                                      <div class="desc1 d-flex">
+                                          <div>
+                                                          <p>`+ student.ShortDescription + `</p>
+                                          </div>
+                                          <div class="star d-flex ms-auto">
+                                              <img src="../CI-Imgs/selected-star.png" alt="">
+                                              <img src="../CI-Imgs/selected-star.png" alt="">
+                                              <img src="../CI-Imgs/selected-star.png" alt="">
+                                              <img src="../CI-Imgs/star.png" alt="">
+                                          </div>
+                                      </div>
+                                      <div class="bg-white datebadge1">
+                                                                      <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
+                                      </div>
+                                      <hr>
+                                      <div class="desc2 d-flex">
+                                          <div class="seats d-flex">
+                                              <img src="../CI-Imgs/Seats-left.png" alt="">
+                                                      <p>`+ student.SeatsAvailable + `seats left</p>
+                                          </div>
+
+                                          ${student.MissionType === "goal" ? `<div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
+                                    <img src="../CI-Imgs/achieved.png" height="25px" width="25px" alt="" class="mb-3">
+
+                                    <div class="d-flex flex-column ms-2 ">
+                                        <div class="progress">
+                                                  <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: 60%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
+
+                                                  </div>
+                                                </div>
+                                        <p class="seat">8000 achieved</p>
+                                    </div>
+                                    </div>`
+                        : `<div class="hours d-flex ms-auto">
+                                                      <img src="../CI-Imgs/hours.png" alt="">
+                                                              <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
+                                                  </div>`
+                    }
+
+                                      </div>
+                                      <hr style="margin-top: 30px;">
+                                      <div class="apply d-flex">
+                                          <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+                                      </div>
+                                  </div>
+                              </div>`;
+                output.appendChild(divs);
+            });
+            var numPages = Math.ceil(data.length / pageSize);
+            var pagination = document.getElementById("paginations");
+            pagination.innerHTML = "";
+            var prevLi = document.createElement("li");
+            prevLi.classList.add("page-item");
+            var prevLink = document.createElement("a");
+            prevLink.classList.add("page-link");
+            prevLink.href = "#";
+            prevLink.innerText = "Previous";
+            prevLink.onclick = function () {
+                if (page > 0) {
+                    sortOldest(page - 1);
+                }
+            }
+
+
+            prevLi.appendChild(prevLink);
+            pagination.appendChild(prevLi);
+
+
+            for (var i = 1; i <= numPages; i++) {
+                var li = document.createElement("li");
+                li.classList.add("page-item");
+                var a = document.createElement("a");
+                a.classList.add("page-link");
+                a.style.textDecoration = "none";
+                a.href = "#";
+                a.innerText = i;
+                a.onclick = function () {
+                    sortOldest(this.innerText);
+                }
+                li.appendChild(a);
+                pagination.appendChild(li);
+                if (i === page) {
+                    a.classList.add("active");
+                } else {
+                    a.classList.remove("active");
+                }
+            }
+
+            var nextLi = document.createElement("li");
+            nextLi.classList.add("page-item");
+            var nextLink = document.createElement("a");
+            nextLink.classList.add("page-link");
+            nextLink.href = "#";
+            nextLink.innerText = "Next";
+            nextLink.onclick = function () {
+                if (page <= numPages - 1) {
+                    sortOldest(page + 1);
+                }
+            }
+            nextLi.appendChild(nextLink);
+            pagination.appendChild(nextLi);
+
+
+
+
+            // Highlight the current page
+            var currentPage = document.querySelector("#pagination li a.active");
+            if (currentPage) {
+                currentPage.classList.remove("active");
+            }
+            var newCurrentPage = document.querySelector("#pagination li:nth-child(" + (page + 1) + ") a");
+            if (newCurrentPage) {
+                newCurrentPage.classList.add("active");
+            }
+        }
+
+
+        //-----------------------------sort Lowest available seats-------------------------
+
+        function sortLowestAvail(page = 1) {
+            var filter = document.getElementById("filter-input").value;
+            var output = document.getElementById("gridview");
+            var jsonData = @Html.Raw(ViewBag.JsonData);
+            output.innerHTML = "";
+            var pageSize = 6; // number of items per page
+            var startIndex = (page - 1) * pageSize;
+            var endIndex = startIndex + pageSize;
+
+            var data = filter === "" ? jsonData : jsonData.filter(student => {
+                return student.Title.toLowerCase().startsWith(filter.toLowerCase());
+            });
+            data.sort((a, b) => a.SeatsAvailable - b.SeatsAvailable);
+
+            var pageData = data.slice(startIndex, endIndex);
+            pageData.forEach(student => {
+                const enddate = student.EndDate;
+                const endDate = new Date(enddate);
+                const today = new Date();
+                const isClosed = endDate < today;
+                var divs = document.createElement("div");
+                divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
+                divs.innerHTML = `<div class="card cardview mx-auto position-relative" style="width: 20rem;">
+                                  <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
+                                  <div class="position-absolute d-flex location">
+                                      <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
+                                      <p style="color: white; font-size:12px;" class="ms-1">`+ student.City + `</p>
+
+                                    </div>
+                                            ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
+                                  <div class="imgbadge1 bg-white text-center">
+                                      <p style="font-size:15px">`+ student.Theme + `</p>
+                                  </div>
+                                  <div class="card-body">
+                                                  <h5>`+ student.Title + `</h5>
+                                                  <p>`+ student.Description + `</p>
+                                      <div class="desc1 d-flex">
+                                          <div>
+                                                          <p>`+ student.ShortDescription + `</p>
+                                          </div>
+                                          <div class="star d-flex ms-auto">
+                                              <img src="../CI-Imgs/selected-star.png" alt="">
+                                              <img src="../CI-Imgs/selected-star.png" alt="">
+                                              <img src="../CI-Imgs/selected-star.png" alt="">
+                                              <img src="../CI-Imgs/star.png" alt="">
+                                          </div>
+                                      </div>
+                                      <div class="bg-white datebadge1">
+                                                                      <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
+                                      </div>
+                                      <hr>
+                                      <div class="desc2 d-flex">
+                                          <div class="seats d-flex">
+                                              <img src="../CI-Imgs/Seats-left.png" alt="">
+                                                      <p>`+ student.SeatsAvailable + `seats left</p>
+                                          </div>
+
+                                          ${student.MissionType === "goal" ? `<div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
+                                    <img src="../CI-Imgs/achieved.png" height="25px" width="25px" alt="" class="mb-3">
+
+                                    <div class="d-flex flex-column ms-2 ">
+                                        <div class="progress">
+                                                  <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: 60%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
+
+                                                  </div>
+                                                </div>
+                                        <p class="seat">8000 achieved</p>
+                                    </div>
+                                    </div>`
+                        : `<div class="hours d-flex ms-auto">
+                                                      <img src="../CI-Imgs/hours.png" alt="">
+                                                              <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
+                                                  </div>`
+                    }
+
+                                      </div>
+                                      <hr style="margin-top: 30px;">
+                                      <div class="apply d-flex">
+                                          <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+                                      </div>
+                                  </div>
+                              </div>`;
+                output.appendChild(divs);
+            });
+            var numPages = Math.ceil(data.length / pageSize);
+            var pagination = document.getElementById("paginations");
+            pagination.innerHTML = "";
+            var prevLi = document.createElement("li");
+            prevLi.classList.add("page-item");
+            var prevLink = document.createElement("a");
+            prevLink.classList.add("page-link");
+            prevLink.href = "#";
+            prevLink.innerText = "Previous";
+            prevLink.onclick = function () {
+                if (page > 0) {
+                    sortLowestAvail(page - 1);
+                }
+            }
+
+
+            prevLi.appendChild(prevLink);
+            pagination.appendChild(prevLi);
+
+
+            for (var i = 1; i <= numPages; i++) {
+                var li = document.createElement("li");
+                li.classList.add("page-item");
+                var a = document.createElement("a");
+                a.classList.add("page-link");
+                a.style.textDecoration = "none";
+                a.href = "#";
+                a.innerText = i;
+                a.onclick = function () {
+                    sortLowestAvail(this.innerText);
+                }
+                li.appendChild(a);
+                pagination.appendChild(li);
+                if (i === page) {
+                    a.classList.add("active");
+                } else {
+                    a.classList.remove("active");
+                }
+            }
+
+            var nextLi = document.createElement("li");
+            nextLi.classList.add("page-item");
+            var nextLink = document.createElement("a");
+            nextLink.classList.add("page-link");
+            nextLink.href = "#";
+            nextLink.innerText = "Next";
+            nextLink.onclick = function () {
+                if (page <= numPages - 1) {
+                    sortLowestAvail(page + 1);
+                }
+            }
+            nextLi.appendChild(nextLink);
+            pagination.appendChild(nextLi);
+
+
+
+
+            // Highlight the current page
+            var currentPage = document.querySelector("#pagination li a.active");
+            if (currentPage) {
+                currentPage.classList.remove("active");
+            }
+            var newCurrentPage = document.querySelector("#pagination li:nth-child(" + (page + 1) + ") a");
+            if (newCurrentPage) {
+                newCurrentPage.classList.add("active");
+            }
+        }
+        //---------------------------sort highest available seats-------------------------
+        function sortHighestAvail(page = 1) {
+            var filter = document.getElementById("filter-input").value;
+            var output = document.getElementById("gridview");
+            var jsonData = @Html.Raw(ViewBag.JsonData);
+            output.innerHTML = "";
+            var pageSize = 6; // number of items per page
+            var startIndex = (page - 1) * pageSize;
+            var endIndex = startIndex + pageSize;
+
+            var data = filter === "" ? jsonData : jsonData.filter(student => {
+                return student.Title.toLowerCase().startsWith(filter.toLowerCase());
+            });
+            data.sort((a, b) => b.SeatsAvailable - a.SeatsAvailable);
+
+            var pageData = data.slice(startIndex, endIndex);
+            pageData.forEach(student => {
+                const enddate = student.EndDate;
+                const endDate = new Date(enddate);
+                const today = new Date();
+                const isClosed = endDate < today;
+                var divs = document.createElement("div");
+                divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
+                divs.innerHTML = `<div class="card cardview mx-auto position-relative" style="width: 20rem;">
+                                  <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" alt="" class="card-image">
+                                  <div class="position-absolute d-flex location">
+                                      <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
+                                      <p style="color: white; font-size:12px;" class="ms-1">`+ student.City + `</p>
+
+                                    </div>
+                                            ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
+                                  <div class="imgbadge1 bg-white text-center">
+                                      <p style="font-size:15px">`+ student.Theme + `</p>
+                                  </div>
+                                  <div class="card-body">
+                                                  <h5>`+ student.Title + `</h5>
+                                                  <p>`+ student.Description + `</p>
+                                      <div class="desc1 d-flex">
+                                          <div>
+                                                          <p>`+ student.ShortDescription + `</p>
+                                          </div>
+                                          <div class="star d-flex ms-auto">
+                                              <img src="../CI-Imgs/selected-star.png" alt="">
+                                              <img src="../CI-Imgs/selected-star.png" alt="">
+                                              <img src="../CI-Imgs/selected-star.png" alt="">
+                                              <img src="../CI-Imgs/star.png" alt="">
+                                          </div>
+                                      </div>
+                                      <div class="bg-white datebadge1">
+                                                                      <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
+                                      </div>
+                                      <hr>
+                                      <div class="desc2 d-flex">
+                                          <div class="seats d-flex">
+                                              <img src="../CI-Imgs/Seats-left.png" alt="">
+                                                      <p>`+ student.SeatsAvailable + `seats left</p>
+                                          </div>
+
+                                          ${student.MissionType === "goal" ? `<div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
+                                    <img src="../CI-Imgs/achieved.png" height="25px" width="25px" alt="" class="mb-3">
+
+                                    <div class="d-flex flex-column ms-2 ">
+                                        <div class="progress">
+                                                  <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: 60%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
+
+                                                  </div>
+                                                </div>
+                                        <p class="seat">8000 achieved</p>
+                                    </div>
+                                    </div>`
+                        : `<div class="hours d-flex ms-auto">
+                                                      <img src="../CI-Imgs/hours.png" alt="">
+                                                              <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
+                                                  </div>`
+                    }
+
+                                      </div>
+                                      <hr style="margin-top: 30px;">
+                                      <div class="apply d-flex">
+                                          <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+                                      </div>
+                                  </div>
+                              </div>`;
+                output.appendChild(divs);
+            });
+            var numPages = Math.ceil(data.length / pageSize);
+            var pagination = document.getElementById("paginations");
+            pagination.innerHTML = "";
+            var prevLi = document.createElement("li");
+            prevLi.classList.add("page-item");
+            var prevLink = document.createElement("a");
+            prevLink.classList.add("page-link");
+            prevLink.href = "#";
+            prevLink.innerText = "Previous";
+            prevLink.onclick = function () {
+                if (page > 0) {
+                   sortHighestAvail(page - 1);
+                }
+            }
+
+
+            prevLi.appendChild(prevLink);
+            pagination.appendChild(prevLi);
+
+
+            for (var i = 1; i <= numPages; i++) {
+                var li = document.createElement("li");
+                li.classList.add("page-item");
+                var a = document.createElement("a");
+                a.classList.add("page-link");
+                a.style.textDecoration = "none";
+                a.href = "#";
+                a.innerText = i;
+                a.onclick = function () {
+                    sortHighestAvail(this.innerText);
+                }
+                li.appendChild(a);
+                pagination.appendChild(li);
+                if (i === page) {
+                    a.classList.add("active");
+                } else {
+                    a.classList.remove("active");
+                }
+            }
+
+            var nextLi = document.createElement("li");
+            nextLi.classList.add("page-item");
+            var nextLink = document.createElement("a");
+            nextLink.classList.add("page-link");
+            nextLink.href = "#";
+            nextLink.innerText = "Next";
+            nextLink.onclick = function () {
+                if (page <= numPages - 1) {
+                    sortHighestAvail(page + 1);
+                }
+            }
+            nextLi.appendChild(nextLink);
+            pagination.appendChild(nextLi);
+
+
+
+
+            // Highlight the current page
+            var currentPage = document.querySelector("#pagination li a.active");
+            if (currentPage) {
+                currentPage.classList.remove("active");
+            }
+            var newCurrentPage = document.querySelector("#pagination li:nth-child(" + (page + 1) + ") a");
+            if (newCurrentPage) {
+                newCurrentPage.classList.add("active");
+            }
+        }
 
         //-----------------------------------------------------------------------------------------
         var element = document.getElementsByClassName("allviews");
@@ -392,6 +1091,7 @@
                         filtersSection.appendChild(li);
                     } else {
                         const lis = document.getElementById(this.value);
+                          
                         lis.remove();
                     }
                 });
@@ -421,15 +1121,13 @@
                 element[j].classList.remove("col-12");
                 element[j].classList.add("col-lg-4", "col-md-6", "col-sm-12");
                 img[j].style.width = "100%";
-                card[j].style.width = "18rem"
+                card[j].style.width = "20rem"
                 imgBadge1[j].style.display = "block";
                 dataBadge1[j].style.display = "block";
-                imgBadge1[j].style.top = "160px"
+                imgBadge1[j].style.top = "176px"
             }
         }
         function updateData(page=1,value){
-            //alert("dkf");
-            console.log(value)
             var output = document.getElementById("gridview");
             var jsonData = @Html.Raw(ViewBag.JsonData);
             output.innerHTML = "";
@@ -444,7 +1142,6 @@
                 if ($(this).is(':checked')) {
                     var value = $(this).val();
                     var group = $(this).closest('.dropdown-menu').prev('.bg-white').text().trim();
-                    console.log(group)
                     switch (group) {
                         case 'Country':
                             country.push(value);
@@ -461,9 +1158,6 @@
                     }
                 }
             });
-            console.log(city)
-            console.log(country)
-            console.log(theme)
             var data = jsonData.filter(student => {
                 return (city.includes(student.CityId.toString())) || (country.includes(student.CountryId.toString())) || (theme.includes(student.ThemeId.toString()));
             });
@@ -521,8 +1215,9 @@
             pagination.innerHTML = "";
             for (var i = 1; i <= numPages; i++) {
                 var li = document.createElement("li");
-                li.classList.add("pageulli");
+                li.classList.add("page-item");
                 var a = document.createElement("a");
+                a.classList.add("page-link")
                 a.style.textDecoration = "none";
                 a.href = "#";
                 a.innerText = i;
