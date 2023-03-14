@@ -30,7 +30,8 @@ namespace CI_Platform.Controllers
                 var user = _cidbcontext.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
                 if (user != null)
                 {
-                    HttpContext.Session.SetString("FName",model.Email);
+                    HttpContext.Session.SetString("FName",user.FirstName);
+                    HttpContext.Session.SetString("UserId", user.UserId.ToString());
                     return RedirectToAction("Landing", "Home");
                 }
                 else

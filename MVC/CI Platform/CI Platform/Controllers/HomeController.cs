@@ -7,6 +7,7 @@ using System.Text.Json;
 using cloudscribe.Pagination.Models;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace CI_Platform.Controllers
 {
@@ -181,6 +182,10 @@ namespace CI_Platform.Controllers
                     {
                         missionView.Country = country.Name;
                     }
+                    var media= _cidbcontext.MissionMedia.FirstOrDefault(mi => mi.MissionId==mission.MissionId);
+                    if (media != null) {
+                        missionView.MediaPath=media.MediaPath;
+                    }
                     missionViewModels.Add(missionView);
                 }
                 string jsonData = JsonSerializer.Serialize(missionViewModels);
@@ -198,8 +203,9 @@ namespace CI_Platform.Controllers
         {
             return View();
         }
-        public IActionResult RelatedMission()
+        public IActionResult RelatedMission(int MissionId)
         {
+
             return View();
         }
         public IActionResult Volunteering_Mission(int MissionId)
@@ -207,10 +213,50 @@ namespace CI_Platform.Controllers
             var missions = _cidbcontext.Missions.FirstOrDefault(m => m.MissionId == MissionId);
             var city = _cidbcontext.Cities.FirstOrDefault(c => c.CityId == missions.CityId);
             var theme = _cidbcontext.MissionThemes.FirstOrDefault(mt => mt.MissionThemeId == missions.ThemeId);
+            var relatedmission = _cidbcontext.Missions.Where(t => t.MissionId != MissionId && t.ThemeId == missions.ThemeId);
+            var recentvol=from u in _cidbcontext.Users join ma in _cidbcontext.MissionApplications on u.UserId equals ma.UserId where ma.MissionId == missions.MissionId select u;
+            var rating1 = _cidbcontext.MissionRatings.Where(rt => rt.MissionId == missions.MissionId);
+            var rat1 = 0;
+            var sum = 0;
+            foreach(var rat in rating1)
+            {
+                sum=sum+int.Parse(rat.Rating);
+            }
+            rat1 = sum / rating1.Count();
+            ViewBag.RecentVolunteering = recentvol;
+            var userId = HttpContext.Session.GetString("UserId");
+
+            ViewBag.userId = int.Parse(userId);
+            var prewrating = _cidbcontext.MissionRatings.FirstOrDefault(r => r.MissionId == missions.MissionId && r.UserId == int.Parse(userId));
+            ViewBag.Prewrating = int.Parse(prewrating.Rating);
             ViewBag.Missions = missions;
+            ViewBag.relatedmission=relatedmission;
             ViewBag.MissionTheme = theme;
             ViewBag.City = city;
+            ViewBag.AvgRating = rat1;
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Addrating(string rating,long Id,long missionId)
+        {
+            MissionRating ratingExists=await _cidbcontext.MissionRatings.FirstOrDefaultAsync(fm=>fm.UserId== Id &&fm.MissionId==missionId);
+            if (ratingExists != null) { 
+                ratingExists.Rating = rating;
+                _cidbcontext.Update(ratingExists);
+                _cidbcontext.SaveChanges();
+                return Json(new { success = true, ratingExists, isRated = true });
+            }
+            else
+            {
+                var ratingele = new MissionRating();
+                ratingele.Rating = rating;
+                ratingele.UserId = Id;
+                ratingele.MissionId= missionId;
+                _cidbcontext.Add(ratingele);
+                _cidbcontext.SaveChanges();
+                return Json(new { success = true, ratingele, isRated = true });
+            }
         }
         public IActionResult Story_Listing()
         {

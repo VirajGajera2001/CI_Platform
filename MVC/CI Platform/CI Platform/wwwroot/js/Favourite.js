@@ -28,3 +28,36 @@ function showSlides(n) {
   dots[slideIndex-1].className += " active";
   captionText.innerHTML = dots[slideIndex-1].alt;
 }
+
+function addRating(starId,missionId, Id) {
+    $.ajax({
+        url: '/Home/Addrating',
+        type: 'POST',
+        data: { missionId: missionId, Id: Id, rating: starId },
+        success: function (result) {
+            if (parseInt(result.ratingExists.rating, 10)) {
+                for (i = 1; i <= parseInt(result.ratingExists.rating, 10); i++) {
+                    var starbtn = document.getElementById(String(i));
+                    starbtn.style.color = "#F88634";
+                }
+                for (i = parseInt(result.ratingExists.rating, 10) + 1; i <= 5; i++) {
+                    var starbtn = document.getElementById(String(i));
+                    starbtn.style.color = "black";
+                }
+            }
+            else {
+                for (i = 1; i <= parseInt(result.newRating.rating, 10); i++) {
+                    var starbtn = document.getElementById(String(i));
+                    starbtn.style.color = "#F88634";
+                }
+                for (i = parseInt(result.ratingExists.rating, 10) + 1; i <= 5; i++) {
+                    var starbtn = document.getElementById(String(i));
+                    starbtn.style.color = "black";
+                }
+            }
+    },
+        error: function () {
+            alert("could not like mission");
+        }
+    });
+}
