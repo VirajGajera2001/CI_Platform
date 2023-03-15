@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="../CSS/landing.css" />
         <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css" />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     </head>
     <body>
         <nav class="navbar navbar-expand-lg">
@@ -120,22 +121,23 @@
                     </div>
                     <div class="profile d-flex ms-auto">
                         <img src="../CI-Imgs/bell.png" alt="" class="bell ms-auto">
-                        <div class="dropdown">
+                        <div class="dropdown"> 
                             <button class="border-0 bg-white" type="button" data-bs-toggle="dropdown">
                                 <img src="../CI-Imgs/user-img.png" class="profileimg">
-                            @{
-                                if (@name != null)
+                                @if (@name != null)
                                 {
+                                    
                                     <span>@name</span>
-                                }
+                              
                             }
-                                <img src="../CI-Imgs/drop-down.png" class="ic-down">
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">My Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Help</a></li>
-                                <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
-                            </ul>
+                            <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Help</a></li>
+                            <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
+                        </ul>
+                                
                         </div>
                     </div>
                 </div>
@@ -241,7 +243,7 @@
                     <div class="ms-auto">
                     <div class="dropdown downs">
                         <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
-                            Skills
+                            Sort By
                             <img src="../CI-Imgs/drop-down.png" class="ic-down">
                         </button>
                         <ul class="dropdown-menu">
@@ -250,7 +252,7 @@
                             <li><a class="dropdown-item" href="#" onclick="sortLowestAvail()">Lowest available seats</a></li>
                            <li><a class="dropdown-item" href="#" onclick="sortHighestAvail()">Highest available seats </a></li>
                            <li><a class="dropdown-item" href="#" onclick="sortFavourite()">My Favourite</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="sortDeadline()">Registration Deadline</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="sortNewest()">Registration Deadline</a></li>
                         </ul>
                     </div>
                     </div>
@@ -329,10 +331,14 @@
                                           <p>`+ student.ShortDescription + `</p>
                           </div>
                           <div class="star d-flex ms-auto">
-                              <img src="../CI-Imgs/selected-star.png" alt="">
-                              <img src="../CI-Imgs/selected-star.png" alt="">
-                              <img src="../CI-Imgs/selected-star.png" alt="">
-                              <img src="../CI-Imgs/star.png" alt="">
+                                       ${(() => {
+                        let starsHtml = '';
+                        for (let i = 0; i < 5; i++) {
+                            const imgSrc = i < student.Rating ? '../CI-Imgs/selected-star.png' : '../CI-Imgs/star.png';
+                            starsHtml += `<img src="${imgSrc}" class="star" alt="">`;
+                        }
+                        return starsHtml;
+                    })()}
                           </div>
                       </div>
                       <div class="bg-white datebadge1">

@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Volunteering_Mission";
 }
+@model CI_Platform.Models.MissionViewModel;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,30 +98,30 @@
                     <h3>@ViewBag.Missions.Title</h3>
                     <p>@ViewBag.Missions.ShortDescription</p>
                 </div>
-                @if(ViewBag.Missions.MissionType=="goal"){
-                <div class="sidebadge d-flex">
-                    <hr class="w-50">
-                    <div class="contbadge">
-                        <p class="p-2">Plant 10,000 Trees</p>
-                    </div>
-                    <hr class="w-50">
-                </div>
-                <div class="seats d-flex">
-                    <div class="userseat d-flex">
-                        <img src="../CI-Imgs/Seats-left.png" alt="">
-                        <p>10 seats left</p>
-                    </div>
-                    <div class="progressdiv w-25 d-flex">
-                        <div class="progressimg">
-                            <img src="../CI-Imgs/mission.png" alt="">
+                @if (ViewBag.Missions.MissionType == "goal") {
+                    <div class="sidebadge d-flex">
+                        <hr class="w-50">
+                        <div class="contbadge">
+                            <p class="p-2">Plant 10,000 Trees</p>
                         </div>
-                        <div class="progressbarcont w-75">
-                            <div class="progress ms-1">
-                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <hr class="w-50">
+                    </div>
+                    <div class="seats d-flex">
+                        <div class="userseat d-flex">
+                            <img src="../CI-Imgs/Seats-left.png" alt="">
+                            <p>10 seats left</p>
+                        </div>
+                        <div class="progressdiv w-25 d-flex">
+                            <div class="progressimg">
+                                <img src="../CI-Imgs/mission.png" alt="">
                             </div>
-                            <p class="ms-1">8000 Achived</p>
+                            <div class="progressbarcont w-75">
+                                <div class="progress ms-1">
+                                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="ms-1">8000 Achived</p>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 }
                 else
@@ -146,8 +147,8 @@
                 <hr class="mt-5">
                 <div class="favandinvibtn container row mt-4">
                     <div class="col-md-6 col-sm-12 mb-2 text-center">
-                        <button type="button" class="btn btn-outline-secondary border-3">
-                            <img src="../CI-Imgs/heart1.png" alt="">
+                        <button type="button" class="btn btn-outline-secondary border-3" onclick="addFav(@ViewBag.Missions.MissionId,@ViewBag.userId)">
+                            <i class="bi bi-heart-fill" id="favoicon" style="@(Model.isFav?"color:#F88634;":"color:black")"></i>
                             Add to Favourite
                         </button>
                     </div>
@@ -159,18 +160,18 @@
                     </div>
                 </div>
                 <div class="sidebadge d-flex mt-3">
-                    <hr class="w-50">
+                    <hr class="w-75">
                     <div class="stars">
                         @for (var i = 1; i <= ViewBag.Prewrating; i++)
                         {
-                            <i class="bi bi-star-fill" id="@i" onclick="addRating(this.id,@ViewBag.Missions.MissionId,@ViewBag.userId)" style="color:#F88634"></i>
+                            <i class="bi bi-star-fill ms-1" id="@i" onclick="addRating(this.id,@ViewBag.Missions.MissionId,@ViewBag.userId)" style="color:#F88634"></i>
                         }
                         @for (var i = ViewBag.Prewrating + 1; i <= 5; i++)
                         {
-                            <i class="bi bi-star-fill" id="@i" onclick="addRating(this.id,@ViewBag.Missions.MissionId,@ViewBag.userId)"></i>
+                            <i class="bi bi-star-fill ms-1" id="@i" onclick="addRating(this.id,@ViewBag.Missions.MissionId,@ViewBag.userId)"></i>
                         }
                     </div>
-                    <hr class="w-50">
+                    <hr class="w-75">
                 </div>
                 <div class="container mt-3">
                     <div class="row w-auto">

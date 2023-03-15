@@ -113,10 +113,10 @@ namespace CI_Platform.Controllers
         [HttpGet]
         public IActionResult Landing()
         {
-            var name = HttpContext.Session.GetString("FName");
-            if (name == null)
+            var fname = HttpContext.Session.GetString("FName");
+            if (fname == null)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", "Login");
             }
             else
             {
@@ -128,6 +128,7 @@ namespace CI_Platform.Controllers
                 List<CountrydataModel> countrydataModels = new List<CountrydataModel>();
                 List<MissionTheme> missionThemes = _cidbcontext.MissionThemes.ToList();
                 List<ThemedataModel> themedataModels = new List<ThemedataModel>();
+                var userId = HttpContext.Session.GetString("UserId");
                 foreach (var citie in cities)
                 {
                     CitydataModel citydataModels1 = new CitydataModel();
@@ -165,8 +166,25 @@ namespace CI_Platform.Controllers
                     missionView.CountryId = mission.CountryId;
                     missionView.CityId = mission.CityId;
                     missionView.ThemeId = mission.ThemeId;
-                    missionView.MissionType=mission.MissionType;
-                    missionView.SeatsAvailable=mission.SeatsAvailable;
+                    missionView.MissionType = mission.MissionType;
+                    missionView.SeatsAvailable = mission.SeatsAvailable;
+                    var rating1 = _cidbcontext.MissionRatings.Where(rt => rt.MissionId == mission.MissionId);
+                    var rat1 = 0;
+                    var sum = 0;
+                    foreach (var rat in rating1)
+                    {
+                        sum = sum + int.Parse(rat.Rating);
+                    }
+                    if (rating1.Count() == 0)
+                    {
+                        rat1 = 0;
+                        missionView.Rating = rat1;
+                    }
+                    else
+                    {
+                        rat1 = sum / rating1.Count();
+                        missionView.Rating = rat1;
+                    }
                     var city = _cidbcontext.Cities.FirstOrDefault(c => c.CityId == mission.CityId);
                     if (city != null)
                     {
@@ -182,9 +200,10 @@ namespace CI_Platform.Controllers
                     {
                         missionView.Country = country.Name;
                     }
-                    var media= _cidbcontext.MissionMedia.FirstOrDefault(mi => mi.MissionId==mission.MissionId);
-                    if (media != null) {
-                        missionView.MediaPath=media.MediaPath;
+                    var media = _cidbcontext.MissionMedia.FirstOrDefault(mi => mi.MissionId == mission.MissionId);
+                    if (media != null)
+                    {
+                        missionView.MediaPath = media.MediaPath;
                     }
                     missionViewModels.Add(missionView);
                 }
@@ -196,8 +215,11 @@ namespace CI_Platform.Controllers
                 ViewBag.Country = jsonCountry;
                 ViewBag.City = jsonCity;
                 ViewBag.JsonData = jsonData;
+                ViewBag.UserId = int.Parse(userId);
+                ViewBag.MissionVM = missionViewModels;
                 return View();
             }
+            
         }
         public IActionResult NoMission()
         {
@@ -216,25 +238,52 @@ namespace CI_Platform.Controllers
             var relatedmission = _cidbcontext.Missions.Where(t => t.MissionId != MissionId && t.ThemeId == missions.ThemeId);
             var recentvol=from u in _cidbcontext.Users join ma in _cidbcontext.MissionApplications on u.UserId equals ma.UserId where ma.MissionId == missions.MissionId select u;
             var rating1 = _cidbcontext.MissionRatings.Where(rt => rt.MissionId == missions.MissionId);
+            var userId = HttpContext.Session.GetString("UserId");
+            MissionViewModel missionView = new MissionViewModel();
+            List<Mission> missionlist = _cidbcontext.Missions.ToList();
+            
+                missionView.Status = missions.Status;
+                var favo = _cidbcontext.FavouriteMissions.Where(e => e.MissionId == missions.MissionId && e.UserId == int.Parse(userId));
+                if(favo.Count()>0 ) {
+                    missionView.isFav= true;
+                }
+                else
+                {
+                    missionView.isFav = false;
+                }
+            
             var rat1 = 0;
             var sum = 0;
             foreach(var rat in rating1)
             {
                 sum=sum+int.Parse(rat.Rating);
             }
-            rat1 = sum / rating1.Count();
+            if (rating1.Count() == 0)
+            {
+                rat1 = 0;
+            }
+            else
+            {
+                rat1 = sum / rating1.Count();
+            }
             ViewBag.RecentVolunteering = recentvol;
-            var userId = HttpContext.Session.GetString("UserId");
 
             ViewBag.userId = int.Parse(userId);
             var prewrating = _cidbcontext.MissionRatings.FirstOrDefault(r => r.MissionId == missions.MissionId && r.UserId == int.Parse(userId));
-            ViewBag.Prewrating = int.Parse(prewrating.Rating);
+            if(prewrating != null)
+            {
+                ViewBag.Prewrating = int.Parse(prewrating.Rating);
+                ViewBag.AvgRating = rat1;
+            }
+            else
+            {
+                ViewBag.Prewrating = 0;
+            }
             ViewBag.Missions = missions;
             ViewBag.relatedmission=relatedmission;
             ViewBag.MissionTheme = theme;
             ViewBag.City = city;
-            ViewBag.AvgRating = rat1;
-            return View();
+            return View(missionView);
         }
 
         [HttpPost]
@@ -256,6 +305,28 @@ namespace CI_Platform.Controllers
                 _cidbcontext.Add(ratingele);
                 _cidbcontext.SaveChanges();
                 return Json(new { success = true, ratingele, isRated = true });
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddFav(long missionId,long Id)
+        {
+            FavouriteMission favexists =  _cidbcontext.FavouriteMissions.FirstOrDefault(fm => fm.UserId == Id && fm.MissionId == missionId);
+            if (favexists != null)
+            {
+                favexists.MissionId = missionId;
+                favexists.UserId= Id;
+                _cidbcontext.Remove(favexists);
+                 await _cidbcontext.SaveChangesAsync();
+                return Json(new { success = true, favexists, isLiked = true });
+            }
+            else
+            {
+                var favele = new FavouriteMission();
+                favele.MissionId= missionId;
+                favele.UserId= Id;
+                _cidbcontext.Add(favele);
+                await _cidbcontext.SaveChangesAsync();
+                return Json(new { success = true,favele, isLiked = true });
             }
         }
         public IActionResult Story_Listing()

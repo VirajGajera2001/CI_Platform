@@ -44,6 +44,7 @@ function addRating(starId,missionId, Id) {
                     var starbtn = document.getElementById(String(i));
                     starbtn.style.color = "black";
                 }
+                location.reload();
             }
             else {
                 for (i = 1; i <= parseInt(result.newRating.rating, 10); i++) {
@@ -54,10 +55,34 @@ function addRating(starId,missionId, Id) {
                     var starbtn = document.getElementById(String(i));
                     starbtn.style.color = "black";
                 }
+                location.reload();
             }
+            
     },
         error: function () {
             alert("could not like mission");
         }
     });
+}
+
+function addFav(missionId, Id) {
+    $.ajax({
+        url: '/Home/AddFav',
+        type: 'POST',
+        data: { missionId: missionId, Id: Id},
+        success: function (result) {
+            if (result.isLiked) {
+                var favbtn = document.getElementById("favoicon");
+                favbtn.style.color = "black";
+            }
+            else {
+                var favbtn = document.getElementById("favoicon");
+                favbtn.style.color ="#F88634"
+            }
+            location.reload();
+        },
+        error: function () {
+            alert("could not like mission");
+        }
+        })
 }

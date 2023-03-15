@@ -44,9 +44,10 @@ namespace CI_Platform.Models
 
         public  String Country { get; set; } = null!;
 
-        
+        public bool isFav { get; set; }
         public String Theme { get; set; } = null!;
         public int? SeatsAvailable { get; set; }=null!;
         public string? MediaPath { get; set; } = null;
+        public int? Rating { get; set; }
     }
 }
