@@ -49,5 +49,8 @@ namespace CI_Platform.Models
         public int? SeatsAvailable { get; set; }=null!;
         public string? MediaPath { get; set; } = null;
         public int? Rating { get; set; }
+        public string? FirstName { get; set; }
+        public string Email { get; set; } = null!;
+        public int? GoalValue { get; set; }
     }
 }

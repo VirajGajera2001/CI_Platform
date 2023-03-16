@@ -319,6 +319,12 @@
                       <p style="color: white; font-size:12px;" class="ms-1">`+ student.City+ `</p>
                               
                     </div>
+                            <button class="position-absolute favbtn">
+                <i class="bi bi-heart-fill" style="${student.isFav ? `color:red;` : `color:white;`}" width="20px" height="20px"></i>
+            </button>
+            <button class="position-absolute recbtn">
+                        <img src="../CI-Imgs/heart1.png" alt="" class="bg-secondary">
+            </button>
                             ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
                   <div class="imgbadge1 bg-white text-center">
                       <p style="font-size:15px">`+student.Theme+`</p>
@@ -356,7 +362,7 @@
 
                     <div class="d-flex flex-column ms-2 ">
                         <div class="progress">
-                                  <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: 60%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
+                                  <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: ${student.GoalValue}%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
                                    
                                   </div>
                                 </div>
@@ -480,12 +486,15 @@ pagination.appendChild(nextLi);
                 var divs = document.createElement("div");
                 divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
                 divs.innerHTML = `<div class="card cardview mx-auto position-relative" style="width: 20rem;">
-                                  <img src="${student.MediaPath}" alt="" class="card-image">
+                          <img src="${student.MediaPath}" alt="" class="card-image">
                           <div class="position-absolute d-flex location">
                               <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
                               <p style="color: white; font-size:12px;" class="ms-1">`+ student.City + `</p>
 
                             </div>
+                                    <button class="position-absolute favbtn">
+                        <i class="bi bi-heart-fill" style="${student.isFav ? `color:red;` : `color:white;`}" width="20px" height="20px"></i>
+                    </button>
                                     ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
                           <div class="imgbadge1 bg-white text-center">
                               <p style="font-size:15px">`+ student.Theme + `</p>
@@ -498,10 +507,14 @@ pagination.appendChild(nextLi);
                                                   <p>`+ student.ShortDescription + `</p>
                                   </div>
                                   <div class="star d-flex ms-auto">
-                                      <img src="../CI-Imgs/selected-star.png" alt="">
-                                      <img src="../CI-Imgs/selected-star.png" alt="">
-                                      <img src="../CI-Imgs/selected-star.png" alt="">
-                                      <img src="../CI-Imgs/star.png" alt="">
+                                               ${(() => {
+                        let starsHtml = '';
+                        for (let i = 0; i < 5; i++) {
+                            const imgSrc = i < student.Rating ? '../CI-Imgs/selected-star.png' : '../CI-Imgs/star.png';
+                            starsHtml += `<img src="${imgSrc}" class="star" alt="">`;
+                        }
+                        return starsHtml;
+                    })()}
                                   </div>
                               </div>
                               <div class="bg-white datebadge1">
@@ -511,7 +524,7 @@ pagination.appendChild(nextLi);
                               <div class="desc2 d-flex">
                                   <div class="seats d-flex">
                                       <img src="../CI-Imgs/Seats-left.png" alt="">
-                                              <p>`+ student.SeatsAvailable + `seats left</p>
+                                      <p>`+ student.SeatsAvailable + `seats left</p>
                                   </div>
 
                                   ${student.MissionType === "goal" ? `<div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
@@ -519,7 +532,7 @@ pagination.appendChild(nextLi);
 
                             <div class="d-flex flex-column ms-2 ">
                                 <div class="progress">
-                                          <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: 60%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
+                                          <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: ${student.GoalValue}%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
 
                                           </div>
                                         </div>
@@ -535,7 +548,7 @@ pagination.appendChild(nextLi);
                               </div>
                               <hr style="margin-top: 30px;">
                               <div class="apply d-flex">
-                                  <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+                                  <a class="btn btn-outline-warning mx-auto" href="/Home/Volunteering_Mission?MissionId=`+ student.MissionId + `">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
                               </div>
                           </div>
                       </div>`;
@@ -634,65 +647,72 @@ pagination.appendChild(nextLi);
                 var divs = document.createElement("div");
                 divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
                 divs.innerHTML = `<div class="card cardview mx-auto position-relative" style="width: 20rem;">
-                                          <img src="${student.MediaPath}" alt="" class="card-image">
-                                  <div class="position-absolute d-flex location">
-                                      <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
-                                      <p style="color: white; font-size:12px;" class="ms-1">`+ student.City + `</p>
+                          <img src="${student.MediaPath}" alt="" class="card-image">
+                          <div class="position-absolute d-flex location">
+                              <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
+                              <p style="color: white; font-size:12px;" class="ms-1">`+ student.City + `</p>
 
-                                    </div>
-                                            ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
-                                  <div class="imgbadge1 bg-white text-center">
-                                      <p style="font-size:15px">`+ student.Theme + `</p>
+                            </div>
+                                    <button class="position-absolute favbtn">
+                        <i class="bi bi-heart-fill" style="${student.isFav ? `color:red;` : `color:white;`}" width="20px" height="20px"></i>
+                    </button>
+                                    ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
+                          <div class="imgbadge1 bg-white text-center">
+                              <p style="font-size:15px">`+ student.Theme + `</p>
+                          </div>
+                          <div class="card-body">
+                                          <h5>`+ student.Title + `</h5>
+                                          <p>`+ student.Description + `</p>
+                              <div class="desc1 d-flex">
+                                  <div>
+                                                  <p>`+ student.ShortDescription + `</p>
                                   </div>
-                                  <div class="card-body">
-                                                  <h5>`+ student.Title + `</h5>
-                                                  <p>`+ student.Description + `</p>
-                                      <div class="desc1 d-flex">
-                                          <div>
-                                                          <p>`+ student.ShortDescription + `</p>
-                                          </div>
-                                          <div class="star d-flex ms-auto">
-                                              <img src="../CI-Imgs/selected-star.png" alt="">
-                                              <img src="../CI-Imgs/selected-star.png" alt="">
-                                              <img src="../CI-Imgs/selected-star.png" alt="">
-                                              <img src="../CI-Imgs/star.png" alt="">
-                                          </div>
-                                      </div>
-                                      <div class="bg-white datebadge1">
-                                                                      <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
-                                      </div>
-                                      <hr>
-                                      <div class="desc2 d-flex">
-                                          <div class="seats d-flex">
-                                              <img src="../CI-Imgs/Seats-left.png" alt="">
-                                                      <p>`+ student.SeatsAvailable + `seats left</p>
-                                          </div>
+                                  <div class="star d-flex ms-auto">
+                                               ${(() => {
+                        let starsHtml = '';
+                        for (let i = 0; i < 5; i++) {
+                            const imgSrc = i < student.Rating ? '../CI-Imgs/selected-star.png' : '../CI-Imgs/star.png';
+                            starsHtml += `<img src="${imgSrc}" class="star" alt="">`;
+                        }
+                        return starsHtml;
+                    })()}
+                                  </div>
+                              </div>
+                              <div class="bg-white datebadge1">
+                                                              <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
+                              </div>
+                              <hr>
+                              <div class="desc2 d-flex">
+                                  <div class="seats d-flex">
+                                      <img src="../CI-Imgs/Seats-left.png" alt="">
+                                      <p>`+ student.SeatsAvailable + `seats left</p>
+                                  </div>
 
-                                          ${student.MissionType === "goal" ? `<div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
-                                    <img src="../CI-Imgs/achieved.png" height="25px" width="25px" alt="" class="mb-3">
+                                  ${student.MissionType === "goal" ? `<div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
+                            <img src="../CI-Imgs/achieved.png" height="25px" width="25px" alt="" class="mb-3">
 
-                                    <div class="d-flex flex-column ms-2 ">
-                                        <div class="progress">
-                                                  <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: 60%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
+                            <div class="d-flex flex-column ms-2 ">
+                                <div class="progress">
+                                          <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: ${student.GoalValue}%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
 
-                                                  </div>
-                                                </div>
-                                        <p class="seat">8000 achieved</p>
-                                    </div>
-                                    </div>`
+                                          </div>
+                                        </div>
+                                <p class="seat">8000 achieved</p>
+                            </div>
+                            </div>`
                         : `<div class="hours d-flex ms-auto">
-                                                      <img src="../CI-Imgs/hours.png" alt="">
-                                                              <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
-                                                  </div>`
+                                              <img src="../CI-Imgs/hours.png" alt="">
+                                                      <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
+                                          </div>`
                     }
 
-                                      </div>
-                                      <hr style="margin-top: 30px;">
-                                      <div class="apply d-flex">
-                                          <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-                                      </div>
-                                  </div>
-                              </div>`;
+                              </div>
+                              <hr style="margin-top: 30px;">
+                              <div class="apply d-flex">
+                                  <a class="btn btn-outline-warning mx-auto" href="/Home/Volunteering_Mission?MissionId=`+ student.MissionId + `">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+                              </div>
+                          </div>
+                      </div>`;
                 output.appendChild(divs);
             });
             var numPages = Math.ceil(data.length / pageSize);
@@ -789,65 +809,72 @@ pagination.appendChild(nextLi);
                 var divs = document.createElement("div");
                 divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
                 divs.innerHTML = `<div class="card cardview mx-auto position-relative" style="width: 20rem;">
-                                          <img src="${student.MediaPath}" alt="" class="card-image">
-                                  <div class="position-absolute d-flex location">
-                                      <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
-                                      <p style="color: white; font-size:12px;" class="ms-1">`+ student.City + `</p>
+                  <img src="${student.MediaPath}" alt="" class="card-image">
+                  <div class="position-absolute d-flex location">
+                      <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
+                      <p style="color: white; font-size:12px;" class="ms-1">`+ student.City+ `</p>
+                              
+                    </div>
+                            <button class="position-absolute favbtn">
+                <i class="bi bi-heart-fill" style="${student.isFav ? `color:red;` : `color:white;`}" width="20px" height="20px"></i>
+            </button>
+                            ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
+                  <div class="imgbadge1 bg-white text-center">
+                      <p style="font-size:15px">`+student.Theme+`</p>
+                  </div>
+                  <div class="card-body">
+                                  <h5>`+ student.Title + `</h5>
+                                  <p>`+ student.Description + `</p>
+                      <div class="desc1 d-flex">
+                          <div>
+                                          <p>`+ student.ShortDescription + `</p>
+                          </div>
+                          <div class="star d-flex ms-auto">
+                                       ${(() => {
+                        let starsHtml = '';
+                        for (let i = 0; i < 5; i++) {
+                            const imgSrc = i < student.Rating ? '../CI-Imgs/selected-star.png' : '../CI-Imgs/star.png';
+                            starsHtml += `<img src="${imgSrc}" class="star" alt="">`;
+                        }
+                        return starsHtml;
+                    })()}
+                          </div>
+                      </div>
+                      <div class="bg-white datebadge1">
+                                                      <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
+                      </div>
+                      <hr>
+                      <div class="desc2 d-flex">
+                          <div class="seats d-flex">
+                              <img src="../CI-Imgs/Seats-left.png" alt="">
+                              <p>`+student.SeatsAvailable+`seats left</p>
+                          </div>
 
-                                    </div>
-                                            ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
-                                  <div class="imgbadge1 bg-white text-center">
-                                      <p style="font-size:15px">`+ student.Theme + `</p>
+                          ${student.MissionType==="goal"?`<div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
+                    <img src="../CI-Imgs/achieved.png" height="25px" width="25px" alt="" class="mb-3">
+
+                    <div class="d-flex flex-column ms-2 ">
+                        <div class="progress">
+                                  <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: ${student.GoalValue}%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
+                                   
                                   </div>
-                                  <div class="card-body">
-                                                  <h5>`+ student.Title + `</h5>
-                                                  <p>`+ student.Description + `</p>
-                                      <div class="desc1 d-flex">
-                                          <div>
-                                                          <p>`+ student.ShortDescription + `</p>
-                                          </div>
-                                          <div class="star d-flex ms-auto">
-                                              <img src="../CI-Imgs/selected-star.png" alt="">
-                                              <img src="../CI-Imgs/selected-star.png" alt="">
-                                              <img src="../CI-Imgs/selected-star.png" alt="">
-                                              <img src="../CI-Imgs/star.png" alt="">
-                                          </div>
-                                      </div>
-                                      <div class="bg-white datebadge1">
-                                                                      <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
-                                      </div>
-                                      <hr>
-                                      <div class="desc2 d-flex">
-                                          <div class="seats d-flex">
-                                              <img src="../CI-Imgs/Seats-left.png" alt="">
-                                                      <p>`+ student.SeatsAvailable + `seats left</p>
-                                          </div>
-
-                                          ${student.MissionType === "goal" ? `<div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
-                                    <img src="../CI-Imgs/achieved.png" height="25px" width="25px" alt="" class="mb-3">
-
-                                    <div class="d-flex flex-column ms-2 ">
-                                        <div class="progress">
-                                                  <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: 60%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
-
-                                                  </div>
-                                                </div>
-                                        <p class="seat">8000 achieved</p>
-                                    </div>
-                                    </div>`
-                        : `<div class="hours d-flex ms-auto">
-                                                      <img src="../CI-Imgs/hours.png" alt="">
-                                                              <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
-                                                  </div>`
-                    }
-
-                                      </div>
-                                      <hr style="margin-top: 30px;">
-                                      <div class="apply d-flex">
-                                          <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-                                      </div>
-                                  </div>
-                              </div>`;
+                                </div>
+                        <p class="seat">8000 achieved</p>
+                    </div>
+                    </div>`
+                    : `<div class="hours d-flex ms-auto">
+                                      <img src="../CI-Imgs/hours.png" alt="">
+                                              <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
+                                  </div>`
+                              }
+                          
+                      </div>
+                      <hr style="margin-top: 30px;">
+                      <div class="apply d-flex">
+                          <a class="btn btn-outline-warning mx-auto" href="/Home/Volunteering_Mission?MissionId=`+student.MissionId+`">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+                      </div>
+                  </div>
+              </div>`;
                 output.appendChild(divs);
             });
             var numPages = Math.ceil(data.length / pageSize);
@@ -941,65 +968,72 @@ pagination.appendChild(nextLi);
                 var divs = document.createElement("div");
                 divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
                 divs.innerHTML = `<div class="card cardview mx-auto position-relative" style="width: 20rem;">
-                                          <img src="${student.MediaPath}" alt="" class="card-image">
-                                  <div class="position-absolute d-flex location">
-                                      <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
-                                      <p style="color: white; font-size:12px;" class="ms-1">`+ student.City + `</p>
+                          <img src="${student.MediaPath}" alt="" class="card-image">
+                          <div class="position-absolute d-flex location">
+                              <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
+                              <p style="color: white; font-size:12px;" class="ms-1">`+ student.City + `</p>
 
-                                    </div>
-                                            ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
-                                  <div class="imgbadge1 bg-white text-center">
-                                      <p style="font-size:15px">`+ student.Theme + `</p>
+                            </div>
+                                    <button class="position-absolute favbtn">
+                        <i class="bi bi-heart-fill" style="${student.isFav ? `color:red;` : `color:white;`}" width="20px" height="20px"></i>
+                    </button>
+                                    ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
+                          <div class="imgbadge1 bg-white text-center">
+                              <p style="font-size:15px">`+ student.Theme + `</p>
+                          </div>
+                          <div class="card-body">
+                                          <h5>`+ student.Title + `</h5>
+                                          <p>`+ student.Description + `</p>
+                              <div class="desc1 d-flex">
+                                  <div>
+                                                  <p>`+ student.ShortDescription + `</p>
                                   </div>
-                                  <div class="card-body">
-                                                  <h5>`+ student.Title + `</h5>
-                                                  <p>`+ student.Description + `</p>
-                                      <div class="desc1 d-flex">
-                                          <div>
-                                                          <p>`+ student.ShortDescription + `</p>
-                                          </div>
-                                          <div class="star d-flex ms-auto">
-                                              <img src="../CI-Imgs/selected-star.png" alt="">
-                                              <img src="../CI-Imgs/selected-star.png" alt="">
-                                              <img src="../CI-Imgs/selected-star.png" alt="">
-                                              <img src="../CI-Imgs/star.png" alt="">
-                                          </div>
-                                      </div>
-                                      <div class="bg-white datebadge1">
-                                                                      <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
-                                      </div>
-                                      <hr>
-                                      <div class="desc2 d-flex">
-                                          <div class="seats d-flex">
-                                              <img src="../CI-Imgs/Seats-left.png" alt="">
-                                                      <p>`+ student.SeatsAvailable + `seats left</p>
-                                          </div>
+                                  <div class="star d-flex ms-auto">
+                                               ${(() => {
+                        let starsHtml = '';
+                        for (let i = 0; i < 5; i++) {
+                            const imgSrc = i < student.Rating ? '../CI-Imgs/selected-star.png' : '../CI-Imgs/star.png';
+                            starsHtml += `<img src="${imgSrc}" class="star" alt="">`;
+                        }
+                        return starsHtml;
+                    })()}
+                                  </div>
+                              </div>
+                              <div class="bg-white datebadge1">
+                                                              <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
+                              </div>
+                              <hr>
+                              <div class="desc2 d-flex">
+                                  <div class="seats d-flex">
+                                      <img src="../CI-Imgs/Seats-left.png" alt="">
+                                      <p>`+ student.SeatsAvailable + `seats left</p>
+                                  </div>
 
-                                          ${student.MissionType === "goal" ? `<div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
-                                    <img src="../CI-Imgs/achieved.png" height="25px" width="25px" alt="" class="mb-3">
+                                  ${student.MissionType === "goal" ? `<div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
+                            <img src="../CI-Imgs/achieved.png" height="25px" width="25px" alt="" class="mb-3">
 
-                                    <div class="d-flex flex-column ms-2 ">
-                                        <div class="progress">
-                                                  <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: 60%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
+                            <div class="d-flex flex-column ms-2 ">
+                                <div class="progress">
+                                          <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: ${student.GoalValue}%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
 
-                                                  </div>
-                                                </div>
-                                        <p class="seat">8000 achieved</p>
-                                    </div>
-                                    </div>`
+                                          </div>
+                                        </div>
+                                <p class="seat">8000 achieved</p>
+                            </div>
+                            </div>`
                         : `<div class="hours d-flex ms-auto">
-                                                      <img src="../CI-Imgs/hours.png" alt="">
-                                                              <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
-                                                  </div>`
+                                              <img src="../CI-Imgs/hours.png" alt="">
+                                                      <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
+                                          </div>`
                     }
 
-                                      </div>
-                                      <hr style="margin-top: 30px;">
-                                      <div class="apply d-flex">
-                                          <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-                                      </div>
-                                  </div>
-                              </div>`;
+                              </div>
+                              <hr style="margin-top: 30px;">
+                              <div class="apply d-flex">
+                                  <a class="btn btn-outline-warning mx-auto" href="/Home/Volunteering_Mission?MissionId=`+ student.MissionId + `">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+                              </div>
+                          </div>
+                      </div>`;
                 output.appendChild(divs);
             });
             var numPages = Math.ceil(data.length / pageSize);
@@ -1172,48 +1206,72 @@ pagination.appendChild(nextLi);
                 var divs = document.createElement("div");
                 divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
                 divs.innerHTML = `<div class="card cardview mx-auto position-relative" style="width: 20rem;">
-                                  <img src="${student.MediaPath}" alt="" class="card-image">
-                          <div class="position-absolute d-flex location">
-                              <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
-                              <p style="color: white; font-size:12px;" class="ms-1">`+ student.City + `</p>
-                            </div>
-                          <div class="imgbadge1 bg-white">
-                              <p class="ms-4">`+ student.Theme + `</p>
+                  <img src="${student.MediaPath}" alt="" class="card-image">
+                  <div class="position-absolute d-flex location">
+                      <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
+                      <p style="color: white; font-size:12px;" class="ms-1">`+ student.City+ `</p>
+                              
+                    </div>
+                            <button class="position-absolute favbtn">
+                <i class="bi bi-heart-fill" style="${student.isFav ? `color:red;` : `color:white;`}" width="20px" height="20px"></i>
+            </button>
+                            ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
+                  <div class="imgbadge1 bg-white text-center">
+                      <p style="font-size:15px">`+student.Theme+`</p>
+                  </div>
+                  <div class="card-body">
+                                  <h5>`+ student.Title + `</h5>
+                                  <p>`+ student.Description + `</p>
+                      <div class="desc1 d-flex">
+                          <div>
+                                          <p>`+ student.ShortDescription + `</p>
                           </div>
-                          <div class="card-body">
-                                          <h5>`+ student.Title + `</h5>
-                                          <p>`+ student.Description + `</p>
-                              <div class="desc1 d-flex">
-                                  <div>
-                                                  <p>`+ student.ShortDescription + `</p>
+                          <div class="star d-flex ms-auto">
+                                       ${(() => {
+                        let starsHtml = '';
+                        for (let i = 0; i < 5; i++) {
+                            const imgSrc = i < student.Rating ? '../CI-Imgs/selected-star.png' : '../CI-Imgs/star.png';
+                            starsHtml += `<img src="${imgSrc}" class="star" alt="">`;
+                        }
+                        return starsHtml;
+                    })()}
+                          </div>
+                      </div>
+                      <div class="bg-white datebadge1">
+                                                      <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
+                      </div>
+                      <hr>
+                      <div class="desc2 d-flex">
+                          <div class="seats d-flex">
+                              <img src="../CI-Imgs/Seats-left.png" alt="">
+                              <p>`+student.SeatsAvailable+`seats left</p>
+                          </div>
+
+                          ${student.MissionType==="goal"?`<div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
+                    <img src="../CI-Imgs/achieved.png" height="25px" width="25px" alt="" class="mb-3">
+
+                    <div class="d-flex flex-column ms-2 ">
+                        <div class="progress">
+                                  <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: ${student.GoalValue}%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
+                                   
                                   </div>
-                                  <div class="star d-flex ms-auto">
-                                      <img src="../CI-Imgs/selected-star.png" alt="">
-                                      <img src="../CI-Imgs/selected-star.png" alt="">
-                                      <img src="../CI-Imgs/selected-star.png" alt="">
-                                      <img src="../CI-Imgs/star.png" alt="">
-                                  </div>
-                              </div>
-                              <div class="bg-white datebadge1">
-                                                              <p class="ms-2">From`+ student.StartDate.slice(0, 10) + ` until ` + student.EndDate.slice(0, 10) + `</p>
-                              </div>
-                              <hr>
-                              <div class="desc2 d-flex">
-                                  <div class="seats d-flex">
-                                      <img src="../CI-Imgs/Seats-left.png" alt="">
-                                      <p>10 seats left</p>
-                                  </div>
-                                  <div class="hours d-flex ms-auto">
+                                </div>
+                        <p class="seat">8000 achieved</p>
+                    </div>
+                    </div>`
+                    : `<div class="hours d-flex ms-auto">
                                       <img src="../CI-Imgs/hours.png" alt="">
                                               <p>`+ student.EndDate.slice(0, 10) + `<br>Deadline</p>
-                                  </div>
-                              </div>
-                              <hr style="margin-top: 30px;">
-                              <div class="apply d-flex">
-                                  <a asp-controller="Home" asp-action="Volunteering_Mission" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-                              </div>
-                          </div>
-                      </div>`;
+                                  </div>`
+                              }
+                          
+                      </div>
+                      <hr style="margin-top: 30px;">
+                      <div class="apply d-flex">
+                          <a class="btn btn-outline-warning mx-auto" href="/Home/Volunteering_Mission?MissionId=`+student.MissionId+`">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+                      </div>
+                  </div>
+              </div>`;
                 output.appendChild(divs);
             });
             var numPages = Math.ceil(data.length / pageSize);

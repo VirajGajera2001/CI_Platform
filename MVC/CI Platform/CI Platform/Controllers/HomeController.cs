@@ -8,6 +8,10 @@ using cloudscribe.Pagination.Models;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.Net.Mail;
+using System.Net;
+using NuGet.Common;
+using Newtonsoft.Json.Linq;
 
 namespace CI_Platform.Controllers
 {
@@ -185,6 +189,16 @@ namespace CI_Platform.Controllers
                         rat1 = sum / rating1.Count();
                         missionView.Rating = rat1;
                     }
+                    var isfav=_cidbcontext.FavouriteMissions.Where(fm=>fm.MissionId==mission.MissionId&&fm.UserId== int.Parse(userId)).ToList();
+                    if(isfav.Count>0)
+                    {
+                        missionView.isFav = true;
+                    }
+                    else
+                    {
+                        missionView.isFav = false;
+                    }
+
                     var city = _cidbcontext.Cities.FirstOrDefault(c => c.CityId == mission.CityId);
                     if (city != null)
                     {
@@ -204,6 +218,11 @@ namespace CI_Platform.Controllers
                     if (media != null)
                     {
                         missionView.MediaPath = media.MediaPath;
+                    }
+                    var goalvalue=_cidbcontext.GoalMissions.FirstOrDefault(gm=>gm.MissionId== mission.MissionId);
+                    if(goalvalue != null)
+                    {
+                        missionView.GoalValue = goalvalue.GoalValue;
                     }
                     missionViewModels.Add(missionView);
                 }
@@ -230,60 +249,151 @@ namespace CI_Platform.Controllers
 
             return View();
         }
-        public IActionResult Volunteering_Mission(int MissionId)
+        public IActionResult Volunteering_Mission(int MissionId, long? UserId)
         {
-            var missions = _cidbcontext.Missions.FirstOrDefault(m => m.MissionId == MissionId);
-            var city = _cidbcontext.Cities.FirstOrDefault(c => c.CityId == missions.CityId);
-            var theme = _cidbcontext.MissionThemes.FirstOrDefault(mt => mt.MissionThemeId == missions.ThemeId);
-            var relatedmission = _cidbcontext.Missions.Where(t => t.MissionId != MissionId && t.ThemeId == missions.ThemeId);
-            var recentvol=from u in _cidbcontext.Users join ma in _cidbcontext.MissionApplications on u.UserId equals ma.UserId where ma.MissionId == missions.MissionId select u;
-            var rating1 = _cidbcontext.MissionRatings.Where(rt => rt.MissionId == missions.MissionId);
-            var userId = HttpContext.Session.GetString("UserId");
-            MissionViewModel missionView = new MissionViewModel();
-            List<Mission> missionlist = _cidbcontext.Missions.ToList();
-            
-                missionView.Status = missions.Status;
-                var favo = _cidbcontext.FavouriteMissions.Where(e => e.MissionId == missions.MissionId && e.UserId == int.Parse(userId));
-                if(favo.Count()>0 ) {
-                    missionView.isFav= true;
+            if (UserId!=null)
+            {
+                var missions = _cidbcontext.Missions.FirstOrDefault(m => m.MissionId == MissionId);
+                var city = _cidbcontext.Cities.FirstOrDefault(c => c.CityId == missions.CityId);
+                var theme = _cidbcontext.MissionThemes.FirstOrDefault(mt => mt.MissionThemeId == missions.ThemeId);
+                var relatedmission = _cidbcontext.Missions.Where(t => t.MissionId != MissionId && t.ThemeId == missions.ThemeId);
+                var recentvol = from u in _cidbcontext.Users join ma in _cidbcontext.MissionApplications on u.UserId equals ma.UserId where ma.MissionId == missions.MissionId select u;
+                var rating1 = _cidbcontext.MissionRatings.Where(rt => rt.MissionId == missions.MissionId);
+                var goalvalue=_cidbcontext.GoalMissions.FirstOrDefault(gm=>gm.MissionId==missions.MissionId);
+                
+                MissionViewModel missionViewModels = new MissionViewModel();
+                List<User> users = _cidbcontext.Users.ToList();
+                List<Mission> missionlist = _cidbcontext.Missions.ToList();
+                List<Comment> comments = _cidbcontext.Comments.ToList();
+                List<CommentModel> commentModels= new List<CommentModel>();
+                foreach(var comms in comments)
+                {
+                    CommentModel commentModels1= new CommentModel();
+                    var user = _cidbcontext.Users.FirstOrDefault(t => t.UserId == comms.UserId && comms.MissionId==MissionId);
+                    commentModels1.FirstName = user.FirstName;
+                    commentModels1.CommentText = comms.CommentText;
+                    commentModels.Add(commentModels1);
+                }
+                missionViewModels.Status = missions.Status;
+                var favo = _cidbcontext.FavouriteMissions.Where(e => e.MissionId == missions.MissionId && e.UserId == UserId);
+                if (favo.Count() > 0)
+                {
+                    missionViewModels.isFav = true;
                 }
                 else
                 {
-                    missionView.isFav = false;
+                    missionViewModels.isFav = false;
                 }
-            
-            var rat1 = 0;
-            var sum = 0;
-            foreach(var rat in rating1)
-            {
-                sum=sum+int.Parse(rat.Rating);
-            }
-            if (rating1.Count() == 0)
-            {
-                rat1 = 0;
-            }
-            else
-            {
-                rat1 = sum / rating1.Count();
-            }
-            ViewBag.RecentVolunteering = recentvol;
 
-            ViewBag.userId = int.Parse(userId);
-            var prewrating = _cidbcontext.MissionRatings.FirstOrDefault(r => r.MissionId == missions.MissionId && r.UserId == int.Parse(userId));
-            if(prewrating != null)
-            {
-                ViewBag.Prewrating = int.Parse(prewrating.Rating);
-                ViewBag.AvgRating = rat1;
+                var rat1 = 0;
+                var sum = 0;
+                foreach (var rat in rating1)
+                {
+                    sum = sum + int.Parse(rat.Rating);
+                }
+                if (rating1.Count() == 0)
+                {
+                    rat1 = 0;
+                }
+                else
+                {
+                    rat1 = sum / rating1.Count();
+                }
+                ViewBag.RecentVolunteering = recentvol;
+
+                ViewBag.userId = UserId;
+                var prewrating = _cidbcontext.MissionRatings.FirstOrDefault(r => r.MissionId == missions.MissionId && r.UserId == UserId);
+                if (prewrating != null)
+                {
+                    ViewBag.Prewrating = int.Parse(prewrating.Rating);
+                    ViewBag.AvgRating = rat1;
+                }
+                else
+                {
+                    ViewBag.Prewrating = 0;
+                }
+                ViewBag.Missions = missions;
+                ViewBag.relatedmission = relatedmission;
+                ViewBag.MissionTheme = theme;
+                ViewBag.City = city;
+                ViewBag.AllUsers = users;
+                ViewBag.GoalVal = goalvalue;
+                ViewBag.ShowComm = commentModels;
+                return View(missionViewModels);
             }
             else
             {
-                ViewBag.Prewrating = 0;
+                var missions = _cidbcontext.Missions.FirstOrDefault(m => m.MissionId == MissionId);
+                var city = _cidbcontext.Cities.FirstOrDefault(c => c.CityId == missions.CityId);
+                var theme = _cidbcontext.MissionThemes.FirstOrDefault(mt => mt.MissionThemeId == missions.ThemeId);
+                var relatedmission = _cidbcontext.Missions.Where(t => t.MissionId != MissionId && t.ThemeId == missions.ThemeId);
+                var recentvol = from u in _cidbcontext.Users join ma in _cidbcontext.MissionApplications on u.UserId equals ma.UserId where ma.MissionId == missions.MissionId select u;
+                var rating1 = _cidbcontext.MissionRatings.Where(rt => rt.MissionId == missions.MissionId);
+                var userId = HttpContext.Session.GetString("UserId");
+                var goalvalue = _cidbcontext.GoalMissions.FirstOrDefault(gm => gm.MissionId == missions.MissionId);
+                MissionViewModel missionViewModels = new MissionViewModel();
+                List<User> users = _cidbcontext.Users.ToList();
+                List<Mission> missionlist = _cidbcontext.Missions.ToList();
+                List<Comment> comments = _cidbcontext.Comments.ToList();
+                List<CommentModel> commentModels = new List<CommentModel>();
+                foreach (var comms in comments)
+                {
+                    CommentModel commentModels1 = new CommentModel();
+                    var user = _cidbcontext.Users.FirstOrDefault(t => t.UserId == comms.UserId && comms.MissionId == MissionId);
+                    if(user!= null)
+                    {
+                        commentModels1.FirstName = user.FirstName;
+                        commentModels1.CommentText = comms.CommentText;
+                        commentModels.Add(commentModels1);
+                    }
+                }
+                missionViewModels.Status = missions.Status;
+                var favo = _cidbcontext.FavouriteMissions.Where(e => e.MissionId == missions.MissionId && e.UserId == int.Parse(userId));
+                if (favo.Count() > 0)
+                {
+                    missionViewModels.isFav = true;
+                }
+                else
+                {
+                    missionViewModels.isFav = false;
+                }
+
+                var rat1 = 0;
+                var sum = 0;
+                foreach (var rat in rating1)
+                {
+                    sum = sum + int.Parse(rat.Rating);
+                }
+                if (rating1.Count() == 0)
+                {
+                    rat1 = 0;
+                }
+                else
+                {
+                    rat1 = sum / rating1.Count();
+                }
+                ViewBag.RecentVolunteering = recentvol;
+
+                ViewBag.userId = int.Parse(userId);
+                var prewrating = _cidbcontext.MissionRatings.FirstOrDefault(r => r.MissionId == missions.MissionId && r.UserId == int.Parse(userId));
+                if (prewrating != null)
+                {
+                    ViewBag.Prewrating = int.Parse(prewrating.Rating);
+                    ViewBag.AvgRating = rat1;
+                }
+                else
+                {
+                    ViewBag.Prewrating = 0;
+                }
+                ViewBag.Missions = missions;
+                ViewBag.relatedmission = relatedmission;
+                ViewBag.MissionTheme = theme;
+                ViewBag.City = city;
+                ViewBag.AllUsers = users;
+                ViewBag.GoalVal = goalvalue;
+                ViewBag.ShowComm = commentModels;
+                return View(missionViewModels);
             }
-            ViewBag.Missions = missions;
-            ViewBag.relatedmission=relatedmission;
-            ViewBag.MissionTheme = theme;
-            ViewBag.City = city;
-            return View(missionView);
         }
 
         [HttpPost]
@@ -329,6 +439,56 @@ namespace CI_Platform.Controllers
                 return Json(new { success = true,favele, isLiked = true });
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> SendRec(long missionId, string[] ToMail) {
+            foreach(var items in ToMail)
+            {
+                var uId = _cidbcontext.Users.FirstOrDefault(u => u.Email == items);
+                var resetLink = "https://localhost:44345" + Url.Action("Volunteering_Mission", "Home", new { MissionId = missionId, UserId = uId.UserId });
+                var fromAddress = new MailAddress("gajeravirajpareshbhai@gmail.com", "Sender Name");
+                var toAddress = new MailAddress(items);
+                var subject = "Message For Recommand Mission";
+                var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
+                var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true
+                };
+                var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("gajeravirajpareshbhai@gmail.com", "drbwjzfrmubtveud"),
+                    EnableSsl = true
+                };
+                smtpClient.Send(message);
+            }
+            return Json(new { success = true });
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddComment(long missionId,long userId,string commentText)
+        {
+            Comment comment=_cidbcontext.Comments.FirstOrDefault(cm=>cm.MissionId==missionId &&cm.UserId==userId);
+            if (comment == null)
+            {
+                var addcomm = new Comment();
+                addcomm.MissionId = missionId;
+                addcomm.UserId = userId;
+                addcomm.CommentText = commentText;
+                _cidbcontext.Add(addcomm);
+                await _cidbcontext.SaveChangesAsync();
+            }
+            else
+            {
+                var addcomm = new Comment();
+                addcomm.MissionId = missionId;
+                addcomm.UserId = userId;
+                addcomm.CommentText = commentText;
+                _cidbcontext.Add(addcomm);
+                await _cidbcontext.SaveChangesAsync();
+            }
+            return Json(new {success= true});
+        }
         public IActionResult Story_Listing()
         {
             return View();
@@ -336,7 +496,7 @@ namespace CI_Platform.Controllers
         public IActionResult Share_Story()
         {
             return View();
-        }
+        } 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

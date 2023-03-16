@@ -233,6 +233,24 @@
     height: 2rem;
     margin-top: 0.7rem !important;
 }
+.favbtn {
+    top: 100px;
+    right: 10px;
+    border-radius: 50px;
+    width: 38px;
+    height: 38px;
+    background-color:black;
+    opacity:0.8;
+}
+.recbtn {
+    top: 140px;
+    right: 10px;
+    border-radius: 50px;
+    width: 38px;
+    height: 38px;
+    background-color: black;
+    opacity: 0.8;
+}
 
 @media (max-width:991px) {
     .profitext {

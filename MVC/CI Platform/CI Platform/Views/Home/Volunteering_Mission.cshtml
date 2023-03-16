@@ -2,6 +2,9 @@
 @{
     ViewData["Title"] = "Volunteering_Mission";
 }
+@{
+    var name = Context.Session.GetString("FName");
+}
 @model CI_Platform.Models.MissionViewModel;
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +39,12 @@
                     <div class="dropdown ms-5">
                         <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
                             <img src="../CI-Imgs/user-img.png" alt="" class="profileimg">
-                            <span>John Doe</span>
+                            @if (@name != null)
+                                {
+                                    
+                                    <span>@name</span>
+                              
+                            }
                             <img src="../CI-Imgs/drop-down.png" class="ic-down">
                         </button>
                         <ul class="dropdown-menu">
@@ -117,7 +125,7 @@
                             </div>
                             <div class="progressbarcont w-75">
                                 <div class="progress ms-1">
-                                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar" role="progressbar" style="width: @ViewBag.GoalVal.GoalValue%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <p class="ms-1">8000 Achived</p>
                             </div>
@@ -129,7 +137,7 @@
                     <div class="sidebadge d-flex">
                         <hr class="w-50">
                         <div class="contbadge">
-                            <p class="p-2">From @ViewBag.Missions.StartDate?.ToString("yyyy-mm-dd") To @ViewBag.Missions.EndDate?.ToString("yyyy-mm-dd")</p>
+                            <p class="p-2 contbadgetext">From @ViewBag.Missions.StartDate?.ToString("yyyy-mm-dd") To @ViewBag.Missions.EndDate?.ToString("yyyy-mm-dd")</p>
                         </div>
                         <hr class="w-50">
                     </div>
@@ -148,15 +156,39 @@
                 <div class="favandinvibtn container row mt-4">
                     <div class="col-md-6 col-sm-12 mb-2 text-center">
                         <button type="button" class="btn btn-outline-secondary border-3" onclick="addFav(@ViewBag.Missions.MissionId,@ViewBag.userId)">
-                            <i class="bi bi-heart-fill" id="favoicon" style="@(Model.isFav?"color:#F88634;":"color:black")"></i>
+                            <i class="bi bi-heart-fill" id="favoicon" style="@(Model.isFav?"color:red;":"color:black")"></i>
                             Add to Favourite
                         </button>
                     </div>
-                    <div class="col-md-6 col-sm-12 text-center">
-                        <button type="button" class="btn btn-outline-secondary border-3">
+                    <div class="col-md-6 col-sm-12 text-center dropdown">
+                        <button type="button" class="btn btn-outline-secondary border-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <img src="../CI-Imgs/heart1.png" alt="" class="bg-secondary">
                             Recommend to a Co-Worker
                         </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Select Coworker</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body modaltext">
+                                        <ul style="list-style-type:none" class="ps-0">
+                                            @foreach (var items in @ViewBag.AllUsers)
+                                            {
+                                                <li class="dropdown-item">
+                                                    <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme"/><span class="ms-1">@items.FirstName (@items.Email)</span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" onclick="sendRec(@ViewBag.Missions.MissionId);">Send</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="sidebadge d-flex mt-3">
@@ -270,10 +302,19 @@
                         <div id="comment-form">
                             <h4>Leave a Comment</h4>
                             <textarea id="comment-text" class="form-control"></textarea>
-                            <button id="post-comment-btn" class="btn btn-secondary mt-2">Post Comment</button>
+                            <button id="post-comment-btn" class="btn btn-secondary mt-2" onclick="addComm(@ViewBag.Missions.MissionId,@ViewBag.userId);">Post Comment</button>
                         </div>
                         <div id="comment-section">
                             <h4>Comments</h4>
+                            @foreach (var comms in ViewBag.ShowComm)
+                                {
+                            <div id="commentfield" class="comment">
+                                
+                                    <p>@comms.FirstName</p>
+                                    <p>@comms.CommentText</p>
+                                
+                            </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -333,32 +374,63 @@
         <p class="ms-5">Privacy Policy</p>
     </footer>
     <script>
-        // Select the text box and button elements
-        const commentText = document.querySelector("#comment-text");
-        const postCommentBtn = document.querySelector("#post-comment-btn");
 
-        // Select the comment section element
-        const commentSection = document.querySelector("#comment-section");
-
-        // Add an event listener to the button
-        postCommentBtn.addEventListener("click", () => {
-            // Get the text from the text box
+        function addComm(missionId,userId){
+            const commentText = document.querySelector("#comment-text");
+            const postCommentBtn = document.querySelector("#post-comment-btn");
+            const commentSection = document.querySelector("#comment-section");
             const comment = commentText.value;
-
-            // Create a new comment element
-            const newComment = document.createElement("div");
+            const newComment = document.getElementById("commentfield");
+            console.log(missionId);
             newComment.classList.add("comment");
             newComment.innerHTML = `
-                        <p>${comment}</p>
-                        <small>Posted on ${new Date().toLocaleString()}</small>
-                    `;
+                                <h5>@name</h5>
+                                <p>${comment}</p>
+                                <small>Posted on ${new Date().toLocaleString()}</small>
+                            `;
 
             // Add the new comment to the comment section
             commentSection.appendChild(newComment);
 
             // Clear the text box
             commentText.value = "";
-        });
+            $.ajax({
+                url: '/Home/AddComment',
+                type: 'POST',
+                data: { missionId: missionId, userId: userId, commentText: comment},
+                success:function(result){
+                    return true;
+                }
+            })
+            
+        }
+        //// Select the text box and button elements
+        //const commentText = document.querySelector("#comment-text");
+        //const postCommentBtn = document.querySelector("#post-comment-btn");
+
+        //// Select the comment section element
+        //const commentSection = document.querySelector("#comment-section");
+
+        //// Add an event listener to the button
+        //postCommentBtn.addEventListener("click", (@ViewBag.Missions.MissionId,@ViewBag.userId) => {
+        //    // Get the text from the text box
+        //    const comment = commentText.value;
+
+        //    // Create a new comment element
+        //    const newComment = document.createElement("div");
+        //    newComment.classList.add("comment");
+        //    newComment.innerHTML = `
+        //                <h5>@name</h5>
+        //                <p>${comment}</p>
+        //                <small>Posted on ${new Date().toLocaleString()}</small>
+        //            `;
+
+        //    // Add the new comment to the comment section
+        //    commentSection.appendChild(newComment);
+
+        //    // Clear the text box
+        //    commentText.value = "";
+        //});
 
     </script>
     <script src="~/js/Favourite.js"></script>

@@ -198,6 +198,9 @@ public partial class CIdbcontext : DbContext
                 .IsUnicode(false)
                 .HasDefaultValueSql("('PENDING')")
                 .HasColumnName("approval_status");
+            entity.Property(e => e.CommentText)
+                .HasMaxLength(500)
+                .HasColumnName("comment_text");
             entity.Property(e => e.CreatedAt)
                 .IsRowVersion()
                 .IsConcurrencyToken()

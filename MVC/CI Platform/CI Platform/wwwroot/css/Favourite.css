@@ -179,7 +179,12 @@
 			margin: 0;
 			font-size: 16px;
 		}
-  @media (max-width:991px){
+.modaltext {
+    height: 200px;
+    overflow-y: auto;
+    text-align:left;
+}
+@media (max-width:991px) {
     .stars{
       width: 377px;
     }
@@ -188,5 +193,14 @@
     }
     .tabdocuments{
       text-align: center;
+    }
+    .contbadge {
+        border: 1px solid gray;
+        width: 500px;
+        height: 41px;
+        border-radius: 18px;
+    }
+    .contbadgetext {
+        font-size:13px;
     }
   }
