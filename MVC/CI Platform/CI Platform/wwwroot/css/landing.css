@@ -32,7 +32,7 @@
 }
 
 .bell {
-    visibility: hidden;
+    display:none;
 }
 
 .filter {
@@ -270,7 +270,7 @@
     }
 
     .bell {
-        visibility: visible;
+        display:block;
     }
 
     .city, .country, .skills, .theme {

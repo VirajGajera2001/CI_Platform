@@ -4,6 +4,7 @@
 }
 @{
     var name = Context.Session.GetString("FName");
+    var avatar = Context.Session.GetString("Avatar");
 }
 @model CI_Platform.Models.MissionViewModel;
 <!DOCTYPE html>
@@ -38,7 +39,7 @@
                 <div class="navright ms-auto">
                     <div class="dropdown ms-5">
                         <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
-                            <img src="../CI-Imgs/user-img.png" alt="" class="profileimg">
+                            <img src="@avatar" alt="" class="profileimg">
                             @if (@name != null)
                                 {
                                     
@@ -306,15 +307,21 @@
                         </div>
                         <div id="comment-section">
                             <h4>Comments</h4>
-                            @foreach (var comms in ViewBag.ShowComm)
-                                {
-                            <div id="commentfield" class="comment">
-                                
-                                    <p>@comms.FirstName</p>
-                                    <p>@comms.CommentText</p>
-                                
+                            <div id="commentfield">
+                                @foreach (var comms in ViewBag.ShowComm)
+                                    { 
+                                        <div class="comment d-flex">
+                                            <div>
+                                            <img src="@comms.Avatar" class="volunimg" />
+                                            </div>
+                                            <div class="ms-2">
+                                            <h5>@comms.FirstName</h5>
+                                            <p>@comms.CommentText</p>
+                                            <p>Posted on @comms.CreatedAt</p>
+                                            </div>
+                                        </div>
+                                    }
                             </div>
-                            }
                         </div>
                     </div>
                 </div>
@@ -345,7 +352,7 @@
                         <div class="row">
                             @foreach (var item in ViewBag.RecentVolunteering){
                             <div class="col-4 text-center">
-                                <img src="../CI-Imgs/volunteer1.png" alt="" class="voluntimg">
+                                    <img src="@item.Avatar" alt="" class="volunimg">
                                 <p>@item.FirstName</p>
                             </div>
                             }
@@ -374,23 +381,29 @@
         <p class="ms-5">Privacy Policy</p>
     </footer>
     <script>
-
         function addComm(missionId,userId){
             const commentText = document.querySelector("#comment-text");
             const postCommentBtn = document.querySelector("#post-comment-btn");
             const commentSection = document.querySelector("#comment-section");
             const comment = commentText.value;
-            const newComment = document.getElementById("commentfield");
+            const commentField = document.getElementById("commentfield");
+            const newComment = document.createElement("div");
+
             console.log(missionId);
-            newComment.classList.add("comment");
+            newComment.classList.add("comment","d-flex");
             newComment.innerHTML = `
-                                <h5>@name</h5>
-                                <p>${comment}</p>
-                                <small>Posted on ${new Date().toLocaleString()}</small>
+                                <div>
+                                        <img src="@avatar" class="volunimg"/>
+                                </div>
+                                <div>
+                                        <h5>@name</h5>
+                                        <p>${comment}</p>
+                                        <small>Posted on ${new Date().toLocaleString()}</small>
+                                </div>
                             `;
 
             // Add the new comment to the comment section
-            commentSection.appendChild(newComment);
+            commentField.appendChild(newComment);
 
             // Clear the text box
             commentText.value = "";
@@ -404,34 +417,6 @@
             })
             
         }
-        //// Select the text box and button elements
-        //const commentText = document.querySelector("#comment-text");
-        //const postCommentBtn = document.querySelector("#post-comment-btn");
-
-        //// Select the comment section element
-        //const commentSection = document.querySelector("#comment-section");
-
-        //// Add an event listener to the button
-        //postCommentBtn.addEventListener("click", (@ViewBag.Missions.MissionId,@ViewBag.userId) => {
-        //    // Get the text from the text box
-        //    const comment = commentText.value;
-
-        //    // Create a new comment element
-        //    const newComment = document.createElement("div");
-        //    newComment.classList.add("comment");
-        //    newComment.innerHTML = `
-        //                <h5>@name</h5>
-        //                <p>${comment}</p>
-        //                <small>Posted on ${new Date().toLocaleString()}</small>
-        //            `;
-
-        //    // Add the new comment to the comment section
-        //    commentSection.appendChild(newComment);
-
-        //    // Clear the text box
-        //    commentText.value = "";
-        //});
-
     </script>
     <script src="~/js/Favourite.js"></script>
     <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>

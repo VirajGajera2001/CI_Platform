@@ -1,4 +1,7 @@
-﻿@{var name = Context.Session.GetString("FName");}
+﻿@{
+    var name = Context.Session.GetString("FName");
+    var avatar = Context.Session.GetString("Avatar");
+}
 @using Newtonsoft.Json;
 
 @{
@@ -123,7 +126,7 @@
                         <img src="../CI-Imgs/bell.png" alt="" class="bell ms-auto">
                         <div class="dropdown"> 
                             <button class="border-0 bg-white" type="button" data-bs-toggle="dropdown">
-                                <img src="../CI-Imgs/user-img.png" class="profileimg">
+                                <img src="@avatar" class="profileimg">
                                 @if (@name != null)
                                 {
                                     
@@ -319,13 +322,13 @@
                       <p style="color: white; font-size:12px;" class="ms-1">`+ student.City+ `</p>
                               
                     </div>
-                            <button class="position-absolute favbtn">
-                <i class="bi bi-heart-fill" style="${student.isFav ? `color:red;` : `color:white;`}" width="20px" height="20px"></i>
-            </button>
             <button class="position-absolute recbtn">
                         <img src="../CI-Imgs/heart1.png" alt="" class="bg-secondary">
             </button>
                             ${isClosed ? '<button class="closed-btn position-absolute" type="button">Closed</button>' : ''}
+                            <button class="position-absolute favbtn">
+                <i class="bi bi-heart-fill" style="${student.isFav ? `color:red;` : `color:white;`}" width="20px" height="20px"></i>
+            </button>
                   <div class="imgbadge1 bg-white text-center">
                       <p style="font-size:15px">`+student.Theme+`</p>
                   </div>
@@ -1127,12 +1130,12 @@ pagination.appendChild(nextLi);
                         li.addEventListener("click", function () {
                             li.remove();
                             cbs[k].checked = false;
+                            
                         });
                         filtersSection.appendChild(li);
                     } else {
                         const lis = document.getElementById(this.value);
-                          
-                        lis.remove();
+                        lis.remove(); 
                     }
                 });
             }
@@ -1164,7 +1167,7 @@ pagination.appendChild(nextLi);
                 card[j].style.width = "20rem"
                 imgBadge1[j].style.display = "block";
                 dataBadge1[j].style.display = "block";
-                imgBadge1[j].style.top = "176px"
+                imgBadge1[j].style.top = "180px"
             }
         }
         function updateData(page=1,value){
@@ -1184,6 +1187,7 @@ pagination.appendChild(nextLi);
                     var group = $(this).closest('.dropdown-menu').prev('.bg-white').text().trim();
                     switch (group) {
                         case 'Country':
+                        console.log(country);
                             country.push(value);
                             break;
                         case 'City':
@@ -1203,6 +1207,10 @@ pagination.appendChild(nextLi);
             });
             var pageData = data.slice(startIndex, endIndex);
             pageData.forEach(student => {
+                const enddate = student.EndDate;
+                const endDate = new Date(enddate);
+                const today = new Date();
+                const isClosed = endDate < today;
                 var divs = document.createElement("div");
                 divs.classList.add("col-lg-4", "col-md-6", "col-sm-12", "allviews", "p-0");
                 divs.innerHTML = `<div class="card cardview mx-auto position-relative" style="width: 20rem;">

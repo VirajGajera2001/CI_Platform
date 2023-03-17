@@ -110,11 +110,6 @@
   .information{
     border: 1px solid gray;
   }
-  .voluntimg{
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-  }
   .recent-volunteer{
     border: 1px solid gray;
     padding: 10px 0px;
@@ -166,14 +161,16 @@
     padding: 10px;
     border: 1px solid gray;
     border-radius: 5px;
-    height:170px;
-    overflow-y:auto;
+    height: 200px;
+    overflow-y: auto;
+    background-color: #fafafa;
 }
 .comment {
     padding: 5px;
     border: 1px solid gray;
     border-radius: 5px;
     margin-bottom: 10px;
+    background-color:white;
 }
 .comment p {
 			margin: 0;
@@ -183,6 +180,11 @@
     height: 200px;
     overflow-y: auto;
     text-align:left;
+}
+.volunimg {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
 }
 @media (max-width:991px) {
     .stars{

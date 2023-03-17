@@ -12,6 +12,7 @@ using System.Net.Mail;
 using System.Net;
 using NuGet.Common;
 using Newtonsoft.Json.Linq;
+using System.Text;
 
 namespace CI_Platform.Controllers
 {
@@ -271,6 +272,7 @@ namespace CI_Platform.Controllers
                     CommentModel commentModels1= new CommentModel();
                     var user = _cidbcontext.Users.FirstOrDefault(t => t.UserId == comms.UserId && comms.MissionId==MissionId);
                     commentModels1.FirstName = user.FirstName;
+                    commentModels1.Avatar= user.Avatar;
                     commentModels1.CommentText = comms.CommentText;
                     commentModels.Add(commentModels1);
                 }
@@ -344,8 +346,11 @@ namespace CI_Platform.Controllers
                     {
                         commentModels1.FirstName = user.FirstName;
                         commentModels1.CommentText = comms.CommentText;
+                        commentModels1.CreatedAt = comms.CreatedAt;
+                        commentModels1.Avatar = user.Avatar;
                         commentModels.Add(commentModels1);
                     }
+                    
                 }
                 missionViewModels.Status = missions.Status;
                 var favo = _cidbcontext.FavouriteMissions.Where(e => e.MissionId == missions.MissionId && e.UserId == int.Parse(userId));
@@ -475,6 +480,7 @@ namespace CI_Platform.Controllers
                 addcomm.MissionId = missionId;
                 addcomm.UserId = userId;
                 addcomm.CommentText = commentText;
+                addcomm.CreatedAt = DateTime.Now;
                 _cidbcontext.Add(addcomm);
                 await _cidbcontext.SaveChangesAsync();
             }
@@ -484,6 +490,7 @@ namespace CI_Platform.Controllers
                 addcomm.MissionId = missionId;
                 addcomm.UserId = userId;
                 addcomm.CommentText = commentText;
+                addcomm.CreatedAt = DateTime.Now;
                 _cidbcontext.Add(addcomm);
                 await _cidbcontext.SaveChangesAsync();
             }

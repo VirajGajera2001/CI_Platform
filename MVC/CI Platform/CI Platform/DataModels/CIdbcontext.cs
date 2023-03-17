@@ -202,8 +202,7 @@ public partial class CIdbcontext : DbContext
                 .HasMaxLength(500)
                 .HasColumnName("comment_text");
             entity.Property(e => e.CreatedAt)
-                .IsRowVersion()
-                .IsConcurrencyToken()
+                .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.DeletedAt)
                 .HasColumnType("datetime")

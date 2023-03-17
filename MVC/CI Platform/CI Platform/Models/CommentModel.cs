@@ -14,12 +14,13 @@ namespace CI_Platform.Models
 
         public string ApprovalStatus { get; set; } = null!;
 
-        public byte[] CreatedAt { get; set; } = null!;
+        public DateTime? CreatedAt { get; set; }
 
         public DateTime? UpdatedAt { get; set; }
 
         public DateTime? DeletedAt { get; set; }
 
         public string? FirstName { get; set; }
+        public string? Avatar { get; set; }
     }
 }

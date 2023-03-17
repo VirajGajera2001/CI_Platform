@@ -32,6 +32,7 @@ namespace CI_Platform.Controllers
                 {
                     HttpContext.Session.SetString("FName",user.FirstName);
                     HttpContext.Session.SetString("UserId", user.UserId.ToString());
+                    HttpContext.Session.SetString("Avatar",user.Avatar);
                     return RedirectToAction("Landing", "Home");
                 }
                 else
