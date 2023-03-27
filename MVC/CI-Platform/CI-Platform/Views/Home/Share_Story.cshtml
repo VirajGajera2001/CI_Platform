@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewData["Title"] = "Share_Story";
+    var userId = Context.Session.GetString("UserId");
+}
+@model CI_Platform.Entities.DataModels.Story;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/Favourite.css">
+    <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex">
+                <div class="navleft d-flex">
+                    <a href="" class="text-decoration-none" style="color: black;">Story</a>
+                    <div class="dropdown ms-5">
+                        <button class="bg-white border-0 p-0" type="button" data-bs-toggle="dropdown" id="dropdownMenuButton">
+                            <span>Policy</span>
+                            <img src="../CI-Imgs/drop-down.png" class="ic-downs">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">Policy1</a></li>
+                            <li><a class="dropdown-item" href="#">Policy2</a></li>
+                            <li><a class="dropdown-item" href="#">Policy3</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="navright ms-auto">
+                    <div class="dropdown ms-5">
+                        <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                            <img src="../CI-Imgs/user-img.png" alt="" class="profileimg">
+                            <span>John Doe</span>
+                            <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Help</a></li>
+                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container p-0">
+        <div class="row">
+            <h3>Share your story</h3>
+            
+            <div class="col-lg-4">
+                <p>Select Mission</p>
+                <select name="" id="Missionname" asp-for="MissionId" class="dropdown form-control form-select">
+                    <option value=""></option>
+                    @if(ViewBag.missions!=null){
+                    @foreach(var item in ViewBag.missions){
+                    <option value="@item.MissionId">@item.Title</option>
+                        }
+                        }
+                </select>
+            </div>
+            <div class="col-lg-4">
+                <p>My story title</p>
+                <input type="text" name="" id="storytitle" asp-for="Title" class="form-control" placeholder="Enter your story title">
+            </div>
+            <div class="col-lg-4">
+                <p>Date</p>
+                <input type="date" name="" id="releasedate" asp-for="PublishedAt" class="form-control">
+            </div>
+            <div class="col-lg-12">
+                <p>My Story</p>
+                    <textarea id="editor1" rows="80" asp-for="StoryDescription" cols="10" maxlength="4000">
+                    Enter your story details
+                </textarea>
+            </div>
+            <div class="col-lg-12">
+                <p>Enter Video URL</p>
+                <textarea name="" id="input" class="form-control"></textarea>
+            </div>
+            <div class="col-lg-12">
+                <p>Upload Your Photos</p>
+                <div class="inputimagebox text-center" id="drop_zone"
+                     ondrop="dropHandler(event);"
+                     ondragover="dragOverHandler(event);">
+                    <div class="uploadcont mt-4">
+                        <label for="image-upload"><img src="../CI-Imgs/plus-lg.svg" alt="" style="width: 50px;"></label>
+                        <input type="file" class="custom-file-input" id="image-upload" name="image-upload" style="display: none; visibility: hidden;"><br>
+                        <label for="image-upload">
+                            Drag and Drop Pictures and Video here
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 image-preview d-flex mt-3 flex-wrap">
+            </div>
+            <div class="col-lg-12 mt-5">
+                <div class="d-flex">
+                    <a asp-action="Story_Listing" asp-controller="Home" class="btn canclebtn">Cancel</a>
+                    <button class="btn ms-auto submitbtn">Save</button>
+                    
+                    <button  class="btn submitbtn" onclick="shareStory(userId=@userId);">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <footer>
+        <p class="ms-5">Privacy Policy</p>
+    </footer>
+    <script src="~/js/Share_Story.js"></script>
+    <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

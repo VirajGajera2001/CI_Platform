@@ -1,0 +1,77 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPages;
+    }
+    var userId = Context.Session.GetString("UserId");
+}
+@model IEnumerable<StoryViewModel>;
+<div class="container mt-5 p-0">
+    <div class="row">
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
+                    <div class="card mx-auto" style="width: 80%; height:100%">
+                        <div id="hover-div" class="text-center">
+                            <img src="@item.Path" alt="" class="card-img">
+                            <a href="/Home/Story_Detail?StoryId=@item.StoryId&UserId=@item.UserId" class="card-img-overlay apply-btn text-decoration-none" style="color: white;">View Details</a>
+                            <p class="exps">@item.ThemeTitle</p>
+                        </div>
+                        <div class="card-body">
+                            <h5>@item.Title</h5>
+                            <p>@item.Description</p>
+                            <div class="storyuser d-flex">
+                                <img src="@item.Avatar" alt="" class="volunimg">
+                                <p class="m-2">@item.FirstName @item.LastName</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<div class="container mt-3">
+    @if (pager.TotalPage > 0)
+    {
+        <ul class="pagination justify-content-center">
+            @if (pager.CurrentPages > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" onclick="searchStory(pg=1)">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" onclick="searchStory(pg=@pager.CurrentPages-1)">Previous</a>
+                </li>
+            }
+
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                <li class="page-item@(pge==pager.CurrentPages?"active":"")">
+                    <a class="page-link" onclick="searchStory(pg=@pge)">@pge</a>
+                </li>
+            }
+            @if (pager.CurrentPages < pager.TotalPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" onclick="searchStory(pg=@pager.CurrentPages+1)">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" onclick="searchStory(pg=@pager.TotalPage)">Last</a>
+                </li>
+            }
+
+        </ul>
+    }
+</div>
+<script src="~/js/Story_Listing.js"></script>

@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewData["Title"] = "Story_Detail";
+    var name = Context.Session.GetString("FName");
+    var avatar = Context.Session.GetString("Avatar");
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/css/Favourite.css">
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex">
+                <div class="navleft d-flex">
+                    <a href="" class="text-decoration-none" style="color: black;">Story</a>
+                    <div class="dropdown ms-5">
+                        <button class="bg-white border-0 p-0" type="button" data-bs-toggle="dropdown" id="dropdownMenuButton">
+                            <span>Policy</span>
+                            <img src="../CI-Imgs/drop-down.png" class="ic-downs">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">Policy1</a></li>
+                            <li><a class="dropdown-item" href="#">Policy2</a></li>
+                            <li><a class="dropdown-item" href="#">Policy3</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="navright ms-auto">
+                    <div class="dropdown ms-5">
+                        <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                            <img src="@avatar" alt="" class="profileimg">
+                            @if(name!=null){
+                                <span>@name</span>
+                            }
+                            <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Help</a></li>
+                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container main mt-3">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12 mb-2 p-0">
+                <div class="container slidecontainer">
+                    <div class="mySlides">
+                        <div class="numbertext">1 / 6</div>
+                        <img src="../CI-Imgs/image1.png" style="width:100%;">
+                    </div>
+                    <div class="mySlides">
+                        <div class="numbertext">2 / 6</div>
+                        <img src="../CI-Imgs/img1.png" style="width:100%">
+                    </div>
+                    <div class="mySlides">
+                        <div class="numbertext">3 / 6</div>
+                        <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" style="width:100%">
+                    </div>
+                    <div class="mySlides">
+                        <div class="numbertext">4 / 6</div>
+                        <img src="../CI-Imgs/img11.png" style="width:100%">
+                    </div>
+                    <!-- Next Prev Button -->
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                    <!-- Thumbnail img -->
+                    <div class="row mt-2">
+                        <div class="column w-25">
+                            <img class="demo cursor" src="../CI-Imgs/image.png" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
+                        </div>
+                        <div class="column w-25">
+                            <img class="demo cursor" src="../CI-Imgs/img1.png" style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
+                        </div>
+                        <div class="column w-25">
+                            <img class="demo cursor" src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-1.png" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
+                        </div>
+                        <div class="column w-25">
+                            <img class="demo cursor" src="../CI-Imgs/img11.png" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="sidestory d-flex">
+                    <div class="text-center">
+                        <img src="@ViewBag.User.Avatar" alt="" class="sidestoryimage">
+                        <p>@ViewBag.User.FirstName @ViewBag.User.LastName</p>
+                    </div>
+                    <div class="views d-flex mt-4">
+                        <img src="../CI-Imgs/eye.png" alt="" class="eyeimg mt-2 ms-4">
+                        <p class="mt-1">12,000 views</p>
+                    </div>
+                </div>
+                <div class="storyshortdesc">
+                    <p>@ViewBag.User.WhyIVolunteer</p>
+                </div>
+                <div class="favandinvibtn container row mt-4">
+                    <div class="col-md-6 col-sm-12 mb-2 text-center">
+                        <button type="button" class="btn btn-outline-secondary border-3" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border-radius:20px;">
+                            <img src="../CI-Imgs/heart1.png" alt="" class="bg-secondary">
+                            Recommend to a Co-Worker
+                        </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Select Coworker</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body modaltext">
+                                        <ul style="list-style-type:none" class="ps-0">
+                                            @foreach (var items in @ViewBag.AllUsers)
+                                            {
+                                                <li class="dropdown-item">
+                                                    <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" /><span class="ms-1">@items.FirstName (@items.Email)</span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" onclick="sendRec(@ViewBag.StoryDetail.MissionId);">Send</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-center">
+                        <a href="/Home/Volunteering_Mission?MissionId=@ViewBag.StoryDetail.MissionId&UserId=@ViewBag.StoryDetail.UserId" class="btn border-3" style="border-color: #F88634; border-radius: 30px;"><span style="color: #F88634;">Open Mission</span><img src="../CI-Imgs/right-arrow.png" alt=""> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container p-0 mt-3">
+        <div class="row">
+            <h3>@ViewBag.StoryDetail.Title</h3>
+            <hr>
+            <div>
+                @Html.Raw(ViewBag.StoryDetail.StoryDescription)
+            </div>
+        </div>
+    </div>
+    <hr>
+    <footer>
+        <p class="ms-5">Privacy Policy</p>
+    </footer>
+    <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../JS/Favourite.js"></script>
+</body>
+</html>
+

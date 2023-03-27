@@ -19,11 +19,21 @@ document.addEventListener("DOMContentLoaded", function() {
         li.addEventListener("click", function() {
           li.remove();
           cbs[k].checked = false;
+          // Hide clear button if no 'li' elements are present
+          if (filtersSection.getElementsByTagName('li').length === 0) {
+            clearBtn.style.display = 'none';
+          }
         });
         filtersSection.appendChild(li);
+        // Display clear button if at least one 'li' element is present
+        clearBtn.style.display = 'block';
       } else {
         const lis = document.getElementById(this.value);
         lis.remove();
+        // Hide clear button if no 'li' elements are present
+        if (filtersSection.getElementsByTagName('li').length === 0) {
+          clearBtn.style.display = 'none';
+        }
       }
     });
   }
@@ -32,8 +42,12 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let i = lis.length - 1; i >= 0; i--) {
       lis[i].click();
     }
+    // Hide clear button after removing all 'li' elements
+    clearBtn.style.display = 'none';
   });
-});  
+});
+
+  
   
 function listView(){
   for(i=0;i<element.length;i++){

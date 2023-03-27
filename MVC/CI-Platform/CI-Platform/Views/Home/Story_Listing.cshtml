@@ -1,0 +1,245 @@
+﻿
+@{
+    var name = Context.Session.GetString("FName");
+    var avatar = Context.Session.GetString("Avatar");
+}
+@model IEnumerable<StoryViewModel>;
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/Story_Listing.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <div class="hambarger col-lg-2 col-md-6">
+                <button class="btn btn-outline-dark hambarger"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasBottom"
+                        aria-controls="offcanvasBottom">
+                    <span class="navbar-toggler-icon">
+                        <img src="../CI-Imgs/menu-bar.svg" alt="" />
+                    </span>
+                </button>
+                <div class="offcanvas offcanvas-start offcanvahambarger"
+                     tabindex="-1"
+                     id="offcanvasBottom"
+                     aria-labelledby="offcanvasBottomLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasBottomLabel">
+                            Offcanvas bottom
+                        </h5>
+                        <button type="button"
+                                class="btn-close text-reset"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="offcanvas-body small">
+                        <div class="downbox ms-2">
+                            <a href="" class="text-decoration-none" style="color: black">
+                                Story
+                            </a>
+                        </div>
+                        <div class="dropdown mt-2">
+                            <div class="downbox">
+                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                    <option value="">Policy</option>
+                                    <option value="">Policy1</option>
+                                    <option value="">Policy2</option>
+                                    <option value="">Policy3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="dropdown mt-2">
+                            <div class="downbox">
+                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                    <option value="">Country</option>
+                                    <option value="">Policy1</option>
+                                    <option value="">Policy2</option>
+                                    <option value="">Policy3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="dropdown mt-2">
+                            <div class="downbox">
+                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                    <option value="">City</option>
+                                    <option value="">Policy1</option>
+                                    <option value="">Policy2</option>
+                                    <option value="">Policy3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="dropdown mt-2">
+                            <div class="downbox">
+                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                    <option value="">Theme</option>
+                                    <option value="">Policy1</option>
+                                    <option value="">Policy2</option>
+                                    <option value="">Policy3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="dropdown mt-2">
+                            <div class="downbox">
+                                <select data-bs-toggle="drop-down" class="form-control form-select border-0">
+                                    <option value="">Skills</option>
+                                    <option value="">Policy1</option>
+                                    <option value="">Policy2</option>
+                                    <option value="">Policy3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-6 mid">
+                <div class="story profitext">
+                    <a href="" class="text-decoration-none" style="color: black;">Story</a>
+                </div>
+                <div class="policy ms-5 profitext">
+                    <select name="" id="" class="border-0">
+                        <option value="">Policy</option>
+                        <option value="">Policy1</option>
+                        <option value="">Policy2</option>
+                        <option value="">Policy3</option>
+                    </select>
+                </div>
+                <div class="profile d-flex ms-auto">
+                    <img src="../CI-Imgs/bell.png" alt="" class="bell ms-auto">
+                    <div class="dropdown">
+                        <button class="border-0 bg-white" type="button" data-bs-toggle="dropdown">
+                            <img src="@avatar" class="profileimg">
+                            @if(@name!=null){
+                            <span>@name</span>
+                            }
+                            
+                            <img src="../CI-Imgs/drop-down.png" class="ic-down me-5">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Help</a></li>
+                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg secondnav p-0">
+        <div class="row container-fluid p-0">
+            <div class="col-md-4 d-flex col-lg-8">
+                <img src="../CI-Imgs/search.png" alt="" class="searchico mt-2 ms-3">
+                <input type="text" class="form-control border-0" placeholder="Search mission..." onkeyup="searchStory();" id="filter-input" />
+            </div>
+            <div class="col-md-2 country col-lg-1 p-0">
+                <div class="dropdown downs">
+                    <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                        <span>Country</span>
+                        <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                    </button>
+                    <ul class="dropdown-menu showing">
+                        @foreach (var item in ViewBag.CountryData){
+                            <li class="ms-2">
+                                <input class="form-check-input Checkme1" value=@item.CountryId name="@item.Name" id="Checkme1" type="checkbox" onchange="searchStory()" />
+                            @item.Name
+                        </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2 city col-lg-1 p-0">
+                <div class="dropdown downs">
+                    <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                        <span>City</span>
+                        <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                    </button>
+                    <ul class="dropdown-menu showing">
+                        @foreach (var item in ViewBag.CityData)
+                        {
+                            <li class="ms-2">
+                                <input class="form-check-input Checkme2" type="checkbox" value=@item.CityId name="@item.Name" id="Checkme2" onchange="searchStory()" />@item.Name
+
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2 theme col-lg-1 p-0">
+                <div class="dropdown downs">
+                    <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                        <span>Theme</span>
+                        <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                    </button>
+                    <ul class="dropdown-menu showing">
+                        @foreach (var item in ViewBag.ThemeData)
+                        {
+                            <li class="ms-2">
+                                <input class="form-check-input Checkme2" type="checkbox" value=@item.MissionThemeId name="@item.Title" id="Checkme3" onchange="searchStory()" />@item.Title
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2 skills col-lg-1 p-0">
+                <div class="dropdown downs">
+                    <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                        <span>Skills</span>
+                        <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Skill1" />Skill1
+                        </li>
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Skill2" />Skill2
+                        </li>
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Skill3" />Skill3
+                        </li>
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Skill3" />Skill3
+                        </li>
+                        <li>
+                            <input class="form-check-input Checkme" type="checkbox" value="Skill3" />Skill3
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid clearcontain">
+        <div class="row">
+            <button id="clearBtn" class="clear-button mt-1">Clear All</button>
+            <div class="col-12">
+                <ul class="filtersection d-flex mt-2 flex-wrap">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="addstorybg" style="height: 390px;">
+        <div class="centered text-center">
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem perferendis error recusandae temporibus neque officiis impedit repellendus laboriosam id delectus. Lorem ipsum dolor, sit amet.</p>
+            <div class="centeredbtn text-center">
+                <a asp-controller="Home" asp-action="Share_Story" class="btn text-decoration-none" style="color: white;">Share your story <img src="../CI-Imgs/right-arrow.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+    <div id="gridview">
+        <partial name="StoryCard" />
+    </div>
+    <hr>
+    <footer>
+        <p class="ms-5">Privacy Policy</p>
+    </footer>
+    
+</body>
+</html>
