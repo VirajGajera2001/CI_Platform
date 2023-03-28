@@ -76,14 +76,14 @@
                                             @foreach (var items in @ViewBag.AllUsers)
                                             {
                                                 <li class="dropdown-item">
-                                                    <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" /><span class="ms-1">@items.FirstName (@items.Email)</span>
+                                                    <input class="form-check-input" type="checkbox" value=@items.Email name="Checkmemail" /><span class="ms-1">@items.FirstName (@items.Email)</span>
                                                 </li>
                                             }
                                         </ul>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Send</button>
+                                        <button type="button" class="btn btn-primary" onclick="sendRec(@item.MissionId);">Send</button>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                             else
                             {
                                 <button class="position-absolute favbtn">
-                                    <i class="bi bi-heart-fill" style="color:white" width="20px" height="20px"></i>
+                                    <i class="bi bi-heart-fill" style="color:white" width="20px" height="20px" onclick="addFav(@item.MissionId,@userId)" asp-controller="Home" asp-action="AddFav"></i>
                                 </button>
                             }
                             <div class="imgbadge1 bg-white text-center">
@@ -212,4 +212,4 @@
         </ul>
     }
 </div>
-<script src="~/js/Landing.js"></script>       
+<script src="~/js/Landing.js"></script>   

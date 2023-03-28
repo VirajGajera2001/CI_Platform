@@ -178,5 +178,15 @@ namespace CI_Platform.Repository.Repository
             var alldocs = _objdb.MissionDocuments.Where(md => md.MissionId == MissionId);
             return alldocs;
         }
+        public IEnumerable<FavouriteMission> favouritemissions(Mission mission, long? userId)
+        {
+            var isfav = _objdb.FavouriteMissions.Where(fm => fm.MissionId == mission.MissionId && fm.UserId == userId).ToList();
+            return isfav;
+        }
+        public MissionApplication applied(long? userId, long MissionId)
+        {
+            var applylist = _objdb.MissionApplications.FirstOrDefault(ma => ma.UserId == userId && ma.MissionId == MissionId);
+            return applylist;
+        }
     }
 }

@@ -2,9 +2,10 @@
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@*@model IEnumerable<MissionViewModel>*@
 @{
     var mymodel = ViewBag.relatedmission;
-    var mytheme = ViewBag.RelatedTheme;
+    var userId = Context.Session.GetString("UserId");
 }
     <hr />
     <div class="container">
@@ -16,48 +17,140 @@
     </div>
     <div class="container">
       <div class="row">
-          @foreach(var item in mymodel){
-        <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
-                <div class="card cardview mx-auto position-relative" style="width: 90%;height:100%">
-            <img src="../CI-Imgs/Nourish-the-Children-in--African-country-1.png" alt="" class="card-image">
-            <div class="imgbadge1 bg-white position-absolute text-center">
-              <p>@ViewBag.MissionTheme.Title</p>
-            </div>
-            <div class="card-body">
-              <h5>@item.Title</h5>
-              <p>@item.ShortDescription</p>
-              <div class="desc1 d-flex">
-                <div>
-                  <p>Tree Canada</p>
+        @if (mymodel != null)
+        {
+            @foreach (var item in mymodel)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
+                    <div class="card cardview mx-auto position-relative" style="width: 90%;height:100%">
+                        <img src="@item.MediaPath" alt="" class="card-image">
+                        <div class="position-absolute d-flex location">
+                            <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
+                            <p style="color: white; font-size:12px;" class="ms-1">@item.City </p>
+                        </div>
+
+                        @if (item.isapplied == true)
+                        {
+                            <button class="closed-btn position-absolute" type="button">Applied</button>
+                        }
+
+
+                        <button type="button" class="position-absolute recbtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <img src="../CI-Imgs/heart1.png" alt="" class="bg-secondary">
+                        </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Select Coworker</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body modaltext">
+                                        <ul style="list-style-type:none" class="ps-0">
+                                            @foreach (var items in @ViewBag.AllUsers)
+                                            {
+                                                <li class="dropdown-item">
+                                                    <input class="form-check-input" type="checkbox" value=@items.Email name="Checkmemail" /><span class="ms-1">@items.FirstName (@items.Email)</span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" onclick="sendRec(@item.MissionId);">Send</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @if (item.isFav == true)
+                        {
+                            <button class="position-absolute favbtn">
+                                <i class="bi bi-heart-fill" style="color:red" width="20px" height="20px" onclick="addFav(@item.MissionId,@userId)" asp-controller="Home" asp-action="AddFav"></i>
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="position-absolute favbtn">
+                                <i class="bi bi-heart-fill" style="color:white" width="20px" height="20px" onclick="addFav(@item.MissionId,@userId)" asp-controller="Home" asp-action="AddFav"></i>
+                            </button>
+                        }
+                        <div class="imgbadge1 bg-white text-center">
+                            <p class="ms-1" style="font-size:14px">@item.Theme</p>
+                        </div>
+                        <div class="card-body">
+                            <h5>@item.Title</h5>
+                            <p>@item.ShortDescription</p>
+                            <div class="desc1 d-flex">
+                                <div>
+                                    <p>@item.Description</p>
+                                </div>
+                                <div class="star d-flex ms-auto">
+                                    @for (var @i = 0; i < 5; i++)
+                                    {
+                                        @if (i < item.Rating)
+                                        {
+                                            <img src="~/CI-Imgs/selected-star.png">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/CI-Imgs/star.png">
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="bg-white datebadge1 text-center">
+                                <p class="ms-2">From @item.StartDate.ToString("d") until @item.EndDate.ToString("d")</p>
+                            </div>
+                            <hr>
+                            <div class="desc2 d-flex">
+                                <div class="seats d-flex">
+                                    <img src="../CI-Imgs/Seats-left.png" alt="">
+                                    <p>@item.SeatsAvailable seats left</p>
+                                </div>
+                                @if (@item.MissionType == "goal")
+                                {
+                                    <div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
+                                        <img src="../CI-Imgs/achieved.png" height="25" width="25" alt="" class="mb-3">
+
+                                        <div class="d-flex flex-column ms-2 ">
+                                            <div class="progress">
+                                                <div id="one" class="progress-bar" style="background-color: #F88634 !important;width:@item.GoalValue%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                            <p class="seat">8000 achieved</p>
+                                        </div>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="hours d-flex ms-auto">
+                                        <img src="../CI-Imgs/hours.png" alt="">
+                                        <p>@item.EndDate.ToString("d")<br>Deadline</p>
+
+                                    </div>
+
+                                }
+
+                            </div>
+                            <hr style="margin-top:30px">
+                            <div class="apply d-flex">
+                                @if (item.isapplied == true)
+                                {
+                                    <a href="/Home/Volunteering_Mission?MissionId=@item.MissionId" class="btn btn-outline-warning mx-auto">View Details<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+                                }
+                                else
+                                {
+                                    <a href="/Home/Volunteering_Mission?MissionId=@item.MissionId" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="star d-flex ms-auto">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/selected-star.png" alt="">
-                  <img src="../CI-Imgs/star.png" alt="">
-                </div>
-              </div>
-              <div class="bg-white datebadge1">
-                <p class="ms-2">Ongoing Oppertunity</p>
-              </div>
-              <hr>
-              <div class="desc2 d-flex">
-                <div class="seats d-flex">
-                  <img src="../CI-Imgs/Seats-left.png" alt="">
-                  <p>10 seats left</p>
-                </div>
-                <div class="hours d-flex ms-auto">
-                  <img src="../CI-Imgs/hours.png" alt="">
-                  <p>09/01/2019<br>Deadline</p>
-                </div>
-                </div>
-                <hr style="margin-top: 30px;">
-                <div class="apply d-flex">
-                            <a href="/Home/Volunteering_Mission?MissionId=@item.MissionId" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
-              </div>
-            </div>
-          </div>
-        </div>
             }
+        }
       </div>
     </div>
+    <script src="~/js/Favourite.js"></script>

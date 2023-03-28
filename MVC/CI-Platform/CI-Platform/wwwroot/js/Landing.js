@@ -12,7 +12,7 @@ var j;
 //})
 
 document.addEventListener("DOMContentLoaded", function () {
-    const cbs = document.querySelectorAll("input[type='checkbox']");
+    const cbs = document.querySelectorAll(".Checkme");
     const filtersSection = document.querySelector(".filtersection");
     const clearBtn = document.querySelector("#clearBtn");
     for (let k = 0; k < cbs.length; k++) {
@@ -103,5 +103,36 @@ function searchMission(pge) {
     });
 }
 
-
-    
+function sendRec(missionId) {
+    const toMail = Array.from(document.querySelectorAll('input[name="Checkmemail"]:checked')).map(el => el.value);
+    console.log(toMail);
+    $.ajax({
+        url: '/Home/SendRec',
+        type: 'POST',
+        data: { missionId: missionId, ToMail: toMail },
+        success: function (result) {
+            alert("send");
+        }
+    });
+}
+function addFav(missionId, Id) {
+    $.ajax({
+        url: '/Home/AddFav',
+        type: 'POST',
+        data: { missionId: missionId, Id: Id },
+        success: function (result) {
+            if (result.isLiked) {
+                var favbtn = document.getElementById("favoicon");
+                favbtn.style.color = "black";
+            }
+            else {
+                var favbtn = document.getElementById("favoicon");
+                favbtn.style.color = "red"
+            }
+            location.reload();
+        },
+        error: function () {
+            alert("could not like mission");
+        }
+    })
+} 

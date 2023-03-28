@@ -30,5 +30,7 @@ namespace CI_Platform.Repository.Interface
         public MissionApplication appliedmis(int MissionId, int UserId);
         public bool applyMission(int MissionId, int UserId);
         public IEnumerable<MissionDocument> missiondocs(int MissionId);
+        public IEnumerable<FavouriteMission> favouritemissions(Mission mission, long? userId);
+        public MissionApplication applied(long? userId, long MissionId);
     }
 }

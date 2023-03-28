@@ -54,7 +54,6 @@ const fileInput = document.querySelector('#image-upload');
 
 				  // Remove the image container from the preview
 				  imageContainer.remove();
-				  console.log(files);
 				  // Reset the file input field
 				  fileInput.value = '';
 				  

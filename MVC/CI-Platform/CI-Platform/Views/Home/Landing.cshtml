@@ -154,7 +154,7 @@
 
                         @foreach (var item in ViewBag.CountryData){
                         <li>
-                                <input class="form-check-input Checkme1" value=@item.CountryId name="@item.Name" id="Checkme1" type="checkbox" onchange="searchMission()" />
+                                <input class="form-check-input Checkme" value=@item.CountryId name="@item.Name" id="Checkme1" type="checkbox" onchange="searchMission()" />
                             @item.Name
                         </li>
                         }
@@ -172,7 +172,7 @@
                     <ul class="dropdown-menu showing">
                         @foreach (var item in ViewBag.CityData){
                         <li>
-                                <input class="form-check-input Checkme2" type="checkbox" value=@item.CityId name="@item.Name" id="Checkme2" onchange="searchMission()" />@item.Name
+                                <input class="form-check-input Checkme" type="checkbox" value=@item.CityId name="@item.Name" id="Checkme2" onchange="searchMission()" />@item.Name
 
                         </li>
                         }
@@ -190,7 +190,7 @@
                         @foreach (var item in ViewBag.ThemeData)
                         {
                             <li>
-                                <input class="form-check-input Checkme2" type="checkbox" value=@item.MissionThemeId name="@item.Title" id="Checkme3" onchange="searchMission()" />@item.Title
+                                <input class="form-check-input Checkme" type="checkbox" value=@item.MissionThemeId name="@item.Title" id="Checkme3" onchange="searchMission()" />@item.Title
                             </li>
                         }
                     </ul>
