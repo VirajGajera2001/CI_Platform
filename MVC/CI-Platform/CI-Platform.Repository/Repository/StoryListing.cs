@@ -1,5 +1,6 @@
 ﻿using CI_Platform.Entities.DataModels;
 using CI_Platform.Repository.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace CI_Platform.Repository.Repository
 {
-    public class StoryListing: IStoryListing
+    public class StoryListing : IStoryListing
     {
         private readonly CIdbcontext _objdb;
-        public StoryListing(CIdbcontext objdb) 
+        public StoryListing(CIdbcontext objdb)
         {
-            _objdb=objdb;
+            _objdb = objdb;
         }
         public List<Story> stories()
         {
-            List<Story> list = _objdb.Stories.ToList();
+            List<Story> list = _objdb.Stories.Where(st => st.Status != "DRAFT").ToList();
             return list;
         }
         public List<City> cities()
@@ -52,8 +53,15 @@ namespace CI_Platform.Repository.Repository
         }
         public List<Mission> missions()
         {
-            List<Mission> missions= _objdb.Missions.ToList();
+            List<Mission> missions = _objdb.Missions.ToList();
             return missions;
+        }
+        public List<Mission> missions(int userId)
+        {
+            var missionappliedbyuser=_objdb.MissionApplications.Where(ma=>ma.UserId == userId).ToList();
+            List<Mission> missions = _objdb.Missions.ToList();
+            List<Mission> appliedbyuser = (from ma in missionappliedbyuser join ms in missions on ma.MissionId equals ms.MissionId select ms).ToList();
+            return appliedbyuser;
         }
         public Story stories(int StoryId)
         {
@@ -67,40 +75,120 @@ namespace CI_Platform.Repository.Repository
         }
         public List<User> users()
         {
-            List<User> users= _objdb.Users.ToList();
+            List<User> users = _objdb.Users.ToList();
             return users;
         }
         public bool alreadystory(int MissionId, int UserId)
         {
-            var story=_objdb.Stories.FirstOrDefault(st=>st.MissionId== MissionId&&st.UserId==UserId);
-            if (story == null) {
+            var story = _objdb.Stories.FirstOrDefault(st => st.MissionId == MissionId && st.UserId == UserId);
+            if (story == null)
+            {
                 return true;
-            } 
-            else { 
+            }
+            else
+            {
                 return false;
             }
         }
-        public void story(string[] Image, int MissionId, string Title, DateTime Date, string Description,int UserId)
+        public long story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string Value)
         {
-            Story story= new Story();
-            story.Title = Title;
-            story.MissionId= MissionId;
-            story.UserId= UserId;
-            story.PublishedAt = Date;
-            story.StoryDescription= Description;
-            _objdb.Stories.Add(story);
-            _objdb.SaveChanges();
-            var matchstory = _objdb.Stories.FirstOrDefault(s => s.UserId == UserId &&s.MissionId==MissionId);
-
-
-            foreach(var item in Image)
+            var story = _objdb.Stories.FirstOrDefault(st => st.MissionId == MissionId && st.UserId == UserId);
+            
+            if (story == null &&Value=="save")
             {
-                StoryMedium storymedium = new StoryMedium();
-                storymedium.StoryId = matchstory.StoryId;
-                storymedium.Path = item;
-                _objdb.StoryMedia.Add(storymedium);
+                Story storys = new Story();
+                storys.Title = Title;
+                storys.MissionId = MissionId;
+                storys.UserId = UserId;
+                storys.PublishedAt = Date;
+                storys.StoryDescription = Description;
+                _objdb.Stories.Add(storys);
                 _objdb.SaveChanges();
+                var matchstory = _objdb.Stories.FirstOrDefault(s => s.UserId == UserId && s.MissionId == MissionId);
+
+                foreach (var item in Image)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                }
+                _objdb.SaveChanges();
+                return matchstory.StoryId;
             }
+           else if (story == null && Value == "submit")
+            {
+                Story storys = new Story();
+                storys.Title = Title;
+                storys.MissionId = MissionId;
+                storys.UserId = UserId;
+                storys.PublishedAt = Date;
+                storys.Status="pending";
+                storys.StoryDescription = Description;
+                _objdb.Stories.Add(storys);
+                _objdb.SaveChanges();
+                var matchstory = _objdb.Stories.FirstOrDefault(s => s.UserId == UserId && s.MissionId == MissionId);
+
+                foreach (var item in Image)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                }
+                _objdb.SaveChanges();
+                return matchstory.StoryId;
+            }
+
+            else if(story!=null && Value=="save") 
+            {
+                story.MissionId = MissionId;
+                story.UserId = UserId;
+                story.Title = Title;
+                story.PublishedAt = Date;
+                story.StoryDescription = Description;
+                _objdb.Stories.Update(story);
+                var storymediums = _objdb.StoryMedia.FirstOrDefault(sm => sm.StoryId == story.StoryId);
+                foreach (var item in Image)
+                {
+                    
+                    storymediums.StoryId = story.StoryId;
+                    storymediums.Path = item;
+                    _objdb.StoryMedia.Update(storymediums);
+                }
+                _objdb.SaveChanges();
+                return story.StoryId;
+            }
+            else
+            {
+                story.MissionId = MissionId;
+                story.UserId = UserId;
+                story.Title = Title;
+                story.PublishedAt = Date;
+                story.Status = "pending";
+                story.StoryDescription = Description;
+                _objdb.Stories.Update(story);
+                var storymediums = _objdb.StoryMedia.FirstOrDefault(sm => sm.StoryId == story.StoryId);
+                foreach (var item in Image)
+                {
+
+                    storymediums.StoryId = story.StoryId;
+                    storymediums.Path = item;
+                    _objdb.StoryMedia.Update(storymediums);
+                }
+                _objdb.SaveChanges();
+                return story.StoryId;
+            }
+        }
+        public Story searchstory(int MissionId, int UserId)
+        {
+            var selectstory=_objdb.Stories.Where(st=>st.MissionId==MissionId && st.UserId==UserId).FirstOrDefault();
+            return selectstory;
+        }
+        public List<StoryMedium> searchmedia(long storyId)
+        {
+            var storymedium = _objdb.StoryMedia.Where(sm=>sm.StoryId==storyId).ToList();
+            return storymedium;
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿
 @{
-    ViewData["Title"] = "Story_Detail";
     var name = Context.Session.GetString("FName");
     var avatar = Context.Session.GetString("Avatar");
 }
+@model CI_Platform.Entities.Models.StoryDetailModel;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,6 +43,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="VolunteeringTimesheet">Volunteering Timesheet</a></li>
                             <li><a class="dropdown-item" href="#">Help</a></li>
                             <li><a class="dropdown-item" href="login.html">Logout</a></li>
                         </ul>
@@ -95,8 +96,8 @@
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="sidestory d-flex">
                     <div class="text-center">
-                        <img src="@ViewBag.User.Avatar" alt="" class="sidestoryimage">
-                        <p>@ViewBag.User.FirstName @ViewBag.User.LastName</p>
+                        <img src="@Model.storyuser.Avatar" alt="" class="sidestoryimage">
+                        <p>@Model.storyuser.FirstName @Model.storyuser.LastName</p>
                     </div>
                     <div class="views d-flex mt-4">
                         <img src="../CI-Imgs/eye.png" alt="" class="eyeimg mt-2 ms-4">
@@ -104,7 +105,7 @@
                     </div>
                 </div>
                 <div class="storyshortdesc">
-                    <p>@ViewBag.User.WhyIVolunteer</p>
+                    <p>@Model.storyuser.WhyIVolunteer</p>
                 </div>
                 <div class="favandinvibtn container row mt-4">
                     <div class="col-md-6 col-sm-12 mb-2 text-center">
@@ -121,7 +122,7 @@
                                     </div>
                                     <div class="modal-body modaltext">
                                         <ul style="list-style-type:none" class="ps-0">
-                                            @foreach (var items in @ViewBag.AllUsers)
+                                            @foreach (var items in Model.Allusers)
                                             {
                                                 <li class="dropdown-item">
                                                     <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" /><span class="ms-1">@items.FirstName (@items.Email)</span>
@@ -131,14 +132,14 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" onclick="sendRec(@ViewBag.StoryDetail.MissionId);">Send</button>
+                                        <button type="button" class="btn btn-primary" onclick="sendRec(@Model.story.MissionId);">Send</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12 text-center">
-                        <a href="/Home/Volunteering_Mission?MissionId=@ViewBag.StoryDetail.MissionId&UserId=@ViewBag.StoryDetail.UserId" class="btn border-3" style="border-color: #F88634; border-radius: 30px;"><span style="color: #F88634;">Open Mission</span><img src="../CI-Imgs/right-arrow.png" alt=""> </a>
+                        <a href="/Home/Volunteering_Mission?MissionId=@Model.story.MissionId&UserId=@Model.story.UserId" class="btn border-3" style="border-color: #F88634; border-radius: 30px;"><span style="color: #F88634;">Open Mission</span><img src="../CI-Imgs/right-arrow.png" alt=""> </a>
                     </div>
                 </div>
             </div>
@@ -146,10 +147,10 @@
     </div>
     <div class="container p-0 mt-3">
         <div class="row">
-            <h3>@ViewBag.StoryDetail.Title</h3>
+            <h3>@Model.story.Title</h3>
             <hr>
             <div>
-                @Html.Raw(ViewBag.StoryDetail.StoryDescription)
+                @Html.Raw(Model.story.StoryDescription)
             </div>
         </div>
     </div>

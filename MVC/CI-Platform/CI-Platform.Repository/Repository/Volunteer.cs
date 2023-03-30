@@ -22,11 +22,23 @@ namespace CI_Platform.Repository.Repository
         }
         public City cities(Mission missions)
         {
+            if (missions == null)
+            {
+                // Handle the case where missions is null
+                return null;
+            }
+
             var city = _objdb.Cities.FirstOrDefault(c => c.CityId == missions.CityId);
             return city;
         }
+
         public MissionTheme missiontheme(Mission missions)
         {
+            if (missions == null)
+            {
+                // Handle the case where missions is null
+                return null;
+            }
             var theme = _objdb.MissionThemes.FirstOrDefault(mt => mt.MissionThemeId == missions.ThemeId);
             return theme;
         }
@@ -47,11 +59,21 @@ namespace CI_Platform.Repository.Repository
         }
         public IEnumerable<MissionRating> missionratings(Mission missions)
         {
+            if (missions == null)
+            {
+                // Handle the case where missions is null
+                return null;
+            }
             var rating1 = _objdb.MissionRatings.Where(rt => rt.MissionId == missions.MissionId);
             return rating1;
         }
         public GoalMission goalmissions(Mission missions)
         {
+            if (missions == null)
+            {
+                // Handle the case where missions is null
+                return null;
+            }
             var goalvalue = _objdb.GoalMissions.FirstOrDefault(gm => gm.MissionId == missions.MissionId);
             return goalvalue;
         }

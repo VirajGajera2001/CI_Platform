@@ -54,5 +54,6 @@ namespace CI_Platform.Models
         public int? GoalValue { get; set; }
         public int? Count { get; set; }
         public bool isapplied { get; set; }
+        public List<User> recentuser = new List<User>();
     }
 }

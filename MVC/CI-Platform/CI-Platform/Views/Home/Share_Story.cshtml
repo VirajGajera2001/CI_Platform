@@ -43,6 +43,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="VolunteeringTimesheet">Volunteering Timesheet</a></li>
                             <li><a class="dropdown-item" href="#">Help</a></li>
                             <li><a class="dropdown-item" href="login.html">Logout</a></li>
                         </ul>
@@ -52,13 +53,14 @@
         </div>
     </div>
     <hr>
-    <div class="container p-0">
+    <form>
+    <div class="container">
         <div class="row">
             <h3>Share your story</h3>
             
             <div class="col-lg-4">
                 <p>Select Mission</p>
-                <select name="" id="Missionname" asp-for="MissionId" class="dropdown form-control form-select">
+                <select name="" id="Missionname" asp-for="MissionId" class="dropdown form-control form-select" onchange="searchStoryByMission(@userId)">
                     <option value=""></option>
                     @if(ViewBag.missions!=null){
                     @foreach(var item in ViewBag.missions){
@@ -69,15 +71,15 @@
             </div>
             <div class="col-lg-4">
                 <p>My story title</p>
-                <input type="text" name="" id="storytitle" asp-for="Title" class="form-control" placeholder="Enter your story title">
+                <input type="text" name="Title"  asp-for="Title" class="form-control" placeholder="Enter your story title" id="StoryTitle" value="">
             </div>
             <div class="col-lg-4">
                 <p>Date</p>
-                <input type="date" name="" id="releasedate" asp-for="PublishedAt" class="form-control">
+                    <input type="date" name="PublishedAt" id="releasedate" asp-for="PublishedAt" class="form-control" value="">
             </div>
             <div class="col-lg-12">
                 <p>My Story</p>
-                    <textarea id="editor1" rows="80" asp-for="StoryDescription" cols="10" maxlength="4000">
+                    <textarea id="editor1" rows="80" name="StoryDescription" asp-for="StoryDescription" cols="10" maxlength="4000">
                     Enter your story details
                 </textarea>
             </div>
@@ -104,13 +106,14 @@
             <div class="col-lg-12 mt-5">
                 <div class="d-flex">
                     <a asp-action="Story_Listing" asp-controller="Home" class="btn canclebtn">Cancel</a>
-                    <button class="btn ms-auto submitbtn">Save</button>
-                    
-                    <button  class="btn submitbtn" onclick="shareStory(userId=@userId);">Submit</button>
+                    <a class="btn canclebtn previewbtn d-none" id="" target="_blank">Preview</a>
+                    <button type="button" value="save" class="btn ms-auto submitbtn" onclick="shareStory(userId=@userId,this.value);">Save</button>
+                        <button type="button" value="submit" class="btn submitbtn" id="submitbtn" onclick="shareStory(userId=@userId,this.value);">Submit</button>
                 </div>
             </div>
         </div>
     </div>
+    </form>
     <hr>
     <footer>
         <p class="ms-5">Privacy Policy</p>
@@ -120,3 +123,8 @@
 </body>
 </html>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

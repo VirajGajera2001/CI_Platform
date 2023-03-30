@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Net.Mail;
 using System.Net;
 using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using CI_Platform.Entities.Models;
 
 namespace CI_Platform.Controllers
@@ -20,12 +22,12 @@ namespace CI_Platform.Controllers
         private readonly IStoryListing _objStoryListing;
 
 
-        public HomeController(ILogger<HomeController> logger, IRegister objRegister, ILanding objLanding,IVolunteer objVolunteer,IStoryListing objStoryListing)
+        public HomeController(ILogger<HomeController> logger, IRegister objRegister, ILanding objLanding, IVolunteer objVolunteer, IStoryListing objStoryListing)
         {
             _logger = logger;
             _objRegister = objRegister;
             _objLanding = objLanding;
-            _objVolunteer=objVolunteer;
+            _objVolunteer = objVolunteer;
             _objStoryListing = objStoryListing;
         }
 
@@ -93,7 +95,7 @@ namespace CI_Platform.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Forget(ForgetModel model)
         {
-           
+
 
             if (ModelState.IsValid)
             {
@@ -150,7 +152,7 @@ namespace CI_Platform.Controllers
         [AllowAnonymous]
         public ActionResult Reset(string email, string token)
         {
-            var passwordReset = _objRegister.PassReset(email,token);
+            var passwordReset = _objRegister.PassReset(email, token);
             if (passwordReset == null)
             {
                 return RedirectToAction("Login", "Home");
@@ -298,8 +300,8 @@ namespace CI_Platform.Controllers
                     {
                         missionView.Country = country.Name;
                     }
-                    
-                    var media =_objLanding.missionmedia(mission);
+
+                    var media = _objLanding.missionmedia(mission);
                     if (media != null)
                     {
                         missionView.MediaPath = media.MediaPath;
@@ -309,7 +311,7 @@ namespace CI_Platform.Controllers
                     {
                         missionView.GoalValue = goalvalue.GoalValue;
                     }
-                    var isapplied = _objLanding.applied(int.Parse(userId),mission.MissionId);
+                    var isapplied = _objLanding.applied(int.Parse(userId), mission.MissionId);
                     if (isapplied != null)
                     {
                         missionView.isapplied = true;
@@ -486,14 +488,14 @@ namespace CI_Platform.Controllers
         {
             return View();
         }
-        public IActionResult RelatedMission(int MissionId,long?UserId)
+        public IActionResult RelatedMission(int MissionId, long? UserId)
         {
             List<MissionViewModel> missionViewModel = new List<MissionViewModel>();
             var missions = _objVolunteer.missions(MissionId);
             var relatedmission = _objVolunteer.missions(MissionId, missions);
             if (UserId != null)
             {
-                
+
             }
             else
             {
@@ -580,14 +582,14 @@ namespace CI_Platform.Controllers
             ViewBag.Relatedmission = missionViewModel;
             return View();
         }
-        public IActionResult Volunteering_Mission(int MissionId, long? UserId)
+        public IActionResult Volunteering_Mission(int MissionId, long? UserId, int pg = 1)
         {
-            List<RelatedMissionView> rmv=new List<RelatedMissionView>();
+            List<RelatedMissionView> rmv = new List<RelatedMissionView>();
             if (UserId != null)
             {
                 var missions = _objVolunteer.missions(MissionId);
                 var city = _objVolunteer.cities(missions);
-                var theme=_objVolunteer.missiontheme(missions);
+                var theme = _objVolunteer.missiontheme(missions);
                 var relatedmission = _objVolunteer.missions(MissionId, missions);
                 var docs = _objVolunteer.missiondocs(MissionId);
                 List<User> users = _objVolunteer.users();
@@ -598,7 +600,7 @@ namespace CI_Platform.Controllers
                 var isapplied = _objVolunteer.applied(MissionId, UserId);
                 if (isapplied != null)
                 {
-                    ViewBag.IsApplied=true;
+                    ViewBag.IsApplied = true;
                 }
                 else
                 {
@@ -606,7 +608,7 @@ namespace CI_Platform.Controllers
                 }
                 foreach (var mis in relatedmission)
                 {
-                    RelatedMissionView ms=new RelatedMissionView();
+                    RelatedMissionView ms = new RelatedMissionView();
                     ms.Availability = mis.Availability;
                     ms.MissionId = mis.MissionId;
                     ms.Title = mis.Title;
@@ -699,8 +701,8 @@ namespace CI_Platform.Controllers
                     }
                 }
                 missionViewModels.Status = missions.Status;
-                
-                var favo=_objVolunteer.favmissions(missions,UserId);
+
+                var favo = _objVolunteer.favmissions(missions, UserId);
                 if (favo.Count() > 0)
                 {
                     missionViewModels.isFav = true;
@@ -724,7 +726,7 @@ namespace CI_Platform.Controllers
                 {
                     rat1 = sum / rating1.Count();
                 }
-                ViewBag.RecentVolunteering = recentvol;
+
 
                 ViewBag.userId = UserId;
                 var prewrating = _objVolunteer.missionrating(missions, UserId);
@@ -745,6 +747,15 @@ namespace CI_Platform.Controllers
                 {
                     ViewBag.AvgRating = 0;
                 }
+                const int pageSize = 3;
+                if (pg < 1)
+                    pg = 1;
+                int recsCount = recentvol.Count();
+                var pager = new Pager(recsCount, pg, pageSize);
+                int recSkip = (pg - 1) * pageSize;
+                var data = recentvol.Skip(recSkip).Take(pager.PageSize).ToList();
+                this.ViewBag.Pager = pager;
+                ViewBag.RecentVolunteering = data;
                 ViewBag.Missions = missions;
                 ViewBag.relatedmission = relatedmission;
                 ViewBag.MissionTheme = theme;
@@ -753,7 +764,7 @@ namespace CI_Platform.Controllers
                 ViewBag.GoalVal = goalvalue;
                 ViewBag.ShowComm = commentModels;
                 ViewBag.missionId = MissionId;
-                ViewBag.Docs=docs;
+                ViewBag.Docs = docs;
                 return View(missionViewModels);
             }
             else
@@ -766,6 +777,17 @@ namespace CI_Platform.Controllers
                 List<User> users = _objVolunteer.users();
                 List<MissionApplication> missionapplications = _objVolunteer.missionapp();
                 var recentvol = (from u in users join ma in missionapplications on u.UserId equals ma.UserId where ma.MissionId == missions.MissionId select u).ToList();
+                const int pageSize = 3;
+                if (pg < 1)
+                    pg = 1;
+                int recsCount = recentvol.Count();
+                var pager = new Pager(recsCount, pg, pageSize);
+                int recSkip = (pg - 1) * pageSize;
+                var data = recentvol.Skip(recSkip).Take(pager.PageSize).ToList();
+                this.ViewBag.Pager = pager;
+                ViewBag.RecentVolunteering = data;
+
+
                 var rating1 = _objVolunteer.missionratings(missions);
                 var goalvalue = _objVolunteer.goalmissions(missions);
                 MissionViewModel missionViewModels = new MissionViewModel();
@@ -899,19 +921,19 @@ namespace CI_Platform.Controllers
                 {
                     rat1 = sum / rating1.Count();
                 }
-                ViewBag.RecentVolunteering = recentvol;
+
 
                 ViewBag.userId = int.Parse(userId);
                 var prewrating = _objVolunteer.missionrating(missions, int.Parse(userId));
                 if (prewrating != null)
                 {
-                    ViewBag.Prewrating =int.Parse(prewrating.Rating);
+                    ViewBag.Prewrating = int.Parse(prewrating.Rating);
                 }
                 else
                 {
                     ViewBag.Prewrating = 0;
                 }
-                if(rating1!= null)
+                if (rating1 != null)
                 {
                     ViewBag.AvgRating = rat1;
                 }
@@ -919,6 +941,7 @@ namespace CI_Platform.Controllers
                 {
                     ViewBag.AvgRating = 0;
                 }
+
                 ViewBag.Missions = missions;
                 ViewBag.relatedmission = rmv;
                 ViewBag.MissionTheme = theme;
@@ -931,6 +954,27 @@ namespace CI_Platform.Controllers
                 return View(missionViewModels);
             }
         }
+        [HttpPost]
+        public IActionResult RecentVol(int MissionId, long? UserId, int pg = 1)
+        {
+            var missions = _objVolunteer.missions(MissionId);
+            List<MissionApplication> missionapplications = _objVolunteer.missionapp();
+            List<User> users = _objVolunteer.users();
+            
+                var recentvol = (from u in users join ma in missionapplications on u.UserId equals ma.UserId where ma.MissionId == missions.MissionId select u).ToList();
+                const int pageSize = 3;
+                if (pg < 1)
+                    pg = 1;
+                int recsCount = recentvol.Count();
+                var pager = new Pager(recsCount, pg, pageSize);
+                int recSkip = (pg - 1) * pageSize;
+                var data = recentvol.Skip(recSkip).Take(pager.PageSize).ToList();
+                this.ViewBag.Pager = pager;
+            ViewBag.RecentVolunteering = data;
+            
+            return PartialView("RecentVol");
+        }
+
         [HttpPost]
         public IActionResult MissionApply(int MissionId)
         {
@@ -1062,6 +1106,7 @@ namespace CI_Platform.Controllers
                 storyview.UserId = stories.UserId;
                 storyview.Title = stories.Title;
                 storyview.MissionId = stories.MissionId;
+                storyview.Status= stories.Status;
                 storyview.Description = stories.Description;
                 storyview.StoryDescription = stories.StoryDescription;
                 var storymedia = _objStoryListing.storymedia(stories);
@@ -1165,41 +1210,67 @@ namespace CI_Platform.Controllers
         }
         public IActionResult Story_Detail(int StoryId, int UserId)
         {
+            StoryDetailModel storydetailmodel= new StoryDetailModel();
             var storydetail = _objStoryListing.stories(StoryId);
             var storyuser = _objStoryListing.users(UserId);
             List<User> users = _objStoryListing.users();
             if (storydetail != null)
             {
-                ViewBag.StoryDetail = storydetail;
+                storydetailmodel.story = storydetail;
             }
             if (storyuser != null)
             {
-                ViewBag.User = storyuser;
+                storydetailmodel.storyuser = storyuser;
             }
-            ViewBag.AllUsers = users;
-            return View();
+            storydetailmodel.Allusers = users;
+            return View(storydetailmodel);
         }
         [HttpGet]
         public IActionResult Share_Story()
         {
-            List<Mission> mission = _objStoryListing.missions();
+            var userId = HttpContext.Session.GetString("UserId");
+            List<Mission> mission = _objStoryListing.missions(int.Parse(userId));
                 ViewBag.missions = mission;
             return View();
         }
         [HttpPost]
         
-        public IActionResult Share_Story(string[] Image,int MissionId,string Title,DateTime Date,string Description,int UserId)
+        public IActionResult Share_Storys(string[] Image,int MissionId,string Title,DateTime Date,string Description,int UserId,string Value)
         {
-            var alreadyshare = _objStoryListing.alreadystory(MissionId, UserId);
-            if (alreadyshare)
+            var storyid = _objStoryListing.story(Image, MissionId, Title, Date, Description, UserId,Value);
+            if (storyid!=null)
             {
-               _objStoryListing.story(Image, MissionId, Title, Date, Description, UserId);
-                return Json(new { success = true});
+                return Json(new { success = true,storyid});
             }
             else
             {
                 return Json(new { success = false });
             }
+        }
+        [HttpPost]
+        public IActionResult StoryEdit(int MissionId, int UserId)
+        {
+            Story story = _objStoryListing.searchstory(MissionId, UserId);
+           
+            if (story != null && story.Status=="DRAFT")
+            {
+                List<StoryMedium> media = _objStoryListing.searchmedia(story.StoryId);
+                var mediaObjects = media.Select(m => new { Path = m.Path }).ToArray();
+                return Json(new { success = true, story = story, storyimage = mediaObjects });
+            }
+            else if(story != null && story.Status == "pending")
+            {
+                return Json(new { success = false});
+            }
+            else
+            {
+                return Json(new { success = "notadded" });
+            }
+        }
+
+        public IActionResult VolunteeringTimesheet()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

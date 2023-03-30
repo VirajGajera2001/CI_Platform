@@ -32,6 +32,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item"  asp-controller="Home" asp-action="VolunteeringTimesheet">Volunteering Timesheet</a></li>
                             <li><a class="dropdown-item" href="#">Help</a></li>
                             <li><a class="dropdown-item" href="login.html">Logout</a></li>
                         </ul>
@@ -154,7 +155,7 @@
                         </div>
                     </div>
                 }
-                <hr>
+                <hr style="margin-top:30px;">
                 <div class="favandinvibtn container row mt-4">
                     <div class="col-md-6 col-sm-12 mb-2 text-center">
                         <button type="button" class="btn btn-outline-secondary border-3" onclick="addFav(@ViewBag.Missions.MissionId,@ViewBag.userId)">
@@ -363,30 +364,8 @@
                         </span>
                     </p>
                 </div>
-                <div class="recent-volunteer mt-3">
-                    <div class="container">
-                        <div class="row">
-                            @foreach (var item in ViewBag.RecentVolunteering){
-                            <div class="col-4 text-center">
-                                    <img src="@item.Avatar" alt="" class="volunimg">
-                                <p>@item.FirstName</p>
-                            </div>
-                            }
-                        </div>
-                    </div>
-                    <div class="volun-pagination">
-                        <nav aria-label="...">
-                            <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">&laquo;</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1-9 of 25 Recent Volunteers</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">&raquo;</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+                <div class="recent-volunteer mt-3" id="recentvol">
+                    <partial name="RecentVol" />
                 </div>
             </div>
         </div>
@@ -447,7 +426,6 @@
         }
     });
 }
-
 
     </script>
     <script src="~/js/Favourite.js"></script>

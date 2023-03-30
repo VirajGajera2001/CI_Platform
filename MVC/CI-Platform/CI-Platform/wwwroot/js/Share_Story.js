@@ -29,14 +29,13 @@ const fileInput = document.querySelector('#image-upload');
 		  const removeButton = document.createElement('button');
 	  
 		  image.src = dataUrl;
-		  imageContainer.classList.add('image-container');
-		  imageContainer.dataset.id = id;
+			imageContainer.classList.add('image-container');
+			image.dataset.id = id;
 		  removeButton.classList.add('remove-button');
 		  removeButton.innerHTML = '<span>X</span>';
 			imageContainer.appendChild(image);
 		  imageContainer.appendChild(removeButton);
 			imagePreview.appendChild(imageContainer);
-			console.log(files);
 		  removeButton.addEventListener('click', function() {
   		  const index = files.findIndex(f => f.id === id);
           if (index !== -1) files.splice(index, 1);
@@ -101,34 +100,97 @@ function dragOverHandler(ev) {
 	// Prevent default behavior (Prevent file from being opened)
 	ev.preventDefault();
 }
-function shareStory(userId) {
+function shareStory(userId,value) {
 	var dataUrls = files.map(file => file.dataUrl);
+	console.log(value);
 	var missionId = document.getElementById("Missionname").value;
-	var title = document.getElementById("storytitle").value;
+	var title = document.getElementById("StoryTitle").value;
 	var date = document.getElementById("releasedate").value;
 	var uid = userId;
-	console.log(uid);
+	var previewbtn = document.querySelector('.previewbtn');
 	var editor = CKEDITOR.instances.editor1;
 	var editordata = editor.getData();
-	console.log(editordata);
-	console.log(missionId);
-	console.log(title);
-	console.log(date);
 	$.ajax({
-		url: '/Home/Share_Story',
+		url: '/Home/Share_Storys',
+		type: 'POST',
+		data: { "Image": dataUrls, "MissionId": missionId, "Title": title, "Date": date, "Description": editordata, "UserId": userId, "Value": value },
+		success: function (result) {
+			if (result.success) {
+				alert("Your Story Is Added Successfully");
+				previewbtn.classList.remove("d-none");
+				previewbtn.id = result.storyid;
+				const url = `/Home/Story_Detail?StoryId=${result.storyid}&UserId=${userId}`;
+
+				// Set the "href" attribute of the "prw" element to the constructed URL
+				previewbtn.href = url;
+			}
+			else {
+				alert("You alreay share the story");
+			}	
+		}
+		
+	});
+}
+function searchStoryByMission(UserId) {
+	while (files.length > 0) {
+		files.pop();
+	}
+	var missionId = document.getElementById("Missionname").value;
+	$.ajax({
+		url: '/Home/StoryEdit',
+		type: 'POST',
+		data: { MissionId: missionId, UserId: UserId },
+		success: function (result) {
+			if (result.success) {
+				var story = result.story;
+				$('#StoryTitle').val(story.title);
+				var date = new Date(story.publishedAt);
+				var formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1).toString().padStart(2, '0') + "-" + date.getDate().toString().padStart(2, '0');
+				$('#releasedate').val(formattedDate);
+				CKEDITOR.instances['editor1'].setData(story.storyDescription);
+				var media = result.storyimage;
+				$('.image-preview').empty();
+				media.forEach(function (medium) {
+					var mediumPath = medium.path;
+					const id = Date.now();
+					files.push({ dataUrl: mediumPath, id });
+					addImage(mediumPath, id);
+				});
+			}
+			else if (result.success == "notadded") {
+
+			}
+			else {
+				alert("your story is already published");
+				location.reload();
+			}
+		},
+		error: function () {
+			alert("could not like mission");
+		}
+	});
+}
+
+function submitStory(userId) {
+	var dataUrls = files.map(file => file.dataUrl);
+	var missionId = document.getElementById("Missionname").value;
+	var title = document.getElementById("StoryTitle").value;
+	var date = document.getElementById("releasedate").value;
+	var previewbtn = document.querySelector('.previewbtn');
+	var editor = CKEDITOR.instances.editor1;
+	var editordata = editor.getData();
+	$.ajax({
+		url: '/Home/Share_Storys',
 		type: 'POST',
 		data: { "Image": dataUrls, "MissionId": missionId, "Title": title, "Date": date, "Description": editordata, "UserId": userId },
 		success: function (result) {
 			if (result.success) {
-				alert("Your Story Is Added Successfully");
-				
+				alert("Your Story Is added Successfully");
 			}
 			else {
-				alert("You alreay share the story");
-				
+				alert("You already share the story");
 			}
-			location.reload();
 		}
-		
+
 	});
 }

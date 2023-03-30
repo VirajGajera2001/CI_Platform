@@ -36,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxOb01pc3Npb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Views/Home/RecentVol.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZWNlbnRWb2wuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Views/Home/Registration.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZWdpc3RyYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -62,6 +66,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Views/Home/Story_Listing.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdG9yeV9MaXN0aW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Views/Home/VolunteeringTimesheet.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxWb2x1bnRlZXJpbmdUaW1lc2hlZXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Views/Home/Volunteering_Mission.cshtml]
