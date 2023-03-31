@@ -175,6 +175,11 @@
     width: 172px;
     height: 38px;
   }
+  .hours_header{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 20px;
+  }
   @media (max-width:991px){
     .stars{
       width: 377px;

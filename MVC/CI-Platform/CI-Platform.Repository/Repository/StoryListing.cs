@@ -90,7 +90,7 @@ namespace CI_Platform.Repository.Repository
                 return false;
             }
         }
-        public long story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string Value)
+        public Story story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string Value)
         {
             var story = _objdb.Stories.FirstOrDefault(st => st.MissionId == MissionId && st.UserId == UserId);
             
@@ -114,7 +114,7 @@ namespace CI_Platform.Repository.Repository
                     _objdb.StoryMedia.Add(storymedium);
                 }
                 _objdb.SaveChanges();
-                return matchstory.StoryId;
+                return matchstory;
             }
            else if (story == null && Value == "submit")
             {
@@ -137,7 +137,7 @@ namespace CI_Platform.Repository.Repository
                     _objdb.StoryMedia.Add(storymedium);
                 }
                 _objdb.SaveChanges();
-                return matchstory.StoryId;
+                return matchstory;
             }
 
             else if(story!=null && Value=="save") 
@@ -148,16 +148,23 @@ namespace CI_Platform.Repository.Repository
                 story.PublishedAt = Date;
                 story.StoryDescription = Description;
                 _objdb.Stories.Update(story);
-                var storymediums = _objdb.StoryMedia.FirstOrDefault(sm => sm.StoryId == story.StoryId);
+                List<StoryMedium> storymediums = _objdb.StoryMedia.Where(sm => sm.StoryId == story.StoryId).ToList();
+                foreach (var item in storymediums)
+                {
+                    _objdb.StoryMedia.Remove(item);
+                 
+                }
+                
+                _objdb.SaveChanges();
                 foreach (var item in Image)
                 {
-                    
-                    storymediums.StoryId = story.StoryId;
-                    storymediums.Path = item;
-                    _objdb.StoryMedia.Update(storymediums);
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = story.StoryId;
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
                 }
                 _objdb.SaveChanges();
-                return story.StoryId;
+                return story;
             }
             else
             {
@@ -168,16 +175,22 @@ namespace CI_Platform.Repository.Repository
                 story.Status = "pending";
                 story.StoryDescription = Description;
                 _objdb.Stories.Update(story);
-                var storymediums = _objdb.StoryMedia.FirstOrDefault(sm => sm.StoryId == story.StoryId);
+                List<StoryMedium> storymediums = _objdb.StoryMedia.Where(sm => sm.StoryId == story.StoryId).ToList();
+                foreach (var item in storymediums)
+                {
+                    _objdb.StoryMedia.Remove(item);
+                }
+                _objdb.SaveChanges();
                 foreach (var item in Image)
                 {
 
-                    storymediums.StoryId = story.StoryId;
-                    storymediums.Path = item;
-                    _objdb.StoryMedia.Update(storymediums);
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = story.StoryId;
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
                 }
                 _objdb.SaveChanges();
-                return story.StoryId;
+                return story;
             }
         }
         public Story searchstory(int MissionId, int UserId)

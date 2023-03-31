@@ -1234,13 +1234,12 @@ namespace CI_Platform.Controllers
             return View();
         }
         [HttpPost]
-        
         public IActionResult Share_Storys(string[] Image,int MissionId,string Title,DateTime Date,string Description,int UserId,string Value)
         {
-            var storyid = _objStoryListing.story(Image, MissionId, Title, Date, Description, UserId,Value);
-            if (storyid!=null)
+            var story = _objStoryListing.story(Image, MissionId, Title, Date, Description, UserId,Value);
+            if (story!=null && story.Status=="DRAFT")
             {
-                return Json(new { success = true,storyid});
+                return Json(new { success = true,storyid=story.StoryId});
             }
             else
             {

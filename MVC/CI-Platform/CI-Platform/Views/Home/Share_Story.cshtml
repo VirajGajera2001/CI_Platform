@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/Favourite.css">
     <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
 <body>
@@ -107,7 +108,7 @@
                 <div class="d-flex">
                     <a asp-action="Story_Listing" asp-controller="Home" class="btn canclebtn">Cancel</a>
                     <a class="btn canclebtn previewbtn d-none" id="" target="_blank">Preview</a>
-                    <button type="button" value="save" class="btn ms-auto submitbtn" onclick="shareStory(userId=@userId,this.value);">Save</button>
+                    <button type="button" value="save" class="btn ms-auto submitbtn" onclick="shareStory(userId=@userId,this.value);">Save As Draft</button>
                         <button type="button" value="submit" class="btn submitbtn" id="submitbtn" onclick="shareStory(userId=@userId,this.value);">Submit</button>
                 </div>
             </div>

@@ -116,7 +116,10 @@ function shareStory(userId,value) {
 		data: { "Image": dataUrls, "MissionId": missionId, "Title": title, "Date": date, "Description": editordata, "UserId": userId, "Value": value },
 		success: function (result) {
 			if (result.success) {
-				alert("Your Story Is Added Successfully");
+				Swal.fire(
+					'Your Story Is Added Successfully'
+				);
+				
 				previewbtn.classList.remove("d-none");
 				previewbtn.id = result.storyid;
 				const url = `/Home/Story_Detail?StoryId=${result.storyid}&UserId=${userId}`;
@@ -125,7 +128,11 @@ function shareStory(userId,value) {
 				previewbtn.href = url;
 			}
 			else {
-				alert("You alreay share the story");
+				Swal.fire(
+					'Your story is added!'
+				).then((res) => {
+					location.reload();
+				});
 			}	
 		}
 		
@@ -161,8 +168,12 @@ function searchStoryByMission(UserId) {
 
 			}
 			else {
-				alert("your story is already published");
-				location.reload();
+				Swal.fire(
+					'Your story is already shared!',
+					'Please Select Another Mission'
+				).then((res) => {
+					location.reload();
+				});
 			}
 		},
 		error: function () {
@@ -171,26 +182,4 @@ function searchStoryByMission(UserId) {
 	});
 }
 
-function submitStory(userId) {
-	var dataUrls = files.map(file => file.dataUrl);
-	var missionId = document.getElementById("Missionname").value;
-	var title = document.getElementById("StoryTitle").value;
-	var date = document.getElementById("releasedate").value;
-	var previewbtn = document.querySelector('.previewbtn');
-	var editor = CKEDITOR.instances.editor1;
-	var editordata = editor.getData();
-	$.ajax({
-		url: '/Home/Share_Storys',
-		type: 'POST',
-		data: { "Image": dataUrls, "MissionId": missionId, "Title": title, "Date": date, "Description": editordata, "UserId": userId },
-		success: function (result) {
-			if (result.success) {
-				alert("Your Story Is added Successfully");
-			}
-			else {
-				alert("You already share the story");
-			}
-		}
-
-	});
-}
+	

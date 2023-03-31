@@ -23,7 +23,7 @@ namespace CI_Platform.Repository.Interface
         public User users(int UserId);
         public List<User> users();
         public bool alreadystory(int MissionId, int UserId);
-        public long story(string[] Image, int MissionId, string Title, DateTime Date, string Description,int UserId,string Value);
+        public Story story(string[] Image, int MissionId, string Title, DateTime Date, string Description,int UserId,string Value);
         public Story searchstory(int MissionId, int UserId);
         public List<StoryMedium> searchmedia(long storyId);
     }
