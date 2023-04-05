@@ -15,17 +15,17 @@ C:\Users\Dell\source\repos\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\r
 C:\Users\Dell\source\repos\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.pdb
 C:\Users\Dell\source\repos\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.genruntimeconfig.cache
 C:\Users\Dell\source\repos\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\ref\CI-Platform.Repository.dll
+F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.csproj.AssemblyReference.cache
+F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.GeneratedMSBuildEditorConfig.editorconfig
+F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.AssemblyInfoInputs.cache
+F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.AssemblyInfo.cs
+F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.csproj.CoreCompileInputs.cache
 F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\bin\Debug\net6.0\CI-Platform.Repository.deps.json
 F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\bin\Debug\net6.0\CI-Platform.Repository.runtimeconfig.json
 F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\bin\Debug\net6.0\CI-Platform.Repository.dll
 F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\bin\Debug\net6.0\CI-Platform.Repository.pdb
 F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\bin\Debug\net6.0\CI-Platform.Entities.dll
 F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\bin\Debug\net6.0\CI-Platform.Entities.pdb
-F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.csproj.AssemblyReference.cache
-F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.GeneratedMSBuildEditorConfig.editorconfig
-F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.AssemblyInfoInputs.cache
-F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.AssemblyInfo.cs
-F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.csproj.CoreCompileInputs.cache
 F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.csproj.CopyComplete
 F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\CI-Platform.Repository.dll
 F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform.Repository\obj\Debug\net6.0\refint\CI-Platform.Repository.dll

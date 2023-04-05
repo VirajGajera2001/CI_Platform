@@ -529,6 +529,10 @@
       "PackagePath": "staticwebassets\\js\\Story_Listing.js"
     },
     {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\js\\User.js",
+      "PackagePath": "staticwebassets\\js\\User.js"
+    },
+    {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\js\\bootstrap.min.js"
     },

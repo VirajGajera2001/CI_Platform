@@ -65,9 +65,7 @@ public partial class CIdbcontext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-9QDC961\\MSSQLSERVER01; initial catalog=CI Platform; Trusted_Connection=True;Persist Security Info=False;MultipleActiveResultSets=True;Encrypt=False;TrustServerCertificate=False;Connection Timeout=120;");
-
-
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-9QDC961\\MSSQLSERVER01; initial catalog=CI Platform; Trusted_Connection=True;Persist Security Info=False;MultipleActiveResultSets=True;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -780,7 +778,10 @@ public partial class CIdbcontext : DbContext
                 .IsUnicode(false)
                 .HasDefaultValueSql("('PENDING')")
                 .HasColumnName("status");
-            entity.Property(e => e.Time).HasColumnName("time");
+            entity.Property(e => e.Time)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("time");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
@@ -800,9 +801,12 @@ public partial class CIdbcontext : DbContext
             entity.ToTable("user");
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
-            entity.Property(e => e.Avatar)
-                .HasMaxLength(2048)
+            entity.Property(e => e.Availability)
+                .HasMaxLength(50)
                 .IsUnicode(false)
+                .HasColumnName("availability");
+            entity.Property(e => e.Avatar)
+                .HasColumnType("text")
                 .HasColumnName("avatar");
             entity.Property(e => e.CityId).HasColumnName("city_id");
             entity.Property(e => e.CountryId).HasColumnName("country_id");
@@ -814,7 +818,7 @@ public partial class CIdbcontext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("deleted_at");
             entity.Property(e => e.Department)
-                .HasMaxLength(16)
+                .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("department");
             entity.Property(e => e.Email)
@@ -838,6 +842,10 @@ public partial class CIdbcontext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("linked_in_url");
+            entity.Property(e => e.ManagerDetail)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("manager_detail");
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
                 .IsUnicode(false)

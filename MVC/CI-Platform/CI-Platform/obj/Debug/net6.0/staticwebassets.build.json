@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HPjiArhRky6H4o0uamO/Mt0Y0NFo7sWC4hP5Jv7u44g=",
+  "Hash": "ZlVEuYD7L+6Iwh6tclZneyp0mm1dh8KMKWKwXWrz8Os=",
   "Source": "CI-Platform",
   "BasePath": "_content/CI-Platform",
   "Mode": "Default",
@@ -2310,6 +2310,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Story_Listing.js"
+    },
+    {
+      "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\js\\User.js",
+      "SourceId": "CI-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\",
+      "BasePath": "_content/CI-Platform",
+      "RelativePath": "js/User.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\User.js"
     },
     {
       "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

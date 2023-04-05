@@ -1,0 +1,214 @@
+﻿
+@model CI_Platform.Entities.Models.Userviewmodel;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/Favourite.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex">
+                <div class="navleft d-flex">
+                    <a asp-controller="Home" asp-action="Story_Listing" class="text-decoration-none" style="color: black;">Story</a>
+                    <div class="dropdown ms-5">
+                        <button class="bg-white border-0 p-0" type="button" data-bs-toggle="dropdown" id="dropdownMenuButton">
+                            <span>Policy</span>
+                            <img src="../CI-Imgs/drop-down.png" class="ic-downs">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">Policy1</a></li>
+                            <li><a class="dropdown-item" href="#">Policy2</a></li>
+                            <li><a class="dropdown-item" href="#">Policy3</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="navright ms-auto">
+                    <div class="dropdown ms-5">
+                        <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                            <img src="../CI-Imgs/bell.png" alt="">
+                            <img src="../CI-Imgs/user-img.png" alt="" class="profileimg">
+                            <span>John Doe</span>
+                            <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="UserProfile">My Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="VolunteeringTimesheet">Volunteering Timesheet</a></li>
+                            <li><a class="dropdown-item" href="#">Help</a></li>
+                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <form asp-controller="Home" asp-action="UserEdit" method="post" id="userform">
+    <div class="container-fluid h-100">
+        <div class="row">
+            <div class="col-lg-2 col-md-12 col-sm-12">
+                <div class="card text-center mt-2" style="width: 100%;">
+                    <div class="mt-3">
+                            <img src="@Model.Avatar" alt="" class="userimg">
+                            <input type="hidden" asp-for="Avatar" class="imghidden" value="@Model.Avatar" />
+                        <input type="file" id="profile-img-input" style="display:none;" accept="image/*">
+                    </div>
+                    <div class="text-center">
+                        <p>@Model.FirstName @Model.LastName</p>
+                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Change Password
+                        </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="text" id="oldpass" class="form-control mt-3" placeholder="Enter old password">
+                                        <input type="password" id="newpass" class="form-control mt-3" placeholder="Enter new password">
+                                        <input type="text" id="confirmpass" class="form-control mt-3" placeholder="Enter confirm password">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-primary" onclick="changePass()">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-12 col-sm-12">
+                <h4 style="border-bottom: 2px solid black; display: inline-block;">Basic Information</h4>
+                <div class="row mt-3">
+                    <div class="col-lg-6">
+                        <label for="name">Name</label>
+                        <input type="text" asp-for="FirstName" class="form-control" placeholder="Enter your name">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="surname">SurName</label>
+                        <input type="text" asp-for="LastName" class="form-control" placeholder="Enter your Surname">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-6">
+                        <label for="empid">Employee ID</label>
+                        <input type="text" asp-for="EmployeeId" class="form-control" placeholder="Enter your employee id">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="empid">Manager</label>
+                        <input type="text" asp-for="ManagerDetail" class="form-control" placeholder="Enter your manager detail">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-6">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" placeholder="Enter your title" asp-for="Title">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="department">Department</label>
+                        <input type="text" class="form-control" placeholder="Enter your department details" asp-for="Department">
+                    </div>
+                </div>
+                <label for="comment" class="mt-3">My Profile</label>
+                <textarea rows="5" class="form-control" placeholder="Enter your comments" asp-for="ProfileText"></textarea>
+
+                <label for="volunteer" class="mt-3">Why I Volunteer?</label>
+                <textarea asp-for="WhyIVolunteer" rows="5" class="form-control" placeholder="Enter your volunteer details"></textarea>
+                <h4 class="mt-4" style="border-bottom: 2px solid black; display: inline-block;">Address Information</h4>
+                <div class="row mt-3">
+                    <div class="col-lg-6">
+                        <label for="city">City</label>
+                        <select class="form-control form-select" asp-items="@Model.cities" asp-for="CityId">
+                            <option>Enter your city</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="city">Country</label>
+                        <select class="form-control form-select" asp-items="@Model.countries" asp-for="CountryId">
+                            <option>Enter your country</option>
+                        </select>
+                    </div>
+                </div>
+                <h4 class="mt-4" style="border-bottom: 2px solid black; display: inline-block;">Professional Information</h4>
+                <div class="row mt-3">
+                    <div class="col-lg-6">
+                        <label for="city">Availablity</label>
+                        <select class="form-control form-select" asp-for="Availability">
+                            <option>Select your availablity</option>
+                            <option value="Daily">Daily</option>
+                            <option value="Weekly">Weekly</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="url">LinkedIn</label>
+                        <input type="text" class="form-control" placeholder="Enter linkedIn URL" asp-for="LinkedInUrl">
+                    </div>
+                </div>
+                <h4 class="mt-4" style="border-bottom: 2px solid black; display: inline-block;">My Skills</h4>
+                <div class="row mt-3">
+                    <div class="skilldiv">
+                            @foreach(var item in Model.userskill)
+                            {
+                                <p value="@item.Value" id="skills">@item.Text</p>
+                            }
+                        </div>
+                    <div class="skillbtn">
+                        <button type="button" class="btn btn-outline-dark rounded-pill mt-2" data-bs-toggle="modal" data-bs-target="#exampleModalskill">Add Skills</button>
+                        <div class="modal fade " id="exampleModalskill" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Your Skills</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="card addskill p-2" asp-for="skills">
+                                                    @foreach (var item in Model.skills)
+                                                    {
+                                                        <p name="skill"  value="@item.Value">@item.Text</p>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="card addedskill">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-primary skillsavebtn">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button class=" btn btn-outline-dark rounded-pill ms-auto" onclick="sendskill()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <hr>
+    <footer>
+        <p class="ms-5">Privacy Policy</p>
+    </footer>
+    <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../JS/User.js"></script>
+</body>
+</html>

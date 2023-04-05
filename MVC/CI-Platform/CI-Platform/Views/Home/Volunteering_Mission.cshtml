@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-12 d-flex">
                 <div class="navleft d-flex">
-                    <a href="" class="text-decoration-none" style="color: black;">Story</a>
+                    <a asp-controller="Home" asp-action="Story_Listing" class="text-decoration-none" style="color: black;">Story</a>
                     <div class="dropdown ms-5">
                         <button class="bg-white border-0 p-0" type="button" data-bs-toggle="dropdown">
                             <span>Policy</span>
@@ -51,7 +51,8 @@
                             <img src="../CI-Imgs/drop-down.png" class="ic-down">
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="UserProfile">My Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="VolunteeringTimesheet">Volunteering Timesheet</a></li>
                             <li><a class="dropdown-item" href="#">Help</a></li>
                             <li><a class="dropdown-item" href="login.html">Logout</a></li>
                         </ul>

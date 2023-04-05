@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using CI_Platform.Entities.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CI_Platform.Controllers
 {
@@ -20,15 +21,16 @@ namespace CI_Platform.Controllers
         private readonly ILanding _objLanding;
         private readonly IVolunteer _objVolunteer;
         private readonly IStoryListing _objStoryListing;
+        private readonly IUserprofile _objUserProfile;
 
-
-        public HomeController(ILogger<HomeController> logger, IRegister objRegister, ILanding objLanding, IVolunteer objVolunteer, IStoryListing objStoryListing)
+        public HomeController(ILogger<HomeController> logger, IRegister objRegister, ILanding objLanding, IVolunteer objVolunteer, IStoryListing objStoryListing,IUserprofile objUserProfile)
         {
             _logger = logger;
             _objRegister = objRegister;
             _objLanding = objLanding;
             _objVolunteer = objVolunteer;
             _objStoryListing = objStoryListing;
+            _objUserProfile=objUserProfile;
         }
 
         [HttpGet]
@@ -1269,9 +1271,157 @@ namespace CI_Platform.Controllers
 
         public IActionResult VolunteeringTimesheet()
         {
-            return View();
+            var userId = HttpContext.Session.GetString("UserId");
+            List<Mission> missiontime = _objUserProfile.missionstime(int.Parse(userId));
+            List<Mission> missiongoal = _objUserProfile.missionsgoal(int.Parse(userId));
+            List<SelectListItem> listmissiontime=new List<SelectListItem>();
+            List<SelectListItem> listmissiongoal = new List<SelectListItem>();
+            List<TimesheetViewModel> sheetview = new List<TimesheetViewModel>();
+            List<TimesheetViewModel> sheetview2 = new List<TimesheetViewModel>();
+            List<Timesheet> timesheets = _objUserProfile.timesheetlist(int.Parse(userId));
+            var sheetrecord = (from ts in timesheets join mg in missiongoal on ts.MissionId equals mg.MissionId select new { sheetid=ts.TimesheetId,Name = mg.Title, Action = ts.Action, Date = ts.DateVolunteered }).ToList();
+            TimesheetViewModel timesheetViewModel= new TimesheetViewModel();
+            List<Timesheet> sheetviewtime = _objUserProfile.timesheetlistTime(int.Parse(userId));
+            var sheetrecordtime = (from sv in sheetviewtime join mt in missiontime on sv.MissionId equals mt.MissionId select new { sheetid = sv.TimesheetId, Name = mt.Title, Timespend = sv.Time, Date = sv.DateVolunteered }).ToList();
+            foreach (var item in missiontime)
+            {
+                listmissiontime.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
+            }
+            foreach (var item in missiongoal)
+            {
+                listmissiongoal.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
+            }
+            foreach (var item in sheetrecord)
+            {
+                TimesheetViewModel timesheetViewModel1= new TimesheetViewModel();
+                timesheetViewModel1.TimesheetId = item.sheetid;
+                timesheetViewModel1.Title = item.Name;
+                timesheetViewModel1.Action = item.Action.ToString();
+                timesheetViewModel1.DateVolunteered = item.Date;
+                sheetview.Add(timesheetViewModel1);
+            }
+            foreach (var item in sheetrecordtime)
+            {
+                TimesheetViewModel timesheetViewModel2 = new TimesheetViewModel();
+                timesheetViewModel2.TimesheetId = item.sheetid;
+                timesheetViewModel2.Title = item.Name;
+                timesheetViewModel2.Timehour = item.Timespend.Split(':').First();
+                timesheetViewModel2.Timeminute = item.Timespend.Split(':').Last();
+                timesheetViewModel2.DateVolunteered = item.Date;
+                sheetview2.Add(timesheetViewModel2);
+            }
+            timesheetViewModel.timesheets= sheetview;
+            timesheetViewModel.timesheettime = sheetview2;
+            timesheetViewModel.missionstime = listmissiontime;
+            timesheetViewModel.missionsgoal = listmissiongoal;
+            return View(timesheetViewModel);
+        }
+        [HttpPost]
+        public IActionResult VolunteeringTimesheet(TimesheetViewModel timesheetviewmodel)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            _objUserProfile.timesheet(timesheetviewmodel, int.Parse(userId));
+            return RedirectToAction("VolunteeringTimesheet", "Home");
+            
+        }
+        [HttpPost]
+        public IActionResult TimesheetTime(TimesheetViewModel timesheetviewmodel)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            _objUserProfile.sheetime(timesheetviewmodel, int.Parse(userId));
+            return RedirectToAction("VolunteeringTimesheet", "Home");
         }
 
+        [HttpPost]
+        public IActionResult goalEdit(int timesheetid)
+        {
+            var find = _objUserProfile.findgoalrecord(timesheetid);
+            return Json(new { find=find });
+        }
+        [HttpPost]
+        public IActionResult editTime(int timesheetid)
+        {
+            var find = _objUserProfile.findtimerecord(timesheetid);
+            return Json(new {find=find});
+        }
+        [HttpPost]
+        public IActionResult goalDelete(int timesheetid)
+        {
+            _objUserProfile.deletegoalrecord(timesheetid);
+            return Json(new {success=true});
+        }
+        public IActionResult UserProfile()
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            List<City> city = _objLanding.cities();
+            List<Country> country = _objLanding.countries1();
+            List<Skill> skill = _objUserProfile.skills();
+            List<SelectListItem> listCities= new List<SelectListItem>();
+            List<SelectListItem> listCountries = new List<SelectListItem>();
+            List<SelectListItem> listSkills = new List<SelectListItem>();
+            List<SelectListItem> oneuserskill= new List<SelectListItem>();
+            User user = _objUserProfile.loginuser(int.Parse(userId));
+            Userviewmodel userviewmodel=new Userviewmodel();
+            var  userskill = _objUserProfile.oneuserskill(int.Parse(userId));
+            foreach(var item in city)
+            {
+                listCities.Add(new SelectListItem() { Text = item.Name, Value = item.CityId.ToString() });  
+            }
+            foreach(var item in country)
+            {
+                listCountries.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
+            }
+            foreach (var item in skill)
+            {
+                listSkills.Add(new SelectListItem() { Text = item.SkillName, Value = item.SkillId.ToString() });
+            }
+            foreach(var item in userskill)
+            {
+                oneuserskill.Add(new SelectListItem() { Text=item.SkillName,Value=item.SkillId.ToString()});
+            }
+            userviewmodel.cities = listCities;
+            userviewmodel.countries = listCountries;
+            userviewmodel.skills = listSkills;
+            userviewmodel.userskill = oneuserskill;
+            userviewmodel.UserId=user.UserId;
+            userviewmodel.FirstName=user.FirstName;
+            userviewmodel.LastName=user.LastName;
+            userviewmodel.Avatar=user.Avatar;
+            userviewmodel.WhyIVolunteer=user.WhyIVolunteer;
+            userviewmodel.EmployeeId=user.EmployeeId;
+            userviewmodel.Status=user.Status;
+            userviewmodel.Department=user.Department;
+            userviewmodel.CityId=user.CityId;
+            userviewmodel.CountryId=user.CountryId;
+            userviewmodel.ManagerDetail = user.ManagerDetail;
+            userviewmodel.Availability = user.Availability;
+            userviewmodel.ProfileText=user.ProfileText;
+            userviewmodel.Title=user.Title;
+            userviewmodel.LinkedInUrl=user.LinkedInUrl;
+            return View(userviewmodel);
+        }
+        [HttpPost]
+         public IActionResult UserEdit(Userviewmodel userViewModel, string[] skill)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            _objUserProfile.saveskill(skill, int.Parse(userId));
+            _objUserProfile.adduser(userViewModel,int.Parse(userId));
+            return RedirectToAction("UserProfile","Home");
+        }
+        [HttpPost]
+        public IActionResult passEdit(string old,string newp,string confp)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            var savepass=_objUserProfile.savePassword(old,newp,confp,int.Parse(userId));
+            if (savepass == true)
+            {
+                return Json(new { success = true }); 
+            }
+            else
+            {
+                return Json(new { success = false });
+            }
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

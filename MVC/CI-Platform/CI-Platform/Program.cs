@@ -11,6 +11,7 @@ builder.Services.AddScoped<IRegister, Register>();
 builder.Services.AddScoped<ILanding, Landing>();
 builder.Services.AddScoped<IVolunteer, Volunteer>();
 builder.Services.AddScoped<IStoryListing, StoryListing>();
+builder.Services.AddScoped<IUserprofile, Userprofile>();
 builder.Services.AddSession();
 
 var app = builder.Build();

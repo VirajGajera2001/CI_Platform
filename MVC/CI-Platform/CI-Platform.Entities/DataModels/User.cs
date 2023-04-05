@@ -25,6 +25,8 @@ public partial class User
 
     public string? Department { get; set; }
 
+    public string? ManagerDetail { get; set; }
+
     public long? CityId { get; set; }
 
     public long? CountryId { get; set; }
@@ -34,6 +36,8 @@ public partial class User
     public string? LinkedInUrl { get; set; }
 
     public string? Title { get; set; }
+
+    public string? Availability { get; set; }
 
     public bool? Status { get; set; }
 

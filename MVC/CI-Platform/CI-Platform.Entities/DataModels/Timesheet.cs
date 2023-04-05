@@ -11,7 +11,7 @@ public partial class Timesheet
 
     public long? MissionId { get; set; }
 
-    public TimeSpan? Time { get; set; }
+    public string? Time { get; set; }
 
     public int? Action { get; set; }
 
