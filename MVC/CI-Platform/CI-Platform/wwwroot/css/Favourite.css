@@ -294,6 +294,32 @@
     overflow-y: auto;
     border-radius: 5px;
 }
+/* CSS styles for the content */
+.content-section {
+    display: none;
+}
+
+#content {
+    padding: 20px;
+    background-color: #fff;
+}
+
+    #content .active {
+        display: block;
+    }
+
+.menu-link {
+    display: block;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #333;
+}
+
+    .menu-link.active {
+        background-color: #007bff;
+        color: #fff;
+    }
 @media (max-width:991px) {
     .stars{
       width: 377px;

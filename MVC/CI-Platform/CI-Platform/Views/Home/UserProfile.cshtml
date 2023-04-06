@@ -1,4 +1,8 @@
-﻿
+﻿@{
+    var name = Context.Session.GetString("FName");
+    var avatar = Context.Session.GetString("Avatar");
+    var userId = Context.Session.GetString("UserId");
+}
 @model CI_Platform.Entities.Models.Userviewmodel;
 <!DOCTYPE html>
 <html lang="en">
@@ -20,23 +24,20 @@
                 <div class="navleft d-flex">
                     <a asp-controller="Home" asp-action="Story_Listing" class="text-decoration-none" style="color: black;">Story</a>
                     <div class="dropdown ms-5">
-                        <button class="bg-white border-0 p-0" type="button" data-bs-toggle="dropdown" id="dropdownMenuButton">
-                            <span>Policy</span>
-                            <img src="../CI-Imgs/drop-down.png" class="ic-downs">
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Policy1</a></li>
-                            <li><a class="dropdown-item" href="#">Policy2</a></li>
-                            <li><a class="dropdown-item" href="#">Policy3</a></li>
-                        </ul>
+                        <a asp-controller="Home" asp-action="Policy" class="text-decoration-none" style="color: black;">Policy</a>
                     </div>
                 </div>
                 <div class="navright ms-auto">
                     <div class="dropdown ms-5">
                         <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
                             <img src="../CI-Imgs/bell.png" alt="">
-                            <img src="../CI-Imgs/user-img.png" alt="" class="profileimg">
-                            <span>John Doe</span>
+                            <img src="@avatar" class="profileimg">
+                            @if (@name != null)
+                            {
+
+                                <span>@name</span>
+
+                            }
                             <img src="../CI-Imgs/drop-down.png" class="ic-down">
                         </button>
                         <ul class="dropdown-menu">
@@ -75,8 +76,11 @@
                                     </div>
                                     <div class="modal-body">
                                         <input type="text" id="oldpass" class="form-control mt-3" placeholder="Enter old password">
+                                            <span class="text-danger " style="position:absolute;left: 13px;" id="errorContainerOld"></span>
                                         <input type="password" id="newpass" class="form-control mt-3" placeholder="Enter new password">
+                                        <span class="text-danger" style="position:absolute;left: 13px;" id="errorContainerNew"></span>
                                         <input type="text" id="confirmpass" class="form-control mt-3" placeholder="Enter confirm password">
+                                            <span class="text-danger " style="position:absolute;left: 13px;" id="errorContainer"></span>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -160,7 +164,7 @@
                     <div class="skilldiv">
                             @foreach(var item in Model.userskill)
                             {
-                                <p value="@item.Value" id="skills">@item.Text</p>
+                                <p value="@item.Value">@item.Text</p>
                             }
                         </div>
                     <div class="skillbtn">
@@ -182,22 +186,38 @@
                                                     }
                                                 </div>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-1">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <button type="button" id="add" class="btn btn-secondary btn-sm my-2">&gt;</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <button type="button" id="remove" class="btn btn-secondary btn-sm my-2">&lt;</button>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <div class="col-5">
                                                 <div class="card addedskill">
+                                                        @foreach (var item in Model.userskill)
+                                                        {
+                                                            <p value="@item.Value" class="skillsname">@item.Text</p>
+                                                        }
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-primary skillsavebtn">Save</button>
+                                            <button type="button" class="btn btn-primary skillsavebtn" onclick="sendskill()">Save</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="text-end">
-                        <button class=" btn btn-outline-dark rounded-pill ms-auto" onclick="sendskill()">Save</button>
+                        <button class=" btn btn-outline-dark rounded-pill ms-auto">Save</button>
                     </div>
                 </div>
             </div>
@@ -209,6 +229,6 @@
         <p class="ms-5">Privacy Policy</p>
     </footer>
     <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../JS/User.js"></script>
+    <script src="~/js/User.js"></script>
 </body>
 </html>

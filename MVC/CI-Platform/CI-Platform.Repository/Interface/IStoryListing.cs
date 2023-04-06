@@ -26,5 +26,6 @@ namespace CI_Platform.Repository.Interface
         public Story story(string[] Image, int MissionId, string Title, DateTime Date, string Description,int UserId,string Value);
         public Story searchstory(int MissionId, int UserId);
         public List<StoryMedium> searchmedia(long storyId);
+        public List<StoryMedium> storymedia(int storyid);
     }
 }

@@ -89,11 +89,12 @@ function searchMission(pge) {
     var toCoun1 = Array.from(document.querySelectorAll('input[id="Checkme1"]:checked')).map(el => el.value);
     var toCity2 = Array.from(document.querySelectorAll('input[id="Checkme2"]:checked')).map(el => el.value);
     var toTheme2 = Array.from(document.querySelectorAll('input[id="Checkme3"]:checked')).map(el => el.value);
+    var toSkill2 = Array.from(document.querySelectorAll('input[id="Checkme4"]:checked')).map(el => el.value);
     console.log(sortBy);
     $.ajax({
         url: '/Home/Landing',
         type: 'POST',
-        data: { Title: val, pg: pge, "ToCountry": toCoun1, "ToCity": toCity2, "ToTheme": toTheme2, "sortValue": sortBy },
+        data: { Title: val, pg: pge, "ToCountry": toCoun1, "ToCity": toCity2, "ToTheme": toTheme2, "sortValue": sortBy, "ToSkill": toSkill2 },
         success: function (result) {
             $('#gridview').html(result);
         },

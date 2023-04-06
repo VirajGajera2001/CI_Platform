@@ -25,6 +25,9 @@ namespace CI_Platform.Repository.Interface
         public GoalMission goalmissions(Mission mission);
         public List<FavouriteMission> isfav(int userId);
         public MissionApplication applied(int userId,long MissionId);
+        public List<Skill> skill();
+        public List<MissionSkill> missionskill();
+        
     }
 
 }

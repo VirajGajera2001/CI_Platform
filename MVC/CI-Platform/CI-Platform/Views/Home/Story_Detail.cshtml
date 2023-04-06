@@ -1,9 +1,11 @@
-﻿
+﻿@model CI_Platform.Entities.Models.StoryDetailModel;
 @{
     var name = Context.Session.GetString("FName");
     var avatar = Context.Session.GetString("Avatar");
+    var count = Model.storyMedia.Count();
+    var j = 0;
 }
-@model CI_Platform.Entities.Models.StoryDetailModel;
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,39 +59,31 @@
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12 mb-2 p-0">
                 <div class="container slidecontainer">
-                    <div class="mySlides">
-                        <div class="numbertext">1 / 6</div>
-                        <img src="../CI-Imgs/image1.png" style="width:100%;">
-                    </div>
-                    <div class="mySlides">
-                        <div class="numbertext">2 / 6</div>
-                        <img src="../CI-Imgs/img1.png" style="width:100%">
-                    </div>
-                    <div class="mySlides">
-                        <div class="numbertext">3 / 6</div>
-                        <img src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-2.png" style="width:100%">
-                    </div>
-                    <div class="mySlides">
-                        <div class="numbertext">4 / 6</div>
-                        <img src="../CI-Imgs/img11.png" style="width:100%">
-                    </div>
+                    @foreach(var item in Model.storyMedia)
+                    {
+                        @if (Model.storyMedia != null)
+                        {
+                            j = j + 1;
+                            <div class="mySlides">
+                                <div class="numbertext">@j / @count</div>
+                                <img src="@item.Path" style="width:100%;">
+                            </div>
+                        }
+                    }
                     <!-- Next Prev Button -->
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
                     <!-- Thumbnail img -->
                     <div class="row mt-2">
-                        <div class="column w-25">
-                            <img class="demo cursor" src="../CI-Imgs/image.png" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
-                        </div>
-                        <div class="column w-25">
-                            <img class="demo cursor" src="../CI-Imgs/img1.png" style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
-                        </div>
-                        <div class="column w-25">
-                            <img class="demo cursor" src="../CI-Imgs/Grow-Trees-On-the-path-to-environment-sustainability-1.png" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
-                        </div>
-                        <div class="column w-25">
-                            <img class="demo cursor" src="../CI-Imgs/img11.png" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
-                        </div>
+                        @foreach(var item in Model.storyMedia)
+                        {
+                            @if (Model.storyMedia != null)
+                            {
+                                <div class="column w-25">
+                                    <img class="demo cursor" src="@item.Path" style="width:100%" onclick="currentSlide(j)" alt="The Woods">
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
             </div>

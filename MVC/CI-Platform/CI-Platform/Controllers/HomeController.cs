@@ -217,9 +217,11 @@ namespace CI_Platform.Controllers
                 List<City> cities = _objLanding.cities();
                 List<CitydataModel> citydataModels = new List<CitydataModel>();
                 List<Country> countries1 = _objLanding.countries1();
+                List<Skill> skills = _objLanding.skill();
                 List<CountrydataModel> countrydataModels = new List<CountrydataModel>();
                 List<MissionTheme> missionThemes = _objLanding.missionThemes();
                 List<ThemedataModel> themedataModels = new List<ThemedataModel>();
+                List<SkillDataModel> skilldata = new List<SkillDataModel>();
                 List<User> users = _objVolunteer.users();
                 var userId = HttpContext.Session.GetString("UserId");
                 foreach (var citie in cities)
@@ -245,6 +247,13 @@ namespace CI_Platform.Controllers
                     themedataModels1.MissionThemeId = themename.MissionThemeId;
                     themedataModels1.Title = themename.Title;
                     themedataModels.Add(themedataModels1);
+                }
+                foreach(var item in skills)
+                {
+                    SkillDataModel skillDataModelskill = new SkillDataModel();
+                    skillDataModelskill.SkillId = item.SkillId;
+                    skillDataModelskill.SkillName = item.SkillName;
+                    skilldata.Add(skillDataModelskill);
                 }
                 foreach (var mission in missions)
                 {
@@ -328,6 +337,7 @@ namespace CI_Platform.Controllers
                 ViewBag.CityData = citydataModels;
                 ViewBag.CountryData = countrydataModels;
                 ViewBag.ThemeData = themedataModels;
+                ViewBag.SkillData = skilldata;
                 ViewBag.UserId = int.Parse(userId);
                 const int pageSize = 6;
                 if (pg < 1)
@@ -344,11 +354,12 @@ namespace CI_Platform.Controllers
 
         }
         [HttpPost]
-        public IActionResult Landing(string Title, string[] ToCountry, string[] ToCity, string[] ToTheme, string sortValue, int pg = 1)
+        public IActionResult Landing(string Title, string[] ToCountry, string[] ToCity, string[] ToTheme, string[] ToSkill, string sortValue, int pg = 1)
         {
             List<MissionViewModel> missionViewModels = new List<MissionViewModel>();
             List<Mission> missions = _objLanding.missions();
             List<User> users = _objVolunteer.users();
+            List<MissionSkill> missionSkills= _objLanding.missionskill();
             var userId = HttpContext.Session.GetString("UserId");
             if (!string.IsNullOrEmpty(Title))
             {
@@ -364,10 +375,12 @@ namespace CI_Platform.Controllers
             }
             if (ToTheme.Count() > 0)
             {
-                foreach (var id in ToTheme)
-                {
                     missions = missions.Where(ms => ToTheme.Contains(Convert.ToString(ms.ThemeId))).ToList();
-                }
+            }
+            if (ToSkill.Count() > 0)
+            {
+                missionSkills=missionSkills.Where(mk=>ToSkill.Contains(Convert.ToString(mk.SkillId))).ToList();
+                missions=(from ms in missions join mk in missionSkills on ms.MissionId equals mk.MissionId select ms).ToList();
             }
             if (sortValue != null)
             {
@@ -590,6 +603,7 @@ namespace CI_Platform.Controllers
             if (UserId != null)
             {
                 var missions = _objVolunteer.missions(MissionId);
+                var missionmedia=_objVolunteer.missionmedia(MissionId);
                 var city = _objVolunteer.cities(missions);
                 var theme = _objVolunteer.missiontheme(missions);
                 var relatedmission = _objVolunteer.missions(MissionId, missions);
@@ -759,6 +773,7 @@ namespace CI_Platform.Controllers
                 this.ViewBag.Pager = pager;
                 ViewBag.RecentVolunteering = data;
                 ViewBag.Missions = missions;
+                ViewBag.Media = missionmedia;
                 ViewBag.relatedmission = relatedmission;
                 ViewBag.MissionTheme = theme;
                 ViewBag.City = city;
@@ -772,6 +787,7 @@ namespace CI_Platform.Controllers
             else
             {
                 var missions = _objVolunteer.missions(MissionId);
+                var missionmedia = _objVolunteer.missionmedia(MissionId);
                 var city = _objVolunteer.cities(missions);
                 var theme = _objVolunteer.missiontheme(missions);
                 var relatedmission = _objVolunteer.missions(MissionId, missions);
@@ -945,6 +961,8 @@ namespace CI_Platform.Controllers
                 }
 
                 ViewBag.Missions = missions;
+                ViewBag.Media = missionmedia;
+                ViewBag.count=missionmedia.Count();
                 ViewBag.relatedmission = rmv;
                 ViewBag.MissionTheme = theme;
                 ViewBag.City = city;
@@ -1215,6 +1233,7 @@ namespace CI_Platform.Controllers
             StoryDetailModel storydetailmodel= new StoryDetailModel();
             var storydetail = _objStoryListing.stories(StoryId);
             var storyuser = _objStoryListing.users(UserId);
+            var storymedia = _objStoryListing.storymedia(StoryId);
             List<User> users = _objStoryListing.users();
             if (storydetail != null)
             {
@@ -1225,6 +1244,7 @@ namespace CI_Platform.Controllers
                 storydetailmodel.storyuser = storyuser;
             }
             storydetailmodel.Allusers = users;
+            storydetailmodel.storyMedia = storymedia;
             return View(storydetailmodel);
         }
         [HttpGet]
@@ -1401,12 +1421,18 @@ namespace CI_Platform.Controllers
             return View(userviewmodel);
         }
         [HttpPost]
-         public IActionResult UserEdit(Userviewmodel userViewModel, string[] skill)
+         public IActionResult UserEdit(Userviewmodel userViewModel)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            _objUserProfile.adduser(userViewModel,int.Parse(userId));
+            return RedirectToAction("UserProfile","Home");
+        }
+        [HttpPost]
+        public IActionResult saveSkill(string[] skill)
         {
             var userId = HttpContext.Session.GetString("UserId");
             _objUserProfile.saveskill(skill, int.Parse(userId));
-            _objUserProfile.adduser(userViewModel,int.Parse(userId));
-            return RedirectToAction("UserProfile","Home");
+            return Json(new { success = true });
         }
         [HttpPost]
         public IActionResult passEdit(string old,string newp,string confp)
@@ -1421,6 +1447,10 @@ namespace CI_Platform.Controllers
             {
                 return Json(new { success = false });
             }
+        }
+        public IActionResult Policy()
+        {
+            return View();
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

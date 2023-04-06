@@ -262,6 +262,9 @@
     overflow-y: auto;
     text-align: left;
 }
+.profilediv{
+    margin-right:100px;
+}
 @media (max-width:991px) {
     .profitext {
         display: none;

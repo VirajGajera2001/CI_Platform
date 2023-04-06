@@ -210,5 +210,10 @@ namespace CI_Platform.Repository.Repository
             var applylist = _objdb.MissionApplications.FirstOrDefault(ma => ma.UserId == userId && ma.MissionId == MissionId);
             return applylist;
         }
+        public List<MissionMedium> missionmedia(int missionId)
+        {
+            var media=_objdb.MissionMedia.Where(me=>me.MissionId==missionId).ToList();
+            return media;
+        }
     }
 }

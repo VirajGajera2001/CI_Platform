@@ -9,16 +9,7 @@ addskill.addEventListener('click', (event) => {
     // Check if the clicked element is a skill name
     if (event.target.tagName === 'P') {
         // Check if the skill name has already been added
-        const skillName = event.target.textContent;
-        if (selectedSkills.has(skillName)) {
-            // Alert if skill is already added
-            alert(`${skillName} is already added`);
-        } else {
-            // Clone the clicked p tag and append it to the addedskill div
-            const clone = event.target.cloneNode(true);
-            addedskill.appendChild(clone);
-            selectedSkills.add(skillName);
-        }
+        event.target.style.backgroundColor = '#F0F0F0';
     }
 });
 
@@ -26,34 +17,147 @@ addedskill.addEventListener('click', (event) => {
     // Check if the clicked element is a skill name
     if (event.target.tagName === 'P') {
         // Remove the clicked p tag from the addedskill div
-        event.target.remove();
+       
         // Remove the skill name from the selectedSkills set
-        selectedSkills.delete(event.target.textContent);
+        event.target.style.backgroundColor = '#F0F0F0';
+    }
+});
+
+const addButton = document.querySelector('#add');
+addButton.addEventListener('click', () => {
+    // Get all selected p tags in the addedskill div
+    const selectedPTags = addskill.querySelectorAll('p.selected');
+    // Perform action for each selected p tag
+    selectedPTags.forEach((pTag) => {
+
+        // Clone the selected p tag and append it to skilldiv
+        const clone = pTag.cloneNode(true);
+
+        let alreadyExists = false;
+        addedskill.childNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE && node.textContent === clone.textContent) {
+                alreadyExists = true;
+                return;
+            }
+        });
+        if (!alreadyExists) {
+            // Append the cloned p tag to the addedskill div
+            addedskill.appendChild(clone);
+            // Remove the 'selected' class from the cloned p tag in the addskill div
+            pTag.classList.remove('selected');
+            // Remove the 'selected' class from the cloned p tag in the addedskill div
+            clone.classList.remove('selected');
+            clone.style.backgroundColor = 'white';
+            clone.setAttribute("class", "skillsname");
+            // Remove the original p tag from the addskill div
+            pTag.remove();
+        }
+    });
+});
+
+// Add click event listener to p tags in the addedskill div to toggle selected class
+addskill.addEventListener('click', (event) => {
+    if (event.target.tagName === 'P') {
+        event.target.classList.toggle('selected');
     }
 });
 
 
 
-// Add a click event listener to the save button
-const saveBtn = document.querySelector('.skillsavebtn');
-saveBtn.addEventListener('click', () => {
-    // Get all the skill names in the addedskill div
-    const addedSkills = addedskill.querySelectorAll('p');
-    // Append each skill name to the skilldiv
-    addedSkills.forEach((skill) => {
-        // Check if the skill already exists in the skilldiv
-        if (skilldiv.innerHTML.includes(skill.textContent)) {
-            // Alert if skill is already added
-            alert(`${skill.textContent} is already added`);
-        } else {
-            const clone = skill.cloneNode(true);
-            clone.setAttribute('id', 'skills');
-            skilldiv.appendChild(clone);
+// Add click event listener to a button to add selected p tags
+const removeButton = document.querySelector('#remove');
+removeButton.addEventListener('click', () => {
+    // Get all selected p tags in the addedskill div
+    const selectedPTags = addedskill.querySelectorAll('p.selected');
+    // Perform action for each selected p tag
+    selectedPTags.forEach((pTag) => {
+        const clone = pTag.cloneNode(true);
+
+
+        let alreadyExists = false;
+        addskill.childNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE && node.textContent === clone.textContent) {
+                alreadyExists = true;
+                return;
+            }
+        });
+        if (!alreadyExists) {
+            addskill.appendChild(clone);
+            // Remove the 'selected' class from the cloned p tag in the addskill div
+            pTag.classList.remove('selected');
+
+            // Remove the 'selected' class from the cloned p tag in the addedskill div
+            clone.classList.remove('selected');
+            pTag.style.backgroundColor = 'white';
+            // Clone the selected p tag and append it to skilldiv
+
+            // Remove the 'selected' class from the cloned p tag in the addskill div
         }
+
+        pTag.remove();
+
+
+
     });
 });
 
+// Add click event listener to p tags in the addedskill div to toggle selected class
+addedskill.addEventListener('click', (event) => {
+    if (event.target.tagName === 'P') {
+        event.target.classList.toggle('selected');
+    }
+});
 
+function changePass() {
+    const old = document.getElementById("oldpass").value;
+    const newp = document.getElementById("newpass").value;
+    const confp = document.getElementById("confirmpass").value;
+    // Define the regular expression pattern
+    const regexPattern = /^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$/;
+    if (old === null || old === "") {
+        document.getElementById("errorContainerOld").textContent = "Old password is required";
+        errorContainer.style.color = "red";
+    }
+    else if (confp === null || confp === "") {
+        document.getElementById("errorContainer").textContent = "Confirm password is required";
+        errorContainer.style.color = "red";
+    }
+    else if (newp === null || newp === "") {
+        document.getElementById("errorContainerNew").textContent = "New password is required";
+        errorContainer.style.color = "red";
+    }
+    else if (!regexPattern.test(newp)) {
+        document.getElementById("errorContainerNew").textContent = "Password must meet the minimum strength requirements.";;
+        errorContainer.style.color = "red";
+    }
+    else {
+
+        // Check if new password and confirm password match
+        if (newp !== confp) {
+            // Display error message
+            document.getElementById("errorContainer").textContent = "New Password and Confirm Password do not match.";
+        } else {
+            $.ajax({
+                url: '/Home/passEdit',
+                type: 'POST',
+                data: { old: old, newp: newp, confp: confp },
+                success: function (result) {
+                    if (result.success) {
+                        Swal.fire(
+                            'Your Password is Changed Successfully'
+                        );
+                    }
+                    else {
+                        Swal.fire(
+                            'Your Password is Not Match, Please Enter Correct Old Password'
+                        );
+                    }
+                }
+            });
+        }
+    }
+
+}
 
 
 
@@ -80,37 +184,19 @@ profileImgInput.addEventListener('change', () => {
   });
 
 function sendskill() {
-    const skill = Array.from(document.querySelectorAll('#skills')).map(el => el.getAttribute('value'));
+    const skill = Array.from(document.querySelectorAll('.skillsname')).map(el => el.getAttribute('value'));
     console.log(skill);
     $.ajax({
-        url: '/Home/UserEdit',
+        url: '/Home/saveSkill',
         type: 'POST',
         data: { skill: skill },
         success: function (result) {
-            document.getElementById("userform").submit();
+            if (result.success) {
+                Swal.fire(
+                    'Your skill is added'
+                );
+            }
         }
     });
 }
 
-function changePass() {
-    const old = document.getElementById("oldpass").value;
-    const newp = document.getElementById("newpass").value;
-    const confp = document.getElementById("confirmpass").value;
-    $.ajax({
-        url: '/Home/passEdit',
-        type: 'POST',
-        data: { old: old, newp: newp, confp: confp },
-        success: function (result) {
-            if (result.success) {
-                Swal.fire(
-                    'Your Password is Changed Successfully'
-                );
-            }
-            else {
-                Swal.fire(
-                    'Your Password is Not Match, Please Enter Correct Old Password'
-                );
-            }
-        }
-    });
-}

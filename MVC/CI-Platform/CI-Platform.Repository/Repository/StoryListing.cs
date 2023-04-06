@@ -203,5 +203,10 @@ namespace CI_Platform.Repository.Repository
             var storymedium = _objdb.StoryMedia.Where(sm=>sm.StoryId==storyId).ToList();
             return storymedium;
         }
+        public List<StoryMedium> storymedia(int storyid)
+        {
+            var media=_objdb.StoryMedia.Where(sm=>sm.StoryId== storyid).ToList();
+            return media;
+        }
     }
 }

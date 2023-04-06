@@ -35,6 +35,16 @@ namespace CI_Platform.Repository.Repository
             List<MissionTheme> missionThemes = _objdb.MissionThemes.ToList();
             return missionThemes;
         }
+        public List<Skill> skill()
+        {
+            List<Skill> skills=_objdb.Skills.ToList();
+            return skills;
+        }
+        public List<MissionSkill> missionskill()
+        {
+            List<MissionSkill> missionSkills=_objdb.MissionSkills.ToList();
+            return missionSkills;
+        }
         public City cityname(City citie)
         {
             var cityname = _objdb.Cities.FirstOrDefault(c => c.CityId == citie.CityId);
