@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZlVEuYD7L+6Iwh6tclZneyp0mm1dh8KMKWKwXWrz8Os=",
+  "Hash": "GAne/pzbPvke/MwnWsPT7cvxFipQNVhATv/lyHoHY5o=",
   "Source": "CI-Platform",
   "BasePath": "_content/CI-Platform",
   "Mode": "Default",
@@ -1732,6 +1732,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\CI-Imgs\\user-img-large.png"
+    },
+    {
+      "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\CI-Imgs\\userprofile.png",
+      "SourceId": "CI-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\",
+      "BasePath": "_content/CI-Platform",
+      "RelativePath": "CI-Imgs/userprofile.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\CI-Imgs\\userprofile.png"
     },
     {
       "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\CI-Imgs\\volunteer1.png",

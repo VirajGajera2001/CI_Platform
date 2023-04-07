@@ -269,7 +269,8 @@ namespace CI_Platform.Controllers
                     missionView.CityId = mission.CityId;
                     missionView.ThemeId = mission.ThemeId;
                     missionView.MissionType = mission.MissionType;
-                    missionView.SeatsAvailable = mission.SeatsAvailable;
+                    var seats = _objLanding.misapplied(mission);
+                    missionView.SeatsAvailable = mission.SeatsAvailable-seats.Count();
                     var rating1 = _objLanding.missionratings(mission);
                     var rat1 = 0;
                     var sum = 0;
@@ -380,7 +381,7 @@ namespace CI_Platform.Controllers
             if (ToSkill.Count() > 0)
             {
                 missionSkills=missionSkills.Where(mk=>ToSkill.Contains(Convert.ToString(mk.SkillId))).ToList();
-                missions=(from ms in missions join mk in missionSkills on ms.MissionId equals mk.MissionId select ms).ToList();
+                missions=(from ms in missions join mk in missionSkills on ms.MissionId equals mk.MissionId select ms).Distinct().ToList();
             }
             if (sortValue != null)
             {
@@ -422,7 +423,8 @@ namespace CI_Platform.Controllers
                 missionView.CityId = mission.CityId;
                 missionView.ThemeId = mission.ThemeId;
                 missionView.MissionType = mission.MissionType;
-                missionView.SeatsAvailable = mission.SeatsAvailable;
+                var seats = _objLanding.misapplied(mission);
+                missionView.SeatsAvailable = mission.SeatsAvailable - seats.Count();
                 var rating1 = _objLanding.missionratings(mission);
                 var rat1 = 0;
                 var sum = 0;
@@ -636,7 +638,8 @@ namespace CI_Platform.Controllers
                     ms.CityId = mis.CityId;
                     ms.ThemeId = mis.ThemeId;
                     ms.MissionType = mis.MissionType;
-                    ms.SeatsAvailable = mis.SeatsAvailable;
+                    var seats = _objLanding.misapplied(mis);
+                    ms.SeatsAvailable = mis.SeatsAvailable-seats.Count();
                     var ratings1 = _objLanding.missionratings(mis);
                     var rats1 = 0;
                     var sums = 0;
@@ -836,7 +839,8 @@ namespace CI_Platform.Controllers
                     missionView.CityId = mission.CityId;
                     missionView.ThemeId = mission.ThemeId;
                     missionView.MissionType = mission.MissionType;
-                    missionView.SeatsAvailable = mission.SeatsAvailable;
+                    var seats = _objLanding.misapplied(mission);
+                    missionView.SeatsAvailable = mission.SeatsAvailable- seats.Count();
                     var ratings1 = _objLanding.missionratings(mission);
                     var rats1 = 0;
                     var sums = 0;
@@ -1451,6 +1455,13 @@ namespace CI_Platform.Controllers
         public IActionResult Policy()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult Contactus(string name,string mail,string subject,string message)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            _objStoryListing.contactadd(name,mail,subject,message, int.Parse(userId));
+            return Json(new {success=true});
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

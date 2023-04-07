@@ -148,7 +148,7 @@ function searchStoryByMission(UserId) {
 		type: 'POST',
 		data: { MissionId: missionId, UserId: UserId },
 		success: function (result) {
-			if (result.success) {
+			if (result.success==true) {
 				var story = result.story;
 				$('#StoryTitle').val(story.title);
 				var date = new Date(story.publishedAt);

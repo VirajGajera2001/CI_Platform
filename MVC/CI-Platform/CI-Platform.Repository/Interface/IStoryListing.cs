@@ -27,5 +27,6 @@ namespace CI_Platform.Repository.Interface
         public Story searchstory(int MissionId, int UserId);
         public List<StoryMedium> searchmedia(long storyId);
         public List<StoryMedium> storymedia(int storyid);
+        public void contactadd(string name, string mail, string subject, string message,int userid);
     }
 }

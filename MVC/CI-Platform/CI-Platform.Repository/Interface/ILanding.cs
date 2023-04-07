@@ -27,7 +27,7 @@ namespace CI_Platform.Repository.Interface
         public MissionApplication applied(int userId,long MissionId);
         public List<Skill> skill();
         public List<MissionSkill> missionskill();
-        
+        public List<MissionApplication> misapplied(Mission mission);
     }
 
 }

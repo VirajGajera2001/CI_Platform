@@ -105,5 +105,10 @@ namespace CI_Platform.Repository.Repository
             var applylist = _objdb.MissionApplications.FirstOrDefault(ma => ma.UserId == userId &&ma.MissionId==MissionId);
             return applylist;
         }
+        public List<MissionApplication> misapplied(Mission mission)
+        {
+            var misapplied = _objdb.MissionApplications.Where(ma => ma.MissionId == mission.MissionId).ToList();
+            return misapplied;
+        }
     }
 }

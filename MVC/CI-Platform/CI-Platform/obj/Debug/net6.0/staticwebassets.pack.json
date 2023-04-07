@@ -409,6 +409,10 @@
       "PackagePath": "staticwebassets\\CI-Imgs\\user1.png"
     },
     {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\CI-Imgs\\userprofile.png",
+      "PackagePath": "staticwebassets\\CI-Imgs\\userprofile.png"
+    },
+    {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\CI-Imgs\\volunteer1.png",
       "PackagePath": "staticwebassets\\CI-Imgs\\volunteer1.png"
     },

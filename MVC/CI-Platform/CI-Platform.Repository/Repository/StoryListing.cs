@@ -208,5 +208,16 @@ namespace CI_Platform.Repository.Repository
             var media=_objdb.StoryMedia.Where(sm=>sm.StoryId== storyid).ToList();
             return media;
         }
+        public void contactadd(string name, string mail, string subject, string message,int userid)
+        {
+            ContactU contactU=new ContactU();
+            contactU.UserId=userid;
+            contactU.UserName=name;
+            contactU.Email=mail;
+            contactU.Subject=subject;
+            contactU.Message=message;
+            _objdb.ContactUs.Add(contactU);
+            _objdb.SaveChanges();
+        }
     }
 }
