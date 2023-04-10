@@ -37,18 +37,15 @@ saveChangesButton.addEventListener('click', () => {
 });
 
 
-const profileImg = document.querySelector('.userimg');
+const profileImg = document.querySelector('#profileImg');
 const profileImgInput = document.querySelector('#profile-img-input');
-profileImg.addEventListener('click', () => {
-  profileImgInput.click();
-});
 
 profileImgInput.addEventListener('change', () => {
     const file = profileImgInput.files[0];
     if (file) {
       const reader = new FileReader();
       reader.addEventListener('load', () => {
-        profileImg.src = reader.result;
+        profileImg.value = reader.result;
       });
       reader.readAsDataURL(file);
     }
