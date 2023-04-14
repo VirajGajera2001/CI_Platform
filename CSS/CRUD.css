@@ -99,6 +99,30 @@
   display: flex;
   margin: 20px 0px;
  }
+ #cmsrecord_filter{
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  margin: 20px 0px;
+ }
+ #missionrecord_filter{
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  margin: 20px 0px;
+ }
+ #storyrecord_filter{
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  margin: 20px 0px;
+ }
+ #applicationrecord_filter{
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  margin: 20px 0px;
+ }
  .usermodalbody{
   height: 400px;
   overflow-y: auto;

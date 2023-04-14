@@ -1,0 +1,415 @@
+﻿
+@model CI_Platform.Entities.AdminModels.UserView;
+@{
+    var i = 0;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/CRUD.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Admin Dashboard</title>
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper" style="background-color: #F88634;">
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase">Navigation</div>
+            <div class="list-group list-group-flush my-3">
+                <button onclick="location.href='@Url.Action("Users", "Admin")'" id="#user" class="list-group-item list-group-item-action second-text @(ViewBag.nav == 1? "active":" bg-transparent")">
+                    <i class="bi bi-person-fill me-2"></i>User
+                </button>
+                <button onclick="location.href='@Url.Action("CMS", "Admin")'" id="#cmspage" class="list-group-item list-group-item-action  second-text @(ViewBag.nav == 2? "active":" bg-transparent")" ">
+                    <i class="bi bi-file-earmark-text-fill me-2"></i>CMS Page
+                </button>
+                <button onclick="location.href='@Url.Action("Mission", "Admin")'" id="#mission" class="list-group-item list-group-item-action   second-text @(ViewBag.nav == 3? "active":" bg-transparent")">
+                    <i class="bi bi-bullseye me-2"></i>Mission
+                </button>
+                <button onclick="location.href='@Url.Action("Theme", "Admin")'" asp-action="Theme" asp-controller="Admin" id="#theme" class="list-group-item list-group-item-action   second-text @(ViewBag.nav == 4? "active":" bg-transparent")">
+                    <i class="bi bi-grid-1x2-fill me-2"></i>Mission Theme
+                </button>
+                <button onclick="location.href='@Url.Action("Skill", "Admin")'" asp-action="Skill" asp-controller="Admin" id="#skill" class="list-group-item list-group-item-action   second-text @(ViewBag.nav == 5? "active":" bg-transparent")">
+                    <i class="bi bi-tools me-2"></i>Mission Skill
+                </button>
+                <button onclick="location.href='@Url.Action("Application", "Admin")'" asp-action="Application" asp-controller="Admin" id="#application" class="list-group-item list-group-item-action   second-text @(ViewBag.nav == 6? "active":" bg-transparent")">
+                    <i class="bi bi-folder-fill me-2"></i>Mission Application
+                </button>
+                <button onclick="location.href='@Url.Action("Story", "Admin")'" asp-action="Story" asp-controller="Admin" id="#story" class="list-group-item list-group-item-action   second-text @(ViewBag.nav == 7? "active":" bg-transparent")">
+                    <i class="bi bi-bookmark-star-fill me-2"></i>Story
+                </button>
+                <button onclick="location.href='@Url.Action("Banner", "Admin")'" asp-action="Banner" asp-controller="Admin" id="#banner" class="list-group-item list-group-item-action   second-text @(ViewBag.nav == 8? "active":" bg-transparent")">
+                    <i class="bi bi-book-fill me-2"></i>Banner Management
+                </button>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-2 px-2 adminnavbar">
+                <div class="d-flex align-items-center">
+                    <img src="/CI-Imgs/menu-bar.svg" class=" primary-text fs-4 me-3" alt="" id="menu-toggle" />
+                    <p class="m-0" id="dashboadtime"></p>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="/CI-Imgs/user-img-large.png" alt="" class="adminimg">
+                                John Doe
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid px-4">
+                <div id="content">
+                    <section id="user" class="row my-3 content-section active">
+                        <div class="border-bottom">
+                            <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">User</span>
+                        </div>
+                        <div class="modal fade" id="exampleModaladd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <form asp-controller="Admin" asp-action="Users" method="post">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="userclose"></button>
+                                        </div>
+                                        <div class="modal-body usermodalbody">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div id="profilecard" class="col-12">
+                                                        <img src="" class="profileimgcard" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="UserId" id="userid" asp-for="UserId"/>
+                                            <label for="fname">First Name</label>
+                                            <input type="text" id="fname" name="FirstName" class="form-control" placeholder="Enter your first name" asp-for="FirstName">
+
+                                            <label for="lname" class="mt-2">Last Name</label>
+                                        <input type="text" id="lname" name="LastName" class="form-control" placeholder="Enter your last name" asp-for="LastName">
+
+                                            <label for="mail" class="mt-2">Email</label>
+                                            <input type="email" name="Email" id="mail" class="form-control" placeholder="Enter your email address" asp-for="Email">
+
+                                            <label for="password" class="mt-2">Password</label>
+                                            <input type="password" name="Password" id="password" class="form-control" placeholder="Enter your password" asp-for="Password">
+
+                                            <label for="empid" class="mt-2">Employee Id</label>
+                                            <input type="text" id="empid" name="EmployeeId" class="form-control" placeholder="Enter your employee id" asp-for="EmployeeId">
+
+                                            <label for="avatar" class="mt-2">Avatar</label>
+                                            <input type="file" id="profile-img-input" class="form-control" placeholder="Upload profile image">
+                                            <input type="hidden" id="profileImg" name="Avatar" value="" asp-for="Avatar">
+
+                                            <label for="department" class="mt-2">Department</label>
+                                            <input type="text" id="department" name="Department" class="form-control" placeholder="Enter your department" asp-for="Department">
+
+                                            <label for="city" class="mt-2">City</label>
+                                            <select class="form-control form-select" id="cityname" name="CityId" asp-for="CityId">
+                                                <option value=""></option>
+                                                @foreach(var item in ViewBag.City)
+                                                {
+                                                    <option value="@item.CityId">@item.Name</option>
+                                                }
+                                            </select>
+
+                                            <label for="country" class="mt-2">Country</label>
+                                            <select class="form-control form-select" id="countryname" name="CountryId" asp-for="CountryId">
+                                                <option value=""></option>
+                                                @foreach(var item in ViewBag.Country)
+                                                {
+                                                    <option value="@item.CountryId">@item.Name</option>
+                                                }
+                                            </select>
+
+                                            <label for="Profile Text" class="mt-2">Profile text</label>
+                                            <textarea cols="20" class="form-control" id="profiletext" name="ProfileText" asp-for="ProfileText"></textarea>
+
+                                            <label for="status" class="mt-2">Status</label>
+                                            <select class="form-control form-select" id="userstatus" name="Status" asp-for="Status">
+                                                <option></option>
+                                                <option value="Active">Active</option>
+                                                <option value="In-Active">In-Active</option>
+                                            </select>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col mt-4">
+                            <table id="userrecord" class="table bg-white rounded shadow-sm  table-hover" width="100%">
+                                <thead style="background-color: #F8F9FC;">
+                                    <tr>
+                                        <th scope="col" width="50">#</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Employee Id</th>
+                                        <th scope="col">Department</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(var item in Model.userdata)
+                                    {
+                                        i = i + 1;
+                                        <tr>
+                                            <th scope="row">@i</th>
+                                            <td>@item.FirstName</td>
+                                            <td>@item.LastName</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.EmployeeId</td>
+                                            <td>@item.Department</td>
+                                            @if (item.Status == true)
+                                            {
+                                                <td style="color:#14C506;">Active</td>
+                                            }
+                                            else
+                                            {
+                                                <td style="color:red;">In-Active</td>
+                                            }
+                                            <td>
+                                                <a type="button" class="border-0" onclick="userEdit(@item.UserId)">
+                                                    <i class="bi bi-pencil-square text-warning"></i>
+                                                </a>
+                                                <a type="button" class="border-0 ms-2"onclick="userDelete(@item.UserId)">
+                                                    <i class="bi bi-trash-fill text-danger"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+        var dashboadtime = document.getElementById("dashboadtime");
+        var modalclose = document.getElementById("userclose");
+        var myModal = document.getElementById("exampleModaladd");
+        var userrecordFilter = document.getElementById("userrecord_filter");
+
+        var fname=document.getElementById("fname");
+        var lname = document.getElementById("lname");
+        var mail=document.getElementById("mail");
+        var password=document.getElementById("password");
+        var empid=document.getElementById("empid");
+        var department = document.getElementById("department");
+        var cityname = document.getElementById("cityname");
+        var countryname = document.getElementById("countryname");
+        var profiletext = document.getElementById("profiletext");
+        var userstatus = document.getElementById("userstatus");
+        var profilecard = document.getElementById("profilecard");
+        const profileimgcard = document.querySelector('.profileimgcard');
+        var profileImg = document.getElementById("profileImg");
+        var userid = document.getElementById("userid");
+        function currentTime() {
+            var time = new Date();
+            var dateString = time.toDateString();
+            var timeString = time.toLocaleTimeString();
+            dashboadtime.innerHTML = dateString + ' ' + timeString;
+            let t = setTimeout(function () { currentTime() }, 1000);
+        }
+        currentTime();
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+
+        const menulink = document.querySelectorAll(".list-group-item");
+
+        menulink.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                menulink.forEach((link) => {
+                    link.classList.remove('active');
+                    
+                });
+                link.classList.add('active');
+                
+            });
+        });
+        // user record
+        $(document).ready(function () {
+            $('#userrecord').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+        $('#userrecord').DataTable({
+            "ordering": false,
+            "lengthChange": false,
+            "pagingType": "full_numbers",
+            "oLanguage": {
+                "sEmptyTable": " ",
+                "oPaginate": {
+                    "sNext": '<i class="bi bi-chevron-right"></i>',
+                    "sPrevious": '<i class="bi bi-chevron-left"></i>',
+                    "sFirst": '<i class="bi bi-chevron-double-left"></i>',
+                    "sLast": '<i class="bi bi-chevron-double-right"></i>',
+                }
+            }
+        });
+
+        
+        // userrecordbtn
+        var userrecordFilter = document.getElementById("userrecord_filter");
+        var button = document.createElement("button");
+        button.innerHTML = `<i class="bi bi-plus">Add</i>`;
+        button.classList.add("btn", "btn-outline-warning", "rounded-pill", "addbtn");
+        button.setAttribute("data-bs-toggle", "modal");
+        button.setAttribute("id","ExampleModalAdd");
+        button.setAttribute("data-bs-target", "#exampleModaladd")
+        userrecordFilter.appendChild(button);
+
+
+        const profileImgInput = document.querySelector('#profile-img-input');
+        profileImgInput.addEventListener('change', () => {
+            const file = profileImgInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.addEventListener('load', () => {
+                    profileImg.value = reader.result;
+                    profileimgcard.style.display = "flex";
+                    profileimgcard.src=reader.result;
+                });
+                reader.readAsDataURL(file);
+            }
+        });
+        modalclose.onclick = function () {
+
+            myModal.style.display = "none";
+
+        };
+        var exampleModaladd = document.getElementById("ExampleModalAdd");
+        exampleModaladd.onclick=function(){
+            fname.value = '';
+            lname.value = '';
+            mail.value = '';
+            password.value = '';
+            empid.value = '';
+            profileImg.value = '';
+            department.value = '';
+            cityname.value = '';
+            countryname.value = '';
+            profiletext.value = '';
+            userstatus.value = '';
+            profileImgInput.value='';
+            profileimgcard.style.display="none";
+        }
+        function userEdit(userId){
+            $.ajax({
+                url:'/Admin/Admin/UserEdit',
+                type:'POST',
+                data:{userId:userId},
+                success:function(result){
+                    myModal.classList.add("show");
+                    myModal.style.display = "block";
+                    var user=result;
+                    console.log(user);
+                    fname.value=user.firstName;
+                    lname.value=user.lastName;
+                    mail.value=user.email;
+                    password.value=user.password;
+                    empid.value=user.employeeId;
+                    profileImg.value = user.avatar;
+                    department.value=user.department;
+                    cityname.value = user.cityId;
+                    countryname.value=user.countryId;
+                    profiletext.value = user.profileText;
+                    userid.value = userId;
+                    if (user.status == true) {
+                        userstatus.value = 'Active';
+                    }
+                    else {
+                        userstatus.value = 'In-Active';
+                    }
+                    profileimgcard.style.display="flex";
+                    profileimgcard.src=user.avatar;
+                }
+            });
+        }
+        function userDelete(userId){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success ms-2',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/Admin/Admin/UserDelete',
+                        type: 'POST',
+                        data: { userId: userId },
+                        success:function(result){
+                            swalWithBootstrapButtons.fire(
+                                'Deleted!',
+                                'Your record has been deleted.',
+                                'success'
+                            ).then((res)=>{
+                                location.reload();
+                            });
+                        }
+                    });
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled'
+                    )
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

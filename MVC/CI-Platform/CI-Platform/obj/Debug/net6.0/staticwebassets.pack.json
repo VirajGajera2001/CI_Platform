@@ -469,6 +469,10 @@
       "PackagePath": "staticwebassets\\Documents\\Missiontext.txt"
     },
     {
+      "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\css\\CRUD.css",
+      "PackagePath": "staticwebassets\\css\\CRUD.css"
+    },
+    {
       "Id": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\css\\Favourite.css",
       "PackagePath": "staticwebassets\\css\\Favourite.css"
     },

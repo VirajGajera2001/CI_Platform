@@ -90,7 +90,7 @@ namespace CI_Platform.Repository.Repository
                 return false;
             }
         }
-        public Story story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string Value)
+        public Story story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string Value, string[] videoUrls)
         {
             var story = _objdb.Stories.FirstOrDefault(st => st.MissionId == MissionId && st.UserId == UserId);
             
@@ -110,6 +110,15 @@ namespace CI_Platform.Repository.Repository
                 {
                     StoryMedium storymedium = new StoryMedium();
                     storymedium.StoryId = matchstory.StoryId;
+                    storymedium.Type = "imag";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                }
+                foreach(var item in videoUrls)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.Type = "video";
                     storymedium.Path = item;
                     _objdb.StoryMedia.Add(storymedium);
                 }
@@ -133,6 +142,15 @@ namespace CI_Platform.Repository.Repository
                 {
                     StoryMedium storymedium = new StoryMedium();
                     storymedium.StoryId = matchstory.StoryId;
+                    storymedium.Type = "imag";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                }
+                foreach (var item in videoUrls)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.Type = "video";
                     storymedium.Path = item;
                     _objdb.StoryMedia.Add(storymedium);
                 }
@@ -160,6 +178,15 @@ namespace CI_Platform.Repository.Repository
                 {
                     StoryMedium storymedium = new StoryMedium();
                     storymedium.StoryId = story.StoryId;
+                    storymedium.Type = "imag";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                }
+                foreach (var item in videoUrls)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = story.StoryId;
+                    storymedium.Type = "video";
                     storymedium.Path = item;
                     _objdb.StoryMedia.Add(storymedium);
                 }
@@ -186,6 +213,15 @@ namespace CI_Platform.Repository.Repository
 
                     StoryMedium storymedium = new StoryMedium();
                     storymedium.StoryId = story.StoryId;
+                    storymedium.Type = "imag";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                }
+                foreach (var item in videoUrls)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = story.StoryId;
+                    storymedium.Type = "video";
                     storymedium.Path = item;
                     _objdb.StoryMedia.Add(storymedium);
                 }
@@ -198,9 +234,9 @@ namespace CI_Platform.Repository.Repository
             var selectstory=_objdb.Stories.Where(st=>st.MissionId==MissionId && st.UserId==UserId).FirstOrDefault();
             return selectstory;
         }
-        public List<StoryMedium> searchmedia(long storyId)
+        public List<StoryMedium> searchmedias(long storyId)
         {
-            var storymedium = _objdb.StoryMedia.Where(sm=>sm.StoryId==storyId).ToList();
+            var storymedium = _objdb.StoryMedia.Where(sm=>sm.StoryId==storyId &&sm.Type=="imag").ToList();
             return storymedium;
         }
         public List<StoryMedium> storymedia(int storyid)

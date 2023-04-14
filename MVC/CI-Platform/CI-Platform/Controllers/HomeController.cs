@@ -1052,7 +1052,7 @@ namespace CI_Platform.Controllers
             {
                 List<User> users = _objVolunteer.users();
                 var uId = users.FirstOrDefault(u => u.Email == items);
-                var resetLink = "https://localhost:44390" + Url.Action("Volunteering_Mission", "Home", new { MissionId = missionId, UserId = uId.UserId });
+                var resetLink = "https://localhost:44390"+Url.Action("Volunteering_Mission", "Home", new { MissionId = missionId, UserId = uId.UserId });
                 var fromAddress = new MailAddress("gajeravirajpareshbhai@gmail.com", "Sender Name");
                 var toAddress = new MailAddress(items);
                 var subject = "Message For Recommand Mission";
@@ -1260,9 +1260,9 @@ namespace CI_Platform.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Share_Storys(string[] Image,int MissionId,string Title,DateTime Date,string Description,int UserId,string Value)
+        public IActionResult Share_Storys(string[] Image,int MissionId,string Title,DateTime Date,string Description,int UserId,string Value, string[] videoUrls)
         {
-            var story = _objStoryListing.story(Image, MissionId, Title, Date, Description, UserId,Value);
+            var story = _objStoryListing.story(Image, MissionId, Title, Date, Description, UserId,Value,videoUrls);
             if (story!=null && story.Status=="DRAFT")
             {
                 return Json(new { success = true,storyid=story.StoryId});
@@ -1279,8 +1279,8 @@ namespace CI_Platform.Controllers
            
             if (story != null && story.Status=="DRAFT")
             {
-                List<StoryMedium> media = _objStoryListing.searchmedia(story.StoryId);
-                var mediaObjects = media.Select(m => new { Path = m.Path }).ToArray();
+                List<StoryMedium> media = _objStoryListing.searchmedias(story.StoryId);
+                var mediaObjects = media.Select(m => new { Path = m.Path}).ToArray();
                 return Json(new { success = true, story = story, storyimage = mediaObjects });
             }
             else if(story != null && story.Status == "pending")
@@ -1385,7 +1385,7 @@ namespace CI_Platform.Controllers
             List<SelectListItem> listSkills = new List<SelectListItem>();
             List<SelectListItem> oneuserskill= new List<SelectListItem>();
             User user = _objUserProfile.loginuser(int.Parse(userId));
-            Userviewmodel userviewmodel=new Userviewmodel();
+            UserView userviewmodel=new UserView();
             var  userskill = _objUserProfile.oneuserskill(int.Parse(userId));
             foreach(var item in city)
             {
@@ -1425,7 +1425,7 @@ namespace CI_Platform.Controllers
             return View(userviewmodel);
         }
         [HttpPost]
-         public IActionResult UserEdit(Userviewmodel userViewModel)
+         public IActionResult UserEdit(UserView userViewModel)
         {
             var userId = HttpContext.Session.GetString("UserId");
             _objUserProfile.adduser(userViewModel,int.Parse(userId));

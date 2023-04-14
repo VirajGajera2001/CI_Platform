@@ -47,6 +47,8 @@ public partial class User
 
     public DateTime? DeletedAt { get; set; }
 
+    public string? Role { get; set; }
+
     public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
 
     public virtual ICollection<ContactU> ContactUs { get; } = new List<ContactU>();

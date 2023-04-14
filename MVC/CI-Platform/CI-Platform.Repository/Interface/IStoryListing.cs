@@ -23,9 +23,9 @@ namespace CI_Platform.Repository.Interface
         public User users(int UserId);
         public List<User> users();
         public bool alreadystory(int MissionId, int UserId);
-        public Story story(string[] Image, int MissionId, string Title, DateTime Date, string Description,int UserId,string Value);
+        public Story story(string[] Image, int MissionId, string Title, DateTime Date, string Description,int UserId,string Value, string[] videoUrls);
         public Story searchstory(int MissionId, int UserId);
-        public List<StoryMedium> searchmedia(long storyId);
+        public List<StoryMedium> searchmedias(long storyId);
         public List<StoryMedium> storymedia(int storyid);
         public void contactadd(string name, string mail, string subject, string message,int userid);
     }

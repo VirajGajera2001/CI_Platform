@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GAne/pzbPvke/MwnWsPT7cvxFipQNVhATv/lyHoHY5o=",
+  "Hash": "5QmIPs/zKKeDCPLLe4CBwCHGIbxSwONbkJ4z7cA1rE4=",
   "Source": "CI-Platform",
   "BasePath": "_content/CI-Platform",
   "Mode": "Default",
@@ -1987,6 +1987,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
+    },
+    {
+      "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\css\\CRUD.css",
+      "SourceId": "CI-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\",
+      "BasePath": "_content/CI-Platform",
+      "RelativePath": "css/CRUD.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\CRUD.css"
     },
     {
       "Identity": "F:\\Tatvasoft\\CI Platform\\MVC\\CI-Platform\\CI-Platform\\wwwroot\\css\\Favourite.css",

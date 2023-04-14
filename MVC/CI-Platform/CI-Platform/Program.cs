@@ -12,6 +12,7 @@ builder.Services.AddScoped<ILanding, Landing>();
 builder.Services.AddScoped<IVolunteer, Volunteer>();
 builder.Services.AddScoped<IStoryListing, StoryListing>();
 builder.Services.AddScoped<IUserprofile, Userprofile>();
+builder.Services.AddScoped<IAdmins,Admins>();
 builder.Services.AddSession();
 
 var app = builder.Build();
@@ -30,9 +31,11 @@ app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.MapAreaControllerRoute(
+            name: "Areas",
+            areaName: "Admin",
+            pattern: "{area=Admin}/{controller=Admin}/{action=Users}/{id?}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Login}/{id?}");
-
 app.Run();

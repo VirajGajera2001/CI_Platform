@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CI_Platform.Entities.Models
 {
-    public class Userviewmodel
+    public class UserView
     {
         public long UserId { get; set; }
 

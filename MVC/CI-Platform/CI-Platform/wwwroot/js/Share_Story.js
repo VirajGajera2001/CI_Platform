@@ -62,6 +62,21 @@ const fileInput = document.querySelector('#image-upload');
 
 }
 
+/*const regex = /^https?:\/\/(?:www\.)?(?:youtube\.com\/(?:watch\?.*?v=|embed\/)|youtu\.be\/|vimeo\.com\/)([a-zA-Z0-9_-]{11}|[0-9]{8,10})/;*/
+//var videoUrls = $("#video-urls");
+//console.log(videoUrls);
+//let isValid = true;
+
+//for (let i = 0; i < videoUrls.length; i++) {
+//	if (!regex.test(videoUrls[i])) {
+//		swal.fire("Please enter a valid YouTube or Vimeo video URL.");
+//		isValid = false;
+//		break;
+//	}
+//}
+
+
+
 function dropHandler(ev) {
 
 	// Prevent default behavior (Prevent file from being opened)
@@ -102,6 +117,8 @@ function dragOverHandler(ev) {
 }
 function shareStory(userId,value) {
 	var dataUrls = files.map(file => file.dataUrl);
+	var videoUrls = $("#video-urls").val();
+	console.log(videoUrls);
 	console.log(value);
 	var missionId = document.getElementById("Missionname").value;
 	var title = document.getElementById("StoryTitle").value;
@@ -113,7 +130,7 @@ function shareStory(userId,value) {
 	$.ajax({
 		url: '/Home/Share_Storys',
 		type: 'POST',
-		data: { "Image": dataUrls, "MissionId": missionId, "Title": title, "Date": date, "Description": editordata, "UserId": userId, "Value": value },
+		data: { "Image": dataUrls, "MissionId": missionId, "Title": title, "Date": date, "Description": editordata, "UserId": userId, "Value": value, "videoUrls": videoUrls },
 		success: function (result) {
 			if (result.success) {
 				Swal.fire(

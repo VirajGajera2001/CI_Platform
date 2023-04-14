@@ -26,7 +26,7 @@ namespace CI_Platform.Repository.Repository
             var user = _objdb.Users.FirstOrDefault(u => u.UserId == userid);
             return user;
         }
-        public void adduser(Userviewmodel userViewModel, int userid)
+        public void adduser(UserView userViewModel, int userid)
         {
             User user = _objdb.Users.FirstOrDefault(u=>u.UserId==userid);
             user.FirstName= userViewModel.FirstName==null?user.FirstName:userViewModel.FirstName;

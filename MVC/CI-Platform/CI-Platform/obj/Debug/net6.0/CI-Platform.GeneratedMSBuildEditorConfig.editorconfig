@@ -16,6 +16,46 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform
 build_property._RazorSourceGeneratorDebug = 
 
+[F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Areas/Admin/Views/Admin/Application.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cQXBwbGljYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Areas/Admin/Views/Admin/Banner.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cQmFubmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Areas/Admin/Views/Admin/CMS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cQ01TLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Areas/Admin/Views/Admin/Mission.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cTWlzc2lvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Areas/Admin/Views/Admin/Skill.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cU2tpbGwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Areas/Admin/Views/Admin/Story.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cU3RvcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Areas/Admin/Views/Admin/Theme.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cVGhlbWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Areas/Admin/Views/Admin/Users.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cVXNlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Areas/Admin/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Areas/Admin/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/Tatvasoft/CI Platform/MVC/CI-Platform/CI-Platform/Views/Home/Forget.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGb3JnZXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

@@ -8,6 +8,582 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Areas\Admin\CI-Imgs\404-Page-image.png" />
+    <None Remove="Areas\Admin\CI-Imgs\achieved.png" />
+    <None Remove="Areas\Admin\CI-Imgs\add.png" />
+    <None Remove="Areas\Admin\CI-Imgs\add1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Already-volunteered.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Animal-welfare-_-save-birds-campaign-1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Animal-welfare-_-save-birds-campaign.png" />
+    <None Remove="Areas\Admin\CI-Imgs\arrow.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Assets.zip" />
+    <None Remove="Areas\Admin\CI-Imgs\bell-big.png" />
+    <None Remove="Areas\Admin\CI-Imgs\bell.png" />
+    <None Remove="Areas\Admin\CI-Imgs\bin.png" />
+    <None Remove="Areas\Admin\CI-Imgs\calender.png" />
+    <None Remove="Areas\Admin\CI-Imgs\cancel.png" />
+    <None Remove="Areas\Admin\CI-Imgs\cancel1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\checked.png" />
+    <None Remove="Areas\Admin\CI-Imgs\cross.png" />
+    <None Remove="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-2.png" />
+    <None Remove="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png" />
+    <None Remove="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png" />
+    <None Remove="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-5.png" />
+    <None Remove="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png" />
+    <None Remove="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png" />
+    <None Remove="Areas\Admin\CI-Imgs\deadline.png" />
+    <None Remove="Areas\Admin\CI-Imgs\doc.png" />
+    <None Remove="Areas\Admin\CI-Imgs\down.png" />
+    <None Remove="Areas\Admin\CI-Imgs\drag-and-drop.png" />
+    <None Remove="Areas\Admin\CI-Imgs\drop-down.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Education-Supplies-for-Every--Pair-of-Shoes-Sold.png" />
+    <None Remove="Areas\Admin\CI-Imgs\eye.png" />
+    <None Remove="Areas\Admin\CI-Imgs\facebook.png" />
+    <None Remove="Areas\Admin\CI-Imgs\filter.png" />
+    <None Remove="Areas\Admin\CI-Imgs\gift.png" />
+    <None Remove="Areas\Admin\CI-Imgs\graph.png" />
+    <None Remove="Areas\Admin\CI-Imgs\grid.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability-1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability-2.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability-3.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability-4.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability-5.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability-login.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability.png" />
+    <None Remove="Areas\Admin\CI-Imgs\heart.png" />
+    <None Remove="Areas\Admin\CI-Imgs\heart1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\hours.png" />
+    <None Remove="Areas\Admin\CI-Imgs\image.png" />
+    <None Remove="Areas\Admin\CI-Imgs\image1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\image2.png" />
+    <None Remove="Areas\Admin\CI-Imgs\img.png" />
+    <None Remove="Areas\Admin\CI-Imgs\img1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\img11.png" />
+    <None Remove="Areas\Admin\CI-Imgs\img12.png" />
+    <None Remove="Areas\Admin\CI-Imgs\img2.png" />
+    <None Remove="Areas\Admin\CI-Imgs\img22.png" />
+    <None Remove="Areas\Admin\CI-Imgs\img3.png" />
+    <None Remove="Areas\Admin\CI-Imgs\img33.png" />
+    <None Remove="Areas\Admin\CI-Imgs\info.png" />
+    <None Remove="Areas\Admin\CI-Imgs\left.png" />
+    <None Remove="Areas\Admin\CI-Imgs\left1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\linkedin.png" />
+    <None Remove="Areas\Admin\CI-Imgs\list.png" />
+    <None Remove="Areas\Admin\CI-Imgs\logo.png" />
+    <None Remove="Areas\Admin\CI-Imgs\menu-bar.svg" />
+    <None Remove="Areas\Admin\CI-Imgs\mission.png" />
+    <None Remove="Areas\Admin\CI-Imgs\my-story.png" />
+    <None Remove="Areas\Admin\CI-Imgs\new-message.png" />
+    <None Remove="Areas\Admin\CI-Imgs\next.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Nourish-the-Children-in--African-country-1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Nourish-the-Children-in--African-country.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Open-Volunteering-Requests.png" />
+    <None Remove="Areas\Admin\CI-Imgs\organization.png" />
+    <None Remove="Areas\Admin\CI-Imgs\pdf.png" />
+    <None Remove="Areas\Admin\CI-Imgs\pin.png" />
+    <None Remove="Areas\Admin\CI-Imgs\pin1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Plantation-and-Afforestation-programme-1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Plantation-and-Afforestation-programme.png" />
+    <None Remove="Areas\Admin\CI-Imgs\plus-lg.svg" />
+    <None Remove="Areas\Admin\CI-Imgs\previous.png" />
+    <None Remove="Areas\Admin\CI-Imgs\right-arrow.png" />
+    <None Remove="Areas\Admin\CI-Imgs\right-arrow1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\right-arrow2.png" />
+    <None Remove="Areas\Admin\CI-Imgs\right-white.png" />
+    <None Remove="Areas\Admin\CI-Imgs\right.png" />
+    <None Remove="Areas\Admin\CI-Imgs\search.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Seats-left.png" />
+    <None Remove="Areas\Admin\CI-Imgs\selected-star.png" />
+    <None Remove="Areas\Admin\CI-Imgs\settings.png" />
+    <None Remove="Areas\Admin\CI-Imgs\star-empty.png" />
+    <None Remove="Areas\Admin\CI-Imgs\star.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Thumbs.db" />
+    <None Remove="Areas\Admin\CI-Imgs\twitter.png" />
+    <None Remove="Areas\Admin\CI-Imgs\up.png" />
+    <None Remove="Areas\Admin\CI-Imgs\user-img-large.png" />
+    <None Remove="Areas\Admin\CI-Imgs\user-img.png" />
+    <None Remove="Areas\Admin\CI-Imgs\user.png" />
+    <None Remove="Areas\Admin\CI-Imgs\user1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\userprofile.png" />
+    <None Remove="Areas\Admin\CI-Imgs\volunteer1.png" />
+    <None Remove="Areas\Admin\CI-Imgs\volunteer2.png" />
+    <None Remove="Areas\Admin\CI-Imgs\volunteer3.png" />
+    <None Remove="Areas\Admin\CI-Imgs\volunteer4.png" />
+    <None Remove="Areas\Admin\CI-Imgs\volunteer5.png" />
+    <None Remove="Areas\Admin\CI-Imgs\volunteer6.png" />
+    <None Remove="Areas\Admin\CI-Imgs\volunteer7.png" />
+    <None Remove="Areas\Admin\CI-Imgs\volunteer8.png" />
+    <None Remove="Areas\Admin\CI-Imgs\volunteer9.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Volunteering-Rank.png" />
+    <None Remove="Areas\Admin\CI-Imgs\Voted-Missions.png" />
+    <None Remove="Areas\Admin\CI-Imgs\web.png" />
+    <None Remove="Areas\Admin\CI-Imgs\xlsx.png" />
+    <None Remove="Areas\Admin\Views\Share_Story.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Areas\Admin\CI-Imgs\404-Page-image.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\achieved.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\add.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\add1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Already-volunteered.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Animal-welfare-_-save-birds-campaign-1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Animal-welfare-_-save-birds-campaign.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\arrow.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Assets.zip">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\bell-big.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\bell.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\bin.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\calender.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\cancel.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\cancel1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\checked.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\cross.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-2.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-5.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\deadline.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\doc.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\down.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\drag-and-drop.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\drop-down.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Education-Supplies-for-Every--Pair-of-Shoes-Sold.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\eye.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\facebook.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\filter.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\gift.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\graph.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\grid.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability-1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability-2.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability-3.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability-4.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability-5.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability-login.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Grow-Trees-On-the-path-to-environment-sustainability.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\heart.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\heart1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\hours.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\image.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\image1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\image2.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\img.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\img1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\img11.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\img12.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\img2.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\img22.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\img3.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\img33.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\info.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\left.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\left1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\linkedin.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\list.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\logo.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\menu-bar.svg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\mission.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\my-story.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\new-message.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\next.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Nourish-the-Children-in--African-country-1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Nourish-the-Children-in--African-country.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Open-Volunteering-Requests.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\organization.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\pdf.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\pin.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\pin1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Plantation-and-Afforestation-programme-1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Plantation-and-Afforestation-programme.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\plus-lg.svg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\previous.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\right-arrow.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\right-arrow1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\right-arrow2.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\right-white.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\right.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\search.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Seats-left.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\selected-star.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\settings.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\star-empty.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\star.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Thumbs.db">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\twitter.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\up.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\user-img-large.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\user-img.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\user.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\user1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\userprofile.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\volunteer1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\volunteer2.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\volunteer3.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\volunteer4.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\volunteer5.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\volunteer6.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\volunteer7.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\volunteer8.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\volunteer9.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Volunteering-Rank.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\Voted-Missions.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\web.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\CI-Imgs\xlsx.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Share_Story.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -24,6 +600,10 @@
   <ItemGroup>
     <ProjectReference Include="..\CI-Platform.Entities\CI-Platform.Entities.csproj" />
     <ProjectReference Include="..\CI-Platform.Repository\CI-Platform.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
   </ItemGroup>
 
 </Project>

@@ -67,7 +67,7 @@ public partial class CIdbcontext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-9QDC961\\MSSQLSERVER01; initial catalog=CI Platform; Trusted_Connection=True;Persist Security Info=False;MultipleActiveResultSets=True;Encrypt=False;TrustServerCertificate=False;Connection Timeout=120;");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-9QDC961\\MSSQLSERVER01; initial catalog=CI Platform; Trusted_Connection=True;Persist Security Info=False;MultipleActiveResultSets=True;Encrypt=False;TrustServerCertificate=True;Connection Timeout=120;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -160,9 +160,7 @@ public partial class CIdbcontext : DbContext
         {
             entity.ToTable("cms_page");
 
-            entity.Property(e => e.CmsPageId)
-                .ValueGeneratedNever()
-                .HasColumnName("cms_page_id");
+            entity.Property(e => e.CmsPageId).HasColumnName("cms_page_id");
             entity.Property(e => e.CeratedAt)
                 .IsRowVersion()
                 .IsConcurrencyToken()
@@ -624,9 +622,7 @@ public partial class CIdbcontext : DbContext
             entity.Property(e => e.DeletedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("deleted_at");
-            entity.Property(e => e.Status)
-                .HasDefaultValueSql("((1))")
-                .HasColumnName("status");
+            entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -672,9 +668,7 @@ public partial class CIdbcontext : DbContext
                 .HasMaxLength(64)
                 .IsUnicode(false)
                 .HasColumnName("skill_name");
-            entity.Property(e => e.Status)
-                .HasDefaultValueSql("((1))")
-                .HasColumnName("status");
+            entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
@@ -767,9 +761,8 @@ public partial class CIdbcontext : DbContext
                 .HasColumnName("path");
             entity.Property(e => e.StoryId).HasColumnName("story_id");
             entity.Property(e => e.Type)
-                .HasMaxLength(8)
+                .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasDefaultValueSql("('None')")
                 .HasColumnName("type");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
@@ -884,6 +877,10 @@ public partial class CIdbcontext : DbContext
             entity.Property(e => e.ProfileText)
                 .HasColumnType("text")
                 .HasColumnName("profile_text");
+            entity.Property(e => e.Role)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("role");
             entity.Property(e => e.Status)
                 .IsRequired()
                 .HasDefaultValueSql("((1))")

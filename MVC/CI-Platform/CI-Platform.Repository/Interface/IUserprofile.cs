@@ -12,7 +12,7 @@ namespace CI_Platform.Repository.Interface
     {
         public List<Skill> skills();
         public User loginuser(int userid);
-        public void adduser(Userviewmodel userViewModel,int userid);
+        public void adduser(UserView userViewModel,int userid);
         public void saveskill(string[] skill,int userid);
         public List<Skill> oneuserskill(int userid);
         public bool savePassword(string old, string newp, string confp, int userid);
