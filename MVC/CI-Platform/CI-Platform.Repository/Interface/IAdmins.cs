@@ -36,5 +36,9 @@ namespace CI_Platform.Repository.Interface
         public void reject(long storyId);
         public void approvemis(long missionappId);
         public void declinemis(long missionappId);
+        public List<Banner> bannerlist();
+        public Banner banner(long bannerId);
+        public void bannersave(CI_Platform.Entities.AdminModels.BannerView bannerView);
+        public void deletebanner(long bannerId);
     }
 }

@@ -28,7 +28,7 @@ namespace CI_Platform.Repository.Repository
         }
         public List<Mission> allmission()
         {
-            List<Mission> missions= _objdb.Missions.ToList();
+            List<Mission> missions= _objdb.Missions.Where(ms=>ms.DeletedAt==null).ToList();
             return missions;
         }
         public List<MissionApplication> allmissionapp()
@@ -326,6 +326,46 @@ namespace CI_Platform.Repository.Repository
             }
             _objdb.MissionApplications.Update(mis);
             _objdb.SaveChanges();
+        }
+        public List<Banner> bannerlist()
+        {
+            var list = _objdb.Banners.Where(b=>b.DeletedAt==null).ToList();
+            return list;
+        }
+        public Banner banner(long bannerId)
+        {
+            var banner=_objdb.Banners.FirstOrDefault(b=>b.BannerId==bannerId);
+            return banner;
+        }
+        public void bannersave(CI_Platform.Entities.AdminModels.BannerView bannerView)
+        {
+            var banner = _objdb.Banners.FirstOrDefault(b => b.BannerId == bannerView.BannerId);
+            if(banner != null)
+            {
+                banner.Text=bannerView.Text;
+                banner.SortOrder=bannerView.SortOrder;
+                banner.Image=bannerView.Image;
+                _objdb.Banners.Update(banner);
+            }
+            else
+            {
+                Banner banner1=new Banner();
+                banner1.Text=bannerView.Text;
+                banner1.SortOrder=bannerView.SortOrder;
+                banner1.Image=bannerView.Image;
+                _objdb.Banners.Add(banner1);
+            }
+            _objdb.SaveChanges();
+        }
+        public void deletebanner(long bannerId)
+        {
+            var banner=_objdb.Banners.FirstOrDefault(b=>b.BannerId==bannerId);
+            if(banner != null )
+            {
+                banner.DeletedAt = DateTime.Now;
+                _objdb.Banners.Update(banner);
+                _objdb.SaveChanges();
+            }
         }
     }
 }

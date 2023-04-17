@@ -53,8 +53,23 @@ namespace CI_Platform.Areas.Admin.Controllers
         {
             HttpContext.Session.SetInt32("Nav", 3);
             ViewBag.nav = HttpContext.Session.GetInt32("Nav");
+            MissionView missionView= new MissionView();
             List<Mission> missions = _objAdmin.allmission();
-            return View(missions);
+            List<MissionTheme> missionThemes = _objAdmin.alltheme();
+            List<Country> countries=_objAdmin.allcountry();
+            List<City> citys = _objAdmin.allcity();
+            List<Skill> skills = _objAdmin.skilllist();
+            missionView.missions = missions;
+            missionView.missionThemes = missionThemes;
+            missionView.countries = countries;
+            missionView.citys = citys;
+            missionView.skills= skills;
+            return View(missionView);
+        }
+        [HttpPost]
+        public IActionResult Mission(MissionView missionView, string[] selectedValues, string[] dataUrls)
+        {
+            return RedirectToAction("Mission","Admin");
         }
         public IActionResult Theme()
         {
@@ -135,7 +150,16 @@ namespace CI_Platform.Areas.Admin.Controllers
         {
             HttpContext.Session.SetInt32("Nav", 8);
             ViewBag.nav = HttpContext.Session.GetInt32("Nav");
-            return View();
+            List<Banner> bannerViews2 = _objAdmin.bannerlist();
+            BannerView bannerView = new BannerView();
+            bannerView.banners=bannerViews2;
+            return View(bannerView);
+        }
+        [HttpPost]
+        public IActionResult Banner(BannerView bannerView)
+        {
+            _objAdmin.bannersave(bannerView);
+            return RedirectToAction("Banner", "Admin");
         }
         [HttpPost]
         public IActionResult UserEdit(long userId)
@@ -207,6 +231,18 @@ namespace CI_Platform.Areas.Admin.Controllers
         public IActionResult DeclineMission(long applicationId)
         {
             _objAdmin.declinemis(applicationId);
+            return Json(null);
+        }
+        [HttpPost]
+        public IActionResult BannerEdit(long bannerId)
+        {
+            var banner = _objAdmin.banner(bannerId);
+            return Json(banner);
+        }
+        [HttpPost]
+        public IActionResult BannerDelete(long bannerId)
+        {
+            _objAdmin.deletebanner(bannerId);
             return Json(null);
         }
     }

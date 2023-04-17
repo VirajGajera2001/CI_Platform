@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@model CI_Platform.Entities.AdminModels.BannerView;
+@{
+    var i = 0;
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,6 +17,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Admin Dashboard</title>
 </head>
 
@@ -82,8 +87,73 @@
             </nav>
             <div class="container-fluid px-4">
                 <div id="content">
-                    <section id="banner" class="row my-5 content-section">
-                        <h3>Banner Management</h3>
+                    <section id="banner" class="row my-3 content-section">
+                        <div class="border-bottom">
+                            <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">Banners</span>
+                        </div>
+                        <div class="modal fade" id="exampleModaladd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <form asp-area="Admin" asp-controller="Admin" asp-action="Banner" method="post">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="bannerclose"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" name="BannerId" asp-for="BannerId" id="bannerid" />
+                                            <label for="title">BannerText</label>
+                                            <textarea class="form-control" placeholder="Enter banner text" name="Text" asp-for="Text" id="text"></textarea>
+
+                                            <label for="image">Select Image</label>
+                                            <input type="file" class="form-control" id="profile-img-input"/>
+                                            <input type="hidden" id="imgurl" name="Image" asp-for="Image" />
+
+                                            <label for="order">Sort Order</label>
+                                            <input type="text" class="form-control" id="sortorder" name="SortOrder" asp-for="SortOrder"/>
+
+                                            <div id="bannerpreview" style="width:100%; margin-top:10px;">
+                                                <img src=""  class="bannerimg"/>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col mt-4">
+                            <table id="bannerrecord" class="table bg-white rounded shadow-sm  table-hover" width="100%">
+                                <thead style="background-color: #F8F9FC;">
+                                    <tr>
+                                        <th scope="col" width="50">#</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.banners)
+                                    {
+                                        i = i + 1;
+                                        <tr>
+                                            <th scope="row">@i</th>
+                                            <td>@item.Text.Substring(0,100)</td>
+                                            <td>@item.SortOrder</td>
+                                            <td>
+                                                <a type="button" class="border-0" onclick="bannerEdit(@item.BannerId)">
+                                                    <i class="bi bi-pencil-square text-warning"></i>
+                                                </a>
+                                                <a type="button" class="border-0 ms-2" onclick="bannerDelete(@item.BannerId)">
+                                                    <i class="bi bi-trash-fill text-danger"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </section>
                 </div>
             </div>
@@ -96,7 +166,11 @@
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
         var dashboadtime = document.getElementById("dashboadtime");
-
+        var bannerimg = document.querySelector(".bannerimg");
+        var bannerpreview=document.getElementById("bannerpreview");
+        var imgurl = document.getElementById("imgurl");
+        var modalclose=document.getElementById("bannerclose");
+        var myModal = document.getElementById("exampleModaladd");
         function currentTime() {
             var time = new Date();
             var dateString = time.toDateString();
@@ -120,6 +194,130 @@
                 link.classList.add('active');
             });
         });
+
+        // user record
+        $(document).ready(function () {
+            $('#bannerrecord').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+        $('#bannerrecord').DataTable({
+            "ordering": false,
+            "lengthChange": false,
+            "pagingType": "full_numbers",
+            "oLanguage": {
+                "sEmptyTable": " ",
+                "oPaginate": {
+                    "sNext": '<i class="bi bi-chevron-right"></i>',
+                    "sPrevious": '<i class="bi bi-chevron-left"></i>',
+                    "sFirst": '<i class="bi bi-chevron-double-left"></i>',
+                    "sLast": '<i class="bi bi-chevron-double-right"></i>',
+                }
+            }
+        });
+
+
+        // bannerrecordbtn
+        var bannerrecordFilter = document.getElementById("bannerrecord_filter");
+        var button = document.createElement("button");
+        button.innerHTML = `<i class="bi bi-plus">Add</i>`;
+        button.classList.add("btn", "btn-outline-warning", "rounded-pill", "addbtn");
+        button.setAttribute("data-bs-toggle", "modal");
+        button.setAttribute("id", "ExampleModalAdd");
+        button.setAttribute("data-bs-target", "#exampleModaladd")
+        bannerrecordFilter.appendChild(button);
+
+
+        const profileImgInput = document.querySelector('#profile-img-input');
+        profileImgInput.addEventListener('change', () => {
+            const file = profileImgInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.addEventListener('load', () => {
+                    imgurl.value = reader.result;
+                    bannerimg.style.display = "flex";
+                    bannerimg.style.width="20%";
+                    bannerimg.src = reader.result;
+                });
+                reader.readAsDataURL(file);
+            }
+        });
+        function bannerEdit(bannerId) {
+            $.ajax({
+                url:'/Admin/Admin/BannerEdit',
+                type:'POST',
+                data: { bannerId: bannerId },
+                success:function(result){
+                    myModal.classList.add("show");
+                    myModal.style.display = "block";
+                    document.getElementById("text").value=result.text;
+                    document.getElementById("bannerid").value=result.bannerId;
+                    document.getElementById("sortorder").value=result.sortOrder;
+                    bannerimg.style.display = "flex";
+                    bannerimg.style.width="20%";
+                    imgurl.value =result.image;
+                    bannerimg.src=result.image;
+                }
+            });
+        }
+
+        modalclose.onclick = function () {
+
+            myModal.style.display = "none";
+
+        };
+
+        var exampleModaladd = document.getElementById("ExampleModalAdd");
+        exampleModaladd.onclick = function () {
+            document.getElementById("text").value = '';
+            document.getElementById("bannerid").value = '';
+            document.getElementById("sortorder").value = '';
+            imgurl.value = '';
+            bannerimg.style.display = "none";
+            profileImgInput.value='';
+        }
+        function bannerDelete(bannerId) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success ms-2',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/Admin/Admin/BannerDelete',
+                        type: 'POST',
+                        data: { bannerId: bannerId },
+                        success: function (result) {
+                            swalWithBootstrapButtons.fire(
+                                'Deleted!',
+                                'Your record has been deleted.',
+                                'success'
+                            ).then((res) => {
+                                location.reload();
+                            });
+                        }
+                    });
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled'
+                    )
+                }
+            })
+        }
     </script>
 </body>
 

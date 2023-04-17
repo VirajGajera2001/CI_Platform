@@ -117,8 +117,7 @@ public partial class CIdbcontext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("deleted_at");
             entity.Property(e => e.Image)
-                .HasMaxLength(512)
-                .IsUnicode(false)
+                .HasColumnType("text")
                 .HasColumnName("image");
             entity.Property(e => e.SortOrder).HasColumnName("sort_order");
             entity.Property(e => e.Text)

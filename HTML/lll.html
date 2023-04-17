@@ -1,87 +1,47 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Cookie Policy</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/css/bootstrap.min.css">
-    <style>
-      /* CSS styles for the content */
-      .content-section {
-        display: none;
-      }
-      #content {
-        padding: 20px;
-        background-color: #fff;
-      }
-      #content .active {
-        display: block;
-      }
-      .menu-link {
-        display: block;
-        padding: 5px 10px;
-        text-decoration: none;
-        font-size: 16px;
-        color: #333;
-      }
-      .menu-link.active {
-        background-color: #007bff;
-        color: #fff;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-3 col-md-4">
-          <div id="nav">
-            <ul class="list-unstyled">
-              <li><a href="#introduction" class="menu-link active"><i class="bi bi-chevron-left me-2"></i>Introduction</a></li>
-              <li><a href="#cookies" class="menu-link"><i class="bi bi-chevron-left me-2"></i>How does use cookies?</a></li>
-              <li><a href="#preferences" class="menu-link"><i class="bi bi-chevron-left me-2"></i>How to manage your cookie preferences</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-9 col-md-8">
-          <div id="content">
-            <h1 class="mt-4">Cookie Policy</h1>
-            <section id="introduction" class="content-section active">
-              <h2>Introduction</h2>
-              <p>Here you can write an introduction to your cookie policy.</p>
-            </section>
-            <section id="cookies" class="content-section">
-              <h2>How does use cookies?</h2>
-              <p>Here you can write about how your website uses cookies.</p>
-            </section>
-            <section id="preferences" class="content-section">
-              <h2>How to manage your cookie preferences</h2>
-              <p>Here you can write about how visitors can manage their cookie preferences on your website.</p>
-            </section>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
-    <script>
-      const menuLinks = document.querySelectorAll('.menu-link');
-      const contentSections = document.querySelectorAll('.content-section');
+<head>
+  <title>Bootstrap 5 Dropdown with Multiple Checkboxes</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css">
+</head>
+<body>
+  <form action="">
+    <input type="file" class="form-control" name="images[]" multiple>
+    <button type="button" onclick="checktag()">check</button>
+  </form>
+  <script>
+    // Get the input element
+    const input = document.querySelector('input[type="file"]');
 
-      menuLinks.forEach((link) => {
-        link.addEventListener('click', (event) => {
-          event.preventDefault();
-          const targetId = link.getAttribute('href');
-          const targetSection = document.querySelector(targetId);
+    function checktag() {
+      // Get the selected files
+      const files = input.files;
 
-          contentSections.forEach((section) => {
-            section.classList.remove('active');
-          });
-          targetSection.classList.add('active');
+      // Declare an empty array to hold the data URLs
+      const dataUrls = [];
 
-          menuLinks.forEach((link) => {
-            link.classList.remove('active');
-          });
-          link.classList.add('active');
+      // Loop through each file
+      Array.from(files).forEach((file) => {
+        // Create a new FileReader instance
+        const reader = new FileReader();
+
+        // Add an event listener to the FileReader instance
+        reader.addEventListener('load', () => {
+          // Push the data URL of the image to the array
+          dataUrls.push(reader.result);
         });
+
+        // Read the selected file as a data URL
+        reader.readAsDataURL(file);
       });
-    </script>
-  </body>
+
+      // Print the array of data URLs to the console
+      console.log(dataUrls);
+    }
+  </script>
+    
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

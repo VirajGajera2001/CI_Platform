@@ -1,20 +1,16 @@
-﻿
-@model List<CI_Platform.Entities.DataModels.Mission>;
+﻿@model CI_Platform.Entities.AdminModels.MissionView;
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="~/css/CRUD.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="~/css/CRUD.css" />
     <title>Admin Dashboard</title>
 </head>
 
@@ -55,7 +51,7 @@
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-2 px-2 adminnavbar">
                 <div class="d-flex align-items-center">
-                    <img src="/CI-Imgs/menu-bar.svg" class=" primary-text fs-4 me-3" alt="" id="menu-toggle"/>
+                    <img src="/CI-Imgs/menu-bar.svg" class=" primary-text fs-4 me-3" alt="" id="menu-toggle" />
                     <p class="m-0" id="dashboadtime"></p>
                 </div>
 
@@ -70,7 +66,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="/CI-Imgs/user-img-large.png" alt="" class="adminimg"/>
+                                <img src="/CI-Imgs/user-img-large.png" alt="" class="adminimg" />
                                 John Doe
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -89,7 +85,7 @@
                             <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">Mission</span>
                         </div>
                         <div class="modal fade" id="exampleModalmissionadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <form action="">
+                            <form asp-area="Admin" asp-controller="Admin" asp-action="Mission">
                                 <div class="modal-dialog modal-xl">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -117,16 +113,22 @@
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="country">Country</label>
-                                                        <Select class="form-control form-select">
+                                                        <Select class="form-control form-select" name="CountryId" asp-for="CountryId">
                                                             <option value=""></option>
-                                                            <option value="">USA</option>
+                                                            @foreach (var item in Model.countries)
+                                                            {
+                                                                <option value="@item.CountryId">@item.Name</option>
+                                                            }
                                                         </Select>
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="city">city</label>
                                                         <Select class="form-control form-select">
                                                             <option value=""></option>
-                                                            <option value="">Los Angeles</option>
+                                                            @foreach (var item in Model.citys)
+                                                            {
+                                                                <option value="@item.CityId">@item.Name</option>
+                                                            }
                                                         </Select>
                                                     </div>
                                                     <div class="col-4">
@@ -151,49 +153,57 @@
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="deadline">Mission Deadline</label>
-                                                        <input type="text" class="form-control" placeholder="Enter deadline if mission is time base">
+                                                        <input type="date" class="form-control" placeholder="Enter deadline if mission is time base">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="theme">Mission Theme</label>
                                                         <select class="form-control form-select">
                                                             <option value=""></option>
+                                                            @foreach (var item in Model.missionThemes)
+                                                            {
+                                                                <option value="@item.MissionThemeId">@item.Title</option>
+                                                            }
                                                         </select>
                                                     </div>
                                                     <div class="col-4">
-                                                        <label for="skill">Mission Skill</label>
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                Select Skills
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><input type="checkbox"> Boating</li>
-                                                                <li><input type="checkbox"> Cooking</li>
-                                                                <li><input type="checkbox"> Swimming</li>
-                                                            </ul>
-                                                        </div>
+                                                        <label for="availability">Mission Availability</label>
+                                                        <select class="form-control form-select">
+                                                            <option></option>
+                                                            <option value="Daily">Daily</option>
+                                                            <option value="Weekly">Weekly</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="image">Mission Images</label>
-                                                        <input type="file" class="form-control" name="images[]" multiple>
+                                                        <input type="file" id="missionimg" class="form-control" name="images[]" multiple>
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="documents">Mission Documents</label>
                                                         <input type="file" class="form-control" name="documents[]" multiple>
                                                     </div>
                                                     <div class="col-6">
-                                                        <label for="availability">Mission Availability</label>
-                                                        <input type="text" class="form-control">
+                                                        <label for="skill">Mission Skill</label>
+                                                        <div class="dropdown">
+                                                            <select class="form-control form-select select" multiple aria-label="multiple select example" id="selectskills">
+                                                                <option value=""></option>
+                                                                @foreach (var item in Model.skills)
+                                                                {
+                                                                    <option value="@item.SkillId">@item.SkillName</option>
+                                                                }
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                     <div class="col-6">
                                                         <label for="video">Mission Video</label>
-                                                        <textarea cols="5" class="form-control"></textarea>
+                                                        <textarea rows="4" class="form-control"></textarea>
                                                     </div>
+                                                    <div class="col-12" id="imgpreview"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <button type="submit" id="btnsubmit" class="btn btn-primary">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -210,7 +220,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach(var item in Model)
+                                @foreach (var item in Model.missions)
                                 {
                                     <tr>
                                         <td>@item.Title</td>
@@ -236,8 +246,7 @@
         </div>
     </div>
     <!-- /#page-content-wrapper -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -266,7 +275,7 @@
                 link.classList.add('active');
             });
         });
-        
+
 
         // missionrecord
         $(document).ready(function () {
@@ -297,19 +306,89 @@
         button.setAttribute("data-bs-target", "#exampleModalmissionadd")
         missionrecordFilter.appendChild(button);
 
-
-        //const profileImgInput = document.querySelector('#profile-img-input');
-        //profileImgInput.addEventListener('change', () => {
-        //    const file = profileImgInput.files[0];
-        //    if (file) {
-        //        const reader = new FileReader();
-        //        reader.addEventListener('load', () => {
-        //            profileImg.src = reader.result;
-        //        });
-        //        reader.readAsDataURL(file);
-        //    }
-        //});
         CKEDITOR.replace('editor2');
+
+
+        const dataUrls = [];
+        const input = document.querySelector('input[type="file"]');
+        $(document).ready(function () {
+            input.addEventListener('change', (event) => {
+                // Get the selected files
+                const files = event.target.files;
+                // Loop through each file
+                Array.from(files).forEach((file) => {
+                    // Create a new FileReader instance
+                    const reader = new FileReader();
+
+                    // Add an event listener to the FileReader instance
+                    reader.addEventListener('load', () => {
+                        // Print the data URL of the image to the console
+                        const id = Date.now();
+                        dataUrls.push(reader.result,id);
+                        addImage(reader.result,id);
+                    });
+
+                    // Read the selected file as a data URL
+                    reader.readAsDataURL(file);
+                });
+            });
+
+            $("#btnsubmit").click(function (e) {
+                e.preventDefault();
+                var selectElement = document.getElementById("selectskills");
+                var selectedValues = Array.from(selectElement.selectedOptions).map(option => option.value);
+
+                $.ajax({
+                    url: '/Admin/Admin/Mission',
+                    type: 'POST',
+                    data: { selectedValues: selectedValues, "dataUrls": dataUrls },
+                    success: function (result) {
+                        // Handle success
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors
+                    }
+                });
+            });
+        });
+
+        function addImage(dataUrl,id){
+            const imgpreview=document.querySelector('#imgpreview');
+            const imageContainer = document.createElement('div');
+            const image = new Image();
+            const removeButton = document.createElement('button');
+            image.src = dataUrl;
+            imageContainer.classList.add('image-container');
+            image.dataset.id = id;
+            removeButton.classList.add('remove-button');
+            removeButton.innerHTML = '<span>X</span>';
+            imageContainer.appendChild(image);
+            imageContainer.appendChild(removeButton);
+            imgpreview.appendChild(imageContainer);
+            removeButton.addEventListener('click', function () {
+                const index = dataUrls.findIndex(f => f.id === id);
+                if (index !== -1) dataUrls.splice(index, 1);
+                imageContainer.remove();
+                input.value = ''; // Reset the file input field
+
+                removeButton.addEventListener('click', function () {
+                    // Find the index of the file object in the array
+                    const index = dataUrls.findIndex(f => f.id === id);
+
+                    // If the file object exists in the array, remove it
+                    if (index !== -1) {
+                        dataUrls.splice(index, 1);
+                    }
+
+                    // Remove the image container from the preview
+                    imageContainer.remove();
+                    // Reset the file input field
+                    input.value = '';
+
+                });
+
+            });
+        }
     </script>
 </body>
 
