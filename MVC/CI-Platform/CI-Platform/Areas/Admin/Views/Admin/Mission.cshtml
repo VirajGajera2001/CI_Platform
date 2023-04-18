@@ -85,7 +85,7 @@
                             <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">Mission</span>
                         </div>
                         <div class="modal fade" id="exampleModalmissionadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <form asp-area="Admin" asp-controller="Admin" asp-action="Mission">
+                            <form asp-area="Admin" asp-controller="Admin" asp-action="Mission" method="post" id="missionform">
                                 <div class="modal-dialog modal-xl">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -96,20 +96,22 @@
                                             <div class="container-fluid p-0">
                                                 <div class="row">
                                                     <div class="col-4">
+                                                        <input type="hidden" name="MissionId" asp-for="MissionId"/>
                                                         <label for="title">Mission Title</label>
-                                                        <input type="text" class="form-control" placeholder="Enter title">
+                                                        <input type="text" class="form-control" placeholder="Enter title" name="Title" asp-for="Title" />
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="short description">Mission Short Description</label>
-                                                        <input type="text" class="form-control" placeholder="Enter short description">
+                                                        <input type="text" class="form-control" placeholder="Enter short description" name="ShortDescription" asp-for="ShortDescription">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="organization name">Mission Organisation Name</label>
-                                                        <input type="text" class="form-control" placeholder="Enter organization name">
+                                                        <input type="text" class="form-control" placeholder="Enter organization name" name="OrganizationName" asp-for="OrganizationName">
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="description">Mission Description</label>
-                                                        <textarea name="editor2" class="form-control"></textarea>
+                                                        <textarea name="CKeditor" class="form-control" id="CKeditor"></textarea>
+                                                        <input type="hidden"  name="Description" asp-for="Description" id="misdescription"/>
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="country">Country</label>
@@ -123,7 +125,7 @@
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="city">city</label>
-                                                        <Select class="form-control form-select">
+                                                        <Select class="form-control form-select" name="CityId" asp-for="CityId">
                                                             <option value=""></option>
                                                             @foreach (var item in Model.citys)
                                                             {
@@ -133,31 +135,31 @@
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="organization detail">Mission Organisation Detail</label>
-                                                        <input type="text" class="form-control">
+                                                        <input type="text" class="form-control" name="OrganizationDetalis" asp-for="OrganizationDetalis">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="sdate">Mission start date</label>
-                                                        <input type="date" class="form-control" placeholder="Enter start date">
+                                                        <input type="date" class="form-control" placeholder="Enter start date" name="StartDate" asp-for="StartDate">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="edate">Mission end date</label>
-                                                        <input type="date" class="form-control" placeholder="Enter end date">
+                                                        <input type="date" class="form-control" placeholder="Enter end date" name="EndDate" asp-for="EndDate">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="type">Mission Type</label>
-                                                        <input type="text" class="form-control" placeholder="Enter mission type">
+                                                        <input type="text" class="form-control" placeholder="Enter mission type" name="MissionType" asp-for="MissionType">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="seats">Total Seats</label>
-                                                        <input type="text" class="form-control" placeholder="Enter seats">
+                                                        <input type="text" class="form-control" placeholder="Enter seats" name="SeatsAvailable" asp-for="SeatsAvailable">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="deadline">Mission Deadline</label>
-                                                        <input type="date" class="form-control" placeholder="Enter deadline if mission is time base">
+                                                        <input type="date" class="form-control" placeholder="Enter deadline if mission is time base" name="Deadline" asp-for="Deadline">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="theme">Mission Theme</label>
-                                                        <select class="form-control form-select">
+                                                        <select class="form-control form-select" name="ThemeId" asp-for="ThemeId">
                                                             <option value=""></option>
                                                             @foreach (var item in Model.missionThemes)
                                                             {
@@ -167,7 +169,7 @@
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="availability">Mission Availability</label>
-                                                        <select class="form-control form-select">
+                                                        <select class="form-control form-select" name="Availability" asp-for="Availability">
                                                             <option></option>
                                                             <option value="Daily">Daily</option>
                                                             <option value="Weekly">Weekly</option>
@@ -176,10 +178,11 @@
                                                     <div class="col-4">
                                                         <label for="image">Mission Images</label>
                                                         <input type="file" id="missionimg" class="form-control" name="images[]" multiple>
+                                                        
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="documents">Mission Documents</label>
-                                                        <input type="file" class="form-control" name="documents[]" multiple>
+                                                        <input type="file" id="missiondocs" class="form-control" name="documents[]" multiple>
                                                     </div>
                                                     <div class="col-6">
                                                         <label for="skill">Mission Skill</label>
@@ -195,9 +198,14 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <label for="video">Mission Video</label>
-                                                        <textarea rows="4" class="form-control"></textarea>
+                                                        <textarea rows="4" class="form-control" id="missionvideo"></textarea>
                                                     </div>
-                                                    <div class="col-12" id="imgpreview"></div>
+                                                    <div class="col-12 image-preview d-flex mt-3 flex-wrap">
+
+                                                    </div>
+                                                    <div class="col-12 doc-preview d-flex mt-3 flex-wrap">
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -276,6 +284,11 @@
             });
         });
 
+        CKEDITOR.replace('CKeditor');
+
+        
+
+
 
         // missionrecord
         $(document).ready(function () {
@@ -306,11 +319,11 @@
         button.setAttribute("data-bs-target", "#exampleModalmissionadd")
         missionrecordFilter.appendChild(button);
 
-        CKEDITOR.replace('editor2');
-
-
         const dataUrls = [];
-        const input = document.querySelector('input[type="file"]');
+        const docUrls=[];
+        const docName=[];
+        const input = document.querySelector('#missionimg');
+        const inputdocs=document.querySelector("#missiondocs");
         $(document).ready(function () {
             input.addEventListener('change', (event) => {
                 // Get the selected files
@@ -324,7 +337,7 @@
                     reader.addEventListener('load', () => {
                         // Print the data URL of the image to the console
                         const id = Date.now();
-                        dataUrls.push(reader.result,id);
+                        dataUrls.push({url:reader.result,id});
                         addImage(reader.result,id);
                     });
 
@@ -333,17 +346,38 @@
                 });
             });
 
+            inputdocs.addEventListener('change', (event) => {
+                const docfile = event.target.files;
+                Array.from(docfile).forEach((file) => {
+                    const readerdoc = new FileReader();
+                    readerdoc.addEventListener('load', () => {
+                        const id = Date.now();
+                        docUrls.push({URLS: readerdoc.result, id });
+                        docName.push({name:file.name,id});
+                        addDocs(file.name, id, docfile.length);
+                    });
+                    readerdoc.readAsDataURL(file);
+                });
+            });
+
             $("#btnsubmit").click(function (e) {
                 e.preventDefault();
                 var selectElement = document.getElementById("selectskills");
                 var selectedValues = Array.from(selectElement.selectedOptions).map(option => option.value);
-
+                var files=dataUrls.map(file=>file.url);
+                var docFiles = docUrls.map(file => file.URLS);
+                var docNames=docName.map(file=>file.name);
+                var videoUrls = $("#missionvideo").val();
+                var valdata = $('#missionform').serializeArray().reduce(function (obj, item) {
+                    obj[item.name] = item.value;
+                    return obj;
+                }, {});
                 $.ajax({
                     url: '/Admin/Admin/Mission',
                     type: 'POST',
-                    data: { selectedValues: selectedValues, "dataUrls": dataUrls },
+                    data: { selectedValues: selectedValues, "dataUrls": files, "docFiles": docFiles, "docName": docNames, "videoUrls": videoUrls, missionView: valdata },
                     success: function (result) {
-                        // Handle success
+                        location.reload();
                     },
                     error: function (xhr, status, error) {
                         // Handle errors
@@ -353,7 +387,7 @@
         });
 
         function addImage(dataUrl,id){
-            const imgpreview=document.querySelector('#imgpreview');
+            const imagePreview = document.querySelector('.image-preview');
             const imageContainer = document.createElement('div');
             const image = new Image();
             const removeButton = document.createElement('button');
@@ -364,7 +398,7 @@
             removeButton.innerHTML = '<span>X</span>';
             imageContainer.appendChild(image);
             imageContainer.appendChild(removeButton);
-            imgpreview.appendChild(imageContainer);
+            imagePreview.appendChild(imageContainer);
             removeButton.addEventListener('click', function () {
                 const index = dataUrls.findIndex(f => f.id === id);
                 if (index !== -1) dataUrls.splice(index, 1);
@@ -389,6 +423,44 @@
 
             });
         }
+
+        function addDocs(docurls,id){
+            const docPreview = document.querySelector(".doc-preview");
+            const doccontainer=document.createElement("div");
+            const p = document.createElement("p");
+            const removedocbtn=document.createElement('a');
+            doccontainer.classList.add("doc-container");
+            p.innerHTML=docurls;
+            p.dataset.id=id;
+            removedocbtn.classList.add("remove-docbtn","btn");
+            p.classList.add("mt-2");
+            removedocbtn.innerHTML = '<i class="bi bi-trash-fill text-danger p-0"></i>';
+            doccontainer.appendChild(p);
+            doccontainer.appendChild(removedocbtn);
+            docPreview.appendChild(doccontainer);
+            removedocbtn.addEventListener('click',function(){
+                const index=docUrls.findIndex(f=>f.id===id);
+                if(index!==-1)docUrls.splice(index,1);
+                docName.splice(index,1);
+                doccontainer.remove();
+                inputdocs.value = '';
+                removedocbtn.addEventListener('click',function(){
+                    const index = docUrls.findIndex(f => f.id === id);
+                    if(index!==-1){
+                        docUrls.splice(index,1);
+                        docName.splice(index,1);
+                    }
+                    doccontainer.remove();
+                    inputdocs.value='';
+                });
+            });
+        }
+        var editor = CKEDITOR.instances.CKeditor;
+        editor.on('change', function () {
+            var editordata = editor.getData();
+            var misdesc = document.querySelector("#misdescription");
+            misdesc.value = editordata;
+        });
     </script>
 </body>
 

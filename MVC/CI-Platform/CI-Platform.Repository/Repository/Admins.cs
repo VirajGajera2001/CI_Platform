@@ -367,5 +367,68 @@ namespace CI_Platform.Repository.Repository
                 _objdb.SaveChanges();
             }
         }
+        public void savemission(MissionView missionView, string[] selectedValues, string[] dataUrls, string[] docFiles, string[] docName, string videoUrls)
+        {
+            var findmission = _objdb.Missions.FirstOrDefault(m => m.MissionId == missionView.MissionId);
+            if (findmission != null )
+            {
+
+            }
+            else
+            {
+                Mission mission = new Mission();
+                mission.Title = missionView.Title;
+                mission.ThemeId = missionView.ThemeId;
+                mission.CityId = missionView.CityId;
+                mission.CountryId = missionView.CountryId;
+                mission.Description = missionView.Description;
+                mission.ShortDescription = missionView.ShortDescription;
+                mission.StartDate = missionView.StartDate;
+                mission.EndDate = missionView.EndDate;
+                mission.MissionType= missionView.MissionType;
+                mission.OrganizationName = missionView.OrganizationName;
+                mission.OrganizationDetalis= missionView.OrganizationDetalis;
+                mission.Availability= missionView.Availability;
+                mission.SeatsAvailable= missionView.SeatsAvailable;
+                mission.Deadline= missionView.Deadline;
+                _objdb.Missions.Add(mission);
+                _objdb.SaveChanges();
+                foreach(var item in selectedValues)
+                {
+                    MissionSkill missionSkill = new MissionSkill();
+                    missionSkill.MissionId = mission.MissionId;
+                    missionSkill.SkillId = long.Parse(item);
+                    _objdb.Add(missionSkill);
+                }
+                foreach(var item in dataUrls)
+                {
+                    MissionMedium missionMedium= new MissionMedium();
+                    missionMedium.MissionId = mission.MissionId;
+                    missionMedium.MediaPath = item;
+                    missionMedium.MediaName="logo";
+                    missionMedium.MediaType = "imag";
+                    _objdb.Add(missionMedium);
+                }
+                MissionMedium missionMedium1= new MissionMedium();
+                missionMedium1.MissionId = mission.MissionId;
+                missionMedium1.MediaPath = videoUrls;
+                missionMedium1.MediaName = "logo";
+                missionMedium1.MediaType = "video";
+                _objdb.Add(missionMedium1);
+                for(int i = 0; i < docFiles.Length; i++)
+                {
+                    var file = docFiles[i];
+                    var name = docName[i];
+                    MissionDocument missionDocument = new MissionDocument();
+                    missionDocument.MissionId = mission.MissionId;
+                    missionDocument.DocumentName = name;
+                    missionDocument.DocumentPath = file;
+                    missionDocument.DocumentType = "document";
+                    _objdb.MissionDocuments.Add(missionDocument);
+                }
+                _objdb.SaveChanges();
+            }
+
+        }
     }
 }

@@ -67,9 +67,10 @@ namespace CI_Platform.Areas.Admin.Controllers
             return View(missionView);
         }
         [HttpPost]
-        public IActionResult Mission(MissionView missionView, string[] selectedValues, string[] dataUrls)
+        public IActionResult Mission(MissionView missionView, string[] selectedValues, string[] dataUrls, string[] docFiles, string[] docName,string videoUrls)
         {
-            return RedirectToAction("Mission","Admin");
+            _objAdmin.savemission(missionView, selectedValues, dataUrls, docFiles, docName, videoUrls);
+            return Json(null);
         }
         public IActionResult Theme()
         {

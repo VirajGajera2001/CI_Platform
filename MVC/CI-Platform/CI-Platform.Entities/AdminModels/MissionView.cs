@@ -1,6 +1,7 @@
 ﻿using CI_Platform.Entities.DataModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,7 @@ namespace CI_Platform.Entities.AdminModels
 
         public string? Availability { get; set; }
         public int? SeatsAvailable { get; set; }
+        public DateTime? Deadline { get; set; }
         public long[] SkillId { get; set; } = null!;
     }
 }

@@ -347,6 +347,9 @@ public partial class CIdbcontext : DbContext
                 .IsRowVersion()
                 .IsConcurrencyToken()
                 .HasColumnName("created_at");
+            entity.Property(e => e.Deadline)
+                .HasColumnType("datetime")
+                .HasColumnName("deadline");
             entity.Property(e => e.DeletedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("deleted_at");
@@ -454,9 +457,8 @@ public partial class CIdbcontext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("document_name");
             entity.Property(e => e.DocumentPath)
-                .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasDefaultValueSql("('None')")
+                .HasColumnType("text")
                 .HasColumnName("document_path");
             entity.Property(e => e.DocumentType)
                 .HasMaxLength(255)
@@ -528,12 +530,11 @@ public partial class CIdbcontext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("media_name");
             entity.Property(e => e.MediaPath)
-                .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasDefaultValueSql("('None')")
+                .HasColumnType("text")
                 .HasColumnName("media_path");
             entity.Property(e => e.MediaType)
-                .HasMaxLength(4)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("media_type");
             entity.Property(e => e.MissionId).HasColumnName("mission_id");
