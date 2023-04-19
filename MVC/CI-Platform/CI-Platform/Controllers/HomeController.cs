@@ -6,9 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net.Mail;
 using System.Net;
-using System.Reflection;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using CI_Platform.Entities.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -36,7 +33,7 @@ namespace CI_Platform.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            //HttpContext.Session.Clear();
+            HttpContext.Session.Remove("Avatar");
             return View();
         }
         [HttpPost]
@@ -47,12 +44,19 @@ namespace CI_Platform.Controllers
             if (ModelState.IsValid)
             {
                 var user = _objRegister.loguser(model);
-                if (user != null)
+                if (user != null && user.Role=="user")
                 {
                     HttpContext.Session.SetString("FName", user.FirstName);
                     HttpContext.Session.SetString("UserId", user.UserId.ToString());
                     HttpContext.Session.SetString("Avatar", user.Avatar);
                     return RedirectToAction("Landing", "Home");
+                }
+                else if(user!=null && user.Role == "admin")
+                {
+                    HttpContext.Session.SetString("FName", user.FirstName);
+                    HttpContext.Session.SetString("UserId", user.UserId.ToString());
+                    HttpContext.Session.SetString("Avatar", user.Avatar);
+                    return RedirectToAction("Users", "Admin", new {Area="Admin"});
                 }
                 else
                 {
@@ -333,7 +337,6 @@ namespace CI_Platform.Controllers
                         missionView.isapplied = false;
                     }
                     missionViewModels.Add(missionView);
-
                 }
                 ViewBag.CityData = citydataModels;
                 ViewBag.CountryData = countrydataModels;

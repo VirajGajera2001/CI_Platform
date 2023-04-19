@@ -15,6 +15,9 @@ namespace CI_Platform.Entities.AdminModels
         public List<Country> countries= new List<Country>();
         public List<City> citys= new List<City>();
         public List<Skill> skills= new List<Skill>();
+        public List<MissionMedium> missionMedia= new List<MissionMedium>();
+        public List<MissionDocument> missionDocuments= new List<MissionDocument>();
+        public List<MissionSkill> missionSkills= new List<MissionSkill>();
         public long MissionId { get; set; }
 
         public long ThemeId { get; set; }

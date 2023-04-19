@@ -246,5 +246,23 @@ namespace CI_Platform.Areas.Admin.Controllers
             _objAdmin.deletebanner(bannerId);
             return Json(null);
         }
+        [HttpPost]
+        public IActionResult MissionEdit(long missionId)
+        {
+            var mission = _objAdmin.findmission(missionId);
+            List<MissionSkill> missionSkills= mission.missionSkills;
+            var skillId=missionSkills?.Select(ms=>ms.SkillId).ToArray();
+            List<MissionMedium> missionMedia=mission.missionMedia;
+            var missionUrl = missionMedia?.Select(mm => new { MediaPath = mm.MediaPath, MediaType = mm.MediaType }).ToArray();
+            List<MissionDocument> missionDocuments=mission.missionDocuments;
+            var missiondoc = missionDocuments?.Select(md => new {DocName=md.DocumentName,DocPath=md.DocumentPath}).ToArray();
+            return Json(new { mission = mission,missionSkillId= skillId, missionUrl= missionUrl, missiondoc= missiondoc });
+        }
+        [HttpPost]
+        public IActionResult MissionDelete(long missionId)
+        {
+            _objAdmin.deletemission(missionId);
+            return Json(null);
+        }
     }
 }

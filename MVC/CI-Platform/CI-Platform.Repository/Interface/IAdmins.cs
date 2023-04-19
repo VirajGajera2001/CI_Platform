@@ -41,5 +41,7 @@ namespace CI_Platform.Repository.Interface
         public void bannersave(CI_Platform.Entities.AdminModels.BannerView bannerView);
         public void deletebanner(long bannerId);
         public void savemission(MissionView missionView, string[] selectedValues, string[] dataUrls, string[] docFiles, string[] docName, string videoUrls);
+        public MissionView findmission(long missionId);
+        public void deletemission(long missionId);
     }
 }

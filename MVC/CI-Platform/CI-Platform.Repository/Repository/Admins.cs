@@ -4,6 +4,7 @@ using CI_Platform.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace CI_Platform.Repository.Repository
         }
         public List<User> alluser()
         {
-            List<User> users = _objdb.Users.ToList();
+            List<User> users = _objdb.Users.Where(u=>u.DeletedAt==null).ToList();
             return users;
         }
         public List<CmsPage> cmsrecordall()
@@ -110,8 +111,13 @@ namespace CI_Platform.Repository.Repository
         public void deleteuser(long userId)
         {
             var user = _objdb.Users.FirstOrDefault(u=>u.UserId == userId);
-            _objdb.Users.Remove(user);
-            _objdb.SaveChanges();
+            if (user != null)
+            {
+                user.Status = false;
+                user.DeletedAt = DateTime.Now;
+                _objdb.Users.Update(user);
+                _objdb.SaveChanges();
+            }
         }
         public CmsPage findcms(long cmsId)
         {
@@ -372,7 +378,72 @@ namespace CI_Platform.Repository.Repository
             var findmission = _objdb.Missions.FirstOrDefault(m => m.MissionId == missionView.MissionId);
             if (findmission != null )
             {
-
+                findmission.Title = missionView.Title;
+                findmission.ThemeId = missionView.ThemeId;
+                findmission.CityId = missionView.CityId;
+                findmission.CountryId = missionView.CountryId;
+                findmission.Description = missionView.Description;
+                findmission.ShortDescription = missionView.ShortDescription;
+                findmission.StartDate = missionView.StartDate;
+                findmission.EndDate = missionView.EndDate;
+                findmission.MissionType = missionView.MissionType;
+                findmission.OrganizationName = missionView.OrganizationName;
+                findmission.OrganizationDetalis = missionView.OrganizationDetalis;
+                findmission.Availability = missionView.Availability;
+                findmission.SeatsAvailable = missionView.SeatsAvailable;
+                findmission.Deadline = missionView.Deadline;
+                findmission.UpdatedAt = DateTime.Now;
+                findmission.Status = true;
+                _objdb.Missions.Update(findmission);
+                List<MissionSkill> missionSkills = _objdb.MissionSkills.Where(ms => ms.MissionId == findmission.MissionId).ToList();
+                foreach(var item in missionSkills)
+                {
+                    _objdb.MissionSkills.Remove(item);
+                }
+                foreach (var item in selectedValues)
+                {
+                    MissionSkill missionSkill = new MissionSkill();
+                    missionSkill.MissionId = findmission.MissionId;
+                    missionSkill.SkillId = long.Parse(item);
+                    _objdb.Add(missionSkill);
+                }
+                List<MissionMedium> missionMedia = _objdb.MissionMedia.Where(mm => mm.MissionId == findmission.MissionId).ToList();
+                foreach(var item in missionMedia)
+                {
+                    _objdb.MissionMedia.Remove(item);
+                }
+                foreach (var item in dataUrls)
+                {
+                    MissionMedium missionMedium = new MissionMedium();
+                    missionMedium.MissionId = findmission.MissionId;
+                    missionMedium.MediaPath = item;
+                    missionMedium.MediaName = "logo";
+                    missionMedium.MediaType = "imag";
+                    _objdb.Add(missionMedium);
+                }
+                MissionMedium missionMedium1 = new MissionMedium();
+                missionMedium1.MissionId = findmission.MissionId;
+                missionMedium1.MediaPath = videoUrls;
+                missionMedium1.MediaName = "logo";
+                missionMedium1.MediaType = "video";
+                _objdb.Add(missionMedium1);
+                List<MissionDocument> missionDocuments = _objdb.MissionDocuments.Where(md => md.MissionId == findmission.MissionId).ToList();
+                foreach(var item in missionDocuments)
+                {
+                    _objdb.MissionDocuments.Remove(item);
+                }
+                for (int i = 0; i < docFiles.Length; i++)
+                {
+                    var file = docFiles[i];
+                    var name = docName[i];
+                    MissionDocument missionDocument = new MissionDocument();
+                    missionDocument.MissionId = findmission.MissionId;
+                    missionDocument.DocumentName = name;
+                    missionDocument.DocumentPath = file;
+                    missionDocument.DocumentType = "document";
+                    _objdb.MissionDocuments.Add(missionDocument);
+                }
+                _objdb.SaveChanges();
             }
             else
             {
@@ -391,6 +462,7 @@ namespace CI_Platform.Repository.Repository
                 mission.Availability= missionView.Availability;
                 mission.SeatsAvailable= missionView.SeatsAvailable;
                 mission.Deadline= missionView.Deadline;
+                mission.Status = true;
                 _objdb.Missions.Add(mission);
                 _objdb.SaveChanges();
                 foreach(var item in selectedValues)
@@ -429,6 +501,65 @@ namespace CI_Platform.Repository.Repository
                 _objdb.SaveChanges();
             }
 
+        }
+        public MissionView findmission(long missionId)
+        {
+            MissionView missionView = new MissionView();
+            var mission=_objdb.Missions.FirstOrDefault(m=>m.MissionId== missionId);
+            if (mission != null)
+            {
+                missionView.MissionId = missionId;
+                missionView.CityId = mission.CityId;
+                missionView.CountryId = mission.CountryId;
+                missionView.ThemeId = mission.ThemeId;
+                missionView.Title = mission.Title;
+                missionView.Description = mission.Description;
+                missionView.ShortDescription = mission.ShortDescription;
+                missionView.StartDate = mission.StartDate;
+                missionView.EndDate = mission.EndDate;
+                missionView.Deadline = mission.Deadline;
+                missionView.SeatsAvailable = mission.SeatsAvailable;
+                missionView.MissionType = mission.MissionType;
+                missionView.OrganizationName = mission.OrganizationName;
+                missionView.OrganizationDetalis= mission.OrganizationDetalis;
+                missionView.Availability = mission.Availability;
+                List<MissionSkill> missionSkills = _objdb.MissionSkills.Where(ms => ms.MissionId == missionId && ms.DeletedAt==null).ToList();
+                missionView.missionSkills= missionSkills;
+                List<MissionMedium> missionMedia = _objdb.MissionMedia.Where(mm => mm.MissionId == missionId && mm.DeletedAt==null).ToList();
+                missionView.missionMedia= missionMedia;
+                List<MissionDocument> missionDocuments = _objdb.MissionDocuments.Where(md => md.MissionId == missionId && md.DeletedAt == null).ToList();
+                missionView.missionDocuments= missionDocuments;
+            }
+            return missionView;
+        }
+        public void deletemission(long missionId)
+        {
+            var findmission = _objdb.Missions.FirstOrDefault(m => m.MissionId == missionId);
+            if (findmission != null)
+            {
+                findmission.DeletedAt= DateTime.Now;
+                findmission.Status = false;
+                _objdb.Missions.Update(findmission);
+                List<MissionSkill> missionSkills = _objdb.MissionSkills.Where(ms => ms.MissionId == missionId).ToList();
+                foreach(var item in missionSkills)
+                {
+                    item.DeletedAt=DateTime.Now;
+                    _objdb.MissionSkills.Update(item);
+                }
+                List<MissionMedium> missionMedia = _objdb.MissionMedia.Where(mm => mm.MissionId == missionId).ToList();
+                foreach(var item in missionMedia)
+                {
+                    item.DeletedAt= DateTime.Now;
+                    _objdb.MissionMedia.Update(item);
+                }
+                List<MissionDocument> missionDocuments = _objdb.MissionDocuments.Where(md => md.MissionId == missionId).ToList();
+                foreach(var item in missionDocuments)
+                {
+                    item.DeletedAt= DateTime.Now;
+                    _objdb.MissionDocuments.Update(item);
+                }
+                _objdb.SaveChanges();
+            }
         }
     }
 }

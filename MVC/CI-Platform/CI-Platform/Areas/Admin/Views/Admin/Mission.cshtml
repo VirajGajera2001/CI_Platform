@@ -11,6 +11,7 @@
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="~/css/CRUD.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Admin Dashboard</title>
 </head>
 
@@ -90,23 +91,23 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btnclose"></button>
                                         </div>
                                         <div class="modal-body usermodalbody">
                                             <div class="container-fluid p-0">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <input type="hidden" name="MissionId" asp-for="MissionId"/>
+                                                        <input type="hidden" name="MissionId" asp-for="MissionId" id="missionId"/>
                                                         <label for="title">Mission Title</label>
-                                                        <input type="text" class="form-control" placeholder="Enter title" name="Title" asp-for="Title" />
+                                                        <input type="text" class="form-control" placeholder="Enter title" name="Title" asp-for="Title"  id="title"/>
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="short description">Mission Short Description</label>
-                                                        <input type="text" class="form-control" placeholder="Enter short description" name="ShortDescription" asp-for="ShortDescription">
+                                                        <input type="text" class="form-control" placeholder="Enter short description" name="ShortDescription" asp-for="ShortDescription" id="sdescription">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="organization name">Mission Organisation Name</label>
-                                                        <input type="text" class="form-control" placeholder="Enter organization name" name="OrganizationName" asp-for="OrganizationName">
+                                                        <input type="text" class="form-control" placeholder="Enter organization name" name="OrganizationName" asp-for="OrganizationName" id="oname">
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="description">Mission Description</label>
@@ -115,7 +116,7 @@
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="country">Country</label>
-                                                        <Select class="form-control form-select" name="CountryId" asp-for="CountryId">
+                                                        <Select class="form-control form-select" name="CountryId" asp-for="CountryId" id="countryid">
                                                             <option value=""></option>
                                                             @foreach (var item in Model.countries)
                                                             {
@@ -125,7 +126,7 @@
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="city">city</label>
-                                                        <Select class="form-control form-select" name="CityId" asp-for="CityId">
+                                                        <Select class="form-control form-select" name="CityId" asp-for="CityId" id="cityid">
                                                             <option value=""></option>
                                                             @foreach (var item in Model.citys)
                                                             {
@@ -135,31 +136,31 @@
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="organization detail">Mission Organisation Detail</label>
-                                                        <input type="text" class="form-control" name="OrganizationDetalis" asp-for="OrganizationDetalis">
+                                                        <input type="text" class="form-control" name="OrganizationDetalis" asp-for="OrganizationDetalis" id="odetail">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="sdate">Mission start date</label>
-                                                        <input type="date" class="form-control" placeholder="Enter start date" name="StartDate" asp-for="StartDate">
+                                                        <input type="date" class="form-control" placeholder="Enter start date" name="StartDate" asp-for="StartDate" id="sdate">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="edate">Mission end date</label>
-                                                        <input type="date" class="form-control" placeholder="Enter end date" name="EndDate" asp-for="EndDate">
+                                                        <input type="date" class="form-control" placeholder="Enter end date" name="EndDate" asp-for="EndDate" id="edate">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="type">Mission Type</label>
-                                                        <input type="text" class="form-control" placeholder="Enter mission type" name="MissionType" asp-for="MissionType">
+                                                        <input type="text" class="form-control" placeholder="Enter mission type" name="MissionType" asp-for="MissionType" id="mtype">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="seats">Total Seats</label>
-                                                        <input type="text" class="form-control" placeholder="Enter seats" name="SeatsAvailable" asp-for="SeatsAvailable">
+                                                        <input type="text" class="form-control" placeholder="Enter seats" name="SeatsAvailable" asp-for="SeatsAvailable" id="availseats">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="deadline">Mission Deadline</label>
-                                                        <input type="date" class="form-control" placeholder="Enter deadline if mission is time base" name="Deadline" asp-for="Deadline">
+                                                        <input type="date" class="form-control" placeholder="Enter deadline if mission is time base" name="Deadline" asp-for="Deadline" id="deadline">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="theme">Mission Theme</label>
-                                                        <select class="form-control form-select" name="ThemeId" asp-for="ThemeId">
+                                                        <select class="form-control form-select" name="ThemeId" asp-for="ThemeId" id="themeid">
                                                             <option value=""></option>
                                                             @foreach (var item in Model.missionThemes)
                                                             {
@@ -169,10 +170,10 @@
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="availability">Mission Availability</label>
-                                                        <select class="form-control form-select" name="Availability" asp-for="Availability">
+                                                        <select class="form-control form-select" name="Availability" asp-for="Availability" id="availability">
                                                             <option></option>
-                                                            <option value="Daily">Daily</option>
-                                                            <option value="Weekly">Weekly</option>
+                                                            <option value="daily">Daily</option>
+                                                            <option value="weekly">Weekly</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-4">
@@ -236,10 +237,10 @@
                                         <td>@item.StartDate.Value.ToShortDateString()</td>
                                         <td>@item.EndDate.Value.ToShortDateString()</td>
                                         <td>
-                                            <a type="button" class="border-0">
+                                            <a type="button" class="border-0" onclick="missionEdit(@item.MissionId)">
                                                 <i class="bi bi-pencil-square text-warning"></i>
                                             </a>
-                                            <a type="button" class="border-0 ms-2">
+                                            <a type="button" class="border-0 ms-2" onclick="missionDelete(@item.MissionId)">
                                                 <i class="bi bi-trash-fill text-danger"></i>
                                             </a>
                                         </td>
@@ -259,6 +260,8 @@
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
         var dashboadtime = document.getElementById("dashboadtime");
+        var myModal=document.getElementById("exampleModalmissionadd");
+        var modalclose = document.getElementById("btnclose");
 
         function currentTime() {
             var time = new Date();
@@ -286,10 +289,6 @@
 
         CKEDITOR.replace('CKeditor');
 
-        
-
-
-
         // missionrecord
         $(document).ready(function () {
             $('#missionrecord').DataTable();
@@ -316,6 +315,7 @@
         button.innerHTML = `<i class="bi bi-plus">Add</i>`;
         button.classList.add("btn", "btn-outline-warning", "rounded-pill", "addbtn");
         button.setAttribute("data-bs-toggle", "modal");
+        button.setAttribute("id","ExampleModalAdd");
         button.setAttribute("data-bs-target", "#exampleModalmissionadd")
         missionrecordFilter.appendChild(button);
 
@@ -385,6 +385,16 @@
                 });
             });
         });
+
+        var exampleModaladd = document.getElementById("ExampleModalAdd");
+        exampleModaladd.onclick=function(){
+            $('#missionId').val(''); $('#title').val(''); $('#sdescription').val(''); CKEDITOR.instances['CKeditor'].setData('');
+            $('#countryid').val(''); $('#cityid').val(''); $('#odetail').val(''); $('#sdate').val(''); $('#oname').val('');
+            $('#edate').val(''); $('#mtype').val(''); $('#availseats').val(''); $('#deadline').val(''); $('#themeid').val('');
+            $('#availability').val(''); $('#missionvideo').val('');
+            $('#selectskills').find('option:selected').prop('selected', false);
+            dataUrls.length = 0; docUrls.length = 0; docName.length = 0; $('.image-preview').empty(); $('.doc-preview').empty();
+        }
 
         function addImage(dataUrl,id){
             const imagePreview = document.querySelector('.image-preview');
@@ -461,6 +471,80 @@
             var misdesc = document.querySelector("#misdescription");
             misdesc.value = editordata;
         });
+
+        modalclose.onclick = function () {
+
+            myModal.style.display = "none";
+
+        };
+
+        function missionEdit(missionId){
+            $.ajax({
+                url:'/Admin/Admin/MissionEdit',
+                type:'POST',
+                data:{missionId:missionId},
+                success:function(result){
+                    myModal.classList.add("show");
+                    myModal.style.display = "block";
+                    dataUrls.length = 0; docUrls.length = 0; docName.length = 0; $('.image-preview').empty(); $('.doc-preview').empty();
+                    $('#missionvideo').val('');
+                    var mission=result.mission;
+                    var SkillId=result.missionSkillId;
+                    var missionUrl=result.missionUrl;
+                    var missiondoc=result.missiondoc;
+                    $('#missionId').val(mission.missionId); $('#title').val(mission.title); $('#sdescription').val(mission.shortDescription);
+                    CKEDITOR.instances['CKeditor'].setData(mission.description);
+                    $('#countryid').val(mission.countryId); $('#cityid').val(mission.cityId); $('#odetail').val(mission.organizationDetalis);
+                    var sdate = new Date(mission.startDate);
+                    var startDate = sdate.getFullYear() + "-" + (sdate.getMonth() + 1).toString().padStart(2, '0') + "-" + sdate.getDate().toString().padStart(2, '0');
+                    $('#sdate').val(startDate); $('#oname').val(mission.organizationName);
+                    var edate = new Date(mission.endDate);
+                    var endDate = edate.getFullYear() + "-" + (edate.getMonth() + 1).toString().padStart(2, '0') + "-" + edate.getDate().toString().padStart(2, '0');
+                    $('#edate').val(endDate); $('#mtype').val(mission.missionType); $('#availseats').val(mission.seatsAvailable);
+                    var ddate = new Date(mission.deadline);
+                    var deadlineDate = ddate.getFullYear() + "-" + (ddate.getMonth() + 1).toString().padStart(2, '0') + "-" + ddate.getDate().toString().padStart(2, '0');
+                    $('#deadline').val(deadlineDate); $('#themeid').val(mission.themeId); $('#availability').val(mission.availability);
+                    missionUrl.forEach(function (medium){
+                        if (medium.mediaType=="video"){
+                            $('#missionvideo').val(medium.mediaPath);
+                        }
+                        else{
+                            const id = Date.now();
+                            dataUrls.push({ url: medium.mediaPath, id });
+                            addImage(medium.mediaPath, id);
+                        }
+                    });
+
+                    SkillId.forEach(function(id){
+                        $('#selectskills').find('option[value="' + id + '"]').prop('selected', true);
+                    });
+                    missiondoc.forEach(function(doc){
+                        const id = Date.now();
+                        docUrls.push({ URLS: doc.docPath, id });
+                        docName.push({ name: doc.docName, id });
+                        addDocs(doc.docName, id);
+                    });
+
+                },
+                error:function(){
+                    alert("could not like mission");
+                }
+            });
+        }
+        function missionDelete(missionId){
+            $.ajax({
+                url:'/Admin/Admin/MissionDelete',
+                type:'POST',
+                data:{missionId:missionId},
+                success:function(result){
+                    Swal.fire(
+                        'Your Mission Is Deleted'
+                    ).then((res)=>{
+                        location.reload();
+                    })
+                }
+            })
+        }
     </script>
 </body>
 
