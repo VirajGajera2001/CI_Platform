@@ -6,11 +6,6 @@ var dataBadge1 = document.getElementsByClassName("datebadge1");
 var i;
 var j;
 
-//var tosort = document.querySelectorAll('#sortBy > li');
-//tosort.forEach((ele) => {
-//    ele.addEventListener("click", )
-//})
-
 document.addEventListener("DOMContentLoaded", function () {
     const cbs = document.querySelectorAll(".Checkme");
     const filtersSection = document.querySelector(".filtersection");
@@ -105,14 +100,15 @@ function searchMission(pge) {
 }
 
 function sendRec(missionId) {
-    const toMail = Array.from(document.querySelectorAll('input[name="Checkmemail"]:checked')).map(el => el.value);
-    console.log(toMail);
+    const toMail = Array.from(document.querySelectorAll('input[name="Checkme"]:checked')).map(el => el.value);
     $.ajax({
         url: '/Home/SendRec',
         type: 'POST',
         data: { missionId: missionId, ToMail: toMail },
         success: function (result) {
-            alert("send");
+            Swal.fire(
+                'Mail is send successfully'
+            )
         }
     });
 }
@@ -128,7 +124,7 @@ function addFav(missionId, Id) {
             }
             else {
                 var favbtn = document.getElementById("favoicon");
-                favbtn.style.color = "red"
+                favbtn.style.color = "red";
             }
             location.reload();
         },

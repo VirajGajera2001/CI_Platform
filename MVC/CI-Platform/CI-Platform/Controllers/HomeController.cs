@@ -6,8 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net.Mail;
 using System.Net;
+using MailKit;
+using MailKit.Net.Imap;
 using CI_Platform.Entities.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MailKit.Search;
 
 namespace CI_Platform.Controllers
 {
@@ -198,11 +201,6 @@ namespace CI_Platform.Controllers
             {
                 return View("Login");
             }
-
-            // Remove the password reset record from the database
-
-
-
             return View();
         }
 
@@ -513,13 +511,15 @@ namespace CI_Platform.Controllers
             List<MissionViewModel> missionViewModel = new List<MissionViewModel>();
             var missions = _objVolunteer.missions(MissionId);
             var relatedmission = _objVolunteer.missions(MissionId, missions);
+            var userId = String.Empty;
             if (UserId != null)
             {
-
+                userId=Convert.ToString(UserId);
             }
             else
             {
-                var userId = HttpContext.Session.GetString("UserId");
+                userId = HttpContext.Session.GetString("UserId");
+            }
                 foreach (var mission in relatedmission)
                 {
                     MissionViewModel missionView = new MissionViewModel();
@@ -598,200 +598,21 @@ namespace CI_Platform.Controllers
                     }
                     missionViewModel.Add(missionView);
                 }
-            }
             ViewBag.Relatedmission = missionViewModel;
             return View();
         }
         public IActionResult Volunteering_Mission(int MissionId, long? UserId, int pg = 1)
         {
             List<RelatedMissionView> rmv = new List<RelatedMissionView>();
-            if (UserId != null)
+            var userId = string.Empty;
+            if (UserId!= null)
             {
-                var missions = _objVolunteer.missions(MissionId);
-                var missionmedia=_objVolunteer.missionmedia(MissionId);
-                var city = _objVolunteer.cities(missions);
-                var theme = _objVolunteer.missiontheme(missions);
-                var relatedmission = _objVolunteer.missions(MissionId, missions);
-                var docs = _objVolunteer.missiondocs(MissionId);
-                List<User> users = _objVolunteer.users();
-                List<MissionApplication> missionapplications = _objVolunteer.missionapp();
-                var recentvol = (from u in users join ma in missionapplications on u.UserId equals ma.UserId where ma.MissionId == missions.MissionId select u).ToList();
-                var rating1 = _objVolunteer.missionratings(missions);
-                var goalvalue = _objVolunteer.goalmissions(missions);
-                var isapplied = _objVolunteer.applied(MissionId, UserId);
-                if (isapplied != null)
-                {
-                    ViewBag.IsApplied = true;
-                }
-                else
-                {
-                    ViewBag.IsApplied = false;
-                }
-                foreach (var mis in relatedmission)
-                {
-                    RelatedMissionView ms = new RelatedMissionView();
-                    ms.Availability = mis.Availability;
-                    ms.MissionId = mis.MissionId;
-                    ms.Title = mis.Title;
-                    ms.Description = mis.Description;
-                    ms.ShortDescription = mis.ShortDescription;
-                    ms.StartDate = mis.StartDate;
-                    ms.EndDate = mis.EndDate;
-                    ms.CountryId = mis.CountryId;
-                    ms.CityId = mis.CityId;
-                    ms.ThemeId = mis.ThemeId;
-                    ms.MissionType = mis.MissionType;
-                    var seats = _objLanding.misapplied(mis);
-                    ms.SeatsAvailable = mis.SeatsAvailable-seats.Count();
-                    var ratings1 = _objLanding.missionratings(mis);
-                    var rats1 = 0;
-                    var sums = 0;
-                    foreach (var rat in ratings1)
-                    {
-                        sums = sums + int.Parse(rat.Rating);
-                    }
-                    if (ratings1.Count() == 0)
-                    {
-                        rats1 = 0;
-                        ms.Rating = rats1;
-                    }
-                    else
-                    {
-                        rats1 = sums / ratings1.Count();
-                        ms.Rating = rats1;
-                    }
-                    var isfav = _objVolunteer.favouritemissions(mis, UserId);
-                    if (isfav.Count() > 0)
-                    {
-                        ms.isFav = true;
-                    }
-                    else
-                    {
-                        ms.isFav = false;
-                    }
-
-                    var citys = _objLanding.cityname(mis);
-                    if (citys != null)
-                    {
-                        ms.City = citys.Name;
-                    }
-                    var themes = _objLanding.missionthemes(mis);
-                    if (themes != null)
-                    {
-                        ms.Theme = themes.Title;
-                    }
-                    var country = _objLanding.countries(mis);
-                    if (country != null)
-                    {
-                        ms.Country = country.Name;
-                    }
-                    var media = _objLanding.missionmedia(mis);
-                    if (media != null)
-                    {
-                        ms.MediaPath = media.MediaPath;
-                    }
-                    var goalvalues = _objLanding.goalmissions(mis);
-                    if (goalvalues != null)
-                    {
-                        ms.GoalValue = goalvalues.GoalValue;
-                    }
-                    var isapplieds = _objVolunteer.applied(UserId, mis.MissionId);
-                    if (isapplieds != null)
-                    {
-                        ms.isapplied = true;
-                    }
-                    else
-                    {
-                        ms.isapplied = false;
-                    }
-                    rmv.Add(ms);
-                }
-                MissionViewModel missionViewModels = new MissionViewModel();
-                List<Mission> missionlist = _objVolunteer.missions();
-                List<Comment> comments = _objVolunteer.comments();
-                List<CommentModel> commentModels = new List<CommentModel>();
-                foreach (var comms in comments)
-                {
-                    CommentModel commentModels1 = new CommentModel();
-                    var user = users.FirstOrDefault(t => t.UserId == comms.UserId && comms.MissionId == MissionId);
-                    if (user != null)
-                    {
-                        commentModels1.FirstName = user.FirstName;
-                        commentModels1.Avatar = user.Avatar;
-                        commentModels1.CommentText = comms.CommentText;
-                        commentModels.Add(commentModels1);
-                    }
-                }
-                missionViewModels.Status = missions.Status;
-
-                var favo = _objVolunteer.favmissions(missions, UserId);
-                if (favo.Count() > 0)
-                {
-                    missionViewModels.isFav = true;
-                }
-                else
-                {
-                    missionViewModels.isFav = false;
-                }
-
-                var rat1 = 0;
-                var sum = 0;
-                foreach (var rat in rating1)
-                {
-                    sum = sum + int.Parse(rat.Rating);
-                }
-                if (rating1.Count() == 0)
-                {
-                    rat1 = 0;
-                }
-                else
-                {
-                    rat1 = sum / rating1.Count();
-                }
-
-
-                ViewBag.userId = UserId;
-                var prewrating = _objVolunteer.missionrating(missions, UserId);
-                if (prewrating != null)
-                {
-                    ViewBag.Prewrating = int.Parse(prewrating.Rating);
-                    ViewBag.AvgRating = rat1;
-                }
-                else
-                {
-                    ViewBag.Prewrating = 0;
-                }
-                if (rating1 != null)
-                {
-                    ViewBag.AvgRating = rat1;
-                }
-                else
-                {
-                    ViewBag.AvgRating = 0;
-                }
-                const int pageSize = 3;
-                if (pg < 1)
-                    pg = 1;
-                int recsCount = recentvol.Count();
-                var pager = new Pager(recsCount, pg, pageSize);
-                int recSkip = (pg - 1) * pageSize;
-                var data = recentvol.Skip(recSkip).Take(pager.PageSize).ToList();
-                this.ViewBag.Pager = pager;
-                ViewBag.RecentVolunteering = data;
-                ViewBag.Missions = missions;
-                ViewBag.Media = missionmedia;
-                ViewBag.relatedmission = relatedmission;
-                ViewBag.MissionTheme = theme;
-                ViewBag.City = city;
-                ViewBag.AllUsers = users;
-                ViewBag.GoalVal = goalvalue;
-                ViewBag.ShowComm = commentModels;
-                ViewBag.missionId = MissionId;
-                ViewBag.Docs = docs;
-                return View(missionViewModels);
+                userId = Convert.ToString(UserId);
             }
             else
             {
+                userId = HttpContext.Session.GetString("UserId");
+            }
                 var missions = _objVolunteer.missions(MissionId);
                 var missionmedia = _objVolunteer.missionmedia(MissionId);
                 var city = _objVolunteer.cities(missions);
@@ -810,15 +631,13 @@ namespace CI_Platform.Controllers
                 var data = recentvol.Skip(recSkip).Take(pager.PageSize).ToList();
                 this.ViewBag.Pager = pager;
                 ViewBag.RecentVolunteering = data;
-
-
                 var rating1 = _objVolunteer.missionratings(missions);
                 var goalvalue = _objVolunteer.goalmissions(missions);
                 MissionViewModel missionViewModels = new MissionViewModel();
                 List<Mission> missionlist = _objVolunteer.missions();
                 List<Comment> comments = _objVolunteer.comments();
                 List<CommentModel> commentModels = new List<CommentModel>();
-                var userId = HttpContext.Session.GetString("UserId");
+                missionViewModels.missionMedia = missionmedia;
                 var isapplied = _objVolunteer.appliedmis(MissionId, int.Parse(userId));
                 if (isapplied != null)
                 {
@@ -968,7 +787,6 @@ namespace CI_Platform.Controllers
                 }
 
                 ViewBag.Missions = missions;
-                ViewBag.Media = missionmedia;
                 ViewBag.count=missionmedia.Count();
                 ViewBag.relatedmission = rmv;
                 ViewBag.MissionTheme = theme;
@@ -979,7 +797,6 @@ namespace CI_Platform.Controllers
                 ViewBag.missionId = MissionId;
                 ViewBag.Docs = docs;
                 return View(missionViewModels);
-            }
         }
         [HttpPost]
         public IActionResult RecentVol(int MissionId, long? UserId, int pg = 1)
@@ -1465,6 +1282,17 @@ namespace CI_Platform.Controllers
             var userId = HttpContext.Session.GetString("UserId");
             _objStoryListing.contactadd(name,mail,subject,message, int.Parse(userId));
             return Json(new {success=true});
+        }
+        public IActionResult Notification()
+        {
+            var client = new ImapClient();
+            client.Connect("your.email.server.com", 993, true);
+            client.Authenticate("gajeravirajpareshbhai@gmail.com", "drbwjzfrmubtveud");
+            var inbox = client.Inbox;
+            inbox.Open(FolderAccess.ReadOnly);
+            var searchQuery = SearchQuery.SubjectContains("Project Name");
+            var newMessages = inbox.Search(searchQuery);
+            return View();
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

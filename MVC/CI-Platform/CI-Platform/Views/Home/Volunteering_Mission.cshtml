@@ -9,7 +9,7 @@
     var count = ViewBag.count;
     var j = 0;
 }
-@model CI_Platform.Models.MissionViewModel;
+@model CI_Platform.Entities.Models.MissionViewModel;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/Favourite.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="container">
@@ -65,9 +66,9 @@
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12 mb-2">
                 <div class="container slidecontainer">
-                    @foreach (var item in ViewBag.Media)
+                    @foreach (var item in Model.missionMedia)
                     {
-                        @if (ViewBag.Media != null)
+                        @if (Model.missionMedia != null)
                         {
                             j = j + 1;
                             <div class="mySlides">
@@ -83,9 +84,10 @@
                     <!-- Thumbnail img -->
                     <div class="row mt-2">
 
-                        @foreach (var item in ViewBag.Media)
+                        @foreach (var item in Model.missionMedia)
                         {
-                            @if(ViewBag.Media!=null){
+                            @if (Model.missionMedia != null)
+                            {
                                 j = j + 1;
                                 <div class="column w-25">
                                     <img class="demo cursor" src="@item.MediaPath" style="width:100%" onclick="currentSlide(j)" alt="The Woods">
@@ -170,8 +172,15 @@
                                         <ul style="list-style-type:none" class="ps-0">
                                             @foreach (var items in @ViewBag.AllUsers)
                                             {
-                                                <li class="dropdown-item">
-                                                    <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme"/><span class="ms-1">@items.FirstName (@items.Email)</span>
+                                                <li class="dropdown-item mt-2" style="border:1px solid gray;background-color:#fafafa;">
+                                                    <div style="display:flex;justify-content:space-between;">
+                                                        <div>
+                                                            <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" /><span class="ms-1">@items.FirstName (@items.Email)</span>
+                                                        </div>
+                                                        <div>
+                                                            <img src="@items.Avatar" style="border-radius:50%;width:35px;height:35px;" />
+                                                        </div>
+                                                    </div>
                                                 </li>
                                             }
                                         </ul>

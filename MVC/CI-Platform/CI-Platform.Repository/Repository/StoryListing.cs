@@ -236,7 +236,7 @@ namespace CI_Platform.Repository.Repository
         }
         public List<StoryMedium> searchmedias(long storyId)
         {
-            var storymedium = _objdb.StoryMedia.Where(sm=>sm.StoryId==storyId &&sm.Type=="imag").ToList();
+            var storymedium = _objdb.StoryMedia.Where(sm=>sm.StoryId==storyId).ToList();
             return storymedium;
         }
         public List<StoryMedium> storymedia(int storyid)

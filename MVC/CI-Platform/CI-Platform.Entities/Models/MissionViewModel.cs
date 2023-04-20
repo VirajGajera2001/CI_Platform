@@ -1,7 +1,7 @@
 ﻿using CI_Platform.Entities.DataModels;
 using System.ComponentModel.DataAnnotations;
 
-namespace CI_Platform.Models
+namespace CI_Platform.Entities.Models
 {
     public class MissionViewModel
     {
@@ -55,5 +55,7 @@ namespace CI_Platform.Models
         public int? Count { get; set; }
         public bool isapplied { get; set; }
         public List<User> recentuser = new List<User>();
+        public List<MissionMedium> missionMedia = new List<MissionMedium>();
+        public List<MissionViewModel> missionViewModels = new List<MissionViewModel>();
     }
 }

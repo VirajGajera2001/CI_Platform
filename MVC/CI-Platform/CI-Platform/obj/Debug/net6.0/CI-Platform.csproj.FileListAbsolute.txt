@@ -386,3 +386,8 @@ F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform\obj\Debug\net6.0\CI-Platfor
 F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform\obj\Debug\net6.0\CI-Platform.genruntimeconfig.cache
 F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform\obj\Debug\net6.0\ref\CI-Platform.dll
 F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform\obj\Debug\net6.0\CI-Platform.MvcApplicationPartsAssemblyInfo.cs
+F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
+F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform\bin\Debug\net6.0\MailKit.dll
+F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform\bin\Debug\net6.0\MimeKit.dll
+F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
+F:\Tatvasoft\CI Platform\MVC\CI-Platform\CI-Platform\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll

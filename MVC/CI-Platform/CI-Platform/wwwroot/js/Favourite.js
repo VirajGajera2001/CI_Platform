@@ -89,13 +89,14 @@ function addFav(missionId, Id) {
 
 function sendRec(missionId) {
     const toMail = Array.from(document.querySelectorAll('input[name="Checkme"]:checked')).map(el => el.value);
-    console.log(toMail);
     $.ajax({
         url: '/Home/SendRec',
         type: 'POST',
         data: { missionId: missionId, ToMail: toMail },
         success: function (result) {
-            alert("send");
+            Swal.fire(
+                'Mail is send successfully'
+                )
         }
     });
 }

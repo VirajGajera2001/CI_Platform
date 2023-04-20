@@ -15,6 +15,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="~/css/Favourite.css">
     <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="container">
@@ -61,12 +62,19 @@
                 <div class="container slidecontainer">
                     @foreach(var item in Model.storyMedia)
                     {
-                        @if (Model.storyMedia != null)
-                        {
                             j = j + 1;
+                        @if (item.Type == "imag")
+                        {
                             <div class="mySlides">
                                 <div class="numbertext">@j / @count</div>
                                 <img src="@item.Path" style="width:100%;">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="mySlides">
+                                <div class="numbertext">@j / @count</div>
+                                <iframe src="@item.Path" style="width:100%;height:358px;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                             </div>
                         }
                     }
@@ -77,11 +85,17 @@
                     <div class="row mt-2">
                         @foreach(var item in Model.storyMedia)
                         {
-                            @if (Model.storyMedia != null)
+                            @if (item.Type == "imag")
                             {
                                 <div class="column w-25">
                                     <img class="demo cursor" src="@item.Path" style="width:100%" onclick="currentSlide(j)" alt="The Woods">
                                 </div>
+                            }
+                            else
+                            {
+                                <div class="column w-25">
+                                    <iframe class="demo cursor" src="@item.Path" style="width:100%;height:52%;" onclick="currentSlide(j)" alt="The Woods" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                </div>    
                             }
                         }
                     </div>
@@ -118,8 +132,15 @@
                                         <ul style="list-style-type:none" class="ps-0">
                                             @foreach (var items in Model.Allusers)
                                             {
-                                                <li class="dropdown-item">
-                                                    <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" /><span class="ms-1">@items.FirstName (@items.Email)</span>
+                                                <li class="dropdown-item mt-2" style="border:1px solid gray;background-color:#fafafa;">
+                                                    <div style="display:flex;justify-content:space-between;">
+                                                        <div>
+                                                            <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" /><span class="ms-1">@items.FirstName (@items.Email)</span>
+                                                        </div>
+                                                        <div>
+                                                            <img src="@items.Avatar" style="border-radius:50%;width:35px;height:35px;" />
+                                                        </div>
+                                                    </div>
                                                 </li>
                                             }
                                         </ul>
