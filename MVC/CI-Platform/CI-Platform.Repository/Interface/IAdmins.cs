@@ -19,7 +19,7 @@ namespace CI_Platform.Repository.Interface
         public User edituser(long userId);
         public List<City> allcity();
         public List<Country> allcountry();
-        public void saveuser(Entities.AdminModels.UserView userView);
+        public void saveuser(Entities.AdminModels.UsersView userView);
         public void deleteuser(long userId);
         public CmsPage findcms(long cmsId);
         public void cmsadd(CI_Platform.Entities.AdminModels.CMSView cmsView);
@@ -43,5 +43,6 @@ namespace CI_Platform.Repository.Interface
         public void savemission(MissionView missionView, string[] selectedValues, string[] dataUrls, string[] docFiles, string[] docName, string videoUrls);
         public MissionView findmission(long missionId);
         public void deletemission(long missionId);
+        public void deletestory(long storyid);
     }
 }

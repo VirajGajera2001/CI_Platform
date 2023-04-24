@@ -106,7 +106,7 @@
                     <div class="sidebadge d-flex">
                         <hr class="w-50">
                         <div class="contbadge text-center">
-                            <p class="p-2">@ViewBag.GoalVal.GoalObjectiveText</p>
+                            <p class="p-2">@ViewBag.GoalValue.GoalObjectiveText</p>
                         </div>
                         <hr class="w-50">
                     </div>
@@ -121,9 +121,9 @@
                             </div>
                             <div class="progressbarcont w-75">
                                 <div class="progress ms-1">
-                                    <div class="progress-bar" role="progressbar" style="width: @ViewBag.GoalVal.GoalValue%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar" role="progressbar" style="width: @ViewBag.GoalVal%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <p class="ms-1">@ViewBag.GoalVal.GoalValue Achived</p>
+                                <p class="ms-1">@ViewBag.GoalVal Achived</p>
                             </div>
                         </div>
                     </div>
@@ -151,9 +151,13 @@
                 <hr style="margin-top:30px;">
                 <div class="favandinvibtn container row mt-4">
                     <div class="col-md-6 col-sm-12 mb-2 text-center">
-                        <button type="button" class="btn btn-outline-secondary border-3" onclick="addFav(@ViewBag.Missions.MissionId,@ViewBag.userId)">
-                            <i class="bi bi-heart-fill" id="favoicon" style="@(Model.isFav?"color:red;":"color:black")"></i>
+                        <button type="button" class="btn btn-outline-secondary border-3" onclick="addFav(@ViewBag.Missions.MissionId,@ViewBag.userId)" style="@(Model.isFav?"display:none;":"display:block")">
+                            <i class="bi bi-heart-fill text-dark" id="favoicon"></i>
                             Add to Favourite
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary border-3" onclick="addFav(@ViewBag.Missions.MissionId,@ViewBag.userId)" style="@(Model.isFav?"display:block;":"display:none")">
+                            <i class="bi bi-heart-fill text-danger" id="favoicon"></i>
+                            Favourite
                         </button>
                     </div>
                     <div class="col-md-6 col-sm-12 text-center dropdown">

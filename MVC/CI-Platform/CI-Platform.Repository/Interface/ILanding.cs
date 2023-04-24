@@ -28,6 +28,7 @@ namespace CI_Platform.Repository.Interface
         public List<Skill> skill();
         public List<MissionSkill> missionskill();
         public List<MissionApplication> misapplied(Mission mission);
+        public long goalrecord(long missionId);
     }
 
 }

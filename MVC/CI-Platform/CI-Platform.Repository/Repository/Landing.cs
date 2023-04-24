@@ -25,7 +25,7 @@ namespace CI_Platform.Repository.Repository
             List<City> cities = _objdb.Cities.ToList();
             return cities;
         }
-        public List<Country> countries1() 
+        public List<Country> countries1()
         {
             List<Country> countries1 = _objdb.Countries.ToList();
             return countries1;
@@ -109,6 +109,23 @@ namespace CI_Platform.Repository.Repository
         {
             var misapplied = _objdb.MissionApplications.Where(ma => ma.MissionId == mission.MissionId).ToList();
             return misapplied;
+        }
+        public long goalrecord(long missionId)
+        {
+            List<Timesheet> timesheets = _objdb.Timesheets.Where(t=>t.MissionId==missionId).ToList();
+            if (timesheets.Count>0)
+            {
+                long j = 0;
+                for(int i = 0; i < timesheets.Count; i++)
+                {
+                    j = (long)(j + timesheets[i].Action);
+                }
+                return j;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

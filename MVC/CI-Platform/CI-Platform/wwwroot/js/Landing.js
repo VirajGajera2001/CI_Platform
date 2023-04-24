@@ -50,7 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function listView() {
     for (i = 0; i < element.length; i++) {
-        img[i].style.width = "30%";
+        img[i].style.width = "470px";
+        img[i].style.height = "100%";
         card[i].style.width = "100%";
         element[i].classList.add("col-12");
         element[i].classList.remove("col-lg-4", "col-md-6", "col-sm-12");
@@ -85,7 +86,6 @@ function searchMission(pge) {
     var toCity2 = Array.from(document.querySelectorAll('input[id="Checkme2"]:checked')).map(el => el.value);
     var toTheme2 = Array.from(document.querySelectorAll('input[id="Checkme3"]:checked')).map(el => el.value);
     var toSkill2 = Array.from(document.querySelectorAll('input[id="Checkme4"]:checked')).map(el => el.value);
-    console.log(sortBy);
     $.ajax({
         url: '/Home/Landing',
         type: 'POST',
@@ -133,3 +133,23 @@ function addFav(missionId, Id) {
         }
     })
 } 
+// Get the viewport width
+var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+
+// Check if viewport width is less than 991px
+if (viewportWidth < 991) {
+    // Call the gridview function here
+    gridView();
+}
+
+// Add an event listener to check for changes in viewport width
+window.addEventListener('resize', function () {
+    // Get the new viewport width
+    var newViewportWidth = window.innerWidth || document.documentElement.clientWidth;
+
+    // Check if the new viewport width is less than 991px
+    if (newViewportWidth < 991) {
+        // Call the gridview function here
+        gridView();
+    }
+});

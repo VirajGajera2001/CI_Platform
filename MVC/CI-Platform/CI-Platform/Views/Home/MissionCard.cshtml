@@ -49,8 +49,9 @@
                 @foreach (var item in Model)
                 {
                     <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
-                        <div class="card cardview mx-auto position-relative" style="width: 90%;height:95%">
-                            <img src="@item.MediaPath" alt="" class="card-image">
+                        <div class="card cardview mx-auto" style="width: 90%;height:95%">
+                            <div class="position-relative">
+                            <img src="@item.MediaPath" alt="" class="card-image" style="width:100%;">
                             <div class="position-absolute d-flex location">
                                 <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
                                 <p style="color: white; font-size:12px;" class="ms-1">@item.City </p>
@@ -107,9 +108,10 @@
                                 <i class="bi bi-heart-fill" id="favoicon" style="color:white" width="20px" height="20px" onclick="addFav(@item.MissionId,@userId)" asp-controller="Home" asp-action="AddFav"></i>
                                 </button>
                             }
-                            <div class="imgbadge1 bg-white text-center">
+                            <div class="imgbadge1 bg-white text-center position-absolute">
                                 <p class="ms-1" style="font-size:14px">@item.Theme</p>
                             </div>
+                        </div>
                             <div class="card-body">
                                 <h5>@item.Title</h5>
                                 <p>@item.ShortDescription</p>
@@ -151,7 +153,7 @@
                                                         <hr>
                                                     </div>
                                                 </div>
-                                                <p class="seat">8000 achieved</p>
+                                                <p class="seat">@item.GoalValue achieved</p>
                                             </div>
                                         </div>
 
@@ -184,7 +186,7 @@
             }
         </div>
     </div>
-<div class="container">
+<div class="container" style="margin-top:5%;">
     @if (pager.TotalPage > 0)
     {
         <ul class="pagination justify-content-center">

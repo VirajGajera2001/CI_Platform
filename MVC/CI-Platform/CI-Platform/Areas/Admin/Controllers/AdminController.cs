@@ -22,14 +22,14 @@ namespace CI_Platform.Areas.Admin.Controllers
             List<User> users = _objAdmin.alluser();
             List<City> cities = _objAdmin.allcity();
             List<Country> countries = _objAdmin.allcountry();
-            UserView user = new UserView();
+            UsersView user = new UsersView();
             user.userdata = users;
             ViewBag.City = cities;
             ViewBag.Country = countries;
             return View(user);
         }
         [HttpPost]
-        public IActionResult Users(UserView userView)
+        public IActionResult Users(UsersView userView)
         {
             _objAdmin.saveuser(userView);
             return RedirectToAction("Users", "Admin");
@@ -262,6 +262,12 @@ namespace CI_Platform.Areas.Admin.Controllers
         public IActionResult MissionDelete(long missionId)
         {
             _objAdmin.deletemission(missionId);
+            return Json(null);
+        }
+        [HttpPost]
+        public IActionResult StoryDelete(long storyid)
+        {
+            _objAdmin.deletestory(storyid);
             return Json(null);
         }
     }

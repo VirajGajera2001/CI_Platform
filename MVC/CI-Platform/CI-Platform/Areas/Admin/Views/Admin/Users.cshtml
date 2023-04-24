@@ -1,5 +1,4 @@
-﻿
-@model CI_Platform.Entities.AdminModels.UserView;
+﻿@model CI_Platform.Entities.AdminModels.UsersView;
 @{
     var i = 0;
     var avatar = Context.Session.GetString("Avatar");
@@ -12,6 +11,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/CRUD.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -74,10 +75,11 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            @if (avatar != null && fname!=null)
+                            @if (avatar != null && fname != null)
                             {
                                     <img src="@avatar" alt="" class="adminimg">
-                                @fname;
+                                @fname
+                                ;
                             }
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -109,52 +111,52 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <input type="hidden" name="UserId" id="userid" asp-for="UserId"/>
+                                            <input type="hidden" name="UserId" id="userid" asp-for="UserId" />
                                             <label for="fname">First Name</label>
-                                            <input type="text" id="fname" name="FirstName" class="form-control" placeholder="Enter your first name" asp-for="FirstName">
+                                            <input type="text" id="fname" name="FirstName" class="form-control" placeholder="Enter your first name" asp-for="FirstName" required />
 
                                             <label for="lname" class="mt-2">Last Name</label>
-                                        <input type="text" id="lname" name="LastName" class="form-control" placeholder="Enter your last name" asp-for="LastName">
+                                            <input type="text" id="lname" name="LastName" class="form-control" placeholder="Enter your last name" asp-for="LastName" required />
 
                                             <label for="mail" class="mt-2">Email</label>
-                                            <input type="email" name="Email" id="mail" class="form-control" placeholder="Enter your email address" asp-for="Email">
+                                            <input type="email" name="Email" id="mail" class="form-control" placeholder="Enter your email address" asp-for="Email" required />
 
                                             <label for="password" class="mt-2">Password</label>
-                                            <input type="password" name="Password" id="password" class="form-control" placeholder="Enter your password" asp-for="Password">
+                                            <input type="password" name="Password" id="password" class="form-control" placeholder="Enter your password" asp-for="Password" required />
 
                                             <label for="empid" class="mt-2">Employee Id</label>
-                                            <input type="text" id="empid" name="EmployeeId" class="form-control" placeholder="Enter your employee id" asp-for="EmployeeId">
+                                            <input type="text" id="empid" name="EmployeeId" class="form-control" placeholder="Enter your employee id" asp-for="EmployeeId" required />
 
                                             <label for="avatar" class="mt-2">Avatar</label>
-                                            <input type="file" id="profile-img-input" class="form-control" placeholder="Upload profile image">
+                                            <input type="file" id="profile-img-input" class="form-control" placeholder="Upload profile image" required />
                                             <input type="hidden" id="profileImg" name="Avatar" value="" asp-for="Avatar">
 
                                             <label for="department" class="mt-2">Department</label>
-                                            <input type="text" id="department" name="Department" class="form-control" placeholder="Enter your department" asp-for="Department">
+                                            <input type="text" id="department" name="Department" class="form-control" placeholder="Enter your department" asp-for="Department" required />
 
                                             <label for="city" class="mt-2">City</label>
-                                            <select class="form-control form-select" id="cityname" name="CityId" asp-for="CityId">
+                                            <select class="form-control form-select" id="cityname" name="CityId" asp-for="CityId" required>
                                                 <option value=""></option>
-                                                @foreach(var item in ViewBag.City)
+                                                @foreach (var item in ViewBag.City)
                                                 {
                                                     <option value="@item.CityId">@item.Name</option>
                                                 }
                                             </select>
 
                                             <label for="country" class="mt-2">Country</label>
-                                            <select class="form-control form-select" id="countryname" name="CountryId" asp-for="CountryId">
+                                            <select class="form-control form-select" id="countryname" name="CountryId" asp-for="CountryId" required>
                                                 <option value=""></option>
-                                                @foreach(var item in ViewBag.Country)
+                                                @foreach (var item in ViewBag.Country)
                                                 {
                                                     <option value="@item.CountryId">@item.Name</option>
                                                 }
                                             </select>
 
                                             <label for="Profile Text" class="mt-2">Profile text</label>
-                                            <textarea cols="20" class="form-control" id="profiletext" name="ProfileText" asp-for="ProfileText"></textarea>
+                                            <textarea cols="20" class="form-control" id="profiletext" name="ProfileText" asp-for="ProfileText" required></textarea>
 
                                             <label for="status" class="mt-2">Status</label>
-                                            <select class="form-control form-select" id="userstatus" name="Status" asp-for="Status">
+                                            <select class="form-control form-select" id="userstatus" name="Status" asp-for="Status" required>
                                                 <option></option>
                                                 <option value="Active">Active</option>
                                                 <option value="In-Active">In-Active</option>
@@ -162,14 +164,14 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <button type="submit" class="btn btn-primary" onclick="saveUser()">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="col mt-4">
-                            <table id="userrecord" class="table bg-white rounded shadow-sm  table-hover" >
+                            <table id="userrecord" class="table bg-white rounded shadow-sm  table-hover">
                                 <thead style="background-color: #F8F9FC;">
                                     <tr>
                                         <th scope="col" width="50">#</th>
@@ -183,7 +185,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach(var item in Model.userdata)
+                                    @foreach (var item in Model.userdata)
                                     {
                                         i = i + 1;
                                         <tr>
@@ -205,7 +207,7 @@
                                                 <a type="button" class="border-0" onclick="userEdit(@item.UserId)">
                                                     <i class="bi bi-pencil-square text-warning"></i>
                                                 </a>
-                                                <a type="button" class="border-0 ms-2"onclick="userDelete(@item.UserId)">
+                                                <a type="button" class="border-0 ms-2" onclick="userDelete(@item.UserId)">
                                                     <i class="bi bi-trash-fill text-danger"></i>
                                                 </a>
                                             </td>
@@ -220,6 +222,7 @@
         </div>
     </div>
     <!-- /#page-content-wrapper -->
+
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -228,11 +231,11 @@
         var myModal = document.getElementById("exampleModaladd");
         var userrecordFilter = document.getElementById("userrecord_filter");
 
-        var fname=document.getElementById("fname");
+        var fname = document.getElementById("fname");
         var lname = document.getElementById("lname");
-        var mail=document.getElementById("mail");
-        var password=document.getElementById("password");
-        var empid=document.getElementById("empid");
+        var mail = document.getElementById("mail");
+        var password = document.getElementById("password");
+        var empid = document.getElementById("empid");
         var department = document.getElementById("department");
         var cityname = document.getElementById("cityname");
         var countryname = document.getElementById("countryname");
@@ -261,10 +264,10 @@
                 event.preventDefault();
                 menulink.forEach((link) => {
                     link.classList.remove('active');
-                    
+
                 });
                 link.classList.add('active');
-                
+
             });
         });
         // user record
@@ -293,9 +296,61 @@
         button.innerHTML = `<i class="bi bi-plus">Add</i>`;
         button.classList.add("btn", "btn-outline-warning", "rounded-pill", "addbtn");
         button.setAttribute("data-bs-toggle", "modal");
-        button.setAttribute("id","ExampleModalAdd");
+        button.setAttribute("id", "ExampleModalAdd");
         button.setAttribute("data-bs-target", "#exampleModaladd")
         userrecordFilter.appendChild(button);
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-right',
+            iconColor: 'white',
+            customClass: {
+                popup: 'colored-toast'
+            },
+            showConfirmButton: false,
+            timer: 1800
+        })
+        function saveUser() {
+            const fnameRegex = /^[a-zA-Z]+$/;
+            if (!fnameRegex.test(fname.value)) {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Please enter only alphabets in the first name field.'
+                });
+                return;
+            }
+            const lnameRegex = /^[a-zA-Z]+$/;
+            if (!lnameRegex.test(lname.value)) {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Please enter only alphabets in the last name field.'
+                });
+                return;
+            }
+            const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if (!emailRegex.test(mail.value)) {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Please enter a valid email address.'
+                });
+                return;
+            }
+            const passwordRegex = /^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$/;
+            if (!passwordRegex.test(password.value)) {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Password must be between 8 and 12 characters and contain at least one special character and digit.'
+                });
+                return;
+            }
+            const empidRegex = /^[0-9]{4,}$/;
+            if (!empidRegex.test(empid.value)) {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Employee ID should only contain digits and be at least 4 characters long.'
+                });
+                return;
+            }
+        }
 
 
         const profileImgInput = document.querySelector('#profile-img-input');
@@ -306,7 +361,7 @@
                 reader.addEventListener('load', () => {
                     profileImg.value = reader.result;
                     profileimgcard.style.display = "flex";
-                    profileimgcard.src=reader.result;
+                    profileimgcard.src = reader.result;
                 });
                 reader.readAsDataURL(file);
             }
@@ -317,7 +372,7 @@
 
         };
         var exampleModaladd = document.getElementById("ExampleModalAdd");
-        exampleModaladd.onclick=function(){
+        exampleModaladd.onclick = function () {
             fname.value = '';
             lname.value = '';
             mail.value = '';
@@ -329,28 +384,28 @@
             countryname.value = '';
             profiletext.value = '';
             userstatus.value = '';
-            profileImgInput.value='';
-            profileimgcard.style.display="none";
+            profileImgInput.value = '';
+            profileimgcard.style.display = "none";
         }
-        function userEdit(userId){
+        function userEdit(userId) {
             $.ajax({
-                url:'/Admin/Admin/UserEdit',
-                type:'POST',
-                data:{userId:userId},
-                success:function(result){
+                url: '/Admin/Admin/UserEdit',
+                type: 'POST',
+                data: { userId: userId },
+                success: function (result) {
                     myModal.classList.add("show");
                     myModal.style.display = "block";
-                    var user=result;
+                    var user = result;
                     console.log(user);
-                    fname.value=user.firstName;
-                    lname.value=user.lastName;
-                    mail.value=user.email;
-                    password.value=user.password;
-                    empid.value=user.employeeId;
+                    fname.value = user.firstName;
+                    lname.value = user.lastName;
+                    mail.value = user.email;
+                    password.value = user.password;
+                    empid.value = user.employeeId;
                     profileImg.value = user.avatar;
-                    department.value=user.department;
+                    department.value = user.department;
                     cityname.value = user.cityId;
-                    countryname.value=user.countryId;
+                    countryname.value = user.countryId;
                     profiletext.value = user.profileText;
                     userid.value = userId;
                     if (user.status == true) {
@@ -359,12 +414,12 @@
                     else {
                         userstatus.value = 'In-Active';
                     }
-                    profileimgcard.style.display="flex";
-                    profileimgcard.src=user.avatar;
+                    profileimgcard.style.display = "flex";
+                    profileimgcard.src = user.avatar;
                 }
             });
         }
-        function userDelete(userId){
+        function userDelete(userId) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success ms-2',
@@ -387,13 +442,13 @@
                         url: '/Admin/Admin/UserDelete',
                         type: 'POST',
                         data: { userId: userId },
-                        success:function(result){
+                        success: function (result) {
                             //$('#')
                             swalWithBootstrapButtons.fire(
                                 'Deleted!',
                                 'Your record has been deleted.',
                                 'success'
-                            ).then((res)=>{
+                            ).then((res) => {
                                 location.reload();
                             });
                         }

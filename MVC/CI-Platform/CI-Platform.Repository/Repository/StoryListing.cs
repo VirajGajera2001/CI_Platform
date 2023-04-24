@@ -38,7 +38,7 @@ namespace CI_Platform.Repository.Repository
         }
         public StoryMedium storymedia(Story stories)
         {
-            var storymedia = _objdb.StoryMedia.FirstOrDefault(sm => sm.StoryId == stories.StoryId);
+            var storymedia = _objdb.StoryMedia.FirstOrDefault(sm => sm.StoryId == stories.StoryId && sm.Type=="imag");
             return storymedia;
         }
         public User users(Story stories)
@@ -93,10 +93,10 @@ namespace CI_Platform.Repository.Repository
         public Story story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string Value, string[] videoUrls)
         {
             var story = _objdb.Stories.FirstOrDefault(st => st.MissionId == MissionId && st.UserId == UserId);
-            
+            Story storys = new Story();
             if (story == null &&Value=="save")
             {
-                Story storys = new Story();
+               
                 storys.Title = Title;
                 storys.MissionId = MissionId;
                 storys.UserId = UserId;
@@ -104,12 +104,12 @@ namespace CI_Platform.Repository.Repository
                 storys.StoryDescription = Description;
                 _objdb.Stories.Add(storys);
                 _objdb.SaveChanges();
-                var matchstory = _objdb.Stories.FirstOrDefault(s => s.UserId == UserId && s.MissionId == MissionId);
+                //var matchstory = _objdb.Stories.FirstOrDefault(s => s.UserId == UserId && s.MissionId == MissionId);
 
                 foreach (var item in Image)
                 {
                     StoryMedium storymedium = new StoryMedium();
-                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.StoryId = storys.StoryId;
                     storymedium.Type = "imag";
                     storymedium.Path = item;
                     _objdb.StoryMedia.Add(storymedium);
@@ -117,17 +117,17 @@ namespace CI_Platform.Repository.Repository
                 foreach(var item in videoUrls)
                 {
                     StoryMedium storymedium = new StoryMedium();
-                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.StoryId = storys.StoryId;
                     storymedium.Type = "video";
                     storymedium.Path = item;
                     _objdb.StoryMedia.Add(storymedium);
                 }
                 _objdb.SaveChanges();
-                return matchstory;
+                return storys;
             }
            else if (story == null && Value == "submit")
             {
-                Story storys = new Story();
+                //Story storys = new Story();
                 storys.Title = Title;
                 storys.MissionId = MissionId;
                 storys.UserId = UserId;
@@ -141,7 +141,7 @@ namespace CI_Platform.Repository.Repository
                 foreach (var item in Image)
                 {
                     StoryMedium storymedium = new StoryMedium();
-                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.StoryId = storys.StoryId;
                     storymedium.Type = "imag";
                     storymedium.Path = item;
                     _objdb.StoryMedia.Add(storymedium);
@@ -149,7 +149,7 @@ namespace CI_Platform.Repository.Repository
                 foreach (var item in videoUrls)
                 {
                     StoryMedium storymedium = new StoryMedium();
-                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.StoryId = storys.StoryId;
                     storymedium.Type = "video";
                     storymedium.Path = item;
                     _objdb.StoryMedia.Add(storymedium);

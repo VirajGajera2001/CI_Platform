@@ -55,7 +55,7 @@ namespace CI_Platform.Entities.Models
         public int? Rating { get; set; }
         public string? FirstName { get; set; }
         public string Email { get; set; } = null!;
-        public int? GoalValue { get; set; }
+        public long? GoalValue { get; set; }
         public int? Count { get; set; }
         public bool isapplied { get; set; }
     }

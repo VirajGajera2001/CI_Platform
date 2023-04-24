@@ -39,7 +39,7 @@ namespace CI_Platform.Repository.Repository
         }
         public List<Story> allstory()
         {
-            List<Story> stories=_objdb.Stories.Where(st=>st.Status=="pending").ToList();
+            List<Story> stories=_objdb.Stories.Where(st=>st.Status=="pending"&&st.DeletedAt==null).ToList();
             return stories;
         }
         public User edituser(long userId)
@@ -57,7 +57,7 @@ namespace CI_Platform.Repository.Repository
             List<Country> countries=_objdb.Countries.ToList();
             return countries;
         }
-        public void saveuser(UserView userView)
+        public void saveuser(UsersView userView)
         {
             var user=_objdb.Users.FirstOrDefault(u=>u.UserId == userView.UserId);
             if (user != null)
@@ -558,6 +558,16 @@ namespace CI_Platform.Repository.Repository
                     item.DeletedAt= DateTime.Now;
                     _objdb.MissionDocuments.Update(item);
                 }
+                _objdb.SaveChanges();
+            }
+        }
+        public void deletestory(long storyid)
+        {
+            var story=_objdb.Stories.FirstOrDefault(s=>s.StoryId== storyid);
+            if (story != null)
+            {
+                story.DeletedAt=DateTime.Now;
+                _objdb.Stories.Update(story);
                 _objdb.SaveChanges();
             }
         }

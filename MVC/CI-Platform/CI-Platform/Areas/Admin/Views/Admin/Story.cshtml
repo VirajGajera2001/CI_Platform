@@ -113,6 +113,9 @@
                                             <a type="button" class="border-0 ms-2" onclick="rejectStory(@item.StoryId)">
                                                 <i class="bi bi-x-circle text-danger"></i>
                                             </a>
+                                            <a type="button" class="border-0 ms-2" onclick="storyDelete(@item.StoryId)">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 }
@@ -125,7 +128,6 @@
     </div>
     <!-- /#page-content-wrapper -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -161,6 +163,16 @@
         $('#storyrecord').DataTable({
             "ordering": false,
             "lengthChange": false,
+            "pagingType": "full_numbers",
+            "oLanguage": {
+                "sEmptyTable": " ",
+                "oPaginate": {
+                    "sNext": '<i class="bi bi-chevron-right"></i>',
+                    "sPrevious": '<i class="bi bi-chevron-left"></i>',
+                    "sFirst": '<i class="bi bi-chevron-double-left"></i>',
+                    "sLast": '<i class="bi bi-chevron-double-right"></i>',
+                }
+            }
         });
         function approveStory(storyId){
             $.ajax({
@@ -190,6 +202,47 @@
                     })
                 }
             });
+        }
+        function storyDelete(storyid){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success ms-2',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/Admin/Admin/StoryDelete',
+                        type: 'POST',
+                        data: { storyid: storyid },
+                        success: function (result) {
+                            Swal.fire(
+                                'Story is deleted successfully'
+                            ).then((res)=>{
+                                location.reload();
+                            });
+                        }
+                    });
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled'
+                    )
+                }
+            })
         }
     </script>
 </body>

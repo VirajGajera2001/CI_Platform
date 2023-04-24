@@ -73,11 +73,11 @@ function addFav(missionId, Id) {
         success: function (result) {
             if (result.isLiked) {
                 var favbtn = document.getElementById("favoicon");
-                favbtn.style.color = "black";
+                favbtn.style.display = "none";
             }
             else {
                 var favbtn = document.getElementById("favoicon");
-                favbtn.style.color ="#F88634"
+                favbtn.style.display = "block";
             }
             location.reload();
         },

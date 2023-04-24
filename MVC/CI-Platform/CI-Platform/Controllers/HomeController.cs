@@ -11,6 +11,7 @@ using MailKit.Net.Imap;
 using CI_Platform.Entities.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MailKit.Search;
+using CI_Platform.Entities.AdminModels;
 
 namespace CI_Platform.Controllers
 {
@@ -323,7 +324,15 @@ namespace CI_Platform.Controllers
                     var goalvalue = _objLanding.goalmissions(mission);
                     if (goalvalue != null)
                     {
-                        missionView.GoalValue = goalvalue.GoalValue;
+                        var addallwork = _objLanding.goalrecord(goalvalue.MissionId);
+                        if (addallwork < goalvalue.GoalValue)
+                        {
+                            missionView.GoalValue = addallwork;
+                        }
+                        else
+                        {
+                            missionView.GoalValue = goalvalue.GoalValue;
+                        }
                     }
                     var isapplied = _objLanding.applied(int.Parse(userId), mission.MissionId);
                     if (isapplied != null)
@@ -355,6 +364,7 @@ namespace CI_Platform.Controllers
             }
 
         }
+        
         [HttpPost]
         public IActionResult Landing(string Title, string[] ToCountry, string[] ToCity, string[] ToTheme, string[] ToSkill, string sortValue, int pg = 1)
         {
@@ -476,7 +486,15 @@ namespace CI_Platform.Controllers
                 var goalvalue = _objLanding.goalmissions(mission);
                 if (goalvalue != null)
                 {
-                    missionView.GoalValue = goalvalue.GoalValue;
+                    var addallwork = _objLanding.goalrecord(goalvalue.MissionId);
+                    if (addallwork < goalvalue.GoalValue)
+                    {
+                        missionView.GoalValue = addallwork;
+                    }
+                    else
+                    {
+                        missionView.GoalValue = goalvalue.GoalValue;
+                    }
                 }
                 var isapplied = _objLanding.applied(int.Parse(userId), mission.MissionId);
                 if (isapplied != null)
@@ -585,7 +603,15 @@ namespace CI_Platform.Controllers
                     var goalvalue = _objLanding.goalmissions(mission);
                     if (goalvalue != null)
                     {
+                    var addallwork = _objLanding.goalrecord(goalvalue.MissionId);
+                    if (addallwork < goalvalue.GoalValue)
+                    {
+                        missionView.GoalValue = addallwork;
+                    }
+                    else
+                    {
                         missionView.GoalValue = goalvalue.GoalValue;
+                    }
                     }
                     var isapplied = _objLanding.applied(int.Parse(userId), mission.MissionId);
                     if (isapplied != null)
@@ -633,7 +659,20 @@ namespace CI_Platform.Controllers
                 ViewBag.RecentVolunteering = data;
                 var rating1 = _objVolunteer.missionratings(missions);
                 var goalvalue = _objVolunteer.goalmissions(missions);
-                MissionViewModel missionViewModels = new MissionViewModel();
+                
+                if (goalvalue != null)
+                {
+                var addallworks = _objLanding.goalrecord(goalvalue.MissionId);
+                if (addallworks < goalvalue.GoalValue)
+                {
+                    ViewBag.GoalVal = addallworks;
+                }
+                else
+                {
+                    ViewBag.GoalVal = goalvalue.GoalValue;
+                }
+                }  
+            MissionViewModel missionViewModels = new MissionViewModel();
                 List<Mission> missionlist = _objVolunteer.missions();
                 List<Comment> comments = _objVolunteer.comments();
                 List<CommentModel> commentModels = new List<CommentModel>();
@@ -713,8 +752,16 @@ namespace CI_Platform.Controllers
                     var goalvalues = _objLanding.goalmissions(mission);
                     if (goalvalues != null)
                     {
-                        missionView.GoalValue = goalvalues.GoalValue;
+                    var addallwork = _objLanding.goalrecord(goalvalue.MissionId);
+                    if (addallwork < goalvalue.GoalValue)
+                    {
+                        missionView.GoalValue = addallwork;
                     }
+                    else
+                    {
+                        missionView.GoalValue = goalvalue.GoalValue;
+                    }
+                }
                     var isapplieds = _objLanding.applied(int.Parse(userId), mission.MissionId);
                     if (isapplieds != null)
                     {
@@ -785,14 +832,13 @@ namespace CI_Platform.Controllers
                 {
                     ViewBag.AvgRating = 0;
                 }
-
                 ViewBag.Missions = missions;
                 ViewBag.count=missionmedia.Count();
                 ViewBag.relatedmission = rmv;
                 ViewBag.MissionTheme = theme;
                 ViewBag.City = city;
+                ViewBag.GoalValue = goalvalue;
                 ViewBag.AllUsers = users;
-                ViewBag.GoalVal = goalvalue;
                 ViewBag.ShowComm = commentModels;
                 ViewBag.missionId = MissionId;
                 ViewBag.Docs = docs;
@@ -898,7 +944,7 @@ namespace CI_Platform.Controllers
         {
             
             Comment comment=_objVolunteer.comments(missionId,userId,commentText);
-            if (comment == null)
+            if (comment != null)
             {
                 return Json(new { success = true });
             }

@@ -1,4 +1,5 @@
-﻿using CI_Platform.Entities.DataModels;
+﻿using CI_Platform.Entities.AdminModels;
+using CI_Platform.Entities.DataModels;
 using CI_Platform.Entities.Models;
 using CI_Platform.Repository.Interface;
 using System;
@@ -187,6 +188,11 @@ namespace CI_Platform.Repository.Repository
         {
             var find = _objdb.Timesheets.FirstOrDefault(ts => ts.TimesheetId == timesheetid);
             return find;
+        }
+
+        public void adduser(UsersView userViewModel, int v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

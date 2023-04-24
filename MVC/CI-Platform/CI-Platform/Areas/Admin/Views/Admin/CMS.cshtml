@@ -1,5 +1,9 @@
 ﻿
 @model CI_Platform.Entities.AdminModels.CMSView;
+@{
+    var avatar = Context.Session.GetString("Avatar");
+    var fname = Context.Session.GetString("FName");
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,14 +75,16 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="/CI-Imgs/user-img-large.png" alt="" class="adminimg">
-                                John Doe
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @if (avatar != null && fname != null)
+                            {
+                                    <img src="@avatar" alt="" class="adminimg">
+                                @fname
+                                ;
+                            }
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                                <li><a class="dropdown-item" onclick="location.href='@Url.Action("Login", "Home",new{Area=""})'">Logout</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -102,16 +108,16 @@
                                             <input type="hidden" name="CmsPageId" id="cmsid" asp-for="CmsPageId" />
 
                                         <label for="title">Page Title</label>
-                                            <input type="text" class="form-control" name="Title" placeholder="Enter page title" id="title" asp-for="Title">
+                                            <input type="text" class="form-control" name="Title" placeholder="Enter page title" id="title" asp-for="Title" required>
 
                                         <label for="page description" class="mt-2">Page Description</label>
-                                            <textarea name="editor1" class="form-control" id="editor1" name="Description" asp-for="Description"></textarea>
+                                            <textarea name="editor1" class="form-control" id="editor1" name="Description" asp-for="Description" required></textarea>
 
                                         <label for="slug" class="mt-2">Slug</label>
-                                        <input type="text" class="form-control" placeholder="Enter slug" id="slug" name="Slug" asp-for="Slug">
+                                            <input type="text" class="form-control" placeholder="Enter slug" id="slug" name="Slug" asp-for="Slug" required>
 
                                         <label for="status" class="mt-2">Status</label>
-                                        <select class="form-control form-select" id="cmsstatus" name="Status" asp-for="Status">
+                                            <select class="form-control form-select" id="cmsstatus" name="Status" asp-for="Status" required>
                                                 <option></option>
                                                 <option value="Active">Active</option>
                                                 <option value="In-Active">In-Active</option>
@@ -163,8 +169,6 @@
         </div>
     </div>
     <!-- /#page-content-wrapper -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");

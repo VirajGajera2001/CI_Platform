@@ -124,7 +124,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" asp-controller="Home" asp-action="UserProfile">My Profile</a></li>
-                            <li><a class="dropdown-item"  asp-controller="Home" asp-action="VolunteeringTimesheet">Volunteering Timesheet</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="VolunteeringTimesheet">Volunteering Timesheet</a></li>
                             <li><a class="dropdown-item" href="#">Help</a></li>
                             <li><a class="dropdown-item" asp-controller="Home" asp-action="Login">Logout</a></li>
                         </ul>
@@ -149,11 +149,12 @@
                     <ul class="dropdown-menu showing">
 
 
-                        @foreach (var item in ViewBag.CountryData){
-                        <li>
-                                <input class="form-check-input Checkme" value=@item.CountryId name="@item.Name" id="Checkme1" type="checkbox" onchange="searchMission()" />
-                            @item.Name
-                        </li>
+                        @foreach (var item in ViewBag.CountryData)
+                        {
+                            <li>
+                                <input class="form-check-input Checkme" value="@item.CountryId" name="@item.Name" id="Checkme1" type="checkbox" onchange="searchMission()" />
+                                @item.Name
+                            </li>
                         }
 
 
@@ -167,11 +168,12 @@
                         <img src="../CI-Imgs/drop-down.png" class="ic-down">
                     </button>
                     <ul class="dropdown-menu showing">
-                        @foreach (var item in ViewBag.CityData){
-                        <li>
+                        @foreach (var item in ViewBag.CityData)
+                        {
+                            <li>
                                 <input class="form-check-input Checkme" type="checkbox" value=@item.CityId name="@item.Name" id="Checkme2" onchange="searchMission()" />@item.Name
 
-                        </li>
+                            </li>
                         }
                     </ul>
                 </div>
@@ -203,7 +205,7 @@
                         @foreach (var item in ViewBag.SkillData)
                         {
                             <li>
-                                <input class="form-check-input Checkme" type="checkbox" value="@item.SkillId" name="@item.SkillName" id="Checkme4" onchange="searchMission()"/>@item.SkillName
+                                <input class="form-check-input Checkme" type="checkbox" value="@item.SkillId" name="@item.SkillName" id="Checkme4" onchange="searchMission()" />@item.SkillName
                             </li>
                         }
                     </ul>
