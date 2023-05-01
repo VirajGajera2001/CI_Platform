@@ -44,7 +44,7 @@ namespace CI_Platform.Repository.Repository
         }
         public IEnumerable<Mission> missions(int MissionId, Mission missions)
         {
-            var relatedmission = _objdb.Missions.Where(t => t.MissionId != MissionId && t.ThemeId == missions.ThemeId);
+            var relatedmission = _objdb.Missions.Where(t => t.MissionId != MissionId && t.ThemeId == missions.ThemeId && t.DeletedAt==null);
             return relatedmission;
         }
         public List<User> users()
@@ -185,7 +185,7 @@ namespace CI_Platform.Repository.Repository
             var isapplied = _objdb.MissionApplications.FirstOrDefault(ma => ma.MissionId == MissionId && ma.UserId == UserId);
             return isapplied;
         }
-        public bool applyMission(int MissionId, int UserId)
+        public void applyMission(int MissionId, int UserId)
         {
             MissionApplication ms=new MissionApplication();
             ms.MissionId = MissionId;
@@ -193,7 +193,6 @@ namespace CI_Platform.Repository.Repository
             ms.AppliedAt=DateTime.Now;
             _objdb.Add(ms);
             _objdb.SaveChanges();
-            return true;
         }
         public IEnumerable<MissionDocument> missiondocs(int MissionId)
         {
@@ -214,6 +213,11 @@ namespace CI_Platform.Repository.Repository
         {
             var media=_objdb.MissionMedia.Where(me=>me.MissionId==missionId).ToList();
             return media;
+        }
+        public List<MissionApplication> missionapplicationcount(int MissionId)
+        {
+            List<MissionApplication> missionApplications = _objdb.MissionApplications.Where(ma => ma.MissionId == MissionId).ToList();
+            return missionApplications;
         }
     }
 }

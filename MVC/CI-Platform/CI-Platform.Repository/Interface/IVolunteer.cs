@@ -28,10 +28,11 @@ namespace CI_Platform.Repository.Interface
         public Comment comments(long missionId, long userId, string commentText);
         public MissionApplication applied(int MissionId, long? UserId);
         public MissionApplication appliedmis(int MissionId, int UserId);
-        public bool applyMission(int MissionId, int UserId);
+        public void applyMission(int MissionId, int UserId);
         public IEnumerable<MissionDocument> missiondocs(int MissionId);
         public IEnumerable<FavouriteMission> favouritemissions(Mission mission, long? userId);
         public MissionApplication applied(long? userId, long MissionId);
         public List<MissionMedium> missionmedia(int missionId);
+        public List<MissionApplication> missionapplicationcount(int MissionId);
     }
 }

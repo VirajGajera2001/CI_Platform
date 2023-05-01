@@ -47,65 +47,71 @@ namespace CI_Platform.Repository.Repository
             var user= _objdb.Users.FirstOrDefault(u=> u.UserId == userId);
             return user;
         }
-        public List<City> allcity()
-        {
-            List<City> cities = _objdb.Cities.ToList();
-            return cities;
-        }
         public List<Country> allcountry()
         {
             List<Country> countries=_objdb.Countries.ToList();
             return countries;
         }
-        public void saveuser(UsersView userView)
+        public bool saveuser(UsersView userView)
         {
-            var user=_objdb.Users.FirstOrDefault(u=>u.UserId == userView.UserId);
-            if (user != null)
+            var mail = _objdb.Users.Where(u => u.Email == userView.Email);
+            if (userView.UserId == 0 && mail != null)
             {
-                user.FirstName= userView.FirstName;
-                user.LastName= userView.LastName;
-                user.Email= userView.Email;
-                user.Password= userView.Password;
-                user.EmployeeId= userView.EmployeeId;
-                user.Department= userView.Department;
-                user.CityId= userView.CityId;
-                user.CountryId= userView.CountryId;
-                user.ProfileText= userView.ProfileText;
-                if (userView.Status == "Active")
-                {
-                    user.Status = true;
-                }
-                else
-                {
-                    user.Status= false;
-                }
-                user.Avatar= userView.Avatar;
-                _objdb.Users.Update(user);
-                _objdb.SaveChanges();
+                return false;
             }
             else
             {
-                User user1 = new User();
-                user1.FirstName = userView.FirstName;
-                user1.LastName = userView.LastName;
-                user1.Email = userView.Email;
-                user1.Password = userView.Password;
-                user1.EmployeeId = userView.EmployeeId;
-                user1.Department = userView.Department;
-                user1.CityId = userView.CityId;
-                user1.CountryId = userView.CountryId;
-                user1.ProfileText = userView.ProfileText;
-                if (userView.Status == "Active")
+                var user = _objdb.Users.FirstOrDefault(u => u.UserId == userView.UserId);
+                if (user != null)
                 {
-                    user1.Status = true;
+                    user.FirstName = userView.FirstName;
+                    user.LastName = userView.LastName;
+                    user.Email = userView.Email;
+                    user.Password = userView.Password;
+                    user.EmployeeId = userView.EmployeeId;
+                    user.Department = userView.Department;
+                    user.CityId = userView.CityId;
+                    user.CountryId = userView.CountryId;
+                    user.ProfileText = userView.ProfileText;
+                    user.Role=userView.Role;
+                    if (userView.Status == "Active")
+                    {
+                        user.Status = true;
+                    }
+                    else
+                    {
+                        user.Status = false;
+                    }
+                    user.Avatar = userView.Avatar;
+                    _objdb.Users.Update(user);
+                    _objdb.SaveChanges();
                 }
                 else
                 {
-                    user1.Status = false;
+                    User user1 = new User();
+                    user1.FirstName = userView.FirstName;
+                    user1.LastName = userView.LastName;
+                    user1.Email = userView.Email;
+                    user1.Password = userView.Password;
+                    user1.EmployeeId = userView.EmployeeId;
+                    user1.Department = userView.Department;
+                    user1.CityId = userView.CityId;
+                    user1.CountryId = userView.CountryId;
+                    user1.ProfileText = userView.ProfileText;
+                    user1.Role = userView.Role;
+                    if (userView.Status == "Active")
+                    {
+                        user1.Status = true;
+                    }
+                    else
+                    {
+                        user1.Status = false;
+                    }
+                    user1.Avatar = userView.Avatar;
+                    _objdb.Users.Add(user1);
+                    _objdb.SaveChanges();
                 }
-                user1.Avatar = userView.Avatar;
-                _objdb.Users.Add(user1);
-                _objdb.SaveChanges();
+                return true;
             }
         }
         public void deleteuser(long userId)
@@ -376,7 +382,8 @@ namespace CI_Platform.Repository.Repository
         public void savemission(MissionView missionView, string[] selectedValues, string[] dataUrls, string[] docFiles, string[] docName, string videoUrls)
         {
             var findmission = _objdb.Missions.FirstOrDefault(m => m.MissionId == missionView.MissionId);
-            if (findmission != null )
+            
+            if (findmission != null)
             {
                 findmission.Title = missionView.Title;
                 findmission.ThemeId = missionView.ThemeId;
@@ -395,6 +402,13 @@ namespace CI_Platform.Repository.Repository
                 findmission.UpdatedAt = DateTime.Now;
                 findmission.Status = true;
                 _objdb.Missions.Update(findmission);
+                var goalmission = _objdb.GoalMissions.FirstOrDefault(gm => gm.MissionId == findmission.MissionId);
+                if (missionView.MissionType == "goal" && goalmission!=null)
+                {
+                    goalmission.GoalObjectiveText=missionView.GoalObjectiveText;
+                    goalmission.GoalValue=missionView.GoalValue;
+                    _objdb.GoalMissions.Update(goalmission);
+                }
                 List<MissionSkill> missionSkills = _objdb.MissionSkills.Where(ms => ms.MissionId == findmission.MissionId).ToList();
                 foreach(var item in missionSkills)
                 {
@@ -465,6 +479,20 @@ namespace CI_Platform.Repository.Repository
                 mission.Status = true;
                 _objdb.Missions.Add(mission);
                 _objdb.SaveChanges();
+                var goalmission = _objdb.GoalMissions.FirstOrDefault(gm => gm.MissionId == mission.MissionId);
+                if (missionView.MissionType == "goal" &goalmission!=null)
+                {
+                    goalmission.GoalObjectiveText = missionView.GoalObjectiveText;
+                    goalmission.GoalValue= missionView.GoalValue;
+                }
+                else
+                {
+                    GoalMission goalMission = new GoalMission();
+                    goalMission.MissionId = mission.MissionId;
+                    goalMission.GoalObjectiveText= missionView.GoalObjectiveText;
+                    goalMission.GoalValue=missionView.GoalValue;
+                    _objdb.Add(goalMission);
+                }
                 foreach(var item in selectedValues)
                 {
                     MissionSkill missionSkill = new MissionSkill();
@@ -506,6 +534,7 @@ namespace CI_Platform.Repository.Repository
         {
             MissionView missionView = new MissionView();
             var mission=_objdb.Missions.FirstOrDefault(m=>m.MissionId== missionId);
+            var goalmission = _objdb.GoalMissions.FirstOrDefault(gm => gm.MissionId == mission.MissionId && gm.DeletedAt==null);
             if (mission != null)
             {
                 missionView.MissionId = missionId;
@@ -528,6 +557,11 @@ namespace CI_Platform.Repository.Repository
                 List<MissionMedium> missionMedia = _objdb.MissionMedia.Where(mm => mm.MissionId == missionId && mm.DeletedAt==null).ToList();
                 missionView.missionMedia= missionMedia;
                 List<MissionDocument> missionDocuments = _objdb.MissionDocuments.Where(md => md.MissionId == missionId && md.DeletedAt == null).ToList();
+                if (goalmission != null)
+                {
+                    missionView.GoalObjectiveText= goalmission.GoalObjectiveText;
+                    missionView.GoalValue= goalmission.GoalValue;
+                }
                 missionView.missionDocuments= missionDocuments;
             }
             return missionView;
@@ -535,6 +569,7 @@ namespace CI_Platform.Repository.Repository
         public void deletemission(long missionId)
         {
             var findmission = _objdb.Missions.FirstOrDefault(m => m.MissionId == missionId);
+            var goalmission = _objdb.GoalMissions.FirstOrDefault(gm => gm.MissionId == findmission.MissionId);
             if (findmission != null)
             {
                 findmission.DeletedAt= DateTime.Now;
@@ -558,6 +593,11 @@ namespace CI_Platform.Repository.Repository
                     item.DeletedAt= DateTime.Now;
                     _objdb.MissionDocuments.Update(item);
                 }
+                if (goalmission != null)
+                {
+                    goalmission.DeletedAt= DateTime.Now;
+                    _objdb.GoalMissions.Update(goalmission);
+                }
                 _objdb.SaveChanges();
             }
         }
@@ -570,6 +610,47 @@ namespace CI_Platform.Repository.Repository
                 _objdb.Stories.Update(story);
                 _objdb.SaveChanges();
             }
+        }
+        public bool findthememission(long themeid)
+        {
+            List<Mission> missions = _objdb.Missions.Where(m => m.ThemeId == themeid).ToList();
+            if (missions.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool findskillmission(long skillId)
+        {
+            List<MissionSkill> missionskill = _objdb.MissionSkills.Where(m => m.SkillId == skillId).ToList();
+            if (missionskill.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool missionapply(long missionId)
+        {
+            List<MissionApplication> missionApplications = _objdb.MissionApplications.Where(ma => ma.MissionId == missionId).ToList();
+            if(missionApplications.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public List<City> getallcity(long countryId)
+        {
+            List<City> cities = _objdb.Cities.Where(c => c.CountryId == countryId).ToList();
+            return cities;
         }
     }
 }

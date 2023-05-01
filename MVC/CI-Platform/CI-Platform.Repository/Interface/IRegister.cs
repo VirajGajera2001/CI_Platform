@@ -21,5 +21,6 @@ namespace CI_Platform.Repository.Interface
         public User forget(ForgetModel model);
 
         public int passres(PasswordReset model);
+        public List<Banner> getbanners();
     }
 }

@@ -13,7 +13,6 @@ namespace CI_Platform.Entities.AdminModels
         public List<Mission> missions = new List<Mission>();
         public List<MissionTheme> missionThemes= new List<MissionTheme>();
         public List<Country> countries= new List<Country>();
-        public List<City> citys= new List<City>();
         public List<Skill> skills= new List<Skill>();
         public List<MissionMedium> missionMedia= new List<MissionMedium>();
         public List<MissionDocument> missionDocuments= new List<MissionDocument>();
@@ -32,9 +31,9 @@ namespace CI_Platform.Entities.AdminModels
 
         public string? Description { get; set; }
 
-        public DateTime? StartDate { get; set; }
+        public DateOnly? StartDate { get; set; }
 
-        public DateTime? EndDate { get; set; }
+        public DateOnly? EndDate { get; set; }
 
         public string MissionType { get; set; } = null!;
 
@@ -48,5 +47,8 @@ namespace CI_Platform.Entities.AdminModels
         public int? SeatsAvailable { get; set; }
         public DateTime? Deadline { get; set; }
         public long[] SkillId { get; set; } = null!;
+        public string? GoalObjectiveText { get; set; }
+
+        public int GoalValue { get; set; }
     }
 }

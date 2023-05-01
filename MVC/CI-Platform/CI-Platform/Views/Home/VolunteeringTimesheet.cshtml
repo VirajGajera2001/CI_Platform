@@ -1,4 +1,8 @@
-﻿
+﻿@{
+    var name = Context.Session.GetString("FName");
+    var avatar = Context.Session.GetString("Avatar");
+    var userId = Context.Session.GetString("UserId");
+}
 @model CI_Platform.Entities.Models.TimesheetViewModel;
 <!DOCTYPE html>
 <html lang="en">
@@ -19,10 +23,7 @@
                 <div class="navleft d-flex">
                     <a asp-controller="Home" asp-action="Story_Listing" class="text-decoration-none" style="color: black;">Story</a>
                     <div class="dropdown ms-5">
-                        <button class="bg-white border-0 p-0" type="button" data-bs-toggle="dropdown" id="dropdownMenuButton">
-                            <span>Policy</span>
-                            <img src="../CI-Imgs/drop-down.png" class="ic-downs">
-                        </button>
+                        <a asp-controller="Home" asp-action="Policy" class="text-decoration-none" style="color: black;">Policy</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li><a class="dropdown-item" href="#">Policy1</a></li>
                             <li><a class="dropdown-item" href="#">Policy2</a></li>
@@ -34,15 +35,20 @@
                     <div class="dropdown ms-5">
                         <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
                             <img src="../CI-Imgs/bell.png" alt="">
-                            <img src="../CI-Imgs/user-img.png" alt="" class="profileimg">
-                            <span>John Doe</span>
+                            <img src="@avatar" class="profileimg">
+                            @if (@name != null)
+                            {
+
+                                <span>@name</span>
+
+                            }
                             <img src="../CI-Imgs/drop-down.png" class="ic-down">
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" asp-controller="Home" asp-action="UserProfile">My Profile</a></li>
                             <li><a class="dropdown-item" asp-controller="Home" asp-action="VolunteeringTimesheet">Volunteering Timesheet</a></li>
                             <li><a class="dropdown-item" href="#">Help</a></li>
-                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Login">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -71,27 +77,27 @@
                                     <div class="modal-body">
                                             <input type="hidden" asp-for="TimesheetId" id="timesheetid2" />
                                             <label for="MissionName" class="mt-3">Mission</label>
-                                            <select class="form-control form-select" asp-items="@Model.missionstime" asp-for="MissionId" id="missionnametime">
+                                            <select class="form-control form-select" asp-items="@Model.missionstime" asp-for="MissionId" id="missionnametime" required>
                                                 <option>Enter your mission</option>
                                             </select>
                                             <label for="Date" class="mt-3">Date Volunteered</label>
-                                            <input type="date" value="" class="form-control" asp-for="DateVolunteered" id="datevolunteertime">
+                                            <input type="date" value="" class="form-control" asp-for="DateVolunteered" id="datevolunteertime" required onfocusout="checkvaliddate(this.value)">
 
                                             <div class="container-fluid p-0">
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <label for="Hours" class="mt-3">Hours</label>
-                                                        <input type="text" class="form-control" asp-for="Timehour" id="timehour">
+                                                        <input type="text" class="form-control" asp-for="Timehour" id="timehour" required>
                                                     </div>
                                                     <div class="col-6">
                                                         <label for="Minutes" class="mt-3">Minutes</label>
-                                                        <input type="text" class="form-control" asp-for="Timeminute" id="timeminute">
+                                                        <input type="text" class="form-control" asp-for="Timeminute" id="timeminute" onfocusout="checkminute()" required>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <label for="Message" class="mt-3">Message</label>
-                                            <textarea placeholder="Enter your message" class="form-control" asp-for="Notes" id="notestime"></textarea>
+                                            <textarea placeholder="Enter your message" class="form-control" asp-for="Notes" id="notestime" required></textarea>
                                        
                                     </div>
                                     <div class="modal-footer">
@@ -159,18 +165,18 @@
                                             <input type="hidden" asp-for="TimesheetId" id="timesheetid"/>
                                         
                                             <label for="MissionName" class="mt-3">Mission</label>
-                                            <select class="form-control form-select" asp-items="@Model.missionsgoal" asp-for="MissionId" id="missionname">
+                                            <select class="form-control form-select" asp-items="@Model.missionsgoal" asp-for="MissionId" id="missionname" required>
                                                 <option>Enter your mission</option>
                                             </select>
 
                                             <label for="Action" class="mt-3">Actions</label>
-                                            <input type="text" class="form-control" placeholder="Enter Actions" asp-for="Action" id="missionaction">
+                                            <input type="text" class="form-control" placeholder="Enter Actions" asp-for="Action" id="missionaction" required>
 
                                             <label for="Date" class="mt-3">Date Volunteered</label>
-                                            <input type="date" value="" asp-for="DateVolunteered" class="form-control" id="datevolunteer">
+                                            <input type="date" value="" asp-for="DateVolunteered" class="form-control" id="datevolunteer" required onfocusout="checkdategoal(this.value)">
 
                                             <label for="Message" class="mt-3">Message</label>
-                                            <textarea asp-for="Notes" placeholder="Enter your message" class="form-control" id="goalnote"></textarea>
+                                            <textarea asp-for="Notes" placeholder="Enter your message" class="form-control" id="goalnote" required></textarea>
                                         
                                     </div>
                                     <div class="modal-footer">
@@ -316,6 +322,49 @@
                     minute.value = timerecord.time.split(":")[1];
                     notetime.value = timerecord.notes;
                     timeidtime.value = timerecord.timesheetId;
+                }
+            });
+        }
+        function checkminute(){
+            if(minute.value>60){
+                alert("please enter minutes between 1 to 60");
+            }
+        }
+        function checkvaliddate(volundate){
+            var misid=document.getElementById("missionnametime").value;
+            $.ajax({
+                url:'/Home/CheckDate',
+                type:'POST',
+                data: { missionid: misid, volundate: volundate },
+                success:function(result){
+                    if(result.message!=null){
+                        Swal.fire({
+                        icon:'error',
+                        title:`${result.message}`
+                    });
+                    }
+                    if(result.success==true){
+
+                    } 
+                }
+            })
+        }
+        function checkdategoal(volundate) {
+            var misid=mis.value;
+            $.ajax({
+                url: '/Home/CheckDate',
+                type:'POST',
+                data: { missionid: misid, volundate: volundate },
+                success:function(result){
+                    if(result.message!=null){
+                        Swal.fire({
+                            icon: 'error',
+                            title: `${result.message}`
+                        });
+                    }
+                    if (result.success == true) {
+
+                    }
                 }
             });
         }

@@ -285,13 +285,21 @@
                         type: 'POST',
                         data: { skillId: skillId },
                         success: function (result) {
-                            swalWithBootstrapButtons.fire(
+                            if(result.success==false){
+                                Swal.fire(
+                                    'This skill is used in mission',
+                                    'So, you cannnot delete it'
+                                )
+                            }
+                            else{
+                                swalWithBootstrapButtons.fire(
                                 'Deleted!',
                                 'Your record has been deleted.',
                                 'success'
                             ).then((res) => {
                                 location.reload();
                             });
+                            }
                         }
                     });
                 } else if (

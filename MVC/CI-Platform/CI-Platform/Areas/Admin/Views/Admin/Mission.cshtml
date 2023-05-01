@@ -104,7 +104,7 @@
                                             <div class="container-fluid p-0">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <input type="hidden" name="MissionId" asp-for="MissionId" id="missionId"/>
+                                                        <input type="hidden" name="MissionId" asp-for="MissionId" id="missionId" />
                                                         <label for="title">Mission Title</label>
                                                         <input type="text" class="form-control" placeholder="Enter title" name="Title" asp-for="Title" id="title" required />
                                                     </div>
@@ -123,7 +123,7 @@
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="country">Country</label>
-                                                        <Select class="form-control form-select" name="CountryId" asp-for="CountryId" id="countryid" required>
+                                                        <Select class="form-control form-select" name="CountryId" asp-for="CountryId" id="countryid" required onchange="getCity(this.value)">
                                                             <option value=""></option>
                                                             @foreach (var item in Model.countries)
                                                             {
@@ -134,11 +134,7 @@
                                                     <div class="col-4">
                                                         <label for="city">city</label>
                                                         <Select class="form-control form-select" name="CityId" asp-for="CityId" id="cityid" required>
-                                                            <option value=""></option>
-                                                            @foreach (var item in Model.citys)
-                                                            {
-                                                                <option value="@item.CityId">@item.Name</option>
-                                                            }
+                                                            <option value="">Please Select Country</option>
                                                         </Select>
                                                     </div>
                                                     <div class="col-4">
@@ -147,15 +143,18 @@
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="sdate">Mission start date</label>
-                                                        <input type="date" class="form-control" placeholder="Enter start date" name="StartDate" asp-for="StartDate" id="sdate"required>
+                                                        <input type="date" class="form-control" placeholder="Enter start date" name="StartDate" asp-for="StartDate" id="sdate" required>
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="edate">Mission end date</label>
-                                                        <input type="date" class="form-control" placeholder="Enter end date" name="EndDate" asp-for="EndDate" id="edate" required>
+                                                        <input type="date" class="form-control" placeholder="Enter end date" name="EndDate" asp-for="EndDate" id="edate" onfocusout="checkdate()">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="type">Mission Type</label>
-                                                        <input type="text" class="form-control" placeholder="Enter mission type" name="MissionType" asp-for="MissionType" id="mtype" required>
+                                                        <select class="form-control form-select select" name="MissionType" asp-for="MissionType" id="mtype" onchange="enableBox()">
+                                                            <option value="time">Time</option>
+                                                            <option value="goal">Goal</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="seats">Total Seats</label>
@@ -163,7 +162,8 @@
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="deadline">Mission Deadline</label>
-                                                        <input type="date" class="form-control" placeholder="Enter deadline if mission is time base" name="Deadline" asp-for="Deadline" id="deadline" required>
+                                                        <input type="date" class="form-control" placeholder="Enter deadline if mission is time base" name="Deadline" asp-for="Deadline" id="deadline" onfocusout="checkdate()">
+                                                        <input type="text" class="form-control d-none" id="goalvaluebox" name="GoalValue" asp-for="GoalValue" />
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="theme">Mission Theme</label>
@@ -174,6 +174,10 @@
                                                                 <option value="@item.MissionThemeId">@item.Title</option>
                                                             }
                                                         </select>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label for="goal" class="d-none" id="goallabel">Goal Objective Text</label>
+                                                        <input type="text" id="goaltext" class="form-control d-none" name="GoalObjectiveText" asp-for="GoalObjectiveText" />
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="availability">Mission Availability</label>
@@ -186,7 +190,7 @@
                                                     <div class="col-4">
                                                         <label for="image">Mission Images</label>
                                                         <input type="file" id="missionimg" class="form-control" name="images[]" multiple required>
-                                                        
+
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="documents">Mission Documents</label>
@@ -206,13 +210,11 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <label for="video">Mission Video</label>
-                                                        <textarea rows="4" class="form-control" id="missionvideo" required></textarea>
+                                                        <textarea rows="4" class="form-control" id="missionvideo" required onfocusout="checkdate()"></textarea>
                                                     </div>
                                                     <div class="col-12 image-preview d-flex mt-3 flex-wrap">
-
                                                     </div>
                                                     <div class="col-12 doc-preview d-flex mt-3 flex-wrap">
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -267,8 +269,14 @@
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
         var dashboadtime = document.getElementById("dashboadtime");
-        var myModal=document.getElementById("exampleModalmissionadd");
+        var myModal = document.getElementById("exampleModalmissionadd");
         var modalclose = document.getElementById("btnclose");
+
+        var goalbox = document.getElementById("goalvaluebox");
+        var deadline = document.getElementById("deadline");
+        var type = document.getElementById("mtype").value;
+        var goaltext = document.getElementById("goaltext");
+        var goallabel = document.getElementById("goallabel");
 
         function currentTime() {
             var time = new Date();
@@ -316,21 +324,63 @@
             }
         });
 
+
         // missionrecordbtn
         var missionrecordFilter = document.getElementById("missionrecord_filter");
         var button = document.createElement("button");
         button.innerHTML = `<i class="bi bi-plus">Add</i>`;
         button.classList.add("btn", "btn-outline-warning", "rounded-pill", "addbtn");
         button.setAttribute("data-bs-toggle", "modal");
-        button.setAttribute("id","ExampleModalAdd");
+        button.setAttribute("id", "ExampleModalAdd");
         button.setAttribute("data-bs-target", "#exampleModalmissionadd")
         missionrecordFilter.appendChild(button);
 
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-right',
+            iconColor: 'white',
+            customClass: {
+                popup: 'colored-toast'
+            },
+            showConfirmButton: false,
+            timer: 1800
+        });
+
+        function checkdate() {
+            var ddate = document.getElementById("deadline").value;
+            var sdate = document.getElementById("sdate").value;
+            var edate = document.getElementById("edate").value;
+            var video = document.getElementById("missionvideo").value;
+            let result = video.includes("www.youtube.com");
+            if (edate < sdate) {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Please enter enddate greater than startdate'
+                });
+                $('#edate').val('');
+                return false;
+            }
+            if (ddate < sdate) {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Please enter deadline greater than startdate'
+                });
+                $('#deadline').val('');
+                return false;
+            }
+            if (result == false) {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Please enter only youtube urls'
+                });
+            }
+        }
+
         const dataUrls = [];
-        const docUrls=[];
-        const docName=[];
+        const docUrls = [];
+        const docName = [];
         const input = document.querySelector('#missionimg');
-        const inputdocs=document.querySelector("#missiondocs");
+        const inputdocs = document.querySelector("#missiondocs");
         $(document).ready(function () {
             input.addEventListener('change', (event) => {
                 // Get the selected files
@@ -344,8 +394,8 @@
                     reader.addEventListener('load', () => {
                         // Print the data URL of the image to the console
                         const id = Date.now();
-                        dataUrls.push({url:reader.result,id});
-                        addImage(reader.result,id);
+                        dataUrls.push({ url: reader.result, id });
+                        addImage(reader.result, id);
                     });
 
                     // Read the selected file as a data URL
@@ -359,8 +409,8 @@
                     const readerdoc = new FileReader();
                     readerdoc.addEventListener('load', () => {
                         const id = Date.now();
-                        docUrls.push({URLS: readerdoc.result, id });
-                        docName.push({name:file.name,id});
+                        docUrls.push({ URLS: readerdoc.result, id });
+                        docName.push({ name: file.name, id });
                         addDocs(file.name, id, docfile.length);
                     });
                     readerdoc.readAsDataURL(file);
@@ -369,41 +419,55 @@
 
             $("#btnsubmit").click(function (e) {
                 e.preventDefault();
-                var selectElement = document.getElementById("selectskills");
-                var selectedValues = Array.from(selectElement.selectedOptions).map(option => option.value);
-                var files=dataUrls.map(file=>file.url);
-                var docFiles = docUrls.map(file => file.URLS);
-                var docNames=docName.map(file=>file.name);
-                var videoUrls = $("#missionvideo").val();
-                var valdata = $('#missionform').serializeArray().reduce(function (obj, item) {
-                    obj[item.name] = item.value;
-                    return obj;
-                }, {});
-                $.ajax({
-                    url: '/Admin/Admin/Mission',
-                    type: 'POST',
-                    data: { selectedValues: selectedValues, "dataUrls": files, "docFiles": docFiles, "docName": docNames, "videoUrls": videoUrls, missionView: valdata },
-                    success: function (result) {
-                        location.reload();
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors
-                    }
-                });
+                var mtitle = document.getElementById("title").value;
+                var oname = document.getElementById("oname").value;
+                var sdesc = document.getElementById("sdescription").value;
+                if (mtitle == "" || oname == "" || sdesc == "") {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Please fill in all the required fields.'
+                    });
+                    return false;
+                }
+                else {
+                    var selectElement = document.getElementById("selectskills");
+                    var selectedValues = Array.from(selectElement.selectedOptions).map(option => option.value);
+                    var files = dataUrls.map(file => file.url);
+                    var docFiles = docUrls.map(file => file.URLS);
+                    var docNames = docName.map(file => file.name);
+                    var videoUrls = $("#missionvideo").val();
+                    $('#mtype').prop('disabled', false);
+                    var valdata = $('#missionform').serializeArray().reduce(function (obj, item) {
+                        obj[item.name] = item.value;
+                        return obj;
+                    }, {});
+                    $.ajax({
+                        url: '/Admin/Admin/Mission',
+                        type: 'POST',
+                        data: { selectedValues: selectedValues, "dataUrls": files, "docFiles": docFiles, "docName": docNames, "videoUrls": videoUrls, missionView: valdata },
+                        success: function (result) {
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle errors
+                        }
+                    });
+                }
             });
         });
 
         var exampleModaladd = document.getElementById("ExampleModalAdd");
-        exampleModaladd.onclick=function(){
+        exampleModaladd.onclick = function () {
             $('#missionId').val(''); $('#title').val(''); $('#sdescription').val(''); CKEDITOR.instances['CKeditor'].setData('');
             $('#countryid').val(''); $('#cityid').val(''); $('#odetail').val(''); $('#sdate').val(''); $('#oname').val('');
             $('#edate').val(''); $('#mtype').val(''); $('#availseats').val(''); $('#deadline').val(''); $('#themeid').val('');
-            $('#availability').val(''); $('#missionvideo').val('');
-            $('#selectskills').find('option:selected').prop('selected', false);
+            $('#availability').val(''); $('#missionvideo').val(''); $('#goaltext').val('');
+            $('#selectskills').find('option:selected').prop('selected', false); $('#goalvaluebox').val('');
             dataUrls.length = 0; docUrls.length = 0; docName.length = 0; $('.image-preview').empty(); $('.doc-preview').empty();
+            goaltext.classList.add("d-none"); goallabel.classList.add("d-none"); goalbox.classList.add("d-none"); deadline.classList.remove("d-none");
         }
 
-        function addImage(dataUrl,id){
+        function addImage(dataUrl, id) {
             const imagePreview = document.querySelector('.image-preview');
             const imageContainer = document.createElement('div');
             const image = new Image();
@@ -441,34 +505,34 @@
             });
         }
 
-        function addDocs(docurls,id){
+        function addDocs(docurls, id) {
             const docPreview = document.querySelector(".doc-preview");
-            const doccontainer=document.createElement("div");
+            const doccontainer = document.createElement("div");
             const p = document.createElement("p");
-            const removedocbtn=document.createElement('a');
+            const removedocbtn = document.createElement('a');
             doccontainer.classList.add("doc-container");
-            p.innerHTML=docurls;
-            p.dataset.id=id;
-            removedocbtn.classList.add("remove-docbtn","btn");
+            p.innerHTML = docurls;
+            p.dataset.id = id;
+            removedocbtn.classList.add("remove-docbtn", "btn");
             p.classList.add("mt-2");
             removedocbtn.innerHTML = '<i class="bi bi-trash-fill text-danger p-0"></i>';
             doccontainer.appendChild(p);
             doccontainer.appendChild(removedocbtn);
             docPreview.appendChild(doccontainer);
-            removedocbtn.addEventListener('click',function(){
-                const index=docUrls.findIndex(f=>f.id===id);
-                if(index!==-1)docUrls.splice(index,1);
-                docName.splice(index,1);
+            removedocbtn.addEventListener('click', function () {
+                const index = docUrls.findIndex(f => f.id === id);
+                if (index !== -1) docUrls.splice(index, 1);
+                docName.splice(index, 1);
                 doccontainer.remove();
                 inputdocs.value = '';
-                removedocbtn.addEventListener('click',function(){
+                removedocbtn.addEventListener('click', function () {
                     const index = docUrls.findIndex(f => f.id === id);
-                    if(index!==-1){
-                        docUrls.splice(index,1);
-                        docName.splice(index,1);
+                    if (index !== -1) {
+                        docUrls.splice(index, 1);
+                        docName.splice(index, 1);
                     }
                     doccontainer.remove();
-                    inputdocs.value='';
+                    inputdocs.value = '';
                 });
             });
         }
@@ -485,23 +549,23 @@
 
         };
 
-        function missionEdit(missionId){
+        function missionEdit(missionId) {
             $.ajax({
-                url:'/Admin/Admin/MissionEdit',
-                type:'POST',
-                data:{missionId:missionId},
-                success:function(result){
+                url: '/Admin/Admin/MissionEdit',
+                type: 'POST',
+                data: { missionId: missionId },
+                success: function (result) {
                     myModal.classList.add("show");
                     myModal.style.display = "block";
                     dataUrls.length = 0; docUrls.length = 0; docName.length = 0; $('.image-preview').empty(); $('.doc-preview').empty();
                     $('#missionvideo').val('');
-                    var mission=result.mission;
-                    var SkillId=result.missionSkillId;
-                    var missionUrl=result.missionUrl;
-                    var missiondoc=result.missiondoc;
+                    var mission = result.mission;
+                    var SkillId = result.missionSkillId;
+                    var missionUrl = result.missionUrl;
+                    var missiondoc = result.missiondoc;
                     $('#missionId').val(mission.missionId); $('#title').val(mission.title); $('#sdescription').val(mission.shortDescription);
                     CKEDITOR.instances['CKeditor'].setData(mission.description);
-                    $('#countryid').val(mission.countryId); $('#cityid').val(mission.cityId); $('#odetail').val(mission.organizationDetalis);
+                    $('#countryid').val(mission.countryId); getCity(mission.countryId); $('#odetail').val(mission.organizationDetalis);
                     var sdate = new Date(mission.startDate);
                     var startDate = sdate.getFullYear() + "-" + (sdate.getMonth() + 1).toString().padStart(2, '0') + "-" + sdate.getDate().toString().padStart(2, '0');
                     $('#sdate').val(startDate); $('#oname').val(mission.organizationName);
@@ -511,44 +575,98 @@
                     var ddate = new Date(mission.deadline);
                     var deadlineDate = ddate.getFullYear() + "-" + (ddate.getMonth() + 1).toString().padStart(2, '0') + "-" + ddate.getDate().toString().padStart(2, '0');
                     $('#deadline').val(deadlineDate); $('#themeid').val(mission.themeId); $('#availability').val(mission.availability);
-                    missionUrl.forEach(function (medium){
-                        if (medium.mediaType=="video"){
+                    missionUrl.forEach(function (medium) {
+                        if (medium.mediaType == "video") {
                             $('#missionvideo').val(medium.mediaPath);
                         }
-                        else{
+                        else {
                             const id = Date.now();
                             dataUrls.push({ url: medium.mediaPath, id });
                             addImage(medium.mediaPath, id);
                         }
                     });
-
-                    SkillId.forEach(function(id){
+                    $('#mtype').prop('disabled', true);
+                    SkillId.forEach(function (id) {
                         $('#selectskills').find('option[value="' + id + '"]').prop('selected', true);
                     });
-                    missiondoc.forEach(function(doc){
+                    missiondoc.forEach(function (doc) {
                         const id = Date.now();
                         docUrls.push({ URLS: doc.docPath, id });
                         docName.push({ name: doc.docName, id });
                         addDocs(doc.docName, id);
                     });
+                    if (mission.missionType == "goal") {
+                        goalbox.classList.remove("d-none");
+                        deadline.classList.add("d-none");
+                        goaltext.classList.remove("d-none");
+                        goallabel.classList.remove("d-none");
+                        $('#goalvaluebox').val(mission.goalValue);
+                        $('#goaltext').val(mission.goalObjectiveText);
+                    }
 
                 },
-                error:function(){
+                error: function () {
                     alert("could not like mission");
                 }
             });
         }
-        function missionDelete(missionId){
+        function missionDelete(missionId) {
             $.ajax({
-                url:'/Admin/Admin/MissionDelete',
+                url: '/Admin/Admin/MissionDelete',
+                type: 'POST',
+                data: { missionId: missionId },
+                success: function (result) {
+                    if (result.success == false) {
+                        Swal.fire(
+                            'Some user is applied in mission',
+                            'So you cannot delete it'
+                        )
+                    }
+                    else {
+                        Swal.fire(
+                            'Your Mission Is Deleted'
+                        ).then((res) => {
+                            location.reload();
+                        })
+                    }
+                }
+            })
+        }
+        function enableBox() {
+
+            var goalbox = document.getElementById("goalvaluebox");
+            var deadline = document.getElementById("deadline");
+            var type = document.getElementById("mtype").value;
+            var goaltext = document.getElementById("goaltext");
+            var goallabel = document.getElementById("goallabel");
+            if (type == "goal") {
+                goalbox.classList.remove("d-none");
+                deadline.classList.add("d-none");
+                goaltext.classList.remove("d-none");
+                goallabel.classList.remove("d-none");
+            }
+            if (type == "time") {
+                goaltext.classList.add("d-none");
+                goallabel.classList.add("d-none");
+                goalbox.classList.add("d-none");
+                deadline.classList.remove("d-none");
+                goalbox.value = ''; goaltext.value = '';
+            }
+        }
+        function getCity(countryId){
+            $.ajax({
+                url:'/Admin/Admin/GetCity',
                 type:'POST',
-                data:{missionId:missionId},
+                data:{countryId:countryId},
                 success:function(result){
-                    Swal.fire(
-                        'Your Mission Is Deleted'
-                    ).then((res)=>{
-                        location.reload();
-                    })
+                    var cityid=document.getElementById("cityid");
+                    cityid.innerHTML='';
+                    result.forEach(function(city){
+                        var citytag=document.createElement("option");
+                        citytag.value=city.cityId;
+                        citytag.innerHTML=city.name;
+                        cityid.appendChild(citytag);
+                    });
                 }
             })
         }

@@ -221,7 +221,20 @@
     width: 18px;
     height: 20px;
 }
-.closed-btn {
+.closed-btnpending {
+    border-top-right-radius: 18px;
+    left: 0;
+    opacity: 0.6;
+    color: white;
+    border-color: transparent;
+    border-bottom-right-radius: 18px;
+    background-color: #f0ad4e;
+    padding: 0 6px;
+    width: 7.5rem;
+    height: 2rem;
+    margin-top: 0.7rem !important;
+}
+.closed-btnapprove {
     border-top-right-radius: 18px;
     left: 0;
     opacity: 0.6;
@@ -256,6 +269,7 @@
     margin-top:25px;
     height:50px;
     justify-content:space-between;
+    text-align:center;
 }
 .modaltext {
     height: 200px;

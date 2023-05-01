@@ -37,17 +37,27 @@ namespace CI_Platform.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            HttpContext.Session.Remove("Avatar");
-            return View();
+            LoginModel loginModel=new LoginModel();
+            List<Banner> banners = _objRegister.getbanners();
+            loginModel.banners = banners;
+            HttpContext.Session.Clear();
+            return View(loginModel);
         }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
         {
+            List<Banner> banners = _objRegister.getbanners();
+            model.banners= banners;
             if (ModelState.IsValid)
             {
                 var user = _objRegister.loguser(model);
+                if(user!=null && user.DeletedAt != null)
+                {
+                    ModelState.AddModelError("Email", "User does no exists");
+                    return View(model);
+                }
                 if (user != null && user.Role=="user")
                 {
                     HttpContext.Session.SetString("FName", user.FirstName);
@@ -64,7 +74,7 @@ namespace CI_Platform.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("Email", "User is already exists please go to register");
+                    ModelState.AddModelError("Email", "Login Credential is Wrong");
                     return View(model);
                 }
             }
@@ -182,6 +192,9 @@ namespace CI_Platform.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Reset(Resetpass respa)
         {
+            LoginModel loginModel = new LoginModel();
+            List<Banner> banners = _objRegister.getbanners();
+            loginModel.banners = banners;
             // Find the user by email
             var user = _objRegister.Pass(respa);
             if (user == null)
@@ -200,7 +213,7 @@ namespace CI_Platform.Controllers
             bool istrue = _objRegister.AddPass(respa);
             if (istrue)
             {
-                return View("Login");
+                return View("Login",loginModel);
             }
             return View();
         }
@@ -337,11 +350,11 @@ namespace CI_Platform.Controllers
                     var isapplied = _objLanding.applied(int.Parse(userId), mission.MissionId);
                     if (isapplied != null)
                     {
-                        missionView.isapplied = true;
+                        missionView.isapplied = isapplied.ApprovalStatus;
                     }
                     else
                     {
-                        missionView.isapplied = false;
+                        missionView.isapplied = null;
                     }
                     missionViewModels.Add(missionView);
                 }
@@ -499,11 +512,11 @@ namespace CI_Platform.Controllers
                 var isapplied = _objLanding.applied(int.Parse(userId), mission.MissionId);
                 if (isapplied != null)
                 {
-                    missionView.isapplied = true;
+                    missionView.isapplied = isapplied.ApprovalStatus;
                 }
                 else
                 {
-                    missionView.isapplied = false;
+                    missionView.isapplied = null;
                 }
                 missionViewModels.Add(missionView);
             }
@@ -616,11 +629,11 @@ namespace CI_Platform.Controllers
                     var isapplied = _objLanding.applied(int.Parse(userId), mission.MissionId);
                     if (isapplied != null)
                     {
-                        missionView.isapplied = true;
+                        missionView.isapplied = isapplied.ApprovalStatus;
                     }
                     else
                     {
-                        missionView.isapplied = false;
+                        missionView.isapplied = null;
                     }
                     missionViewModel.Add(missionView);
                 }
@@ -648,18 +661,9 @@ namespace CI_Platform.Controllers
                 List<User> users = _objVolunteer.users();
                 List<MissionApplication> missionapplications = _objVolunteer.missionapp();
                 var recentvol = (from u in users join ma in missionapplications on u.UserId equals ma.UserId where ma.MissionId == missions.MissionId select u).ToList();
-                const int pageSize = 3;
-                if (pg < 1)
-                    pg = 1;
-                int recsCount = recentvol.Count();
-                var pager = new Pager(recsCount, pg, pageSize);
-                int recSkip = (pg - 1) * pageSize;
-                var data = recentvol.Skip(recSkip).Take(pager.PageSize).ToList();
-                this.ViewBag.Pager = pager;
-                ViewBag.RecentVolunteering = data;
+                ViewBag.RecentVolunteering = recentvol;
                 var rating1 = _objVolunteer.missionratings(missions);
                 var goalvalue = _objVolunteer.goalmissions(missions);
-                
                 if (goalvalue != null)
                 {
                 var addallworks = _objLanding.goalrecord(goalvalue.MissionId);
@@ -680,11 +684,11 @@ namespace CI_Platform.Controllers
                 var isapplied = _objVolunteer.appliedmis(MissionId, int.Parse(userId));
                 if (isapplied != null)
                 {
-                    ViewBag.IsApplied = true;
+                    ViewBag.IsApplied = isapplied;
                 }
                 else
                 {
-                    ViewBag.IsApplied = false;
+                    ViewBag.IsApplied = null;
                 }
                 foreach (var mission in relatedmission)
                 {
@@ -765,11 +769,11 @@ namespace CI_Platform.Controllers
                     var isapplieds = _objLanding.applied(int.Parse(userId), mission.MissionId);
                     if (isapplieds != null)
                     {
-                        missionView.isapplied = true;
+                        missionView.isapplied = isapplieds.ApprovalStatus;
                     }
                     else
                     {
-                        missionView.isapplied = false;
+                        missionView.isapplied = null;
                     }
                     rmv.Add(missionView);
                 }
@@ -869,9 +873,11 @@ namespace CI_Platform.Controllers
         public IActionResult MissionApply(int MissionId)
         {
             var userId = HttpContext.Session.GetString("UserId");
-            var apply = _objVolunteer.applyMission(MissionId, int.Parse(userId));
-            if (apply == true)
+            var missions = _objVolunteer.missions(MissionId);
+            var applycount = _objVolunteer.missionapplicationcount(MissionId);
+            if (applycount.Count< missions.SeatsAvailable)
             {
+                _objVolunteer.applyMission(MissionId, int.Parse(userId));
                 return Json(new { success = true });
             }
             else
@@ -1100,6 +1106,8 @@ namespace CI_Platform.Controllers
         }
         public IActionResult Story_Detail(int StoryId, int UserId)
         {
+            var userId = HttpContext.Session.GetString("UserId");
+            long viewcount = _objStoryListing.getviewcount(int.Parse(userId),StoryId);
             StoryDetailModel storydetailmodel= new StoryDetailModel();
             var storydetail = _objStoryListing.stories(StoryId);
             var storyuser = _objStoryListing.users(UserId);
@@ -1112,6 +1120,10 @@ namespace CI_Platform.Controllers
             if (storyuser != null)
             {
                 storydetailmodel.storyuser = storyuser;
+            }
+            if (viewcount != 0)
+            {
+                storydetailmodel.viewCount=viewcount;
             }
             storydetailmodel.Allusers = users;
             storydetailmodel.storyMedia = storymedia;
@@ -1145,9 +1157,11 @@ namespace CI_Platform.Controllers
            
             if (story != null && story.Status=="DRAFT")
             {
-                List<StoryMedium> media = _objStoryListing.searchmedias(story.StoryId);
-                var mediaObjects = media.Select(m => new { Path = m.Path}).ToArray();
-                return Json(new { success = true, story = story, storyimage = mediaObjects });
+                List<StoryMedium> media = _objStoryListing.searchmediaphoto(story.StoryId);
+                List<StoryMedium> storyMedia = _objStoryListing.searchmediavideo(story.StoryId);
+                var mediaObjectsimage = media.Select(m => new { Path = m.Path}).ToArray();
+                var mediaObjectsvideo = storyMedia.Select(m => new { Path = m.Path }).ToArray();
+                return Json(new { success = true, story = story, storyimage = mediaObjectsimage, storyvideo=mediaObjectsvideo });
             }
             else if(story != null && story.Status == "pending")
             {
@@ -1240,10 +1254,19 @@ namespace CI_Platform.Controllers
             _objUserProfile.deletegoalrecord(timesheetid);
             return Json(new {success=true});
         }
-        public IActionResult UserProfile()
+        public IActionResult UserProfile(long? countryId)
         {
+            List<City> city = new List<City>();
             var userId = HttpContext.Session.GetString("UserId");
-            List<City> city = _objLanding.cities();
+            if (countryId == null)
+            {
+                city = _objLanding.cities();
+            }
+            else
+            {
+                city = _objUserProfile.cities(countryId);
+            }
+           
             List<Country> country = _objLanding.countries1();
             List<Skill> skill = _objUserProfile.skills();
             List<SelectListItem> listCities= new List<SelectListItem>();
@@ -1281,7 +1304,7 @@ namespace CI_Platform.Controllers
             userviewmodel.EmployeeId=user.EmployeeId;
             userviewmodel.Status=user.Status;
             userviewmodel.Department=user.Department;
-            userviewmodel.CityId=user.CityId;
+            userviewmodel.CityId = user.CityId;
             userviewmodel.CountryId=user.CountryId;
             userviewmodel.ManagerDetail = user.ManagerDetail;
             userviewmodel.Availability = user.Availability;
@@ -1340,6 +1363,29 @@ namespace CI_Platform.Controllers
             var newMessages = inbox.Search(searchQuery);
             return View();
         }
+        [HttpPost]
+        public IActionResult CheckDate(long missionid, DateOnly volundate)
+        {
+            var findmissiondate = _objLanding.finddate(missionid);
+            if (findmissiondate == null)
+            {
+                return Json(new { message = "Mission not found." });
+            }
+
+            DateOnly? sdate = findmissiondate.StartDate ?? DateOnly.MinValue;
+            DateOnly startDate = sdate.HasValue ? sdate.Value : DateOnly.MinValue;
+            DateOnly? edate = findmissiondate.EndDate ?? DateOnly.MinValue;
+            DateOnly endDate = edate.HasValue ? edate.Value : DateOnly.MinValue;
+            if (volundate < startDate || volundate > endDate)
+            {
+                return Json(new { message = "Please enter a date between " + startDate.ToString("yyyy-MM-dd") + " and " + endDate.ToString("yyyy-MM-dd") });
+            }
+            else
+            {
+                return Json(new {success=true });
+            }
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

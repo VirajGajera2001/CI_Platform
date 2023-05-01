@@ -59,6 +59,8 @@ public partial class CIdbcontext : DbContext
 
     public virtual DbSet<StoryMedium> StoryMedia { get; set; }
 
+    public virtual DbSet<StoryView> StoryViews { get; set; }
+
     public virtual DbSet<Timesheet> Timesheets { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -356,9 +358,7 @@ public partial class CIdbcontext : DbContext
             entity.Property(e => e.Description)
                 .HasColumnType("text")
                 .HasColumnName("description");
-            entity.Property(e => e.EndDate)
-                .HasColumnType("date")
-                .HasColumnName("end_date");
+            entity.Property(e => e.EndDate).HasColumnName("end_date");
             entity.Property(e => e.MissionType)
                 .HasMaxLength(10)
                 .IsUnicode(false)
@@ -374,9 +374,7 @@ public partial class CIdbcontext : DbContext
             entity.Property(e => e.ShortDescription)
                 .HasColumnType("text")
                 .HasColumnName("short_description");
-            entity.Property(e => e.StartDate)
-                .HasColumnType("date")
-                .HasColumnName("start_date");
+            entity.Property(e => e.StartDate).HasColumnName("start_date");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.ThemeId).HasColumnName("theme_id");
             entity.Property(e => e.Title)
@@ -772,6 +770,17 @@ public partial class CIdbcontext : DbContext
                 .HasForeignKey(d => d.StoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_story_media_story");
+        });
+
+        modelBuilder.Entity<StoryView>(entity =>
+        {
+            entity.HasKey(e => e.ViewId);
+
+            entity.ToTable("story_views");
+
+            entity.Property(e => e.ViewId).HasColumnName("view_id");
+            entity.Property(e => e.StoryId).HasColumnName("story_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
         });
 
         modelBuilder.Entity<Timesheet>(entity =>

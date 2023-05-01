@@ -45,5 +45,6 @@ namespace CI_Platform.Entities.AdminModels
         public string? Availability { get; set; }
 
         public string? Status { get; set; }
+        public string? Role { get; set; }
     }
 }

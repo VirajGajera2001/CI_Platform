@@ -17,9 +17,8 @@ namespace CI_Platform.Repository.Interface
         public List<MissionApplication> allmissionapp();
         public List<Story> allstory();
         public User edituser(long userId);
-        public List<City> allcity();
         public List<Country> allcountry();
-        public void saveuser(Entities.AdminModels.UsersView userView);
+        public bool saveuser(Entities.AdminModels.UsersView userView);
         public void deleteuser(long userId);
         public CmsPage findcms(long cmsId);
         public void cmsadd(CI_Platform.Entities.AdminModels.CMSView cmsView);
@@ -44,5 +43,9 @@ namespace CI_Platform.Repository.Interface
         public MissionView findmission(long missionId);
         public void deletemission(long missionId);
         public void deletestory(long storyid);
+        public bool findthememission(long themeid);
+        public bool findskillmission(long skillId);
+        public bool missionapply(long missionId);
+        public List<City> getallcity(long countryId);
     }
 }

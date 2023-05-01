@@ -13,5 +13,6 @@ namespace CI_Platform.Entities.Models
         public Story story = new Story();
         public User storyuser= new User();
         public List<StoryMedium> storyMedia = new List<StoryMedium>();
+        public long? viewCount { get; set; }
     }
 }

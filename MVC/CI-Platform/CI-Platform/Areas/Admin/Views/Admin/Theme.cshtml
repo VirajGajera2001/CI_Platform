@@ -286,13 +286,21 @@
                         type: 'POST',
                         data: { themeId: themeId },
                         success: function (result) {
-                            swalWithBootstrapButtons.fire(
-                                'Deleted!',
-                                'Your record has been deleted.',
-                                'success'
-                            ).then((res) => {
-                                location.reload();
-                            });
+                            if(result.success==false){
+                                Swal.fire(
+                                    'This theme is already used in mission',
+                                    'So you cannnot delete it'
+                                )
+                            }
+                            else{
+                                swalWithBootstrapButtons.fire(
+                                    'Deleted!',
+                                    'Your record has been deleted.',
+                                    'success'
+                                ).then((res) => {
+                                    location.reload();
+                                });
+                            }
                         }
                     });
                 } else if (

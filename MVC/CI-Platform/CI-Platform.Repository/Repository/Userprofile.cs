@@ -101,14 +101,14 @@ namespace CI_Platform.Repository.Repository
         }
         public List<Mission> missionstime(int userId)
         {
-            var missionappliedbyuser = _objdb.MissionApplications.Where(ma => ma.UserId == userId).ToList();
+            var missionappliedbyuser = _objdb.MissionApplications.Where(ma => ma.UserId == userId && ma.ApprovalStatus=="APPROVAL").ToList();
             List<Mission> missions = _objdb.Missions.Where(m=>m.MissionType=="time").ToList();
             List<Mission> appliedbyuser = (from ma in missionappliedbyuser join ms in missions on ma.MissionId equals ms.MissionId select ms).ToList();
             return appliedbyuser;
         }
         public List<Mission> missionsgoal(int userId)
         {
-            var missionappliedbyuser = _objdb.MissionApplications.Where(ma => ma.UserId == userId).ToList();
+            var missionappliedbyuser = _objdb.MissionApplications.Where(ma => ma.UserId == userId && ma.ApprovalStatus=="APPROVAL").ToList();
             List<Mission> missions = _objdb.Missions.Where(m => m.MissionType == "goal").ToList();
             List<Mission> appliedbyuser = (from ma in missionappliedbyuser join ms in missions on ma.MissionId equals ms.MissionId select ms).ToList();
             return appliedbyuser;
@@ -193,6 +193,11 @@ namespace CI_Platform.Repository.Repository
         public void adduser(UsersView userViewModel, int v)
         {
             throw new NotImplementedException();
+        }
+        public List<City> cities(long? countryId)
+        {
+            List<City> cities = _objdb.Cities.Where(c => c.CountryId == countryId).ToList();
+            return cities;
         }
     }
 }

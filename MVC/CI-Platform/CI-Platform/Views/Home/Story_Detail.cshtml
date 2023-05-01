@@ -48,7 +48,7 @@
                             <li><a class="dropdown-item" asp-controller="Home" asp-action="UserProfile">My Profile</a></li>
                             <li><a class="dropdown-item" asp-controller="Home" asp-action="VolunteeringTimesheet">Volunteering Timesheet</a></li>
                             <li><a class="dropdown-item" href="#">Help</a></li>
-                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Login">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -88,13 +88,13 @@
                             @if (item.Type == "imag")
                             {
                                 <div class="column w-25">
-                                    <img class="demo cursor" src="@item.Path" style="width:100%" onclick="currentSlide(j)" alt="The Woods">
+                                    <img class="demo cursor" src="@item.Path" style="width:100%;height:60%;" onclick="currentSlide(j)" alt="The Woods">
                                 </div>
                             }
                             else
                             {
                                 <div class="column w-25">
-                                    <iframe class="demo cursor" src="@item.Path" style="width:100%;height:52%;" onclick="currentSlide(j)" alt="The Woods" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                    <iframe class="demo cursor" src="@item.Path" style="width:100%;height:60%;" onclick="currentSlide(j)" alt="The Woods" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                                 </div>    
                             }
                         }
@@ -109,10 +109,10 @@
                     </div>
                     <div class="views d-flex mt-4">
                         <img src="../CI-Imgs/eye.png" alt="" class="eyeimg mt-2 ms-4">
-                        <p class="mt-1">12,000 views</p>
+                        <p class="mt-1"><span class="text-success font-weight-bold ms-1" style="font-weight:bold;font-size:18px;">@Model.viewCount</span> Views</p>
                     </div>
                 </div>
-                <div class="storyshortdesc">
+                <div class="storyshortdesc" style="text-align:justify;">
                     <p>@Model.storyuser.WhyIVolunteer</p>
                 </div>
                 <div class="favandinvibtn container row mt-4">
@@ -154,7 +154,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12 text-center">
-                        <a href="/Home/Volunteering_Mission?MissionId=@Model.story.MissionId&UserId=@Model.story.UserId" class="btn border-3" style="border-color: #F88634; border-radius: 30px;"><span style="color: #F88634;">Open Mission</span><img src="../CI-Imgs/right-arrow.png" alt=""> </a>
+                        <a href="/Home/Volunteering_Mission?MissionId=@Model.story.MissionId" class="btn border-3" style="border-color: #F88634; border-radius: 30px;"><span style="color: #F88634;">Open Mission</span><img src="../CI-Imgs/right-arrow.png" alt=""> </a>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@
         <div class="row">
             <h3>@Model.story.Title</h3>
             <hr>
-            <div>
+            <div style="text-align:justify;">
                 @Html.Raw(Model.story.StoryDescription)
             </div>
         </div>

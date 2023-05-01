@@ -93,35 +93,53 @@
   display: flex;
   margin: 20px 0px;
  }
+#userrecord_wrapper a.paginate_button.current {
+    background-color: #F88634;
+}
  #cmsrecord_filter{
   width: 100%;
   justify-content: space-between;
   display: flex;
   margin: 20px 0px;
  }
+#cmsrecord_wrapper a.paginate_button.current {
+    background-color: #F88634;
+}
  #missionrecord_filter{
   width: 100%;
   justify-content: space-between;
   display: flex;
   margin: 20px 0px;
  }
+#missionrecord_wrapper a.paginate_button.current {
+    background-color: #F88634;
+}
  #storyrecord_filter{
   width: 100%;
   justify-content: space-between;
   display: flex;
   margin: 20px 0px;
  }
+#storyrecord_wrapper a.paginate_button.current {
+    background-color: #F88634;
+}
  #applicationrecord_filter{
   width: 100%;
   justify-content: space-between;
   display: flex;
   margin: 20px 0px;
  }
+#applicationrecord_wrapper a.paginate_button.current {
+    background-color: #F88634;
+}
 #themerecord_filter {
     width: 100%;
     justify-content: space-between;
     display: flex;
     margin: 20px 0px;
+}
+#themerecord_wrapper a.paginate_button.current {
+    background-color: #F88634;
 }
 #skillrecord_filter {
     width: 100%;
@@ -129,11 +147,17 @@
     display: flex;
     margin: 20px 0px;
 }
+#skillrecord_wrapper a.paginate_button.current {
+    background-color: #F88634;
+}
 #bannerrecord_filter {
     width: 100%;
     justify-content: space-between;
     display: flex;
     margin: 20px 0px;
+}
+#bannerrecord_wrapper a.paginate_button.current {
+    background-color: #F88634;
 }
  .usermodalbody{
   height: 400px;

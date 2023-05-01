@@ -28,9 +28,13 @@
                             <p style="color: white; font-size:12px;" class="ms-1">@item.City </p>
                         </div>
 
-                        @if (item.isapplied == true)
+                        @if (item.isapplied == "PENDING")
                         {
-                            <button class="closed-btn position-absolute" type="button">Applied</button>
+                            <button class="closed-btnpending position-absolute" type="button">Pending</button>
+                        }
+                        @if (item.isapplied == "APPROVAL")
+                        {
+                            <button class="closed-btnapprove position-absolute" type="button">Applied</button>
                         }
 
 
@@ -78,10 +82,10 @@
                         </div>
                         <div class="card-body">
                             <h5>@item.Title</h5>
-                            <p>@item.ShortDescription</p>
+                            <p>@Html.Raw(item.ShortDescription)</p>
                             <div class="desc1 d-flex">
                                 <div>
-                                    <p>@item.Description</p>
+                                    <p>@Html.Raw(item.Description)</p>
                                 </div>
                                 <div class="star d-flex ms-auto">
                                     @for (var @i = 0; i < 5; i++)
@@ -98,7 +102,7 @@
                                 </div>
                             </div>
                             <div class="bg-white datebadge1 text-center">
-                                <p class="ms-2">From @item.StartDate.ToString("d") until @item.EndDate.ToString("d")</p>
+                                <p class="ms-2">From @item.StartDate until @item.EndDate</p>
                             </div>
                             <hr>
                             <div class="desc2 d-flex">
@@ -108,7 +112,7 @@
                                 </div>
                                 @if (@item.MissionType == "goal")
                                 {
-                                    <div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
+                                    <div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px; justify-content:end;">
                                         <img src="../CI-Imgs/achieved.png" height="25" width="25" alt="" class="mb-3">
 
                                         <div class="d-flex flex-column ms-2 ">
@@ -126,7 +130,7 @@
                                 {
                                     <div class="hours d-flex ms-auto">
                                         <img src="../CI-Imgs/hours.png" alt="">
-                                        <p>@item.EndDate.ToString("d")<br>Deadline</p>
+                                        <p>@item.EndDate<br>Deadline</p>
 
                                     </div>
 
@@ -135,7 +139,7 @@
                             </div>
                             <hr style="margin-top:30px">
                             <div class="apply d-flex">
-                                @if (item.isapplied == true)
+                                @if (item.isapplied == "PENDING" || item.isapplied=="APPROVAL")
                                 {
                                     <a href="/Home/Volunteering_Mission?MissionId=@item.MissionId" class="btn btn-outline-warning mx-auto">View Details<img src="../CI-Imgs/right-arrow.png" alt=""></a>
                                 }

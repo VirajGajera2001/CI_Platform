@@ -84,6 +84,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" onclick="location.href='@Url.Action("Login", "Home",new{Area=""})'">Logout</a></li>
+                                <li><a class="dropdown-item" onclick="location.href='@Url.Action("Landing", "Home",new{Area=""})'">Landing</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -119,7 +120,7 @@
                                             <input type="text" id="lname" name="LastName" class="form-control" placeholder="Enter your last name" asp-for="LastName" required />
 
                                             <label for="mail" class="mt-2">Email</label>
-                                            <input type="email" name="Email" id="mail" class="form-control" placeholder="Enter your email address" asp-for="Email" required />
+                                            <input type="email" name="Email" id="mail" class="form-control" placeholder="Enter your email address" asp-for="Email" required/>
 
                                             <label for="password" class="mt-2">Password</label>
                                             <input type="password" name="Password" id="password" class="form-control" placeholder="Enter your password" asp-for="Password" required />
@@ -128,28 +129,24 @@
                                             <input type="text" id="empid" name="EmployeeId" class="form-control" placeholder="Enter your employee id" asp-for="EmployeeId" required />
 
                                             <label for="avatar" class="mt-2">Avatar</label>
-                                            <input type="file" id="profile-img-input" class="form-control" placeholder="Upload profile image" required />
+                                            <input type="file" id="profile-img-input" class="form-control" placeholder="Upload profile image"/>
                                             <input type="hidden" id="profileImg" name="Avatar" value="" asp-for="Avatar">
 
                                             <label for="department" class="mt-2">Department</label>
                                             <input type="text" id="department" name="Department" class="form-control" placeholder="Enter your department" asp-for="Department" required />
 
-                                            <label for="city" class="mt-2">City</label>
-                                            <select class="form-control form-select" id="cityname" name="CityId" asp-for="CityId" required>
-                                                <option value=""></option>
-                                                @foreach (var item in ViewBag.City)
-                                                {
-                                                    <option value="@item.CityId">@item.Name</option>
-                                                }
-                                            </select>
-
                                             <label for="country" class="mt-2">Country</label>
-                                            <select class="form-control form-select" id="countryname" name="CountryId" asp-for="CountryId" required>
+                                            <select class="form-control form-select" id="countryname" name="CountryId" asp-for="CountryId" required onchange="getCity(this.value)">
                                                 <option value=""></option>
                                                 @foreach (var item in ViewBag.Country)
                                                 {
                                                     <option value="@item.CountryId">@item.Name</option>
                                                 }
+                                            </select>
+
+                                            <label for="city" class="mt-2">City</label>
+                                            <select class="form-control form-select" id="cityname" name="CityId" asp-for="CityId" required>
+                                                <option value="">Please Select Country</option>
                                             </select>
 
                                             <label for="Profile Text" class="mt-2">Profile text</label>
@@ -161,16 +158,23 @@
                                                 <option value="Active">Active</option>
                                                 <option value="In-Active">In-Active</option>
                                             </select>
+                                            <label for="role">Role</label>
+                                            <select class="form-control form-select" id="userrole" name="Role" asp-for="Role" required>
+                                                <option></option>
+                                                <option value="user">User</option>
+                                                <option value="admin">Admin</option>
+                                            </select>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary" onclick="saveUser()">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="userclose">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="col mt-4">
+                            <span class="text-danger">@ViewBag.message</span>
                             <table id="userrecord" class="table bg-white rounded shadow-sm  table-hover">
                                 <thead style="background-color: #F8F9FC;">
                                     <tr>
@@ -245,6 +249,7 @@
         const profileimgcard = document.querySelector('.profileimgcard');
         var profileImg = document.getElementById("profileImg");
         var userid = document.getElementById("userid");
+        var userrole = document.getElementById("userrole");
         function currentTime() {
             var time = new Date();
             var dateString = time.toDateString();
@@ -309,14 +314,14 @@
             showConfirmButton: false,
             timer: 1800
         })
-        function saveUser() {
+        $('form').on('submit',function(event){
             const fnameRegex = /^[a-zA-Z]+$/;
             if (!fnameRegex.test(fname.value)) {
                 Toast.fire({
                     icon: 'error',
                     title: 'Please enter only alphabets in the first name field.'
                 });
-                return;
+                event.preventDefault();
             }
             const lnameRegex = /^[a-zA-Z]+$/;
             if (!lnameRegex.test(lname.value)) {
@@ -324,15 +329,15 @@
                     icon: 'error',
                     title: 'Please enter only alphabets in the last name field.'
                 });
-                return;
+                event.preventDefault();
             }
-            const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            const emailRegex = /[A-z 0-9._]+@@[A-z 0-9._]+.([A-z]{2,}$)/i;
             if (!emailRegex.test(mail.value)) {
                 Toast.fire({
                     icon: 'error',
                     title: 'Please enter a valid email address.'
                 });
-                return;
+                event.preventDefault();
             }
             const passwordRegex = /^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$/;
             if (!passwordRegex.test(password.value)) {
@@ -340,7 +345,7 @@
                     icon: 'error',
                     title: 'Password must be between 8 and 12 characters and contain at least one special character and digit.'
                 });
-                return;
+                event.preventDefault();
             }
             const empidRegex = /^[0-9]{4,}$/;
             if (!empidRegex.test(empid.value)) {
@@ -348,11 +353,9 @@
                     icon: 'error',
                     title: 'Employee ID should only contain digits and be at least 4 characters long.'
                 });
-                return;
+                event.preventDefault();
             }
-        }
-
-
+        });
         const profileImgInput = document.querySelector('#profile-img-input');
         profileImgInput.addEventListener('change', () => {
             const file = profileImgInput.files[0];
@@ -385,7 +388,10 @@
             profiletext.value = '';
             userstatus.value = '';
             profileImgInput.value = '';
+            userrole.value='';
             profileimgcard.style.display = "none";
+            $('#mail').prop('readonly', false);
+            $('#password').prop('readonly', false);
         }
         function userEdit(userId) {
             $.ajax({
@@ -393,6 +399,8 @@
                 type: 'POST',
                 data: { userId: userId },
                 success: function (result) {
+                    $('#mail').prop('readonly',true);
+                    $('#password').prop('readonly',true);
                     myModal.classList.add("show");
                     myModal.style.display = "block";
                     var user = result;
@@ -404,10 +412,11 @@
                     empid.value = user.employeeId;
                     profileImg.value = user.avatar;
                     department.value = user.department;
-                    cityname.value = user.cityId;
+                    getCity(user.countryId);
                     countryname.value = user.countryId;
                     profiletext.value = user.profileText;
-                    userid.value = userId;
+                    userid.value = user.userId;
+                    userrole.value=user.role;
                     if (user.status == true) {
                         userstatus.value = 'Active';
                     }
@@ -460,6 +469,23 @@
                     swalWithBootstrapButtons.fire(
                         'Cancelled'
                     )
+                }
+            })
+        }
+        function getCity(countryId) {
+            $.ajax({
+                url: '/Admin/Admin/GetCity',
+                type: 'POST',
+                data: { countryId: countryId },
+                success: function (result) {
+                    var cityid = document.getElementById("cityname");
+                    cityid.innerHTML = '';
+                    result.forEach(function (city) {
+                        var citytag = document.createElement("option");
+                        citytag.value = city.cityId;
+                        citytag.innerHTML = city.name;
+                        cityid.appendChild(citytag);
+                    });
                 }
             })
         }

@@ -1,6 +1,7 @@
 using CI_Platform.Entities.DataModels;
 using CI_Platform.Repository.Interface;
 using CI_Platform.Repository.Repository;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

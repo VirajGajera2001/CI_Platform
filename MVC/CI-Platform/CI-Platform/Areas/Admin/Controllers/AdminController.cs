@@ -17,22 +17,37 @@ namespace CI_Platform.Areas.Admin.Controllers
         }
         public IActionResult Users()
         {
-            HttpContext.Session.SetInt32("Nav", 1);
-            ViewBag.nav = HttpContext.Session.GetInt32("Nav");
-            List<User> users = _objAdmin.alluser();
-            List<City> cities = _objAdmin.allcity();
-            List<Country> countries = _objAdmin.allcountry();
-            UsersView user = new UsersView();
-            user.userdata = users;
-            ViewBag.City = cities;
-            ViewBag.Country = countries;
-            return View(user);
+            ViewBag.message = TempData["message"];
+            var fname = HttpContext.Session.GetString("FName");
+            if (fname == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else
+            {
+                HttpContext.Session.SetInt32("Nav", 1);
+                ViewBag.nav = HttpContext.Session.GetInt32("Nav");
+                List<User> users = _objAdmin.alluser();
+                List<Country> countries = _objAdmin.allcountry();
+                UsersView user = new UsersView();
+                user.userdata = users;
+                ViewBag.Country = countries;
+                return View(user);
+            } 
         }
         [HttpPost]
         public IActionResult Users(UsersView userView)
         {
-            _objAdmin.saveuser(userView);
-            return RedirectToAction("Users", "Admin");
+           var response= _objAdmin.saveuser(userView);
+            if (response == false)
+            {
+                TempData["message"] = "Email Already Exists Please Enter Unique Email";
+                return RedirectToAction("Users", "Admin"); 
+            }
+            else
+            {
+                return RedirectToAction("Users", "Admin");
+            }
         }
         public IActionResult CMS()
         {
@@ -57,12 +72,10 @@ namespace CI_Platform.Areas.Admin.Controllers
             List<Mission> missions = _objAdmin.allmission();
             List<MissionTheme> missionThemes = _objAdmin.alltheme();
             List<Country> countries=_objAdmin.allcountry();
-            List<City> citys = _objAdmin.allcity();
             List<Skill> skills = _objAdmin.skilllist();
             missionView.missions = missions;
             missionView.missionThemes = missionThemes;
             missionView.countries = countries;
-            missionView.citys = citys;
             missionView.skills= skills;
             return View(missionView);
         }
@@ -129,14 +142,14 @@ namespace CI_Platform.Areas.Admin.Controllers
         {
             HttpContext.Session.SetInt32("Nav", 7);
             ViewBag.nav = HttpContext.Session.GetInt32("Nav");
-            List<StoryView> storyViews = new List<StoryView>();
+            List<Entities.AdminModels.StoryView> storyViews = new List<Entities.AdminModels.StoryView>();
             List<Mission> missions = _objAdmin.allmission();
             List<User> users = _objAdmin.alluser();
             List<Story> stories = _objAdmin.allstory();
             var storyrecord = (from st in stories join u in users on st.UserId equals u.UserId join ms in missions on st.MissionId equals ms.MissionId select new { StoryTitle = st.Title, FirstName = u.FirstName, LastName = u.LastName, MissionTitle = ms.Title, MissionId = st.MissionId, UserId = st.UserId, StoryId = st.StoryId }).ToList();
             foreach (var item in storyrecord)
             {
-                StoryView storyView = new StoryView();
+                Entities.AdminModels.StoryView storyView = new Entities.AdminModels.StoryView();
                 storyView.MissionTitle = item.MissionTitle;
                 storyView.StoryTitle = item.StoryTitle;
                 storyView.StoryId = item.StoryId;
@@ -195,8 +208,16 @@ namespace CI_Platform.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult ThemeDelete(long themeId)
         {
-            _objAdmin.deletetheme(themeId);
-            return Json(null);
+            var usedtheme=_objAdmin.findthememission(themeId);
+            if (usedtheme == true)
+            {
+                return Json(new {success=false});
+            }
+            else
+            {
+                _objAdmin.deletetheme(themeId);
+                return Json(null);
+            }
         }
         [HttpPost]
         public IActionResult SkillEdit(long skillId)
@@ -207,8 +228,16 @@ namespace CI_Platform.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult SkillDelete(long skillId)
         {
-            _objAdmin.deleteskill(skillId);
-            return Json(null);
+            var usedskill=_objAdmin.findskillmission(skillId);
+            if (usedskill == true)
+            {
+                return Json(new {success=false});
+            }
+            else
+            {
+                _objAdmin.deleteskill(skillId);
+                return Json(null);
+            } 
         }
         [HttpPost]
         public IActionResult ApproveStory(long storyId)
@@ -261,14 +290,28 @@ namespace CI_Platform.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult MissionDelete(long missionId)
         {
-            _objAdmin.deletemission(missionId);
-            return Json(null);
+            var missionlst=_objAdmin.missionapply(missionId);
+            if (missionlst == true)
+            {
+                return Json(new { success = false });
+            }
+            else
+            {
+                _objAdmin.deletemission(missionId);
+                return Json(null);
+            }
         }
         [HttpPost]
         public IActionResult StoryDelete(long storyid)
         {
             _objAdmin.deletestory(storyid);
             return Json(null);
+        }
+        [HttpPost]
+        public IActionResult GetCity(long countryId)
+        {
+            List<City> cities = _objAdmin.getallcity(countryId);
+            return Json(cities);
         }
     }
 }

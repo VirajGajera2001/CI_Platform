@@ -1,27 +1,27 @@
-.profileimg{
+.profileimg {
     border-radius: 50%;
     width: 40px;
     height: 40px;
 }
-  
-.slidecontainer  {
+
+.slidecontainer {
     position: relative;
-    cursor:alias;
-  }
-  
-  /* Hide the images by default */
-  .mySlides {
+    cursor: alias;
+}
+
+/* Hide the images by default */
+.mySlides {
     display: none;
-  }
-  
-  /* Add a pointer when hovering over the thumbnail images */
-  .cursor {
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
     cursor: pointer;
-  }
-  
-  /* Next & previous buttons */
-  .prev,
-  .next {
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
     cursor: pointer;
     position: absolute;
     top: 40%;
@@ -34,91 +34,101 @@
     border-radius: 0 3px 3px 0;
     user-select: none;
     -webkit-user-select: none;
-  }
-  
-  /* Position the "next button" to the right */
-  .next {
+}
+
+/* Position the "next button" to the right */
+.next {
     right: 24px;
     border-radius: 3px 0 0 3px;
-  }
-  
-  /* On hover, add a black background color with a little bit see-through */
-  .prev:hover,
-  .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-  
-  /* Number text (1/3 etc) */
-  .numbertext {
+}
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+/* Number text (1/3 etc) */
+.numbertext {
     color: #f2f2f2;
     font-size: 12px;
     padding: 8px 12px;
     position: absolute;
     top: 0;
-  }
-  
-  /* Container for image text */
-  .caption-container {
+}
+
+/* Container for image text */
+.caption-container {
     text-align: center;
     background-color: #222;
     padding: 2px 16px;
     color: white;
-  }
-  
-  .row:after {
+}
+
+.row:after {
     content: "";
     display: table;
     clear: both;
-  }
-  
-  /* Six columns side by side */
-  .column {
+}
+
+/* Six columns side by side */
+.column {
     float: left;
     width: 16.66%;
-  }
-  
-  /* Add a transparency effect for thumnbail images */
-  .demo {
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
     opacity: 0.6;
-  }
-  
-  .active,
-  .demo:hover {
-    opacity: 1;
-  }
-  .contbadge{
+}
+
+    .active,
+    .demo:hover {
+        opacity: 1;
+    }
+
+.contbadge {
     border: 1px solid gray;
     width: 403px;
     height: 41px;
     border-radius: 18px;
-  }
-  .seats{
+}
+
+.seats {
     justify-content: space-between;
-    height:50px;
-  }
-  .favandinvibtn{
+    height: 50px;
+}
+
+.favandinvibtn {
     justify-content: space-between;
-  }
-  .stars{
+}
+
+.stars {
     width: 40%;
-  }
-  .filterbox{
+}
+
+.filterbox {
     border: 1px solid gray;
-  }
-  .filtertext{
+}
+
+.filtertext {
     font-size: 13px;
-  }
-  .information{
+}
+
+.information {
     border: 1px solid gray;
-  }
-  .recent-volunteer{
+}
+
+.recent-volunteer {
     border: 1px solid gray;
     padding: 10px 0px;
-  }
-  .volun-pagination{
+}
+
+.volun-pagination {
     margin-left: 15%;
     width: auto;
-  }
+}
+
 .inputimagebox {
     width: 100%;
     border: 2px dashed gray;
@@ -157,6 +167,7 @@
     font-size: 14px;
     cursor: pointer;
 }
+
 .sidestoryimage {
     width: 101px;
     height: 101px;
@@ -178,6 +189,7 @@
     width: 172px;
     height: 38px;
 }
+
 #comment-section {
     margin-top: 20px;
     padding: 10px;
@@ -187,27 +199,32 @@
     overflow-y: auto;
     background-color: #fafafa;
 }
+
 .comment {
     padding: 5px;
     border: 1px solid gray;
     border-radius: 5px;
     margin-bottom: 10px;
-    background-color:white;
+    background-color: white;
 }
-.comment p {
-			margin: 0;
-			font-size: 16px;
-		}
+
+    .comment p {
+        margin: 0;
+        font-size: 16px;
+    }
+
 .modaltext {
     height: 200px;
     overflow-y: auto;
-    text-align:left;
+    text-align: left;
 }
+
 .volunimg {
     width: 70px;
     height: 70px;
     border-radius: 50%;
 }
+
 .imgbadge1 {
     width: 50%;
     position: absolute;
@@ -216,6 +233,7 @@
     border-radius: 30px;
     height: 25px;
 }
+
 .recbtn {
     top: 140px;
     right: 10px;
@@ -225,6 +243,7 @@
     background-color: black;
     opacity: 0.8;
 }
+
 .favbtn {
     top: 100px;
     right: 10px;
@@ -234,6 +253,7 @@
     background-color: black;
     opacity: 0.8;
 }
+
 .location {
     background-color: #000000;
     opacity: 0.5;
@@ -243,10 +263,12 @@
     right: 10px;
     top: 10px;
 }
+
 .pins {
     width: 18px;
     height: 20px;
 }
+
 .datebadge1 {
     font-size: 15px;
     left: 40px;
@@ -257,6 +279,7 @@
     width: 75%;
     position: absolute;
 }
+
 .closed-btn {
     border-top-right-radius: 18px;
     left: 0;
@@ -270,17 +293,21 @@
     height: 2rem;
     margin-top: 0.7rem !important;
 }
+
 .star {
     height: 10%;
 }
+
 .seats, .hours {
     height: 20px;
 }
+
 .hours_header {
     display: flex;
     justify-content: space-between;
     padding: 30px 20px;
 }
+
 .userimg {
     width: 150px;
     height: 150px;
@@ -316,27 +343,37 @@
     color: #333;
 }
 
-    .menu-link.active {
-        background-color: #007bff;
-        color: #fff;
-    }
+.menu-link.active {
+    background-color: #007bff;
+    color: #fff;
+}
+.desc2 {
+    margin-top: 25px;
+    height: 50px;
+    justify-content: space-between;
+}
+
 @media (max-width:991px) {
-    .stars{
-      width: 377px;
+    .stars {
+        width: 377px;
     }
-    .contbadge{
-      width: 260px;
+
+    .contbadge {
+        width: 260px;
     }
-    .tabdocuments{
-      text-align: center;
+
+    .tabdocuments {
+        text-align: center;
     }
+
     .contbadge {
         border: 1px solid gray;
         width: 500px;
         height: 41px;
         border-radius: 18px;
     }
+
     .contbadgetext {
-        font-size:13px;
+        font-size: 13px;
     }
-  }
+}

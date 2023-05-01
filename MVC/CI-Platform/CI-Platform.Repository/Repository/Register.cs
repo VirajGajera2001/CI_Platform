@@ -1,11 +1,6 @@
 ﻿using CI_Platform.Entities.DataModels;
 using CI_Platform.Models;
 using CI_Platform.Repository.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace CI_Platform.Repository.Repository
 {
     public class Register:IRegister
@@ -77,6 +72,11 @@ namespace CI_Platform.Repository.Repository
             _objdb.PasswordResets.Add(passwordReset);
             _objdb.SaveChanges();
             return 1;
+        }
+        public List<Banner> getbanners()
+        {
+            List<Banner> banners=_objdb.Banners.OrderBy(b=>b.SortOrder).ToList();
+            return banners;
         }
     }
 }

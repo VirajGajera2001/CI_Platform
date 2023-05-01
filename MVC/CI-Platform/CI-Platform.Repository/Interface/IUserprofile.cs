@@ -25,6 +25,7 @@ namespace CI_Platform.Repository.Interface
         public void sheetime(TimesheetViewModel timesheetViewModel, int userid);
         public List<Timesheet> timesheetlistTime(int userId);
         public Timesheet findtimerecord(int timesheetid);
-        void adduser(Entities.AdminModels.UsersView userViewModel, int v);
+        public void adduser(Entities.AdminModels.UsersView userViewModel, int v);
+        public List<City> cities(long? countryId);
     }
 }

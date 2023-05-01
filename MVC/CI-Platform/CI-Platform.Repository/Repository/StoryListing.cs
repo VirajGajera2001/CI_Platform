@@ -38,7 +38,7 @@ namespace CI_Platform.Repository.Repository
         }
         public StoryMedium storymedia(Story stories)
         {
-            var storymedia = _objdb.StoryMedia.FirstOrDefault(sm => sm.StoryId == stories.StoryId && sm.Type=="imag");
+            var storymedia = _objdb.StoryMedia.FirstOrDefault(sm => sm.StoryId == stories.StoryId);
             return storymedia;
         }
         public User users(Story stories)
@@ -157,7 +157,6 @@ namespace CI_Platform.Repository.Repository
                 _objdb.SaveChanges();
                 return matchstory;
             }
-
             else if(story!=null && Value=="save") 
             {
                 story.MissionId = MissionId;
@@ -172,8 +171,7 @@ namespace CI_Platform.Repository.Repository
                     _objdb.StoryMedia.Remove(item);
                  
                 }
-                
-                _objdb.SaveChanges();
+                //_objdb.SaveChanges();
                 foreach (var item in Image)
                 {
                     StoryMedium storymedium = new StoryMedium();
@@ -207,7 +205,7 @@ namespace CI_Platform.Repository.Repository
                 {
                     _objdb.StoryMedia.Remove(item);
                 }
-                _objdb.SaveChanges();
+                //_objdb.SaveChanges();
                 foreach (var item in Image)
                 {
 
@@ -234,9 +232,14 @@ namespace CI_Platform.Repository.Repository
             var selectstory=_objdb.Stories.Where(st=>st.MissionId==MissionId && st.UserId==UserId).FirstOrDefault();
             return selectstory;
         }
-        public List<StoryMedium> searchmedias(long storyId)
+        public List<StoryMedium> searchmediaphoto(long storyId)
         {
-            var storymedium = _objdb.StoryMedia.Where(sm=>sm.StoryId==storyId).ToList();
+            var storymedium = _objdb.StoryMedia.Where(sm=>sm.StoryId==storyId && sm.Type=="imag").ToList();
+            return storymedium;
+        }
+        public List<StoryMedium> searchmediavideo(long storyId)
+        {
+            var storymedium = _objdb.StoryMedia.Where(sm => sm.StoryId == storyId && sm.Type == "video").ToList();
             return storymedium;
         }
         public List<StoryMedium> storymedia(int storyid)
@@ -254,6 +257,24 @@ namespace CI_Platform.Repository.Repository
             contactU.Message=message;
             _objdb.ContactUs.Add(contactU);
             _objdb.SaveChanges();
+        }
+        public long getviewcount(int userId, int storyId)
+        {
+            var view = _objdb.StoryViews.Where(u => u.UserId == userId && u.StoryId == storyId).FirstOrDefault();
+            List<StoryView> views = _objdb.StoryViews.Where(s => s.StoryId == storyId).ToList();
+            if (view != null)
+            {
+                return views.Count;
+            }
+            else
+            {
+               StoryView storyView=new StoryView();
+                storyView.UserId=userId;
+                storyView.StoryId=storyId;
+                _objdb.StoryViews.Add(storyView);
+                _objdb.SaveChanges();
+                return views.Count;
+            }
         }
     }
 }

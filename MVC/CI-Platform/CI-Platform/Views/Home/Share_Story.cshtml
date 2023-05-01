@@ -47,7 +47,7 @@
                             <li><a class="dropdown-item" asp-controller="Home" asp-action="UserProfile">My Profile</a></li>
                             <li><a class="dropdown-item" asp-controller="Home" asp-action="VolunteeringTimesheet">Volunteering Timesheet</a></li>
                             <li><a class="dropdown-item" href="#">Help</a></li>
-                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Login">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
             </div>
             <div class="col-lg-12">
                 <p>Enter Video URL</p>
-                    <textarea name="" id="video-urls" class="form-control"></textarea>
+                    <textarea name="" id="video-urls" class="form-control" onfocusout="videoarray()"></textarea>
             </div>
             <div class="col-lg-12">
                 <p>Upload Your Photos</p>

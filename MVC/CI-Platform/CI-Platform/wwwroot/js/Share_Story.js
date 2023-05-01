@@ -62,20 +62,6 @@ const fileInput = document.querySelector('#image-upload');
 
 }
 
-/*const regex = /^https?:\/\/(?:www\.)?(?:youtube\.com\/(?:watch\?.*?v=|embed\/)|youtu\.be\/|vimeo\.com\/)([a-zA-Z0-9_-]{11}|[0-9]{8,10})/;*/
-//var videoUrls = $("#video-urls");
-//console.log(videoUrls);
-//let isValid = true;
-
-//for (let i = 0; i < videoUrls.length; i++) {
-//	if (!regex.test(videoUrls[i])) {
-//		swal.fire("Please enter a valid YouTube or Vimeo video URL.");
-//		isValid = false;
-//		break;
-//	}
-//}
-
-
 
 function dropHandler(ev) {
 
@@ -117,9 +103,7 @@ function dragOverHandler(ev) {
 }
 function shareStory(userId,value) {
 	var dataUrls = files.map(file => file.dataUrl);
-	var videoUrls = $("#video-urls").val();
-	console.log(videoUrls);
-	console.log(value);
+	var videoUrls = $("#video-urls").val().split("\n");
 	var missionId = document.getElementById("Missionname").value;
 	var title = document.getElementById("StoryTitle").value;
 	var date = document.getElementById("releasedate").value;
@@ -127,33 +111,42 @@ function shareStory(userId,value) {
 	var previewbtn = document.querySelector('.previewbtn');
 	var editor = CKEDITOR.instances.editor1;
 	var editordata = editor.getData();
-	$.ajax({
-		url: '/Home/Share_Storys',
-		type: 'POST',
-		data: { "Image": dataUrls, "MissionId": missionId, "Title": title, "Date": date, "Description": editordata, "UserId": userId, "Value": value, "videoUrls": videoUrls },
-		success: function (result) {
-			if (result.success) {
-				Swal.fire(
-					'Your Story Is Added Successfully'
-				);
-				
-				previewbtn.classList.remove("d-none");
-				previewbtn.id = result.storyid;
-				const url = `/Home/Story_Detail?StoryId=${result.storyid}&UserId=${userId}`;
+	if (missionId == '') {
+		alert("please select mission");
+	}
+	if (title == '') {
+		alert("please enter title");
+	}
+	if (date == '') {
+		alert("please enter release date");
+	}
+		$.ajax({
+			url: '/Home/Share_Storys',
+			type: 'POST',
+			data: { "Image": dataUrls, "MissionId": missionId, "Title": title, "Date": date, "Description": editordata, "UserId": userId, "Value": value, "videoUrls": videoUrls },
+			success: function (result) {
+				if (result.success) {
+					Swal.fire(
+						'Your Story Is Added Successfully'
+					);
 
-				// Set the "href" attribute of the "prw" element to the constructed URL
-				previewbtn.href = url;
+					previewbtn.classList.remove("d-none");
+					previewbtn.id = result.storyid;
+					const url = `/Home/Story_Detail?StoryId=${result.storyid}&UserId=${userId}`;
+
+					// Set the "href" attribute of the "prw" element to the constructed URL
+					previewbtn.href = url;
+				}
+				else {
+					Swal.fire(
+						'Your story is added!'
+					).then((res) => {
+						location.reload();
+					});
+				}
 			}
-			else {
-				Swal.fire(
-					'Your story is added!'
-				).then((res) => {
-					location.reload();
-				});
-			}	
-		}
-		
-	});
+
+		});
 }
 function searchStoryByMission(UserId) {
 	while (files.length > 0) {
@@ -173,16 +166,20 @@ function searchStoryByMission(UserId) {
 				$('#releasedate').val(formattedDate);
 				CKEDITOR.instances['editor1'].setData(story.storyDescription);
 				var media = result.storyimage;
+				var mediavideo = result.storyvideo;
+				var vpath = mediavideo.map(obj => obj.path).join("\n");
 				$('.image-preview').empty();
 				media.forEach(function (medium) {
 					var mediumPath = medium.path;
 					const id = Date.now();
-					files.push({ dataUrl: mediumPath, id });
-					addImage(mediumPath, id);
+						files.push({ dataUrl: mediumPath, id });
+						addImage(mediumPath, id);
 				});
+				$('#video-urls').val(vpath);
+				
 			}
 			else if (result.success == "notadded") {
-
+				
 			}
 			else {
 				Swal.fire(
@@ -198,5 +195,3 @@ function searchStoryByMission(UserId) {
 		}
 	});
 }
-
-	

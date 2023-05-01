@@ -1,5 +1,4 @@
-﻿
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @model List<CI_Platform.Entities.Models.MissionViewModel>;
@@ -14,162 +13,164 @@
     }
     var userId = Context.Session.GetString("UserId");
 }
-<div class="container mt-5" id="wholecard">
-        <div class="row">
-            <div class="col-md-12 d-flex p-0">
+<div class="container mt-3" id="wholecard">
+    <div class="row">
+        <div class="col-md-12 d-flex p-0">
             <h4 class="text-muted">Explore @ViewBag.Count missions</h4>
-                <h3 class="ms-2" id="list-count"><b></b></h3>
-                <div class="ms-auto">
-                    <div class="dropdown downs">
-                        <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
-                            Sort By
-                            <img src="../CI-Imgs/drop-down.png" class="ic-down">
-                        </button>
-                        <ul class="dropdown-menu" id="sortBy">
-                            <li><a class="dropdown-item" href="#" id="Select" value="Newest">Newest</a></li>
-                            <li><a class="dropdown-item" href="#" id="Select" value="Oldest">Oldest</a></li>
-                            <li><a class="dropdown-item" href="#" id="Select" value="Lowest">Lowest available seats</a></li>
-                            <li><a class="dropdown-item" href="#" id="Select" value="Highest">Highest available seats </a></li>
-                            <li><a class="dropdown-item" href="#" id="Select" value="Favourite">My Favourite</a></li>
-                            <li><a class="dropdown-item" href="#" id="Select" value="Deadline">Registration Deadline</a></li>
-                        </ul>
-                    </div>
+            <h3 class="ms-2" id="list-count"><b></b></h3>
+            <div class="ms-auto">
+                <div class="dropdown downs">
+                    <button class="bg-white border-0" type="button" data-bs-toggle="dropdown">
+                        Sort By
+                        <img src="../CI-Imgs/drop-down.png" class="ic-down">
+                    </button>
+                    <ul class="dropdown-menu" id="sortBy">
+                        <li><a class="dropdown-item" href="#" id="Select" value="Newest">Newest</a></li>
+                        <li><a class="dropdown-item" href="#" id="Select" value="Oldest">Oldest</a></li>
+                        <li><a class="dropdown-item" href="#" id="Select" value="Lowest">Lowest available seats</a></li>
+                        <li><a class="dropdown-item" href="#" id="Select" value="Highest">Highest available seats </a></li>
+                        <li><a class="dropdown-item" href="#" id="Select" value="Favourite">My Favourite</a></li>
+                        <li><a class="dropdown-item" href="#" id="Select" value="Deadline">Registration Deadline</a></li>
+                    </ul>
                 </div>
-                <div>
-                    <button class="border-0 bg-white ms-2"><img src="../CI-Imgs/grid.png" alt="" onclick="gridView();" style=""></button>
-                    <button class="border-0 bg-white ms-2"><img src="../CI-Imgs/list.png" alt="" onclick="listView();" style=""></button>
-                </div>
+            </div>
+            <div>
+                <button class="border-0 bg-white ms-2"><img src="../CI-Imgs/grid.png" alt="" onclick="gridView();" style=""></button>
+                <button class="border-0 bg-white ms-2"><img src="../CI-Imgs/list.png" alt="" onclick="listView();" style=""></button>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            @if (Model != null)
+</div>
+<div class="container">
+    <div class="row">
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
             {
-                @foreach (var item in Model)
-                {
-                    <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
-                        <div class="card cardview mx-auto" style="width: 90%;height:95%">
-                            <div class="position-relative">
+                <div class="col-lg-4 col-md-6 col-sm-12 allviews p-0">
+                    <div class="card cardview mx-auto" style="width: 90%;height:95%">
+                        <div class="position-relative">
                             <img src="@item.MediaPath" alt="" class="card-image" style="width:100%;">
                             <div class="position-absolute d-flex location">
                                 <img src="../CI-Imgs/pin.png" alt="" class="pins mt-1 ms-3">
                                 <p style="color: white; font-size:12px;" class="ms-1">@item.City </p>
                             </div>
-                            
-                                @if(item.isapplied==true){
-                                <button class="closed-btn position-absolute" type="button">Applied</button>
-                                }
-                            
-                            
-                        <button type="button" class="position-absolute recbtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <img src="../CI-Imgs/heart1.png" alt="" class="bg-secondary">
-                        </button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Select Coworker</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body modaltext">
-                                        <ul style="list-style-type:none" class="ps-0">
-                                            @foreach (var items in @ViewBag.AllUsers)
-                                            {
-                                                <li class="dropdown-item mt-2" style="border:1px solid gray;background-color:#fafafa;">
-                                                    <div style="display:flex;justify-content:space-between;">
-                                                        <div>
-                                                            <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" /><span class="ms-1">@items.FirstName (@items.Email)</span>
+                            @if (item.isapplied == "PENDING")
+                            {
+                                <button class="closed-btnpending position-absolute" type="button">Pending</button>
+                            }
+                            @if (item.isapplied == "APPROVAL")
+                            {
+                                <button class="closed-btnapprove position-absolute" type="button">Applied</button>
+                            }
+                            <button type="button" class="position-absolute recbtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <img src="../CI-Imgs/heart1.png" alt="" class="bg-secondary">
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Select Coworker</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body modaltext">
+                                            <ul style="list-style-type:none" class="ps-0">
+                                                @foreach (var items in @ViewBag.AllUsers)
+                                                {
+                                                    <li class="dropdown-item mt-2" style="border:1px solid gray;background-color:#fafafa;">
+                                                        <div style="display:flex;justify-content:space-between;">
+                                                            <div>
+                                                                <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" /><span class="ms-1">@items.FirstName (@items.Email)</span>
+                                                            </div>
+                                                            <div>
+                                                                <img src="@items.Avatar" style="border-radius:50%;width:35px;height:35px;" />
+                                                            </div>
                                                         </div>
-                                                        <div>
-                                                            <img src="@items.Avatar" style="border-radius:50%;width:35px;height:35px;" />
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            }
-                                        </ul>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" onclick="sendRec(@item.MissionId);">Send</button>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" onclick="sendRec(@item.MissionId);">Send</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                             @if (item.isFav == true)
                             {
                                 <button class="position-absolute favbtn">
-                                <i class="bi bi-heart-fill" id="favoicon" style="color:red" width="20px" height="20px" onclick="addFav(@item.MissionId,@userId)" asp-controller="Home" asp-action="AddFav"></i>
+                                    <i class="bi bi-heart-fill" id="favoicon" style="color:red" width="20px" height="20px" onclick="addFav(@item.MissionId,@userId)" asp-controller="Home" asp-action="AddFav"></i>
                                 </button>
                             }
                             else
                             {
                                 <button class="position-absolute favbtn">
-                                <i class="bi bi-heart-fill" id="favoicon" style="color:white" width="20px" height="20px" onclick="addFav(@item.MissionId,@userId)" asp-controller="Home" asp-action="AddFav"></i>
+                                    <i class="bi bi-heart-fill" id="favoicon" style="color:white" width="20px" height="20px" onclick="addFav(@item.MissionId,@userId)" asp-controller="Home" asp-action="AddFav"></i>
                                 </button>
                             }
                             <div class="imgbadge1 bg-white text-center position-absolute">
                                 <p class="ms-1" style="font-size:14px">@item.Theme</p>
                             </div>
                         </div>
-                            <div class="card-body">
-                                <h5>@item.Title</h5>
-                                <p>@item.ShortDescription</p>
-                                <div class="desc1 d-flex">
-                                    <div>
-                                        <p>@item.Description</p>
-                                    </div>
-                                    <div class="star d-flex ms-auto">
-                                        @for (var @i = 0; i < 5; i++)
+                        <div class="card-body">
+                            <h5>@item.Title</h5>
+                            <p>@item.ShortDescription</p>
+                            <div class="desc1 d-flex">
+                                <div>
+                                    <p>@Html.Raw(item.Description)</p>
+                                </div>
+                                <div class="star d-flex ms-auto">
+                                    @for (var @i = 0; i < 5; i++)
+                                    {
+                                        @if (i < item.Rating)
                                         {
-                                            @if (i < item.Rating)
-                                            {
-                                                <img src="~/CI-Imgs/selected-star.png">
-                                            }
-                                            else
-                                            {
-                                                <img src="~/CI-Imgs/star.png">
-                                            }
+                                            <img src="~/CI-Imgs/selected-star.png">
                                         }
-                                    </div>
+                                        else
+                                        {
+                                            <img src="~/CI-Imgs/star.png">
+                                        }
+                                    }
                                 </div>
-                                <div class="bg-white datebadge1 text-center">
-                                    <p class="ms-2">From @item.StartDate.Value.ToShortDateString() until @item.EndDate.Value.ToShortDateString()</p>
+                            </div>
+                            <div class="bg-white datebadge1 text-center">
+                                <p class="ms-2">From @item.StartDate.Value.ToShortDateString() until @item.EndDate.Value.ToShortDateString()</p>
+                            </div>
+                            <hr>
+                            <div class="desc2 d-flex">
+                                <div class="seats d-flex">
+                                    <img src="../CI-Imgs/Seats-left.png" alt="">
+                                    <p>@item.SeatsAvailable seats left</p>
                                 </div>
-                                <hr>
-                                <div class="desc2 d-flex">
-                                    <div class="seats d-flex">
-                                        <img src="../CI-Imgs/Seats-left.png" alt="">
-                                        <p>@item.SeatsAvailable seats left</p>
-                                    </div>
-                                    @if (@item.MissionType == "goal")
-                                    {
-                                        <div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;">
-                                            <img src="../CI-Imgs/achieved.png" height="25" width="25" alt="" class="mb-3">
+                                @if (@item.MissionType == "goal")
+                                {
+                                    <div class="d-flex flex-row align-items-center" style="width:50%;margin-left:20px;justify-content:end;">
+                                        <img src="../CI-Imgs/achieved.png" height="25" width="25" alt="" class="mb-3">
 
-                                            <div class="d-flex flex-column ms-2 ">
-                                                <div class="progress">
-                                                    <div id="one" class="progress-bar" style="background-color: #F88634 !important;width:@item.GoalValue%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                                                        <hr>
-                                                    </div>
+                                        <div class="d-flex flex-column ms-2 ">
+                                            <div class="progress">
+                                                <div id="one" class="progress-bar" style="background-color: #F88634 !important;width:@item.GoalValue%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                                    <hr>
                                                 </div>
-                                                <p class="seat">@item.GoalValue achieved</p>
                                             </div>
+                                            <p class="seat">@item.GoalValue achieved</p>
                                         </div>
+                                    </div>
 
-                                    }
-                                    else
-                                    {
-                                        <div class="hours d-flex ms-auto">
-                                            <img src="../CI-Imgs/hours.png" alt="">
-                                            <p>@item.EndDate.Value.ToShortDateString() <br>Deadline</p>
+                                }
+                                else
+                                {
+                                    <div class="hours d-flex ms-auto">
+                                        <img src="../CI-Imgs/hours.png" alt="">
+                                        <p>@item.EndDate.Value.ToShortDateString() <br>Deadline</p>
 
-                                        </div>
-                                    }
-                                </div>
-                                <hr style="margin-top:10px">
-                                <div class="apply d-flex">
-                                @if (item.isapplied == true)
+                                    </div>
+                                }
+                            </div>
+                            <hr style="margin-top:10px">
+                            <div class="apply d-flex">
+                                @if (item.isapplied != null)
                                 {
                                     <a href="/Home/Volunteering_Mission?MissionId=@item.MissionId" class="btn btn-outline-warning mx-auto">View Details<img src="../CI-Imgs/right-arrow.png" alt=""></a>
                                 }
@@ -177,15 +178,15 @@
                                 {
                                     <a href="/Home/Volunteering_Mission?MissionId=@item.MissionId" class="btn btn-outline-warning mx-auto">Apply<img src="../CI-Imgs/right-arrow.png" alt=""></a>
                                 }
-                                
-                                </div>
+
                             </div>
                         </div>
                     </div>
-                }
+                </div>
             }
-        </div>
+        }
     </div>
+</div>
 <div class="container" style="margin-top:5%;">
     @if (pager.TotalPage > 0)
     {
@@ -200,7 +201,7 @@
                 </li>
             }
 
-            @for(var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
             {
                 <li class="page-item@(pge==pager.CurrentPages?"active":"")">
                     <a class="page-link" onclick="searchMission(pg=@pge)">@pge</a>

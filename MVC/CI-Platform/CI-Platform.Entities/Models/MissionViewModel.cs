@@ -20,9 +20,9 @@ namespace CI_Platform.Entities.Models
         public string? Description { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime? StartDate { get; set; }
+        public DateOnly? StartDate { get; set; }
 
-        public DateTime? EndDate { get; set; }
+        public DateOnly? EndDate { get; set; }
 
         public string MissionType { get; set; } = null!;
 
@@ -53,7 +53,7 @@ namespace CI_Platform.Entities.Models
         public string Email { get; set; } = null!;
         public long? GoalValue { get; set; }
         public int? Count { get; set; }
-        public bool isapplied { get; set; }
+        public string? isapplied { get; set; }
         public List<User> recentuser = new List<User>();
         public List<MissionMedium> missionMedia = new List<MissionMedium>();
         public List<MissionViewModel> missionViewModels = new List<MissionViewModel>();

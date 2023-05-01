@@ -17,17 +17,17 @@ namespace CI_Platform.Repository.Repository
         }
         public List<Mission> missions()
         {
-            List<Mission> missions = _objdb.Missions.ToList();
+            List<Mission> missions = _objdb.Missions.Where(ms=>ms.DeletedAt==null).ToList();
             return missions;
         }
         public List<City> cities()
         {
-            List<City> cities = _objdb.Cities.ToList();
+            List<City> cities = _objdb.Cities.OrderBy(c=>c.Name).ToList();
             return cities;
         }
         public List<Country> countries1()
         {
-            List<Country> countries1 = _objdb.Countries.ToList();
+            List<Country> countries1 = _objdb.Countries.OrderBy(co=>co.Name).ToList();
             return countries1;
         }
         public List<MissionTheme> missionThemes()
@@ -126,6 +126,11 @@ namespace CI_Platform.Repository.Repository
             {
                 return 0;
             }
+        }
+        public Mission finddate(long missionid)
+        {
+            var mission=_objdb.Missions.FirstOrDefault(ma => ma.MissionId==missionid);
+            return mission;
         }
     }
 }

@@ -44,7 +44,7 @@
                             <li><a class="dropdown-item" asp-controller="Home" asp-action="UserProfile">My Profile</a></li>
                             <li><a class="dropdown-item" asp-controller="Home" asp-action="VolunteeringTimesheet">Volunteering Timesheet</a></li>
                             <li><a class="dropdown-item" href="#">Help</a></li>
-                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Login">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
                 <textarea asp-for="WhyIVolunteer" rows="5" class="form-control" placeholder="Enter your volunteer details"></textarea>
                 <h4 class="mt-4" style="border-bottom: 2px solid black; display: inline-block;">Address Information</h4>
                 <div class="row mt-3">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" id="citydiv">
                         <label for="city">City</label>
                         <select class="form-control form-select" asp-items="@Model.cities" asp-for="CityId">
                             <option>Enter your city</option>
@@ -139,7 +139,7 @@
                     </div>
                     <div class="col-lg-6">
                         <label for="city">Country</label>
-                        <select class="form-control form-select" asp-items="@Model.countries" asp-for="CountryId">
+                            <select class="form-control form-select" asp-items="@Model.countries" asp-for="CountryId" onchange="getCity(this.value)">
                             <option>Enter your country</option>
                         </select>
                     </div>
@@ -228,6 +228,18 @@
     <footer>
         <p class="ms-5">Privacy Policy</p>
     </footer>
+    <script>
+        function getCity(countryId) {
+            $.ajax({
+                url: '/Home/UserProfile',
+                type: 'GET',
+                data: { countryId: countryId },
+                success: function (result) {
+                    $('#citydiv').html($(result).find('#citydiv').html());
+                }
+            });
+        }
+    </script>
     <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/User.js"></script>
 </body>
