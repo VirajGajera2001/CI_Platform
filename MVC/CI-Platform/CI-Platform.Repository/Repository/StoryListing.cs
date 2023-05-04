@@ -96,7 +96,6 @@ namespace CI_Platform.Repository.Repository
             Story storys = new Story();
             if (story == null &&Value=="save")
             {
-               
                 storys.Title = Title;
                 storys.MissionId = MissionId;
                 storys.UserId = UserId;
@@ -208,7 +207,6 @@ namespace CI_Platform.Repository.Repository
                 //_objdb.SaveChanges();
                 foreach (var item in Image)
                 {
-
                     StoryMedium storymedium = new StoryMedium();
                     storymedium.StoryId = story.StoryId;
                     storymedium.Type = "imag";

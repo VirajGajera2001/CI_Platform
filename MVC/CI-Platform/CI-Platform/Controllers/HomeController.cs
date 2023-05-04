@@ -281,6 +281,7 @@ namespace CI_Platform.Controllers
                     missionView.ShortDescription = mission.ShortDescription;
                     missionView.StartDate = mission.StartDate;
                     missionView.EndDate = mission.EndDate;
+                    missionView.Deadline = mission.Deadline;
                     missionView.CountryId = mission.CountryId;
                     missionView.CityId = mission.CityId;
                     missionView.ThemeId = mission.ThemeId;
@@ -429,7 +430,7 @@ namespace CI_Platform.Controllers
                         missions = joinmis.OrderBy(jm => jm.MissionId).ToList();
                         break;
                     case "Deadline":
-                        missions = missions.OrderByDescending(ms => ms.EndDate).ToList();
+                        missions = missions.OrderByDescending(ms => ms.Deadline).ToList();
                         break;
                 }
             }
@@ -443,6 +444,7 @@ namespace CI_Platform.Controllers
                 missionView.ShortDescription = mission.ShortDescription;
                 missionView.StartDate = mission.StartDate;
                 missionView.EndDate = mission.EndDate;
+                missionView.Deadline = mission.Deadline;
                 missionView.CountryId = mission.CountryId;
                 missionView.CityId = mission.CityId;
                 missionView.ThemeId = mission.ThemeId;
@@ -561,6 +563,7 @@ namespace CI_Platform.Controllers
                     missionView.ShortDescription = mission.ShortDescription;
                     missionView.StartDate = mission.StartDate;
                     missionView.EndDate = mission.EndDate;
+                    missionView.Deadline = mission.Deadline;
                     missionView.CountryId = mission.CountryId;
                     missionView.CityId = mission.CityId;
                     missionView.ThemeId = mission.ThemeId;
@@ -700,6 +703,7 @@ namespace CI_Platform.Controllers
                     missionView.ShortDescription = mission.ShortDescription;
                     missionView.StartDate = mission.StartDate;
                     missionView.EndDate = mission.EndDate;
+                    missionView.Deadline = mission.Deadline;
                     missionView.CountryId = mission.CountryId;
                     missionView.CityId = mission.CityId;
                     missionView.ThemeId = mission.ThemeId;
@@ -1364,7 +1368,7 @@ namespace CI_Platform.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CheckDate(long missionid, DateOnly volundate)
+        public IActionResult CheckDate(long missionid, DateTime volundate)
         {
             var findmissiondate = _objLanding.finddate(missionid);
             if (findmissiondate == null)
@@ -1372,10 +1376,10 @@ namespace CI_Platform.Controllers
                 return Json(new { message = "Mission not found." });
             }
 
-            DateOnly? sdate = findmissiondate.StartDate ?? DateOnly.MinValue;
-            DateOnly startDate = sdate.HasValue ? sdate.Value : DateOnly.MinValue;
-            DateOnly? edate = findmissiondate.EndDate ?? DateOnly.MinValue;
-            DateOnly endDate = edate.HasValue ? edate.Value : DateOnly.MinValue;
+            DateTime? sdate = findmissiondate.StartDate ?? DateTime.MinValue;
+            DateTime startDate = sdate.HasValue ? sdate.Value : DateTime.MinValue;
+            DateTime? edate = findmissiondate.EndDate ?? DateTime.MinValue;
+            DateTime endDate = edate.HasValue ? edate.Value : DateTime.MinValue;
             if (volundate < startDate || volundate > endDate)
             {
                 return Json(new { message = "Please enter a date between " + startDate.ToString("yyyy-MM-dd") + " and " + endDate.ToString("yyyy-MM-dd") });

@@ -358,7 +358,9 @@ public partial class CIdbcontext : DbContext
             entity.Property(e => e.Description)
                 .HasColumnType("text")
                 .HasColumnName("description");
-            entity.Property(e => e.EndDate).HasColumnName("end_date");
+            entity.Property(e => e.EndDate)
+                .HasColumnType("datetime")
+                .HasColumnName("end_date");
             entity.Property(e => e.MissionType)
                 .HasMaxLength(10)
                 .IsUnicode(false)
@@ -374,7 +376,9 @@ public partial class CIdbcontext : DbContext
             entity.Property(e => e.ShortDescription)
                 .HasColumnType("text")
                 .HasColumnName("short_description");
-            entity.Property(e => e.StartDate).HasColumnName("start_date");
+            entity.Property(e => e.StartDate)
+                .HasColumnType("datetime")
+                .HasColumnName("start_date");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.ThemeId).HasColumnName("theme_id");
             entity.Property(e => e.Title)
@@ -882,7 +886,10 @@ public partial class CIdbcontext : DbContext
                 .IsUnicode(false)
                 .HasDefaultValueSql("('None')")
                 .HasColumnName("password");
-            entity.Property(e => e.PhoneNumber).HasColumnName("phone_number");
+            entity.Property(e => e.PhoneNumber)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("phone_number");
             entity.Property(e => e.ProfileText)
                 .HasColumnType("text")
                 .HasColumnName("profile_text");

@@ -24,9 +24,9 @@ namespace CI_Platform.Entities.Models
         public string? Description { get; set; }
 
         [DataType(DataType.Date)]
-        public DateOnly? StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public DateOnly? EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public string MissionType { get; set; } = null!;
 
@@ -58,5 +58,6 @@ namespace CI_Platform.Entities.Models
         public long? GoalValue { get; set; }
         public int? Count { get; set; }
         public String? isapplied { get; set; }
+        public DateTime? Deadline { get; set; }
     }
 }

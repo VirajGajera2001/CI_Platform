@@ -333,7 +333,7 @@
         function checkvaliddate(volundate){
             var misid=document.getElementById("missionnametime").value;
             $.ajax({
-                url:'/Home/CheckDate',
+                url: '/Home/CheckDate',
                 type:'POST',
                 data: { missionid: misid, volundate: volundate },
                 success:function(result){
@@ -347,7 +347,7 @@
 
                     } 
                 }
-            })
+            });
         }
         function checkdategoal(volundate) {
             var misid=mis.value;

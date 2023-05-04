@@ -243,8 +243,8 @@
                                     <tr>
                                         <td>@item.Title</td>
                                         <td>@item.MissionType</td>
-                                        <td>@item.StartDate.Value.ToShortDateString()</td>
-                                        <td>@item.EndDate.Value.ToShortDateString()</td>
+                                        <td>@(item.StartDate?.ToShortDateString())</td>
+                                        <td>@(item.EndDate?.ToShortDateString())</td>
                                         <td>
                                             <a type="button" class="border-0" onclick="missionEdit(@item.MissionId)">
                                                 <i class="bi bi-pencil-square text-warning"></i>
@@ -422,7 +422,10 @@
                 var mtitle = document.getElementById("title").value;
                 var oname = document.getElementById("oname").value;
                 var sdesc = document.getElementById("sdescription").value;
-                if (mtitle == "" || oname == "" || sdesc == "") {
+                var country=document.getElementById("countryid").value;
+                var city=document.getElementById("cityid").value;
+                var mtype=document.getElementById("themeid").value;
+                if (mtitle == "" || oname == "" || sdesc == ""||country==""||city==""||mtype=="") {
                     Toast.fire({
                         icon: 'error',
                         title: 'Please fill in all the required fields.'

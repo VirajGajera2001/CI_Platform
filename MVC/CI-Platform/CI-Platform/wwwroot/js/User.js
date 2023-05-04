@@ -174,10 +174,16 @@ profileImgInput.addEventListener('change', () => {
     const file = profileImgInput.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.addEventListener('load', () => {
-          profileImg.src = reader.result;
-          console.log(reader.result);
-          profhidden.value = reader.result;
+        reader.addEventListener('load', () => {
+            if (file.type == "image/png" || file.type == "image/jpg" || file.type == "image/jpeg") {
+                profileImg.src = reader.result;
+                profhidden.value = reader.result;
+            }
+            else {
+                Swal.fire(
+                    'Please upload only image'
+                    )
+            }
       });
       reader.readAsDataURL(file);
     }
@@ -194,7 +200,9 @@ function sendskill() {
             if (result.success) {
                 Swal.fire(
                     'Your skill is added'
-                );
+                ).then((res) => {
+                    location.reload();
+                });
             }
         }
     });

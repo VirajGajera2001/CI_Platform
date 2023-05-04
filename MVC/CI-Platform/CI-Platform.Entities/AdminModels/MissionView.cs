@@ -31,9 +31,9 @@ namespace CI_Platform.Entities.AdminModels
 
         public string? Description { get; set; }
 
-        public DateOnly? StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public DateOnly? EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public string MissionType { get; set; } = null!;
 

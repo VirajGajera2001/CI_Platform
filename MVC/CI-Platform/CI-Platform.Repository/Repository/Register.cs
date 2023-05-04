@@ -17,6 +17,8 @@ namespace CI_Platform.Repository.Repository
         }
         public void AddData(User user)
         {
+            user.Role = "user";
+            user.Avatar = "../CI-Imgs/user1.png";
             _objdb.Users.Add(user);
             _objdb.SaveChanges();
 

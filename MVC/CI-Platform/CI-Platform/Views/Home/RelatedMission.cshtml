@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                             <div class="bg-white datebadge1 text-center">
-                                <p class="ms-2">From @item.StartDate until @item.EndDate</p>
+                                <p class="ms-2">From @item.StartDate.ToString("yyyy-MM-dd") until @item.EndDate.ToString("yyyy-MM-dd")</p>
                             </div>
                             <hr>
                             <div class="desc2 d-flex">
@@ -130,8 +130,7 @@
                                 {
                                     <div class="hours d-flex ms-auto">
                                         <img src="../CI-Imgs/hours.png" alt="">
-                                        <p>@item.EndDate<br>Deadline</p>
-
+                                        <p>@item.Deadline.ToString("yyyy-MM-dd")<br>Deadline</p>
                                     </div>
 
                                 }

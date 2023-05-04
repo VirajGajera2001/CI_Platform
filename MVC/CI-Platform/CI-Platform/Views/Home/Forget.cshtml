@@ -64,7 +64,7 @@
               <h5 class="fortitle">Forgot Password</h5>
               <p class="fortext">Enter your email address you've using for your account below and we will send you a password reset link</p>
               <label asp-for="Email">Email Address</label>
-              <input type="email" asp-for="Email" class="form-control w-75">
+              <input type="email" asp-for="Email" class="form-control w-75" required>
                         <button type="submit" class=" btn btn-lg btn-outline-warning w-75 mt-4 login">Reset My Password</button>
               <a asp-controller="Home" asp-action="Login" class="lost" style="text-decoration: none;">Log in</a>
               <p class="terms">Privacy Policy</p>
